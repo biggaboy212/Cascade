@@ -40,7 +40,9 @@ function creator.Create(className: string)
 				end
 
 				continue
-			elseif typeof(value) == "table" and value.__unique then
+			end
+
+			if typeof(value) == "table" and value.__unique then
 				value.Parent = instance
 			end
 

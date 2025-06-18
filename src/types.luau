@@ -64,7 +64,8 @@ export type ValueState = {
 
 export type Theme = {[any]: any} -- TODO
 
-export type Window = Frame & {
+--// Components
+export type WindowProperties = {
 	Draggable: boolean?,
 	Resizable: boolean?,
 	Title: string?,
@@ -74,12 +75,26 @@ export type Window = Frame & {
 	UIBlur: boolean?,
 }
 
+export type Window = Frame & Components & WindowProperties
+
+export type TabProperties = {
+	Name: string?,
+	Icon: string?,
+	Indentation: number?,
+	Selected: boolean?
+}
+
+export type Tab = Frame & Components & TabProperties
+
+export type Components = {
+	Window: (self: any, properties: WindowProperties?) -> Window,
+	Tab: (self: any, properties: TabProperties?) -> Tab,
+}
+
 export type AppProperties = ScreenGui & {
 	Theme: Theme?,
 }
 
-export type App = AppProperties & {
-	Window: ((Window) -> Window)
-}
+export type App = AppProperties & Components
 
 return 1

@@ -1,11 +1,11 @@
 local binder = {}
 
-function binder.Apply(properties: { [string]: any }, object: any, excludes: {[number]: string}?): any
+function binder.Apply(properties: { [string]: any }, object: any, excludes: { [number]: string }?): any
 	for property, value in pairs(properties) do
 		if excludes and table.find(excludes, property) then
 			continue
 		end
-		
+
 		pcall(function()
 			object[property] = value
 		end)
@@ -14,7 +14,12 @@ function binder.Apply(properties: { [string]: any }, object: any, excludes: {[nu
 	return object
 end
 
-function binder.Wrap(object: { [string]: any }, bindings: { [string]: (any) -> () }, instance: Instance?): any
+function binder.Wrap(
+	object: { [string]: any },
+	bindings: { [string]: (any) -> () },
+	instance: Instance?,
+	excludeSets: { [number]: any }?
+): any
 	local proxy = {}
 
 	setmetatable(proxy, {
@@ -40,7 +45,9 @@ function binder.Wrap(object: { [string]: any }, bindings: { [string]: (any) -> (
 			if handler then
 				handler(value)
 
-				object[key] = value
+				if excludeSets == nil or not table.find(excludeSets, key) then
+					object[key] = value
+				end
 			elseif instance then
 				local ok, _ = pcall(function()
 					instance[key] = value

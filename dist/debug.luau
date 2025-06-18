@@ -79,18 +79,9 @@ type ValueState__DARKLUA_TYPE_d = {
 
 type Theme__DARKLUA_TYPE_e = {[any]: any} -- TODO
 
-type Window__DARKLUA_TYPE_f = Frame__DARKLUA_TYPE_c & {
-	WindowControls: {
-		Exit: boolean?,
-		Minimize: boolean?,
-		Zoom: boolean?	
-}?,
-	
+type WindowProperties__DARKLUA_TYPE_f = {
 	Draggable: boolean?,
 	Resizable: boolean?,
-	SidebarButton: boolean?,
-	Navigation: boolean?,
-	SearchField: boolean?,
 	Title: string?,
 	Description: string?,
 
@@ -98,13 +89,27 @@ type Window__DARKLUA_TYPE_f = Frame__DARKLUA_TYPE_c & {
 	UIBlur: boolean?
 }
 
-type AppProperties__DARKLUA_TYPE_g = ScreenGui__DARKLUA_TYPE_b & {
+type Window__DARKLUA_TYPE_g = Frame__DARKLUA_TYPE_c & Components__DARKLUA_TYPE_j & WindowProperties__DARKLUA_TYPE_f
+
+type TabProperties__DARKLUA_TYPE_h = {
+	Name: string?,
+	Icon: string?,
+	Indentation: number?,
+	Selected: boolean?
+}
+
+type Tab__DARKLUA_TYPE_i = Frame__DARKLUA_TYPE_c & Components__DARKLUA_TYPE_j & TabProperties__DARKLUA_TYPE_h
+
+type Components__DARKLUA_TYPE_j = {
+	Window: (self: any, properties: WindowProperties__DARKLUA_TYPE_f?) -> Window__DARKLUA_TYPE_g,
+	Tab: (self: any, properties: TabProperties__DARKLUA_TYPE_h?) -> Tab__DARKLUA_TYPE_i
+}
+
+type AppProperties__DARKLUA_TYPE_k = ScreenGui__DARKLUA_TYPE_b & {
 	Theme: Theme__DARKLUA_TYPE_e?
 }
 
-type App__DARKLUA_TYPE_h = AppProperties__DARKLUA_TYPE_g & {
-	Window: ((Window__DARKLUA_TYPE_f) -> Window__DARKLUA_TYPE_f)
-}
+type App__DARKLUA_TYPE_l = AppProperties__DARKLUA_TYPE_k & Components__DARKLUA_TYPE_j
 local __DIST __DIST={cache={}, load=function(m)if not __DIST.cache[m]then __DIST.cache[m]={c=__DIST[m]()}end return __DIST.cache[m].c end}do function __DIST.a()
 --// Variables
 
@@ -231,16 +236,22 @@ end function __DIST.b()
 
 
 
+
+
+
+
+
+
 return 1
 end function __DIST.c()
 local binder = {}
 
-function binder.Apply(properties: { [string]: any }, object: any, excludes: {[number]: string}?): any
+function binder.Apply(properties: { [string]: any }, object: any, excludes: { [number]: string }?): any
 	for property, value in pairs(properties) do
 		if excludes and table.find(excludes, property) then
 			continue
 		end
-		
+
 		pcall(function()
 			object[property] = value
 		end)
@@ -249,7 +260,12 @@ function binder.Apply(properties: { [string]: any }, object: any, excludes: {[nu
 	return object
 end
 
-function binder.Wrap(object: { [string]: any }, bindings: { [string]: (any) -> () }, instance: Instance?): any
+function binder.Wrap(
+	object: { [string]: any },
+	bindings: { [string]: (any) -> () },
+	instance: Instance?,
+	excludeSets: { [number]: any }?
+): any
 	local proxy = {}
 
 	setmetatable(proxy, {
@@ -275,7 +291,9 @@ function binder.Wrap(object: { [string]: any }, bindings: { [string]: (any) -> (
 			if handler then
 				handler(value)
 
-				object[key] = value
+				if excludeSets == nil or not table.find(excludeSets, key) then
+					object[key] = value
+				end
 			elseif instance then
 				local ok, _ = pcall(function()
 					instance[key] = value
@@ -325,19 +343,41 @@ function creator.Create(className: string)
 		for key, value in pairs(properties) do
 			if key == "__dynamicKeys" and type(value) == "table" then
 				for property, valueObject: ValueState__DARKLUA_TYPE_d in pairs(value) do
-					pcall(function()
-						instance[property] = valueObject.Value
-					end)
-
-					valueObject:Connect(function(newValue)
+					if not (properties.__contextKeys and properties.__contextKeys[property]) then
 						pcall(function()
-							instance[property] = newValue
+							instance[property] = valueObject.Value
 						end)
-					end)
+
+						valueObject:Connect(function(newValue)
+							pcall(function()
+								instance[property] = newValue
+							end)
+						end)
+					end
 				end
 
 				continue
-			elseif typeof(value) == "table" and value.__unique then
+			end
+
+			if key == "__contextKeys" and type(value) == "table" then
+				for property, getContext in pairs(value) do
+					if properties.__dynamicKeys and properties.__dynamicKeys[property] then
+						pcall(function()
+							instance[property] = table.pack(pcall(getContext))[2]
+						end)
+
+						properties.__dynamicKeys[property]:Connect(function(newValue)
+							pcall(function()
+								instance[property] = table.pack(pcall(getContext))[2]
+							end)
+						end)
+					end
+				end
+
+				continue
+			end
+
+			if typeof(value) == "table" and value.__unique then
 				value.Parent = instance
 			end
 
@@ -390,12 +430,25 @@ end
 
 --// Initialize
 return {
+	Text = {
+		Primary = Color4("FFFFFF", 85),
+		PrimaryOpposing = Color4("FFFFFF", 85),
+	},
+
 	Accents = {
 		Red = Color4("FF453A", 100),
 	},
 
 	Controls = {
-		Sidebar = Color4("000000", 45)
+		SwitchAccent = Color4("478CF6", 100),
+		Selection = Color4("007AFF", 100),
+		SelectionFocused = Color4("0A82FF", 100),
+
+		Sidebar = Color4("000000", 45),
+		Separator = {
+			Background = Color4("000000", 100),
+			Shadow = Color4("FFFFFF", 5),
+		},
 	},
 }end function __DIST.f()--// Imports
 
@@ -416,12 +469,25 @@ end
 
 --// Initialize
 return {
+	Text = {
+		Primary = Color4("000000", 85),
+		PrimaryOpposing = Color4("FFFFFF", 85),
+	},
+
 	Accents = {
 		Red = Color4("FF3B30", 100),
 	},
 
 	Controls = {
-		Sidebar = Color4("EAEAEA", 84)
+		SwitchAccent = Color4("478CF6", 100),
+		Selection = Color4("007AFF", 100),
+		SelectionFocused = Color4("0A82FF", 100),
+
+		Sidebar = Color4("EAEAEA", 84),
+		Separator = {
+			Background = Color4("000000", 18),
+			Shadow = Color4("000000", 10),
+		},
 	},
 }
 end function __DIST.g()
@@ -636,7 +702,7 @@ local function createBlur(distance: number?)
 		)
 
 		if mesh then
-			mesh.Scale = Vector3.new(width, height, 0)
+			mesh.Scale = Vector3.new(width, height + 0.003, 0)
 		end
 	end
 
@@ -714,9 +780,9 @@ return {
 end function __DIST.l()
 local types = __DIST.load('b')
 
-return function(self, properties: Window__DARKLUA_TYPE_f)
-	--// Imports
-	local effects = __DIST.load('k')
+return function(self, properties: WindowProperties__DARKLUA_TYPE_f): Window__DARKLUA_TYPE_g	--// Imports
+	
+local effects = __DIST.load('k')
 	local creator = __DIST.load('d')
 	local binder = __DIST.load('c')
 
@@ -727,24 +793,14 @@ return function(self, properties: Window__DARKLUA_TYPE_f)
 	local structures = {}
 
 	--// UI
-	properties = {
-		WindowControls = {
-			Exit = properties and properties.WindowControls and properties.WindowControls.Exit or true,
-			Minimize = properties and properties.WindowControls and properties.WindowControls.Minimize or true,
-			Zoom = properties and properties.WindowControls and properties.WindowControls.Zoom or true,
-		},
-
-		Draggable = properties and properties.Draggable or true,
-		Resizable = properties and properties.Resizable or true,
-		SidebarButton = properties and properties.SidebarButton or true,
-		Navigation = properties and properties.Navigation or true,
-		SearchField = properties and properties.SearchField or true,
-		Title = properties and properties.Title or "Title",
-		Description = properties and properties.Description or "Description",
-
-		Dropshadow = properties and properties.Dropshadow or true,
-		UIBlur = properties and properties.UIBlur or true,
-	}
+	properties = properties or {}
+	
+	properties.Draggable = properties.Draggable ~= nil and properties.Draggable or true
+	properties.Resizable = properties.Resizable ~= nil and properties.Resizable or true
+	properties.Title = properties.Title or "Title"
+	properties.Description = properties.Description or "Description"
+	properties.Dropshadow = properties.Dropshadow ~= nil and properties.Dropshadow or true
+	properties.UIBlur = properties.UIBlur ~= nil and properties.UIBlur or true
 
 	structures.Body = binder.Apply(
 		properties,
@@ -754,7 +810,7 @@ return function(self, properties: Window__DARKLUA_TYPE_f)
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
 			Size = UDim2.fromOffset(850, 530),
-			Parent = self.__instance,
+			Parent = self.__instance or self,
 
 			__dynamicKeys = {
 				BackgroundColor3 = self.Theme.Controls.Sidebar.Color,
@@ -779,6 +835,240 @@ return function(self, properties: Window__DARKLUA_TYPE_f)
 				Padding = UDim.new(0, -1),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
+
+			create("Frame")({
+				Name = "Sidebar",
+				BackgroundColor3 = Color3.fromRGB(234, 234, 234),
+				BackgroundTransparency = 1,
+				BorderColor3 = Color3.fromRGB(0, 0, 0),
+				BorderSizePixel = 0,
+				Size = UDim2.new(0, 200, 1, 0),
+
+				create("Folder")({
+					Name = "LayoutIgnore",
+
+					create("Frame")({
+						Name = "Shadow",
+						AnchorPoint = Vector2.new(1, 0),
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						Position = UDim2.new(1, 2, 0, 0),
+						Size = UDim2.new(0, 5, 1, 0),
+						ZIndex = 0,
+						__dynamicKeys = {
+							BackgroundColor3 = self.Theme.Controls.Separator.Shadow.Color,
+							BackgroundTransparency = self.Theme.Controls.Separator.Shadow.Transparency
+						},
+
+						create("UIGradient")({
+							Name = "UIGradient",
+							Transparency = NumberSequence.new({
+								NumberSequenceKeypoint.new(0, 1),
+								NumberSequenceKeypoint.new(1, 0),
+							}),
+						}),
+					}),
+				}),
+
+				create("UIPadding")({
+					Name = "UIPadding",
+					PaddingRight = UDim.new(0, 2),
+				}),
+
+				create("Frame")({
+					Name = "Toolbar",
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					Size = UDim2.new(1, 0, 0, 52),
+
+					create("Frame")({
+						Name = "WindowControls",
+						AnchorPoint = Vector2.new(0, 0.5),
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						Position = UDim2.fromScale(0, 0.5),
+						Size = UDim2.fromOffset(92, 38),
+
+						create("UIListLayout")({
+							Name = "UIListLayout",
+							FillDirection = Enum.FillDirection.Horizontal,
+							Padding = UDim.new(0, 8),
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+						}),
+
+						create("UIPadding")({
+							Name = "UIPadding",
+							PaddingLeft = UDim.new(0, 20),
+							PaddingRight = UDim.new(0, 20),
+						}),
+
+						create("ImageButton")({
+							Name = "Exit",
+							AutoButtonColor = false,
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							BorderColor3 = Color3.fromRGB(0, 0, 0),
+							BorderSizePixel = 0,
+							Image = "rbxassetid://132228700346004",
+							ImageColor3 = Color3.fromRGB(255, 95, 87),
+							Size = UDim2.fromOffset(12, 12),
+
+							create("ImageLabel")({
+								Name = "Stroke",
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BackgroundTransparency = 1,
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Image = "rbxassetid://94763505860483",
+								ImageColor3 = Color3.fromRGB(0, 0, 0),
+								ImageTransparency = 0.8,
+								Size = UDim2.fromScale(1, 1),
+							}),
+
+							create("ImageLabel")({
+								Name = "Icon",
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BackgroundTransparency = 1,
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Image = "rbxassetid://94781753558308",
+								ImageColor3 = Color3.fromRGB(0, 0, 0),
+								ImageTransparency = 0.5,
+								Position = UDim2.fromScale(0.5, 0.5),
+								Size = UDim2.fromScale(1, 1),
+								Visible = false,
+							}),
+						}),
+
+						create("ImageButton")({
+							Name = "Minimize",
+							AutoButtonColor = false,
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							BorderColor3 = Color3.fromRGB(0, 0, 0),
+							BorderSizePixel = 0,
+							Image = "rbxassetid://132228700346004",
+							ImageColor3 = Color3.fromRGB(254, 188, 46),
+							LayoutOrder = 1,
+							Size = UDim2.fromOffset(12, 12),
+
+							create("ImageLabel")({
+								Name = "Stroke",
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BackgroundTransparency = 1,
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Image = "rbxassetid://94763505860483",
+								ImageColor3 = Color3.fromRGB(0, 0, 0),
+								ImageTransparency = 0.8,
+								Size = UDim2.fromScale(1, 1),
+							}),
+
+							create("ImageLabel")({
+								Name = "Icon",
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BackgroundTransparency = 1,
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Image = "rbxassetid://119587944519839",
+								ImageColor3 = Color3.fromRGB(0, 0, 0),
+								ImageTransparency = 0.5,
+								Position = UDim2.fromScale(0.5, 0.5),
+								Size = UDim2.fromScale(1, 1),
+								Visible = false,
+							}),
+						}),
+
+						create("ImageButton")({
+							Name = "Zoom",
+							AutoButtonColor = false,
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							BorderColor3 = Color3.fromRGB(0, 0, 0),
+							BorderSizePixel = 0,
+							Image = "rbxassetid://132228700346004",
+							ImageColor3 = Color3.fromRGB(40, 200, 64),
+							LayoutOrder = 2,
+							Size = UDim2.fromOffset(12, 12),
+
+							create("ImageLabel")({
+								Name = "Stroke",
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BackgroundTransparency = 1,
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Image = "rbxassetid://94763505860483",
+								ImageColor3 = Color3.fromRGB(0, 0, 0),
+								ImageTransparency = 0.8,
+								Size = UDim2.fromScale(1, 1),
+							}),
+
+							create("ImageLabel")({
+								Name = "Icon",
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BackgroundTransparency = 1,
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Image = "rbxassetid://114376524082699",
+								ImageColor3 = Color3.fromRGB(0, 0, 0),
+								ImageTransparency = 0.5,
+								Position = UDim2.fromScale(0.5, 0.5),
+								Size = UDim2.fromScale(1, 1),
+								Visible = false,
+							}),
+						}),
+					}),
+				}),
+
+				create("ScrollingFrame")({
+					Name = "SidebarList",
+					AutomaticCanvasSize = Enum.AutomaticSize.Y,
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					CanvasSize = UDim2.new(),
+					Position = UDim2.fromOffset(0, 52),
+					ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0),
+					ScrollBarImageTransparency = 0.7,
+					ScrollBarThickness = 6,
+					Size = UDim2.new(1, 0, 1, -52),
+
+					create("UIListLayout")({
+						Name = "UIListLayout",
+						Padding = UDim.new(0, 9),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+
+					create("UIPadding")({
+						Name = "UIPadding",
+						PaddingLeft = UDim.new(0, 10),
+						PaddingRight = UDim.new(0, 10),
+					}),
+				}),
+			}),
+
+			create "Frame" {
+				Name = "Separator",
+				AnchorPoint = Vector2.new(1, 0),
+				BorderColor3 = Color3.fromRGB(0, 0, 0),
+				BorderSizePixel = 0,
+				LayoutOrder = 1,
+				Position = UDim2.fromScale(1, 0),
+				Size = UDim2.new(0, 1, 1, 0),
+				__dynamicKeys = {
+					BackgroundColor3 = self.Theme.Controls.Separator.Background.Color,
+					BackgroundTransparency = self.Theme.Controls.Separator.Background.Transparency
+				},
+			},
 
 			create("Folder")({
 				Name = "Handles",
@@ -916,42 +1206,269 @@ return function(self, properties: Window__DARKLUA_TYPE_f)
 	--// Initialize
 	structures.Dragger = structures.Body:FindFirstChild("UIDragDetector") :: UIDragDetector
 	structures.Handles = structures.Body:FindFirstChild("Handles") :: Folder
+	structures.Sidebar = structures.Body:FindFirstChild("Sidebar") :: Frame
+	structures.SidebarList = structures.Sidebar:FindFirstChild("SidebarList") :: Frame
+	structures.Toolbar = structures.Sidebar:FindFirstChild("Toolbar") :: Frame
+	structures.WindowControls = structures.Toolbar:FindFirstChild("WindowControls") :: Frame
 
 	structures.Dragger.BoundingUI = structures.Handles:FindFirstChild("TopArea")
 
 	local object = binder.Wrap(properties, {
-		Draggable = function(state: boolean)
-			structures.Dragger.Enabled = state
+		Draggable = function(value: boolean)
+			structures.Dragger.Enabled = value
 		end,
-		Dropshadow = function(state: boolean)
+		Dropshadow = function(value: boolean)
 			if structures["ShadowLayers"] then
 				structures["ShadowLayers"]:Destroy()
 			end
 
-			if state then
+			if value then
 				structures.ShadowLayers = effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14)
 			end
 		end,
-		UIBlur = function(state: boolean)
+		UIBlur = function(value: boolean)
 			if structures["BlurModel"] then
 				structures["BlurModel"].Model:Destroy()
 				structures["BlurModel"] = nil
 			end
 
-			if state then
+			if value then
 				structures.BlurModel = effects.UIBlur(structures.Body)
 			end
 		end,
 	}, structures.Body)
+
+	object.Type = "Window"
+	object.Theme = self.Theme
+	object.Structures = structures
+	object.Tabs = {}
+	object.Pages = {}
 
 	binder.Apply(properties, object)
 
 	return object
 end
 end function __DIST.m()
-return {
+local types = __DIST.load('b')
+
+return function(self, properties: TabProperties__DARKLUA_TYPE_h): Tab__DARKLUA_TYPE_i	--// Imports
+	
+local creator = __DIST.load('d')
+	local binder = __DIST.load('c')
+
+	--// References
+	local create = creator.Create
+
+	--// Variables
+	local structures = {}
+
+	--// UI
+	properties = properties or {}
+
+	properties.Name = properties.Name or "Tab"
+	properties.Icon = properties.Icon or "rbxassetid://127049167227557"
+	properties.Indentation = properties.Indentation or 0
+	properties.Selected = properties.Selected or false
+
+	structures.Body = binder.Apply(
+		properties,
+		create("TextButton")({
+			Name = "SidebarItem",
+			AutoButtonColor = false,
+			BorderColor3 = Color3.fromRGB(0, 0, 0),
+			BorderSizePixel = 0,
+			FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
+			LayoutOrder = 1,
+			Size = UDim2.new(1, 0, 0, 28),
+			Text = "",
+			TextColor3 = Color3.fromRGB(0, 0, 0),
+			TextSize = 14,
+			Parent = (self.Type == "Window" and self.Structures.SidebarList) or (self.__instance or self),
+
+			__dynamicKeys = {
+				BackgroundColor3 = self.Theme.Controls.SelectionFocused.Color,
+				BackgroundTransparency = self.Theme.Controls.SelectionFocused.Transparency,
+			},
+			__contextKeys = {
+				BackgroundTransparency = function()
+					return properties.Selected and self.Theme.Controls.SelectionFocused.Transparency.Value or 1
+				end,
+			},
+
+			create("UICorner")({
+				Name = "UICorner",
+				CornerRadius = UDim.new(0, 5),
+			}),
+
+			create("UIListLayout")({
+				Name = "UIListLayout",
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalFlex = Enum.UIFlexAlignment.SpaceBetween,
+				Padding = UDim.new(0, 14),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
+
+			create("UIPadding")({
+				Name = "UIPadding",
+				PaddingLeft = UDim.new(0, 10),
+				PaddingRight = UDim.new(0, 8),
+			}),
+
+			create("Frame")({
+				Name = "Leading",
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundTransparency = 1,
+				BorderColor3 = Color3.fromRGB(0, 0, 0),
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, -34, 0, 0),
+
+				create("TextLabel")({
+					Name = "Title",
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					FontFace = Font.new("rbxassetid://12187365364"),
+					LayoutOrder = 2,
+					LineHeight = 0,
+					RichText = true,
+					Size = UDim2.new(1, -22, 0, 20),
+					TextSize = 15,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextXAlignment = Enum.TextXAlignment.Left,
+
+					__dynamicKeys = {
+						TextColor3 = self.Theme.Text.Primary.Color,
+						TextTransparency = self.Theme.Text.Primary.Transparency,
+					},
+					__contextKeys = {
+						TextColor3 = function()
+							return properties.Selected and self.Theme.Text.PrimaryOpposing.Color.Value
+								or self.Theme.Text.Primary.Color.Value
+						end,
+						TextTransparency = function()
+							return properties.Selected and self.Theme.Text.PrimaryOpposing.Transparency.Value
+								or self.Theme.Text.Primary.Transparency.Value
+						end,
+					},
+				}),
+
+				create("UIListLayout")({
+					Name = "UIListLayout",
+					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, 2),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+
+				create("ImageLabel")({
+					Name = "Symbol",
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					Image = "rbxassetid://127049167227557",
+					LayoutOrder = 1,
+					Position = UDim2.fromScale(0.5, 0.5),
+					Size = UDim2.fromOffset(20, 20),
+
+					__dynamicKeys = {
+						ImageColor3 = self.Theme.Controls.Selection.Color,
+						ImageTransparency = self.Theme.Controls.Selection.Transparency,
+					},
+					__contextKeys = {
+						ImageColor3 = function()
+							return properties.Selected and self.Theme.Text.PrimaryOpposing.Color.Value
+								or self.Theme.Controls.Selection.Color.Value
+						end,
+						ImageTransparency = function()
+							return properties.Selected and self.Theme.Text.PrimaryOpposing.Transparency.Value
+								or self.Theme.Controls.Selection.Transparency.Value
+						end,
+					},
+				}),
+			}),
+
+			create("Frame")({
+				Name = "Trailing",
+				AutomaticSize = Enum.AutomaticSize.XY,
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundTransparency = 1,
+				BorderColor3 = Color3.fromRGB(0, 0, 0),
+				BorderSizePixel = 0,
+				LayoutOrder = 1,
+				Size = UDim2.fromOffset(20, 16),
+			}),
+		})
+	) :: TextButton
+
+	--// Initialize
+	structures.Trailing = structures.Body:FindFirstChild("Trailing") :: Frame
+	structures.Leading = structures.Body:FindFirstChild("Leading") :: Frame
+	structures.Title = structures.Leading:FindFirstChild("Title") :: TextLabel
+	structures.Symbol = structures.Leading:FindFirstChild("Symbol") :: ImageLabel
+	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
+
+	local object = binder.Wrap(properties, {
+		Name = function(name: string)
+			structures.Title.Text = name
+		end,
+		Icon = function(icon: string)
+			structures.Symbol.Image = icon
+		end,
+		Indentation = function(indentation: number)
+			structures.Padding.PaddingLeft = UDim.new(0, (11 * indentation + 10))
+		end,
+		Selected = function(selected: boolean)
+			structures.Body.Transparency = selected and self.Theme.Controls.SelectionFocused.Transparency.Value or 1
+
+			structures.Title.TextColor3 = structures.Title.__contextKeys.TextColor3()
+			structures.Title.TextTransparency = structures.Title.__contextKeys.TextTransparency()
+
+			structures.Symbol.ImageColor3 = structures.Symbol.__contextKeys.ImageColor3()
+			structures.Symbol.ImageTransparency = structures.Symbol.__contextKeys.ImageTransparency()
+		end,
+	}, structures.Body)
+
+	object.Type = "Tab"
+	object.Theme = self.Theme
+	object.Structures = structures
+
+	if self.Type == "Window" then
+		table.insert(self, object)
+	end
+
+	binder.Apply(properties, object)
+
+	return object
+end
+end function __DIST.n()--// Imports
+
+local types = __DIST.load('b')
+local binder = __DIST.load('c')
+
+--// Variables
+local components = {
 	Window = __DIST.load('l'),
+	Tab = __DIST.load('m'),
 }
+
+--// Intialize
+for component, make in pairs(components) do
+	components[component] = (function(make)
+		return function(...)
+			local object = make(...)
+
+			binder.Apply(components, object, { component })
+			
+			return object
+		end
+	end)(make)
+end
+
+return components
 end end--// Imports
 
 local utility = __DIST.load('a')
@@ -960,7 +1477,7 @@ local creator = __DIST.load('d')
 local binder = __DIST.load('c')
 
 local themes = __DIST.load('g')
-local components = __DIST.load('m')
+local components = __DIST.load('n')
 
 --// References
 local create = creator.Create
@@ -969,7 +1486,7 @@ local create = creator.Create
 local cascade = { Themes = themes }
 
 --// Initialize
-cascade.New = function(properties: AppProperties__DARKLUA_TYPE_g): App__DARKLUA_TYPE_h	
+cascade.New = function(properties: AppProperties__DARKLUA_TYPE_k): App__DARKLUA_TYPE_l	
 properties = {
 		Theme = properties and properties.Theme or themes.Light,
 	}
@@ -985,15 +1502,23 @@ properties = {
 	}))
 
 	local object = binder.Wrap(properties, {
-		Theme = function(value)
-			cascade.Theme = value
-		end,
-	}, container)
+		Theme = function(theme)
+			local function deepUpdate(target, new)
+				for k, v in pairs(new) do
+					if typeof(v) == "table" and typeof(target[k]) == "table" and not v.Value then
+						deepUpdate(target[k], v)
+					else
+						target[k].Value = v.Value
+					end
+				end
+			end
+
+			deepUpdate(properties.Theme, theme)
+		end
+	}, container, { "Theme" })
 
 	for component, make in pairs(components) do
-		properties[component] = function(...)
-			return make(object, ...)
-		end
+		object[component] = make
 	end
 
 	binder.Apply(properties, object)

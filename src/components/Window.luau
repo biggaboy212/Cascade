@@ -1,6 +1,6 @@
 local types = require("@types")
 
-return function(self, properties: types.Window)
+return function(self, properties: types.WindowProperties): types.Window
 	--// Imports
 	local effects = require("@effects")
 	local creator = require("@modules/creator")
@@ -13,15 +13,14 @@ return function(self, properties: types.Window)
 	local structures = {}
 
 	--// UI
-	properties = {
-		Draggable = properties and properties.Draggable or true,
-		Resizable = properties and properties.Resizable or true,
-		Title = properties and properties.Title or "Title",
-		Description = properties and properties.Description or "Description",
-
-		Dropshadow = properties and properties.Dropshadow or true,
-		UIBlur = properties and properties.UIBlur or true,
-	}
+	properties = properties or {}
+	
+	properties.Draggable = properties.Draggable ~= nil and properties.Draggable or true
+	properties.Resizable = properties.Resizable ~= nil and properties.Resizable or true
+	properties.Title = properties.Title or "Title"
+	properties.Description = properties.Description or "Description"
+	properties.Dropshadow = properties.Dropshadow ~= nil and properties.Dropshadow or true
+	properties.UIBlur = properties.UIBlur ~= nil and properties.UIBlur or true
 
 	structures.Body = binder.Apply(
 		properties,
@@ -71,13 +70,15 @@ return function(self, properties: types.Window)
 					create("Frame")({
 						Name = "Shadow",
 						AnchorPoint = Vector2.new(1, 0),
-						BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-						BackgroundTransparency = 0.9,
 						BorderColor3 = Color3.fromRGB(0, 0, 0),
 						BorderSizePixel = 0,
 						Position = UDim2.new(1, 2, 0, 0),
 						Size = UDim2.new(0, 5, 1, 0),
 						ZIndex = 0,
+						__dynamicKeys = {
+							BackgroundColor3 = self.Theme.Controls.Separator.Shadow.Color,
+							BackgroundTransparency = self.Theme.Controls.Separator.Shadow.Transparency
+						},
 
 						create("UIGradient")({
 							Name = "UIGradient",
@@ -278,13 +279,15 @@ return function(self, properties: types.Window)
 			create "Frame" {
 				Name = "Separator",
 				AnchorPoint = Vector2.new(1, 0),
-				BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-				BackgroundTransparency = 0.82,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
 				LayoutOrder = 1,
 				Position = UDim2.fromScale(1, 0),
 				Size = UDim2.new(0, 1, 1, 0),
+				__dynamicKeys = {
+					BackgroundColor3 = self.Theme.Controls.Separator.Background.Color,
+					BackgroundTransparency = self.Theme.Controls.Separator.Background.Transparency
+				},
 			},
 
 			create("Folder")({
@@ -431,29 +434,35 @@ return function(self, properties: types.Window)
 	structures.Dragger.BoundingUI = structures.Handles:FindFirstChild("TopArea")
 
 	local object = binder.Wrap(properties, {
-		Draggable = function(state: boolean)
-			structures.Dragger.Enabled = state
+		Draggable = function(value: boolean)
+			structures.Dragger.Enabled = value
 		end,
-		Dropshadow = function(state: boolean)
+		Dropshadow = function(value: boolean)
 			if structures["ShadowLayers"] then
 				structures["ShadowLayers"]:Destroy()
 			end
 
-			if state then
+			if value then
 				structures.ShadowLayers = effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14)
 			end
 		end,
-		UIBlur = function(state: boolean)
+		UIBlur = function(value: boolean)
 			if structures["BlurModel"] then
 				structures["BlurModel"].Model:Destroy()
 				structures["BlurModel"] = nil
 			end
 
-			if state then
+			if value then
 				structures.BlurModel = effects.UIBlur(structures.Body)
 			end
 		end,
 	}, structures.Body)
+
+	object.Type = "Window"
+	object.Theme = self.Theme
+	object.Structures = structures
+	object.Tabs = {}
+	object.Pages = {}
 
 	binder.Apply(properties, object)
 

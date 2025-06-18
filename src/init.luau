@@ -30,15 +30,23 @@ cascade.New = function(properties: types.AppProperties): types.App
 	}))
 
 	local object = binder.Wrap(properties, {
-		Theme = function(value)
-			cascade.Theme = value
-		end,
-	}, container)
+		Theme = function(theme)
+			local function deepUpdate(target, new)
+				for k, v in pairs(new) do
+					if typeof(v) == "table" and typeof(target[k]) == "table" and not v.Value then
+						deepUpdate(target[k], v)
+					else
+						target[k].Value = v.Value
+					end
+				end
+			end
+
+			deepUpdate(properties.Theme, theme)
+		end
+	}, container, { "Theme" })
 
 	for component, make in pairs(components) do
-		properties[component] = function(...)
-			return make(object, ...)
-		end
+		object[component] = make
 	end
 
 	binder.Apply(properties, object)

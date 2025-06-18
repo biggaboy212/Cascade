@@ -16,11 +16,24 @@ end
 
 --// Initialize
 return {
+	Text = {
+		Primary = Color4("FFFFFF", 85),
+	},
+
 	Accents = {
 		Red = Color4("FF453A", 100),
 	},
 
 	Controls = {
-		Sidebar = Color4("000000", 45)
+		SwitchAccent = Color4("478CF6", 100),
+		Selection = Color4("007AFF", 100),
+		SelectionFocused = Color4("0A82FF", 100),
+		SelectionFocusedAccent = Color4("FFFFFF", 85),
+
+		Sidebar = Color4("000000", 45),
+		Separator = {
+			Background = Color4("000000", 100),
+			Shadow = Color4("FFFFFF", 5),
+		},
 	},
 }
