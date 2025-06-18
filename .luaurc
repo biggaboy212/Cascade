@@ -1,0 +1,13 @@
+{
+    "aliases": {
+        "src": "./src",
+        "effects": "./src/modules/effects",
+        "modules": "./src/modules",
+        "components": "./src/components",
+        "structures": "./src/structures",
+        "themes": "./src/themes",
+        
+        "types": "./src/types",
+        "init": "./src/init"
+    }
+}

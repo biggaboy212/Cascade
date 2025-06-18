@@ -1,0 +1,8 @@
+{
+    "luau-lsp.types.definitionFiles": [
+        "./.globals/pcmp.d.luau",
+        "./.globals/environment.d.luau",
+    ],
+    "luau-lsp.sourcemap.enabled": false,
+    "luau-lsp.completion.autocompleteEnd": true
+}
