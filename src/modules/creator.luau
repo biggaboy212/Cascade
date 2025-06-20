@@ -1,14 +1,16 @@
 local types = require("@types")
 local binder = require("./binder")
+
 local creator = {}
 
-function creator.Value(value: any): types.ValueState
+function creator.Value(value: any): types.ValueState -- not the problem
 	local callbacks = {}
 
 	return binder.Wrap({
 		Value = value,
 		Connect = function(self, fn)
 			table.insert(callbacks, fn)
+			return fn
 		end,
 	}, {
 		Value = function(newValue)
@@ -33,9 +35,17 @@ function creator.Create(className: string)
 					end)
 
 					valueObject:Connect(function(newValue)
-						pcall(function()
-							instance[property] = newValue
-						end)
+						-- TODO: Find a way for contextKeys to not reference the old state
+						-- i've been on this for 3 fucking days
+						if properties["__contextKeys"] and properties["__contextKeys"][property] then
+							pcall(function()
+								instance[property] = properties["__contextKeys"][property]().Value
+							end)
+						else
+							pcall(function()
+								instance[property] = newValue
+							end)
+						end
 					end)
 				end
 

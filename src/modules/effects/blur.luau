@@ -163,6 +163,10 @@ return function(frame: GuiObject, distance: number?)
 		blur.SetVisibility(frame.Visible)
 	end)
 
+	frame.Destroying:Connect(function()
+		model:Destroy()
+	end)
+
 	blur.Model = model
 
 	return blur

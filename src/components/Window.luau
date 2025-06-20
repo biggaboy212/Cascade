@@ -272,6 +272,7 @@ return function(self, properties: types.WindowProperties): types.Window
 						Name = "UIPadding",
 						PaddingLeft = UDim.new(0, 10),
 						PaddingRight = UDim.new(0, 10),
+						PaddingBottom = UDim.new(0, 10),
 					}),
 				}),
 			}),
@@ -434,6 +435,12 @@ return function(self, properties: types.WindowProperties): types.Window
 	structures.Dragger.BoundingUI = structures.Handles:FindFirstChild("TopArea")
 
 	local object = binder.Wrap(properties, {
+		Minimized = function(value: boolean)
+			
+		end,
+		Maximized = function(value: boolean)
+			
+		end,
 		Draggable = function(value: boolean)
 			structures.Dragger.Enabled = value
 		end,

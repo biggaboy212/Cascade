@@ -1,10 +1,10 @@
 --// Imports
-local types = require("@types")
 local binder = require("@modules/binder")
 
 --// Variables
 local components = {
 	Window = require("@components/Window"),
+	Section = require("@components/Section"),
 	Tab = require("@components/Tab"),
 }
 

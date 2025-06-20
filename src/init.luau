@@ -4,6 +4,7 @@ local types = require("@types")
 local creator = require("@modules/creator")
 local binder = require("@modules/binder")
 
+local symbols = require("@modules/symbols")
 local themes = require("@themes/init")
 local components = require("@components/init")
 
@@ -11,7 +12,7 @@ local components = require("@components/init")
 local create = creator.Create
 
 --// Variables
-local cascade = { Themes = themes }
+local cascade = { Themes = themes, Symbols = symbols }
 
 --// Initialize
 cascade.New = function(properties: types.AppProperties): types.App

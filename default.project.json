@@ -1,0 +1,14 @@
+{
+  "name": "Cascade",
+  "tree": {
+    "$className": "DataModel",
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "dist/test.client.luau"
+        }
+      }
+    }
+  }
+}

@@ -6,9 +6,13 @@ function binder.Apply(properties: { [string]: any }, object: any, excludes: { [n
 			continue
 		end
 
-		pcall(function()
-			object[property] = value
-		end)
+		local skipInstance = object[property] ~= nil
+
+		if not skipInstance then
+			pcall(function()
+				object[property] = value
+			end)
+		end
 	end
 
 	return object
@@ -45,7 +49,7 @@ function binder.Wrap(
 			if handler then
 				handler(value)
 
-				if excludeSets == nil or not table.find(excludeSets, key) then
+				if not (excludeSets and table.find(excludeSets, key)) then
 					object[key] = value
 				end
 			elseif instance then

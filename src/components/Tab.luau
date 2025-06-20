@@ -14,8 +14,7 @@ return function(self, properties: types.TabProperties): types.Tab
 	--// UI
 	properties = properties or {}
 
-	properties.Name = properties.Name or "Tab"
-	properties.Icon = properties.Icon or "rbxassetid://127049167227557"
+	properties.Name = properties.Name or "Label"
 	properties.Indentation = properties.Indentation or 0
 	properties.Selected = properties.Selected or false
 
@@ -38,11 +37,14 @@ return function(self, properties: types.TabProperties): types.Tab
 				BackgroundColor3 = self.Theme.Controls.SelectionFocused.Color,
 				BackgroundTransparency = self.Theme.Controls.SelectionFocused.Transparency,
 			},
-			__contextKeys = {
-				BackgroundTransparency = function()
-					return properties.Selected and self.Theme.Controls.SelectionFocused.Transparency.Value or 1
+			--[[ __contextKeys = {
+				BackgroundColor3 = function()
+					return properties.Selected and self.Theme.Controls.SelectionFocused.Color or value(1)
 				end,
-			},
+				BackgroundTransparency = function()
+					return properties.Selected and self.Theme.Controls.SelectionFocused.Transparency or value(1)
+				end,
+			}, ]]
 
 			create("UICorner")({
 				Name = "UICorner",
@@ -92,16 +94,16 @@ return function(self, properties: types.TabProperties): types.Tab
 						TextColor3 = self.Theme.Controls.SelectionFocusedAccent.Color,
 						TextTransparency = self.Theme.Controls.SelectionFocusedAccent.Transparency,
 					},
-					__contextKeys = {
+					--[[ __contextKeys = {
 						TextColor3 = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value
-								or self.Theme.Text.Primary.Color.Value
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Color
+								or self.Theme.Text.Primary.Color
 						end,
 						TextTransparency = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value
-								or self.Theme.Text.Primary.Transparency.Value
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Transparency
+								or self.Theme.Text.Primary.Transparency
 						end,
-					},
+					}, ]]
 				}),
 
 				create("UIListLayout")({
@@ -113,6 +115,7 @@ return function(self, properties: types.TabProperties): types.Tab
 
 				create("ImageLabel")({
 					Name = "Symbol",
+					Visible = false,
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
@@ -127,16 +130,16 @@ return function(self, properties: types.TabProperties): types.Tab
 						ImageColor3 = self.Theme.Controls.Selection.Color,
 						ImageTransparency = self.Theme.Controls.Selection.Transparency,
 					},
-					__contextKeys = {
+					--[[ __contextKeys = {
 						ImageColor3 = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value
-								or self.Theme.Controls.Selection.Color.Value
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Color
+								or self.Theme.Controls.Selection.Color
 						end,
 						ImageTransparency = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value
-								or self.Theme.Controls.Selection.Transparency.Value
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Transparency
+								or self.Theme.Controls.Selection.Transparency
 						end,
-					},
+					}, ]]
 				}),
 			}),
 
@@ -164,8 +167,12 @@ return function(self, properties: types.TabProperties): types.Tab
 		Name = function(name: string)
 			structures.Title.Text = name
 		end,
-		Icon = function(icon: string)
-			structures.Symbol.Image = icon
+		Icon = function(icon: string?)
+			structures.Symbol.Visible = icon and true or false
+
+			if icon then
+				structures.Symbol.Image = icon
+			end
 		end,
 		Indentation = function(indentation: number)
 			structures.Padding.PaddingLeft = UDim.new(0, (11 * indentation + 10))
@@ -173,11 +180,11 @@ return function(self, properties: types.TabProperties): types.Tab
 		Selected = function(selected: boolean)
 			structures.Body.Transparency = selected and self.Theme.Controls.SelectionFocused.Transparency.Value or 1
 
-			structures.Title.TextColor3 = structures.Title.__contextKeys.TextColor3()
-			structures.Title.TextTransparency = structures.Title.__contextKeys.TextTransparency()
+			structures.Title.TextColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value or self.Theme.Text.Primary.Color.Value
+			structures.Title.TextTransparency = selected and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value or self.Theme.Text.Primary.Transparency.Value
 
-			structures.Symbol.ImageColor3 = structures.Symbol.__contextKeys.ImageColor3()
-			structures.Symbol.ImageTransparency = structures.Symbol.__contextKeys.ImageTransparency()
+			structures.Symbol.ImageColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value or self.Theme.Controls.Selection.Color.Value
+			structures.Symbol.ImageTransparency = selected and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value or self.Theme.Controls.Selection.Transparency.Value
 		end,
 	}, structures.Body)
 
@@ -185,11 +192,11 @@ return function(self, properties: types.TabProperties): types.Tab
 	object.Theme = self.Theme
 	object.Structures = structures
 
-	if self.Type == "Window" then
-		table.insert(self, object)
-	end
-
 	binder.Apply(properties, object)
+
+	if self.Type == "Window" then
+		table.insert(self.Tabs, object)
+	end
 
 	return object
 end

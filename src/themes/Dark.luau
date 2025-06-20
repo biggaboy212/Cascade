@@ -5,7 +5,7 @@ local creator = require("@modules/creator")
 local value = creator.Value
 
 --// Functions
-local function Color4(color: Color3 | string, alpha: number)
+local function color4(color: Color3 | string, alpha: number)
 	local parsedColor = (typeof(color) == "Color3" and color) or (typeof(color) == "string" and Color3.fromHex("#" .. color))
 
 	return {
@@ -17,23 +17,27 @@ end
 --// Initialize
 return {
 	Text = {
-		Primary = Color4("FFFFFF", 85),
+		Primary = color4("FFFFFF", 85),
+		Secondary = color4("FFFFFF", 55),
+		Tertiary = color4("FFFFFF", 25),
+		Quaternary = color4("FFFFFF", 10),
+		Quinary = color4("FFFFFF", 5),
 	},
 
 	Accents = {
-		Red = Color4("FF453A", 100),
+		Red = color4("FF453A", 100),
 	},
 
 	Controls = {
-		SwitchAccent = Color4("478CF6", 100),
-		Selection = Color4("007AFF", 100),
-		SelectionFocused = Color4("0A82FF", 100),
-		SelectionFocusedAccent = Color4("FFFFFF", 85),
+		SwitchAccent = color4("478CF6", 100),
+		Selection = color4("007AFF", 100),
+		SelectionFocused = color4("0A82FF", 100),
+		SelectionFocusedAccent = color4("FFFFFF", 85),
 
-		Sidebar = Color4("000000", 45),
+		Sidebar = color4("000000", 45),
 		Separator = {
-			Background = Color4("000000", 100),
-			Shadow = Color4("FFFFFF", 5),
+			Background = color4("000000", 100),
+			Shadow = color4("FFFFFF", 5),
 		},
 	},
 }
