@@ -1,4 +1,4 @@
-type ScreenGui = {
+export type ScreenGui = {
 	-- Instance
 	Name: string?,
 	Parent: Instance?,
@@ -27,13 +27,13 @@ type ScreenGui = {
 	SafeAreaCompatibility: Enum.SafeAreaCompatibility?,
 }
 
-type Frame = {
+export type Frame = {
 	-- Instance
 	Name: string?,
 	Parent: Instance?,
 	Archivable: boolean?,
 	ClassName: string?,
-	
+
 	-- GuiObject
 	AnchorPoint: Vector2?,
 	BackgroundColor3: Color3?,
@@ -59,12 +59,18 @@ type Frame = {
 
 export type ValueState = {
 	Value: any,
-	Connect: (...any) -> any
+	Connect: (...any) -> any,
 }
 
-export type Theme = {[any]: any} -- TODO
+export type Theme = { [any]: any } -- TODO
 
 --// Components
+export type BaseComponent = {
+	Type: string,
+	Theme: Theme,
+	Structures: { [string]: Instance | { any } },
+}
+
 -- App
 export type AppProperties = ScreenGui & {
 	Theme: Theme?,
@@ -77,38 +83,54 @@ export type WindowProperties = Frame & {
 	Draggable: boolean?,
 	Resizable: boolean?,
 	Title: string?,
-	Description: string?,
+	Subtitle: string?,
+	Maximized: boolean?,
+	Minimized: boolean?,
 
 	Dropshadow: boolean?,
 	UIBlur: boolean?,
 }
 
-export type Window = Components & WindowProperties
+export type Window = BaseComponent & Components & WindowProperties
 
 -- Section
 export type SectionProperties = Frame & {
-	Name: string?,
+	Label: string?,
 	Disclosure: boolean?,
 	Expanded: boolean?,
 }
 
-export type Section = Components & SectionProperties
+export type Section = BaseComponent & Components & SectionProperties
 
 -- Tab
 export type TabProperties = Frame & {
-	Name: string?,
+	Label: string?,
 	Icon: string?,
 	Indentation: number?,
-	Selected: boolean?
+	Selected: boolean?,
 }
 
-export type Tab = Components & TabProperties
+export type Tab = BaseComponent & Components & TabProperties
+
+-- Form
+export type FormProperties = Frame
+export type Form = BaseComponent & Components & FormProperties
+
+-- Row
+export type RowProperties = Frame & {
+	SearchIndex: string?,
+	Title: string?,
+	Subtitle: string?,
+}
+export type Row = BaseComponent & Components & RowProperties
 
 -- Export
 export type Components = {
 	Window: (self: any, properties: WindowProperties?) -> Window,
 	Section: (self: any, properties: SectionProperties?) -> Tab,
 	Tab: (self: any, properties: TabProperties?) -> Tab,
+	Form: (self: any, properties: FormProperties?) -> Form,
+	Row: (self: any, properties: RowProperties?) -> Row,
 }
 
 return 1

@@ -14,9 +14,11 @@ return function(self, properties: types.TabProperties): types.Tab
 	--// UI
 	properties = properties or {}
 
-	properties.Name = properties.Name or "Label"
+	properties.Label = properties.Label or "Label"
 	properties.Indentation = properties.Indentation or 0
 	properties.Selected = properties.Selected or false
+
+	local parent = self.Type == "Window" and self.Structures.SidebarList or self.__instance or self
 
 	structures.Body = binder.Apply(
 		properties,
@@ -26,12 +28,12 @@ return function(self, properties: types.TabProperties): types.Tab
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderSizePixel = 0,
 			FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
-			LayoutOrder = 1,
+			LayoutOrder = self.Tabs and #self.Tabs or 1,
 			Size = UDim2.new(1, 0, 0, 28),
 			Text = "",
 			TextColor3 = Color3.fromRGB(0, 0, 0),
 			TextSize = 14,
-			Parent = (self.Type == "Window" and self.Structures.SidebarList) or (self.__instance or self),
+			Parent = parent,
 
 			__dynamicKeys = {
 				BackgroundColor3 = self.Theme.Controls.SelectionFocused.Color,
@@ -162,9 +164,37 @@ return function(self, properties: types.TabProperties): types.Tab
 	structures.Title = structures.Leading:FindFirstChild("Title") :: TextLabel
 	structures.Symbol = structures.Leading:FindFirstChild("Symbol") :: ImageLabel
 	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
+	structures.Page = create("ScrollingFrame")({
+		Name = "ContentList",
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BackgroundTransparency = 1,
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BorderSizePixel = 0,
+		CanvasSize = UDim2.new(),
+		ClipsDescendants = false,
+		ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0),
+		ScrollBarImageTransparency = 0.6,
+		ScrollBarThickness = 7,
+		Size = UDim2.fromScale(1, 1),
+
+		create("UIListLayout")({
+			Name = "UIListLayout",
+			Padding = UDim.new(0, 9),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+
+		create("UIPadding")({
+			Name = "Margins",
+			PaddingBottom = UDim.new(0, 17),
+			PaddingLeft = UDim.new(0, 17),
+			PaddingRight = UDim.new(0, 17),
+			PaddingTop = UDim.new(0, 17),
+		}),
+	}) :: ScrollingFrame
 
 	local object = binder.Wrap(properties, {
-		Name = function(name: string)
+		Label = function(name: string)
 			structures.Title.Text = name
 		end,
 		Icon = function(icon: string?)
@@ -175,27 +205,54 @@ return function(self, properties: types.TabProperties): types.Tab
 			end
 		end,
 		Indentation = function(indentation: number)
-			structures.Padding.PaddingLeft = UDim.new(0, (11 * indentation + 10))
+			structures.Body.Size -= UDim2.fromOffset((11 * indentation), 0)
 		end,
 		Selected = function(selected: boolean)
 			structures.Body.Transparency = selected and self.Theme.Controls.SelectionFocused.Transparency.Value or 1
 
-			structures.Title.TextColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value or self.Theme.Text.Primary.Color.Value
-			structures.Title.TextTransparency = selected and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value or self.Theme.Text.Primary.Transparency.Value
+			structures.Title.TextColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value
+				or self.Theme.Text.Primary.Color.Value
+			structures.Title.TextTransparency = selected
+					and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value
+				or self.Theme.Text.Primary.Transparency.Value
 
-			structures.Symbol.ImageColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value or self.Theme.Controls.Selection.Color.Value
-			structures.Symbol.ImageTransparency = selected and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value or self.Theme.Controls.Selection.Transparency.Value
+			structures.Symbol.ImageColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value
+				or self.Theme.Controls.Selection.Color.Value
+			structures.Symbol.ImageTransparency = selected
+					and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value
+				or self.Theme.Controls.Selection.Transparency.Value
+
+			structures.Page.Parent = selected and self.__container or nil
 		end,
 	}, structures.Body)
 
 	object.Type = "Tab"
 	object.Theme = self.Theme
 	object.Structures = structures
+	object.__container = structures.Page.__instance
 
 	binder.Apply(properties, object)
 
-	if self.Type == "Window" then
+	if self.Tabs and self.__container then
 		table.insert(self.Tabs, object)
+
+		if object.Selected then
+			self.addToHistory(structures.Page)
+		end
+
+		structures.Body.MouseButton1Click:Connect(function()
+			if object.Selected then
+				return
+			end
+
+			for _, tab: types.Tab in pairs(self.Tabs) do
+				tab.Selected = false
+			end
+
+			object.Selected = true
+
+			self.addToHistory(structures.Page)
+		end)
 	end
 
 	return object

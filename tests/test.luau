@@ -6,41 +6,49 @@ local app = cascade.New({
 	Theme = cascade.Themes.Light,
 })
 
-local window = app:Window()
+local window = app:Window({
+	Title = "Title",
+	Subtitle = "Description",
+})
 
 do -- Main
 	local section = window:Section({
-		Name = "Main"
+		Label = "Main",
 	})
 	
-	section:Tab({
-		Selected = true,
-		Name = "Legit",
+	local t = section:Tab({
+		Label = "Legit",
 		Icon = cascade.Symbols.checkmarkSeal,
-	})
+		Selected = true,
+	}):Form()
+
+	t:Row({SearchIndex = "sigma", Title = "sigma", Subtitle = "sdas"})
+	t:Row({SearchIndex = "digma", Title = "digma", Subtitle = "sdas"})
+	t:Row({SearchIndex = "rigma", Title = "rigma", Subtitle = "sdas"})
+	t:Row({SearchIndex = "supersigma", Title = "sigma", Subtitle = "sdas"})
 
 	section:Tab({
-		Name = "Rage",
+		Label = "Rage",
 		Icon = cascade.Symbols.flame,
 	})
 
 	section:Tab({
-		Name = "Visuals",
+		Label = "Visuals",
 		Icon = cascade.Symbols.arkit,
 	})
 
 	section:Tab({
-		Name = "Miscellaneous",
+		Label = "Miscellaneous",
 		Icon = cascade.Symbols.squareStack3dUp,
 	})
 
 	section:Tab({
-		Name = "Configuration",
+		Label = "Configuration",
 		Icon = cascade.Symbols.archivebox,
 	})
 
 	section:Tab({
-		Name = "Settings",
+		Label = "Settings",
 		Icon = cascade.Symbols.gearshape,
 	})
 end

@@ -6,6 +6,8 @@ local components = {
 	Window = require("@components/Window"),
 	Section = require("@components/Section"),
 	Tab = require("@components/Tab"),
+	Form = require("@components/Form"),
+	Row = require("@components/Row"),
 }
 
 --// Intialize

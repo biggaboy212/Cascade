@@ -18,6 +18,7 @@ end
 return {
 	Text = {
 		Primary = color4("000000", 85),
+		PrimaryAccent = color4("4D4D4D", 100),
 		Secondary = color4("000000", 50),
 		Tertiary = color4("000000", 25),
 		Quaternary = color4("000000", 10),
@@ -31,6 +32,7 @@ return {
 	Controls = {
 		SwitchAccent = color4("478CF6", 100),
 		Selection = color4("007AFF", 100),
+		SelectionStroke = color4("007AFF", 50),
 		SelectionFocused = color4("0A82FF", 100),
 		SelectionFocusedAccent = color4("FFFFFF", 85),
 
@@ -40,9 +42,11 @@ return {
 			Shadow = color4("000000", 10),
 		},
 
-		Titlebar = color4("eeeeee", 100),
+		Background = color4("FFFFFF", 100),
+
+		Titlebar = color4("EEEEEE", 100),
 		TitlebarShadow = {
-			Background = color4("eaeaea", 25),
+			Background = color4("EAEAEA", 25),
 			Color = value(ColorSequence.new({
 				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 				ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)),
@@ -52,5 +56,8 @@ return {
 				NumberSequenceKeypoint.new(1, 0.35),
 			})),
 		},
+
+		View = color4("000000", 1.5),
+		ViewBorder = color4("000000", 5),
 	},
 }

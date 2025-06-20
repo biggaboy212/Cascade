@@ -89,7 +89,7 @@ type WindowProperties__DARKLUA_TYPE_h = Frame__DARKLUA_TYPE_c & {
 	Draggable: boolean?,
 	Resizable: boolean?,
 	Title: string?,
-	Description: string?,
+	Subtitle: string?,
 
 	Dropshadow: boolean?,
 	UIBlur: boolean?
@@ -98,7 +98,7 @@ type WindowProperties__DARKLUA_TYPE_h = Frame__DARKLUA_TYPE_c & {
 type Window__DARKLUA_TYPE_i = Components__DARKLUA_TYPE_n & WindowProperties__DARKLUA_TYPE_h
 
 type SectionProperties__DARKLUA_TYPE_j = Frame__DARKLUA_TYPE_c & {
-	Name: string?,
+	Label: string?,
 	Disclosure: boolean?,
 	Expanded: boolean?
 }
@@ -106,7 +106,7 @@ type SectionProperties__DARKLUA_TYPE_j = Frame__DARKLUA_TYPE_c & {
 type Section__DARKLUA_TYPE_k = Components__DARKLUA_TYPE_n & SectionProperties__DARKLUA_TYPE_j
 
 type TabProperties__DARKLUA_TYPE_l = Frame__DARKLUA_TYPE_c & {
-	Name: string?,
+	Label: string?,
 	Icon: string?,
 	Indentation: number?,
 	Selected: boolean?
@@ -314,7 +314,7 @@ function binder.Wrap(
 			if handler then
 				handler(value)
 
-				if excludeSets == nil or not table.find(excludeSets, key) then
+				if not (excludeSets and table.find(excludeSets, key)) then
 					object[key] = value
 				end
 			elseif instance then
@@ -3569,42 +3569,63 @@ local creator = __DIST.load('d')
 local value = creator.Value
 
 --// Functions
-local function Color4(color: Color3 | string, alpha: number)
-	local parsedColor = (typeof(color) == "Color3" and color) or (typeof(color) == "string" and Color3.fromHex("#" .. color))
+local function color4(color: Color3 | string, alpha: number)
+	local parsedColor = (typeof(color) == "Color3" and color)
+		or (typeof(color) == "string" and Color3.fromHex("#" .. color))
 
 	return {
 		Color = value(parsedColor),
-		Transparency = value(1 - (alpha / 100))
+		Transparency = value(1 - (alpha / 100)),
 	}
 end
 
 --// Initialize
 return {
 	Text = {
-		Primary = Color4("FFFFFF", 85),
-		Secondary = Color4("FFFFFF", 55),
-		Tertiary = Color4("FFFFFF", 25),
-		Quaternary = Color4("FFFFFF", 10),
-		Quinary = Color4("FFFFFF", 5),
+		Primary = color4("FFFFFF", 85),
+		PrimaryAccent = color4("FFFFFF", 38),
+		Secondary = color4("FFFFFF", 55),
+		Tertiary = color4("FFFFFF", 25),
+		Quaternary = color4("FFFFFF", 10),
+		Quinary = color4("FFFFFF", 5),
 	},
 
 	Accents = {
-		Red = Color4("FF453A", 100),
+		Red = color4("FF453A", 100),
 	},
 
 	Controls = {
-		SwitchAccent = Color4("478CF6", 100),
-		Selection = Color4("007AFF", 100),
-		SelectionFocused = Color4("0A82FF", 100),
-		SelectionFocusedAccent = Color4("FFFFFF", 85),
+		SwitchAccent = color4("478CF6", 100),
+		Selection = color4("007AFF", 100),
+		SelectionStroke = color4("007AFF", 60),
+		SelectionFocused = color4("0A82FF", 100),
+		SelectionFocusedAccent = color4("FFFFFF", 85),
 
-		Sidebar = Color4("000000", 45),
+		Sidebar = color4("212121", 70),
 		Separator = {
-			Background = Color4("000000", 100),
-			Shadow = Color4("FFFFFF", 5),
+			Background = color4("000000", 100),
+			Shadow = color4("FFFFFF", 0),
 		},
+
+		Background = color4("1C1C1E", 100),
+
+		Titlebar = color4("363636", 100),
+		TitlebarShadow = {
+			Background = color4("000000", 0),
+			Color = value(ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
+			})),
+			Transparency = value(NumberSequence.new({
+				NumberSequenceKeypoint.new(0, 0.5),
+				NumberSequenceKeypoint.new(1, 1),
+			})),
+		},
+
+		ViewBorder = color4("FFFFFF", 5),
 	},
-}end function __DIST.g()--// Imports
+}
+end function __DIST.g()--// Imports
 
 local creator = __DIST.load('d')
 
@@ -3612,7 +3633,7 @@ local creator = __DIST.load('d')
 local value = creator.Value
 
 --// Functions
-local function Color4(color: Color3 | string, alpha: number)
+local function color4(color: Color3 | string, alpha: number)
 	local parsedColor = (typeof(color) == "Color3" and color) or (typeof(color) == "string" and Color3.fromHex(color))
 
 	return {
@@ -3624,28 +3645,47 @@ end
 --// Initialize
 return {
 	Text = {
-		Primary = Color4("000000", 85),
-		Secondary = Color4("000000", 50),
-		Tertiary = Color4("000000", 25),
-		Quaternary = Color4("000000", 10),
-		Quinary = Color4("000000", 5),
+		Primary = color4("000000", 85),
+		PrimaryAccent = color4("4D4D4D", 100),
+		Secondary = color4("000000", 50),
+		Tertiary = color4("000000", 25),
+		Quaternary = color4("000000", 10),
+		Quinary = color4("000000", 5),
 	},
 
 	Accents = {
-		Red = Color4("FF3B30", 100),
+		Red = color4("FF3B30", 100),
 	},
 
 	Controls = {
-		SwitchAccent = Color4("478CF6", 100),
-		Selection = Color4("007AFF", 100),
-		SelectionFocused = Color4("0A82FF", 100),
-		SelectionFocusedAccent = Color4("FFFFFF", 85),
+		SwitchAccent = color4("478CF6", 100),
+		Selection = color4("007AFF", 100),
+		SelectionStroke = color4("007AFF", 50),
+		SelectionFocused = color4("0A82FF", 100),
+		SelectionFocusedAccent = color4("FFFFFF", 85),
 
-		Sidebar = Color4("EAEAEA", 84),
+		Sidebar = color4("EAEAEA", 84),
 		Separator = {
-			Background = Color4("000000", 18),
-			Shadow = Color4("000000", 10),
+			Background = color4("000000", 18),
+			Shadow = color4("000000", 10),
 		},
+
+		Background = color4("FFFFFF", 100),
+
+		Titlebar = color4("EEEEEE", 100),
+		TitlebarShadow = {
+			Background = color4("EAEAEA", 25),
+			Color = value(ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)),
+			})),
+			Transparency = value(NumberSequence.new({
+				NumberSequenceKeypoint.new(0, 0.35),
+				NumberSequenceKeypoint.new(1, 0.35),
+			})),
+		},
+
+		ViewBorder = color4("000000", 5),
 	},
 }
 end function __DIST.h()
@@ -3755,6 +3795,7 @@ return {
 	TweenService = cast("TweenService") :: TweenService,
 	RunService = cast("RunService") :: RunService,
 	UserInputService = cast("UserInputService") :: UserInputService,
+	GuiService = cast("GuiService") :: GuiService,
 
 	Workspace = cast("Workspace") :: Workspace,
 	Players = cast("Players") :: Players,
@@ -3940,29 +3981,570 @@ return {
 	UIBlur = __DIST.load('k'),
 }
 end function __DIST.m()
+return function(self)
+	--// Imports
+	local creator = __DIST.load('d')
+	local services = __DIST.load('j')
+
+	--// References
+	local create = creator.Create
+
+	local runService = services.RunService
+	local tweenService = services.TweenService
+
+	--// Variables
+	local structures = {}
+
+	--// UI
+	structures.Body = create("Frame")({
+		Name = "TextField",
+		AutomaticSize = Enum.AutomaticSize.XY,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BackgroundTransparency = 1,
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BorderSizePixel = 0,
+		Size = UDim2.fromOffset(159, 23),
+		SizeConstraint = Enum.SizeConstraint.RelativeXX,
+
+		create("UICorner")({
+			Name = "UICorner",
+			CornerRadius = UDim.new(0, 5),
+		}),
+
+		create("UIStroke")({
+			Name = "UIStroke",
+			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+			Thickness = 1,
+
+			__dynamicKeys = {
+				Color = self.Theme.Controls.ViewBorder.Color,
+				Transparency = self.Theme.Controls.ViewBorder.Transparency,
+			},
+		}),
+
+		create("TextBox")({
+			Name = "Field",
+			AutomaticSize = Enum.AutomaticSize.XY,
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			BackgroundTransparency = 1,
+			BorderColor3 = Color3.fromRGB(0, 0, 0),
+			BorderSizePixel = 0,
+			CursorPosition = -1,
+			FontFace = Font.new("rbxassetid://12187365364"),
+			PlaceholderColor3 = Color3.fromRGB(150, 150, 150),
+			PlaceholderText = "Placeholder",
+			Text = "",
+			TextSize = 15,
+		}),
+
+		create("UIPadding")({
+			Name = "UIPadding",
+			PaddingBottom = UDim.new(0, 4),
+			PaddingLeft = UDim.new(0, 6),
+			PaddingRight = UDim.new(0, 6),
+			PaddingTop = UDim.new(0, 4),
+		}),
+
+		create("UIListLayout")({
+			Name = "UIListLayout",
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+            FillDirection = Enum.FillDirection.Horizontal
+		}),
+	}) :: Frame
+
+	--// Initialize
+	structures.Stroke = structures.Body:FindFirstChild("UIStroke") :: UIStroke
+	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
+	structures.Layout = structures.Body:FindFirstChild("UIListLayout") :: UIListLayout
+	structures.Field = structures.Body:FindFirstChild("Field") :: TextBox
+
+	local currentTween: Tween
+	local enter = TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+	local leave = TweenInfo.new(0.2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+
+	structures.Field.Focused:Connect(function()
+		if currentTween then
+			currentTween:Cancel()
+		end
+
+		currentTween = tweenService:Create(structures.Stroke, enter, {
+			Color = self.Theme.Controls.SelectionStroke.Color.Value,
+			Transparency = self.Theme.Controls.SelectionStroke.Transparency.Value,
+			Thickness = 3,
+		})
+		currentTween:Play()
+	end)
+
+    structures.Field.FocusLost:Connect(function()
+		if currentTween then
+			currentTween:Cancel()
+		end
+
+		currentTween = tweenService:Create(structures.Stroke, leave, {
+			Color = self.Theme.Controls.ViewBorder.Color.Value,
+			Transparency = self.Theme.Controls.ViewBorder.Transparency.Value,
+			Thickness = 1,
+		})
+		currentTween:Play()
+	end)
+
+	runService.RenderStepped:Connect(function()
+		if #structures.Field.Text < 0 then
+			structures.Field.TextColor3 = self.Theme.Text.Primary.Color.Value
+			structures.Field.TextTransparency = self.Theme.Text.Primary.Transparency.Value
+		else
+			structures.Field.TextColor3 = self.Theme.Text.Tertiary.Color.Value
+			structures.Field.TextTransparency = self.Theme.Text.Tertiary.Transparency.Value
+		end
+	end)
+
+	return structures
+end
+end function __DIST.n()
+return function(self)
+	--// Imports
+	local creator = __DIST.load('d')
+	local textField = __DIST.load('m')
+
+	--// References
+	local create = creator.Create
+
+	--// Variables
+	local window = nil
+	local structures = {}
+
+	--// UI
+	structures.Body = create("Frame")({
+		Name = "Toolbar",
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BorderSizePixel = 0,
+		Size = UDim2.new(1, 0, 0, 52),
+
+		__dynamicKeys = {
+			BackgroundColor3 = self.Theme.Controls.Titlebar.Color,
+			BackgroundTransparency = self.Theme.Controls.Titlebar.Transparency,
+		},
+
+		create("UICorner")({
+			Name = "UICorner",
+			CornerRadius = UDim.new(0, 10),
+		}),
+
+		create("Frame")({
+			Name = "Shadow",
+			AnchorPoint = Vector2.new(1, 0),
+			BackgroundColor3 = Color3.fromRGB(234, 234, 234),
+			BackgroundTransparency = 0.75,
+			BorderColor3 = Color3.fromRGB(0, 0, 0),
+			BorderSizePixel = 0,
+			Position = UDim2.fromScale(1, 1),
+			Size = UDim2.new(1, 0, 0, 2),
+			ZIndex = 0,
+
+			__dynamicKeys = {
+				Color = self.Theme.Controls.TitlebarShadow.Background.Color,
+				Transparency = self.Theme.Controls.TitlebarShadow.Background.Transparency,
+			},
+
+			create("UIGradient")({
+				Name = "UIGradient",
+				Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+					ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)),
+				}),
+				Rotation = -90,
+				Transparency = NumberSequence.new({
+					NumberSequenceKeypoint.new(0, 0.35),
+					NumberSequenceKeypoint.new(1, 0.35),
+				}),
+
+				__dynamicKeys = {
+					Color = self.Theme.Controls.TitlebarShadow.Color,
+					Transparency = self.Theme.Controls.TitlebarShadow.Transparency,
+				},
+			}),
+		}),
+
+		create("Frame")({
+			Name = "Content",
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			BackgroundTransparency = 1,
+			BorderColor3 = Color3.fromRGB(0, 0, 0),
+			BorderSizePixel = 0,
+			Size = UDim2.fromScale(1, 1),
+
+			create("Frame")({
+				Name = "Leading",
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundTransparency = 1,
+				BorderColor3 = Color3.fromRGB(0, 0, 0),
+				BorderSizePixel = 0,
+				Size = UDim2.fromScale(0, 1),
+
+				create("UIListLayout")({
+					Name = "UIListLayout",
+					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, 8),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
+
+				create("Frame")({
+					Name = "TitleSubtitle",
+					AutomaticSize = Enum.AutomaticSize.XY,
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					LayoutOrder = 2,
+
+					create("UIListLayout")({
+						Name = "UIListLayout",
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+					}),
+
+					create("TextLabel")({
+						Name = "Subtitle",
+						AutomaticSize = Enum.AutomaticSize.X,
+						BackgroundTransparency = 1,
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+						LayoutOrder = 1,
+						RichText = true,
+						Size = UDim2.fromOffset(0, 14),
+						Text = "Subtitle",
+						TextColor3 = Color3.fromRGB(0, 0, 0),
+						TextSize = 12,
+						Visible = false,
+
+						__dynamicKeys = {
+							TextColor3 = self.Theme.Text.Secondary.Color,
+							TextTransparency = self.Theme.Text.Secondary.Transparency,
+						},
+					}),
+
+					create("TextLabel")({
+						Name = "Title",
+						AutomaticSize = Enum.AutomaticSize.X,
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						FontFace = Font.new(
+							"rbxassetid://12187365364",
+							Enum.FontWeight.SemiBold,
+							Enum.FontStyle.Normal
+						),
+						LineHeight = 0,
+						RichText = true,
+						Size = UDim2.fromOffset(0, 20),
+						Text = "Title",
+						TextSize = 16,
+
+						__dynamicKeys = {
+							TextColor3 = self.Theme.Text.Primary.Color,
+							TextTransparency = self.Theme.Text.Primary.Transparency,
+						},
+					}),
+				}),
+
+				create("UIPadding")({
+					Name = "UIPadding",
+					PaddingLeft = UDim.new(0, 12),
+					PaddingRight = UDim.new(0, 12),
+				}),
+
+				create("Frame")({
+					Name = "NavigationButtons",
+					AutomaticSize = Enum.AutomaticSize.XY,
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					LayoutOrder = 1,
+
+					create("UIListLayout")({
+						Name = "UIListLayout",
+						FillDirection = Enum.FillDirection.Horizontal,
+						Padding = UDim.new(0, 1),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+					}),
+
+					create("TextButton")({
+						Name = "Back",
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
+						Size = UDim2.fromOffset(27, 20),
+						Text = "",
+						TextColor3 = Color3.fromRGB(0, 0, 0),
+						TextSize = 14,
+
+						create("ImageLabel")({
+							Name = "Image",
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							BackgroundTransparency = 1,
+							BorderColor3 = Color3.fromRGB(0, 0, 0),
+							BorderSizePixel = 0,
+							Image = "rbxassetid://137248392050045",
+							ImageColor3 = Color3.fromRGB(0, 0, 0),
+							Position = UDim2.fromScale(0.5, 0.5),
+							Size = UDim2.fromOffset(9, 15),
+
+							__dynamicKeys = {
+								ImageColor3 = self.Theme.Text.Tertiary.Color,
+								ImageTransparency = self.Theme.Text.Tertiary.Transparency,
+							},
+						}),
+					}),
+
+					create("TextButton")({
+						Name = "Forward",
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
+						LayoutOrder = 1,
+						Size = UDim2.fromOffset(27, 20),
+						Text = "",
+						TextColor3 = Color3.fromRGB(0, 0, 0),
+						TextSize = 14,
+
+						create("ImageLabel")({
+							Name = "Image",
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							BorderColor3 = Color3.fromRGB(0, 0, 0),
+							BorderSizePixel = 0,
+							Image = "rbxassetid://95285878898359",
+							Position = UDim2.fromScale(0.5, 0.5),
+							Size = UDim2.fromOffset(9, 15),
+
+							__dynamicKeys = {
+								ImageColor3 = self.Theme.Text.Tertiary.Color,
+								ImageTransparency = self.Theme.Text.Tertiary.Transparency,
+							},
+						}),
+					}),
+				}),
+
+				create("Frame")({
+					Name = "SidebarButton",
+					AutomaticSize = Enum.AutomaticSize.XY,
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					Size = UDim2.fromOffset(38, 34),
+
+					create("ImageButton")({
+						Name = "Image",
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						AutoButtonColor = false,
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						Image = "rbxassetid://74380920233260",
+						Position = UDim2.fromScale(0.5, 0.5),
+						Size = UDim2.fromOffset(20, 16),
+
+						__dynamicKeys = {
+							ImageColor3 = self.Theme.Text.Secondary.Color,
+							ImageTransparency = self.Theme.Text.Secondary.Transparency,
+						},
+					}),
+				}),
+			}),
+
+			create("UIListLayout")({
+				Name = "UIListLayout",
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalFlex = Enum.UIFlexAlignment.Fill,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			create("Frame")({
+				Name = "Trailing",
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundTransparency = 1,
+				BorderColor3 = Color3.fromRGB(0, 0, 0),
+				BorderSizePixel = 0,
+				Size = UDim2.fromScale(0, 1),
+
+				create("UIPadding")({
+					Name = "UIPadding",
+					PaddingLeft = UDim.new(0, 12),
+					PaddingRight = UDim.new(0, 12),
+				}),
+
+				create("UIListLayout")({
+					Name = "UIListLayout",
+					HorizontalAlignment = Enum.HorizontalAlignment.Right,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
+			}),
+		}),
+
+		create("Frame")({
+			Name = "CornerClipRight",
+			AnchorPoint = Vector2.new(1, 1),
+			BorderColor3 = Color3.fromRGB(0, 0, 0),
+			BorderSizePixel = 0,
+			Position = UDim2.fromScale(1, 1),
+			Size = UDim2.new(0, 10, 0.5, 0),
+			ZIndex = -1,
+
+			__dynamicKeys = {
+				BackgroundColor3 = self.Theme.Controls.Titlebar.Color,
+			},
+		}),
+
+		create("Frame")({
+			Name = "CornerClipLeft",
+			AnchorPoint = Vector2.new(0, 1),
+			BorderColor3 = Color3.fromRGB(0, 0, 0),
+			BorderSizePixel = 0,
+			Position = UDim2.fromScale(0, 1),
+			Size = UDim2.new(0, 10, 1, 0),
+			ZIndex = -1,
+
+			__dynamicKeys = {
+				BackgroundColor3 = self.Theme.Controls.Titlebar.Color,
+			},
+		}),
+	}) :: TextButton
+
+	--// Initialize
+	structures.CornerClipLeft = structures.Body:FindFirstChild("CornerClipLeft") :: Frame
+	structures.CornerClipRight = structures.Body:FindFirstChild("ConerClipRight") :: Frame
+	structures.Content = structures.Body:FindFirstChild("Content") :: Frame
+	structures.Leading = structures.Content:FindFirstChild("Leading") :: Frame
+	structures.Trailing = structures.Content:FindFirstChild("Trailing") :: Frame
+	structures.NavigationButtons = structures.Leading:FindFirstChild("NavigationButtons") :: Frame
+	structures.Back = structures.NavigationButtons:FindFirstChild("Back") :: TextButton
+	structures.Forward = structures.NavigationButtons:FindFirstChild("Forward") :: TextButton
+	structures.SidebarButton = structures.Leading:FindFirstChild("SidebarButton") :: Frame
+	structures.TitleStack = structures.Leading:FindFirstChild("TitleSubtitle") :: Frame
+	structures.Title = structures.TitleStack:FindFirstChild("Title") :: TextLabel
+	structures.Subtitle = structures.TitleStack:FindFirstChild("Subtitle") :: TextLabel
+
+	structures.SearchField = textField(self)
+	structures.SearchField.Body.Size = UDim2.fromOffset(126, 28)
+	structures.SearchField.Layout.Padding = UDim.new(0, 8)
+	structures.SearchField.Field.LayoutOrder = 1
+	structures.SearchField.Field.PlaceholderText = "Search"
+	structures.SearchField.Padding.PaddingBottom = UDim.new(0, 6)
+	structures.SearchField.Padding.PaddingTop = UDim.new(0, 6)
+	structures.SearchField.Padding.PaddingLeft = UDim.new(0, 7)
+	structures.SearchField.Padding.PaddingRight = UDim.new(0, 7)
+
+	create("ImageLabel")({
+		Name = "ImageLabel",
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BackgroundTransparency = 1,
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BorderSizePixel = 0,
+		Image = "rbxassetid://120817720539967",
+		Size = UDim2.fromOffset(13, 14),
+		Parent = structures.SearchField.Body.__instance,
+
+		__dynamicKeys = {
+			ImageColor3 = self.Theme.Text.PrimaryAccent.Color,
+			ImageTransparency = self.Theme.Text.PrimaryAccent.Transparency,
+		},
+	})
+
+	structures.SearchField.Body.Parent = structures.Trailing
+
+	-- if the current page your on is the last index then remove the option to go forward
+	-- if the current page your on is the first index then remove the option to go back
+	local rawHistory = {}
+
+	local function updateNavStates()
+		if not window then
+			return
+		end
+
+		local index = table.find(rawHistory, window.CurrentPage)
+		local backImage = structures.Back:FindFirstChild("Image")
+		local forwardImage = structures.Forward:FindFirstChild("Image")
+
+		if backImage and forwardImage and index then
+			backImage.ImageColor3 = index > 1 and window.Theme.Text.Secondary.Color.Value
+				or window.Theme.Text.Tertiary.Color.Value
+
+			backImage.ImageTransparency = index > 1 and window.Theme.Text.Secondary.Transparency.Value
+				or window.Theme.Text.Tertiary.Transparency.Value
+
+			forwardImage.ImageColor3 = index < #rawHistory and window.Theme.Text.Secondary.Color.Value
+				or window.Theme.Text.Tertiary.Color.Value
+
+			forwardImage.ImageTransparency = index < #rawHistory and window.Theme.Text.Secondary.Transparency.Value
+				or window.Theme.Text.Tertiary.Transparency.Value
+		end
+	end
+
+	local navigationHistory = setmetatable({}, {
+		__newindex = function(_, key, value)
+			rawset(rawHistory, key, value)
+
+			updateNavStates()
+		end,
+		__index = function(_, key)
+			return rawHistory[key]
+		end,
+		__len = function()
+			return #rawHistory
+		end,
+	})
+
+	return structures,
+		function(newWindow)
+			window = newWindow
+		end,
+		function(page)
+			print('s')
+			navigationHistory[#navigationHistory + 1] = page
+		end
+end
+end function __DIST.o()
 local types = __DIST.load('b')
 
 return function(self, properties: WindowProperties__DARKLUA_TYPE_h): Window__DARKLUA_TYPE_i	--// Imports
 	
 local effects = __DIST.load('l')
+	local services = __DIST.load('j')
 	local creator = __DIST.load('d')
 	local binder = __DIST.load('c')
 
+	local titleBar = __DIST.load('n')
+
 	--// References
 	local create = creator.Create
+
+	local userInputService = services.UserInputService
 
 	--// Variables
 	local structures = {}
 
 	--// UI
 	properties = properties or {}
-	
-	properties.Draggable = properties.Draggable ~= nil and properties.Draggable or true
-	properties.Resizable = properties.Resizable ~= nil and properties.Resizable or true
+
+	properties.Draggable = properties.Draggable == nil and true or properties.Draggable
+	properties.Resizable = properties.Resizable == nil and true or properties.Resizable
 	properties.Title = properties.Title or "Title"
-	properties.Description = properties.Description or "Description"
-	properties.Dropshadow = properties.Dropshadow ~= nil and properties.Dropshadow or true
-	properties.UIBlur = properties.UIBlur ~= nil and properties.UIBlur or true
+	properties.Dropshadow = properties.Dropshadow == nil and true or properties.Dropshadow
+	properties.UIBlur = properties.UIBlur == nil and true or properties.UIBlur
 
 	structures.Body = binder.Apply(
 		properties,
@@ -3984,17 +4566,10 @@ local effects = __DIST.load('l')
 				CornerRadius = UDim.new(0, 10),
 			}),
 
-			create("UIDragDetector")({
-				ActivatedCursorIcon = "rbxasset://0",
-				CursorIcon = "rbxasset://0",
-				DragUDim2 = UDim2.fromOffset(11, 0),
-				SelectionModeDragSpeed = UDim2.fromScale(1, 1),
-			}),
-
 			create("UIListLayout")({
 				Name = "UIListLayout",
 				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = UDim.new(0, -1),
+				Padding = UDim.new(0, 0),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 			}),
 
@@ -4019,7 +4594,7 @@ local effects = __DIST.load('l')
 						ZIndex = 0,
 						__dynamicKeys = {
 							BackgroundColor3 = self.Theme.Controls.Separator.Shadow.Color,
-							BackgroundTransparency = self.Theme.Controls.Separator.Shadow.Transparency
+							BackgroundTransparency = self.Theme.Controls.Separator.Shadow.Transparency,
 						},
 
 						create("UIGradient")({
@@ -4208,6 +4783,7 @@ local effects = __DIST.load('l')
 						Name = "UIListLayout",
 						Padding = UDim.new(0, 9),
 						SortOrder = Enum.SortOrder.LayoutOrder,
+						HorizontalAlignment = Enum.HorizontalAlignment.Right,
 					}),
 
 					create("UIPadding")({
@@ -4219,7 +4795,7 @@ local effects = __DIST.load('l')
 				}),
 			}),
 
-			create "Frame" {
+			create("Frame")({
 				Name = "Separator",
 				AnchorPoint = Vector2.new(1, 0),
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
@@ -4229,9 +4805,64 @@ local effects = __DIST.load('l')
 				Size = UDim2.new(0, 1, 1, 0),
 				__dynamicKeys = {
 					BackgroundColor3 = self.Theme.Controls.Separator.Background.Color,
-					BackgroundTransparency = self.Theme.Controls.Separator.Background.Transparency
+					BackgroundTransparency = self.Theme.Controls.Separator.Background.Transparency,
 				},
-			},
+			}),
+
+			create("Frame")({
+				Name = "ContentBody",
+				AnchorPoint = Vector2.new(1, 0),
+				BorderColor3 = Color3.fromRGB(0, 0, 0),
+				BorderSizePixel = 0,
+				ClipsDescendants = true,
+				LayoutOrder = 2,
+				Position = UDim2.fromScale(1, 0),
+				Size = UDim2.new(1, -201, 1, 0),
+
+				__dynamicKeys = {
+					BackgroundColor3 = self.Theme.Controls.Background.Color,
+					BackgroundTransparency = self.Theme.Controls.Background.Transparency,
+				},
+
+				create("UICorner")({
+					Name = "UICorner",
+					CornerRadius = UDim.new(0, 10),
+				}),
+
+				create("Frame")({
+					Name = "Content",
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(255, 199, 199),
+					BorderMode = Enum.BorderMode.Inset,
+					BorderSizePixel = 0,
+					ClipsDescendants = true,
+					Position = UDim2.fromOffset(0, 52),
+					Size = UDim2.new(1, 0, 1, -52),
+
+					create("UIPadding")({
+						Name = "Margins",
+						PaddingBottom = UDim.new(0, 3),
+						PaddingLeft = UDim.new(0, 3),
+						PaddingRight = UDim.new(0, 3),
+						PaddingTop = UDim.new(0, 3),
+					}),
+				}),
+
+				create("Frame")({
+					Name = "CornerClip",
+					AnchorPoint = Vector2.new(0, 1),
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					Position = UDim2.fromScale(0, 1),
+					Size = UDim2.fromOffset(10, 10),
+					ZIndex = -1,
+
+					__dynamicKeys = {
+						BackgroundColor3 = self.Theme.Controls.Background.Color,
+					},
+				}),
+			}),
 
 			create("Folder")({
 				Name = "Handles",
@@ -4361,31 +4992,43 @@ local effects = __DIST.load('l')
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
 					Size = UDim2.new(1, 0, 0, 52),
+					ZIndex = 0
 				}),
 			}),
 		})
 	) :: Frame
 
 	--// Initialize
-	structures.Dragger = structures.Body:FindFirstChild("UIDragDetector") :: UIDragDetector
 	structures.Handles = structures.Body:FindFirstChild("Handles") :: Folder
 	structures.Sidebar = structures.Body:FindFirstChild("Sidebar") :: Frame
 	structures.SidebarList = structures.Sidebar:FindFirstChild("SidebarList") :: Frame
 	structures.Toolbar = structures.Sidebar:FindFirstChild("Toolbar") :: Frame
 	structures.WindowControls = structures.Toolbar:FindFirstChild("WindowControls") :: Frame
+	structures.ContentBody = structures.Body:FindFirstChild("ContentBody") :: Frame
+	structures.Content = structures.ContentBody:FindFirstChild("Content")
+	structures.CornerClip = structures.ContentBody:FindFirstChild("CornerClip")
 
-	structures.Dragger.BoundingUI = structures.Handles:FindFirstChild("TopArea")
+	local _titleBar, initTitlebar, addToNavigationHistory = titleBar(self)
+	structures.Titlebar = _titleBar
+	structures.Titlebar.Body.Parent = structures.ContentBody
 
 	local object = binder.Wrap(properties, {
-		Minimized = function(value: boolean)
-			
+		Title = function(value: string)
+			structures.Titlebar.Title.Visible = value and true or false
+
+			if value then
+				structures.Titlebar.Title.Text = value
+			end
 		end,
-		Maximized = function(value: boolean)
-			
+		Subtitle = function(value: string)
+			structures.Titlebar.Subtitle.Visible = value and true or false
+
+			if value then
+				structures.Titlebar.Subtitle.Text = value
+			end
 		end,
-		Draggable = function(value: boolean)
-			structures.Dragger.Enabled = value
-		end,
+		Minimized = function(value: boolean) end,
+		Maximized = function(value: boolean) end,
 		Dropshadow = function(value: boolean)
 			if structures["ShadowLayers"] then
 				structures["ShadowLayers"]:Destroy()
@@ -4401,6 +5044,8 @@ local effects = __DIST.load('l')
 				structures["BlurModel"] = nil
 			end
 
+			structures.Body.BackgroundTransparency = value and self.Theme.Controls.Sidebar.Transparency.Value or 0
+
 			if value then
 				structures.BlurModel = effects.UIBlur(structures.Body)
 			end
@@ -4410,38 +5055,136 @@ local effects = __DIST.load('l')
 	object.Type = "Window"
 	object.Theme = self.Theme
 	object.Structures = structures
+	object.__container = structures.Content
 	object.Tabs = {}
-	object.Pages = {}
+	object.CurrentPage = nil
+	object.addToHistory = addToNavigationHistory
+	print(object.addToHistory)
+	
+	initTitlebar(object)
+
+	do
+		local dragging = false
+		local inputPos = nil
+		local startPos = nil
+		local connection = nil
+		local boundingUi = structures.Handles:FindFirstChild("TopArea")
+
+		boundingUi.InputBegan:Connect(function(input)
+			if
+				input.UserInputType == Enum.UserInputType.MouseButton1
+				or input.UserInputType == Enum.UserInputType.Touch
+			then
+				dragging = true
+				inputPos = input.Position
+				startPos = structures.Body.Position
+
+				if connection then
+					connection:Disconnect()
+				end
+
+				connection = input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+
+		userInputService.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				if dragging then
+					local delta = input.Position - inputPos
+
+					local newPosition = UDim2.new(
+						startPos.X.Scale,
+						startPos.X.Offset + delta.X,
+						startPos.Y.Scale,
+						startPos.Y.Offset + delta.Y
+					)
+
+					structures.Body.Position = newPosition
+				end
+			end
+		end)
+	end
 
 	binder.Apply(properties, object)
 
 	return object
 end
-end function __DIST.n()
+end function __DIST.p()
 local types = __DIST.load('b')
 
 return function(self, properties: SectionProperties__DARKLUA_TYPE_j): Section__DARKLUA_TYPE_k	--// Imports
 	
 local creator = __DIST.load('d')
 	local binder = __DIST.load('c')
+	local services = __DIST.load('j')
 
 	--// References
 	local create = creator.Create
+	
+	local tweenService = services.TweenService
 
 	--// Variables
 	local structures = {}
 
+	--// Functions
+	local function calculateContentHeight(container: Instance)
+		local total = 0
+
+		for _, child in ipairs(container:GetChildren()) do
+			if child:IsA("GuiObject") and child.Visible then
+				total += child.Size.Y.Offset
+				total += child.LayoutOrder and 0 or 0
+			end
+		end
+
+		return total
+	end
+
+	local function watchAutosize(structure: Frame, connections: {RBXScriptConnection}, onUpdate: (...any) -> (), ...)
+		local args = table.pack(...)
+
+		for _, child in ipairs(structure:GetChildren()) do
+			if child:IsA("GuiObject") then
+				table.insert(connections, child:GetPropertyChangedSignal("Size"):Connect(function(...)
+					onUpdate(table.unpack(args, 1, args.n))
+				end))
+				table.insert(connections, child:GetPropertyChangedSignal("Visible"):Connect(function(...)
+					onUpdate(table.unpack(args, 1, args.n))
+				end))
+			end
+		end
+
+		table.insert(connections, structure.ChildAdded:Connect(function(child)
+			if child:IsA("GuiObject") then
+				table.insert(connections, child:GetPropertyChangedSignal("Size"):Connect(function(...)
+					onUpdate(table.unpack(args, 1, args.n))
+				end))
+				table.insert(connections, child:GetPropertyChangedSignal("Visible"):Connect(function(...)
+					onUpdate(table.unpack(args, 1, args.n))
+				end))
+				onUpdate(table.unpack(args, 1, args.n))
+			end
+		end))
+
+		table.insert(connections, structure.ChildRemoved:Connect(function(...)
+			onUpdate(table.unpack(args, 1, args.n))
+		end))
+	end
+
 	--// UI
 	properties = properties or {}
 
-	properties.Name = properties.Name or "Section Title"
-	properties.Disclosure = properties.Disclosure or true
-	properties.Expanded = properties.Expanded or true
+	properties.Label = properties.Label or "Label"
+	properties.Disclosure = properties.Disclosure == nil and true or properties.Disclosure
+	properties.Expanded = properties.Expanded == nil and true or properties.Expanded
 
 	structures.SidebarGroup = binder.Apply(
 		properties,
-		create("Frame")({
-			Name = "SidebarGroup",
+		create("TextButton")({
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
@@ -4449,11 +5192,13 @@ local creator = __DIST.load('d')
 			BorderSizePixel = 0,
 			ClipsDescendants = true,
 			Size = UDim2.new(1, 0, 0, 23),
+			Text = "",
+			AutoButtonColor = false,
 			Parent = (self.Type == "Window" and self.Structures.SidebarList) or (self.__instance or self),
 
 			create("UIListLayout")({
-				Name = "UIListLayout",
 				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right
 			}),
 
 			create("Frame")({
@@ -4465,7 +5210,7 @@ local creator = __DIST.load('d')
 				BorderSizePixel = 0,
 				Size = UDim2.fromScale(1, 0),
 
-				create("TextButton")({
+				create("Frame")({
 					Name = "Disclosure",
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
@@ -4474,7 +5219,6 @@ local creator = __DIST.load('d')
 					FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
 					LayoutOrder = 1,
 					Size = UDim2.fromOffset(13, 14),
-					Text = "",
 					TextColor3 = Color3.fromRGB(0, 0, 0),
 					TextSize = 14,
 
@@ -4496,7 +5240,6 @@ local creator = __DIST.load('d')
 				}),
 
 				create("UIListLayout")({
-					Name = "UIListLayout",
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalFlex = Enum.UIFlexAlignment.SpaceBetween,
 					Padding = UDim.new(0, 10),
@@ -4504,7 +5247,6 @@ local creator = __DIST.load('d')
 				}),
 
 				create("UIPadding")({
-					Name = "UIPadding",
 					PaddingBottom = UDim.new(0, 6),
 					PaddingLeft = UDim.new(0, 8),
 					PaddingRight = UDim.new(0, 12),
@@ -4512,7 +5254,7 @@ local creator = __DIST.load('d')
 				}),
 
 				create("TextLabel")({
-					Name = "Section",
+					Name = "Title",
 					AutomaticSize = Enum.AutomaticSize.X,
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
@@ -4537,36 +5279,69 @@ local creator = __DIST.load('d')
 
 	--// Initialize
 	structures.SectionHeader = structures.SidebarGroup:FindFirstChild("SectionHeader") :: Frame
-	structures.Title = structures.SectionHeader:FindFirstChild("Section") :: TextLabel
+	structures.Title = structures.SectionHeader:FindFirstChild("Title") :: TextLabel
 	structures.Disclosure = structures.SectionHeader:FindFirstChild("Disclosure") :: TextButton
-	structures.DisclosureImage = structures.SectionHeader:FindFirstChild("DisclosureImage") :: ImageLabel
+	structures.DisclosureImage = structures.Disclosure:FindFirstChild("DisclosureImage") :: ImageLabel
 
-	local object = binder.Wrap(properties, {
-		Name = function(name: string)
+	local connections = {}
+	local bindings = {
+		Label = function(name: string)
 			structures.Title.Text = name
 		end,
 		Disclosure = function(state: boolean)
 			structures.Disclosure.Visible = state
 		end,
-		Expanded = function(state: boolean)
-			structures.SectionHeader.AutomaticSize = state and Enum.AutomaticSize.Y or Enum.AutomaticSize.None
-			structures.DisclosureImage.Rotation = state and 0 or -90
-		end,
-	}, structures.SidebarGroup)
+		Expanded = function(state: boolean, tween: boolean?)
+			tween = (tween == nil and true) or false
 
-	structures.Disclosure.MouseButton1Click:Connect(function()
-		object.Expanded = not object.Expanded
-	end)
+			local sidebarGroup = structures.SidebarGroup.__instance
+			local disclosureImage = structures.DisclosureImage
+
+			sidebarGroup.AutomaticSize = Enum.AutomaticSize.None
+
+			for index, connection: RBXScriptConnection in pairs(connections) do
+				connection:Disconnect()
+				table.remove(connections, index)
+			end
+
+			local updateSize = function(useTween: boolean)
+				local targetHeight = state and calculateContentHeight(sidebarGroup) or 23
+				local tween = tweenService:Create(sidebarGroup, TweenInfo.new(useTween and 0.1 or 0, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+					Size = UDim2.new(1, 0, 0, targetHeight),
+				})
+				tween:Play()
+			end
+
+			if state then
+				watchAutosize(sidebarGroup, connections, updateSize, false)
+			end
+
+			updateSize(tween)
+			tweenService:Create(disclosureImage, TweenInfo.new(tween and 0.1 or 0, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+				Rotation = state and 0 or -90,
+			}):Play()
+		end,
+	}
+	local object = binder.Wrap(properties, bindings, structures.SidebarGroup)
 
 	object.Type = "Section"
 	object.Theme = self.Theme
 	object.Structures = structures
+	object.__container = self.__container
+	object.Tabs = self.Tabs or {}
+	object.CurrentPage = self.CurrentPage or nil
+	object.addToHistory = self.addToHistory
+	print(object.addToHistory)
+
+	structures.SidebarGroup.MouseButton1Click:Connect(function()
+		object.Expanded = not object.Expanded
+	end)
 
 	binder.Apply(properties, object)
 
 	return object
 end
-end function __DIST.o()
+end function __DIST.q()
 local types = __DIST.load('b')
 
 return function(self, properties: TabProperties__DARKLUA_TYPE_l): Tab__DARKLUA_TYPE_m	--// Imports
@@ -4583,7 +5358,7 @@ local creator = __DIST.load('d')
 	--// UI
 	properties = properties or {}
 
-	properties.Name = properties.Name or "Label"
+	properties.Label = properties.Label or "Label"
 	properties.Indentation = properties.Indentation or 0
 	properties.Selected = properties.Selected or false
 
@@ -4595,7 +5370,7 @@ local creator = __DIST.load('d')
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderSizePixel = 0,
 			FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
-			LayoutOrder = 1,
+			LayoutOrder = self.Tabs and #self.Tabs or 1,
 			Size = UDim2.new(1, 0, 0, 28),
 			Text = "",
 			TextColor3 = Color3.fromRGB(0, 0, 0),
@@ -4731,9 +5506,37 @@ local creator = __DIST.load('d')
 	structures.Title = structures.Leading:FindFirstChild("Title") :: TextLabel
 	structures.Symbol = structures.Leading:FindFirstChild("Symbol") :: ImageLabel
 	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
+	structures.Page = create("ScrollingFrame")({
+		Name = "ContentList",
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BackgroundTransparency = 1,
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BorderSizePixel = 0,
+		CanvasSize = UDim2.new(),
+		ClipsDescendants = false,
+		ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0),
+		ScrollBarImageTransparency = 0.6,
+		ScrollBarThickness = 7,
+		Size = UDim2.fromScale(1, 1),
+
+		create("UIListLayout")({
+			Name = "UIListLayout",
+			Padding = UDim.new(0, 9),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+
+		create("UIPadding")({
+			Name = "Margins",
+			PaddingBottom = UDim.new(0, 17),
+			PaddingLeft = UDim.new(0, 17),
+			PaddingRight = UDim.new(0, 17),
+			PaddingTop = UDim.new(0, 17),
+		}),
+	}) :: ScrollingFrame
 
 	local object = binder.Wrap(properties, {
-		Name = function(name: string)
+		Label = function(name: string)
 			structures.Title.Text = name
 		end,
 		Icon = function(icon: string?)
@@ -4744,40 +5547,65 @@ local creator = __DIST.load('d')
 			end
 		end,
 		Indentation = function(indentation: number)
-			structures.Padding.PaddingLeft = UDim.new(0, (11 * indentation + 10))
+			structures.Body.Size -= UDim2.fromOffset((11 * indentation), 0)
 		end,
 		Selected = function(selected: boolean)
 			structures.Body.Transparency = selected and self.Theme.Controls.SelectionFocused.Transparency.Value or 1
 
-			structures.Title.TextColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value or self.Theme.Text.Primary.Color.Value
-			structures.Title.TextTransparency = selected and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value or self.Theme.Text.Primary.Transparency.Value
+			structures.Title.TextColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value
+				or self.Theme.Text.Primary.Color.Value
+			structures.Title.TextTransparency = selected
+					and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value
+				or self.Theme.Text.Primary.Transparency.Value
 
-			structures.Symbol.ImageColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value or self.Theme.Controls.Selection.Color.Value
-			structures.Symbol.ImageTransparency = selected and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value or self.Theme.Controls.Selection.Transparency.Value
+			structures.Symbol.ImageColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value
+				or self.Theme.Controls.Selection.Color.Value
+			structures.Symbol.ImageTransparency = selected
+					and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value
+				or self.Theme.Controls.Selection.Transparency.Value
+
+			structures.Page.Parent = selected and self.__container or nil
+
+			self.CurrentPage = structures.Page
 		end,
 	}, structures.Body)
 
 	object.Type = "Tab"
 	object.Theme = self.Theme
 	object.Structures = structures
+	object.__container = structures.Page
+	print(self.addToHistory)
 
 	binder.Apply(properties, object)
 
-	if self.Type == "Window" then
+	if self.Tabs and self.__container then
 		table.insert(self.Tabs, object)
+
+		structures.Body.MouseButton1Click:Connect(function()
+			if object.Selected then
+				return
+			end
+			for _, tab: Tab__DARKLUA_TYPE_m in pairs(self.Tabs) do
+				tab.Selected = false
+			end
+
+			object.Selected = true
+
+			self.addToHistory(structures.Page)
+		end)
 	end
 
 	return object
 end
-end function __DIST.p()--// Imports
+end function __DIST.r()--// Imports
 
 local binder = __DIST.load('c')
 
 --// Variables
 local components = {
-	Window = __DIST.load('m'),
-	Section = __DIST.load('n'),
-	Tab = __DIST.load('o'),
+	Window = __DIST.load('o'),
+	Section = __DIST.load('p'),
+	Tab = __DIST.load('q'),
 }
 
 --// Intialize
@@ -4803,7 +5631,7 @@ local binder = __DIST.load('c')
 
 local symbols = __DIST.load('e')
 local themes = __DIST.load('h')
-local components = __DIST.load('p')
+local components = __DIST.load('r')
 
 --// References
 local create = creator.Create

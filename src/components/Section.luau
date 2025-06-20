@@ -4,23 +4,91 @@ return function(self, properties: types.SectionProperties): types.Section
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
+	local services = require("@modules/services")
 
 	--// References
 	local create = creator.Create
 
+	local tweenService = services.TweenService
+
 	--// Variables
 	local structures = {}
+
+	--// Functions
+	local function calculateContentHeight(container: Instance)
+		local total = 0
+
+		for _, child in ipairs(container:GetChildren()) do
+			if child:IsA("GuiObject") and child.Visible then
+				total += child.Size.Y.Offset
+				total += child.LayoutOrder and 0 or 0
+			end
+		end
+
+		return total
+	end
+
+	local function watchAutosize(structure: Frame, connections: { RBXScriptConnection }, onUpdate: (...any) -> (), ...)
+		local args = table.pack(...)
+
+		for _, child in ipairs(structure:GetChildren()) do
+			if child:IsA("GuiObject") then
+				table.insert(
+					connections,
+					child:GetPropertyChangedSignal("Size"):Connect(function(...)
+						onUpdate(table.unpack(args, 1, args.n))
+					end)
+				)
+				table.insert(
+					connections,
+					child:GetPropertyChangedSignal("Visible"):Connect(function(...)
+						onUpdate(table.unpack(args, 1, args.n))
+					end)
+				)
+			end
+		end
+
+		table.insert(
+			connections,
+			structure.ChildAdded:Connect(function(child)
+				if child:IsA("GuiObject") then
+					table.insert(
+						connections,
+						child:GetPropertyChangedSignal("Size"):Connect(function(...)
+							onUpdate(table.unpack(args, 1, args.n))
+						end)
+					)
+					table.insert(
+						connections,
+						child:GetPropertyChangedSignal("Visible"):Connect(function(...)
+							onUpdate(table.unpack(args, 1, args.n))
+						end)
+					)
+					onUpdate(table.unpack(args, 1, args.n))
+				end
+			end)
+		)
+
+		table.insert(
+			connections,
+			structure.ChildRemoved:Connect(function(...)
+				onUpdate(table.unpack(args, 1, args.n))
+			end)
+		)
+	end
 
 	--// UI
 	properties = properties or {}
 
-	properties.Name = properties.Name or "Section Title"
-	properties.Disclosure = properties.Disclosure or true
-	properties.Expanded = properties.Expanded or true
+	properties.Label = properties.Label or "Label"
+	properties.Disclosure = properties.Disclosure == nil and true or properties.Disclosure
+	properties.Expanded = properties.Expanded == nil and true or properties.Expanded
+
+	local parent = self.Type == "Window" and self.Structures.SidebarList or self.__instance or self
 
 	structures.SidebarGroup = binder.Apply(
 		properties,
-		create("Frame")({
+		create("TextButton")({
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
@@ -28,13 +96,17 @@ return function(self, properties: types.SectionProperties): types.Section
 			BorderSizePixel = 0,
 			ClipsDescendants = true,
 			Size = UDim2.new(1, 0, 0, 23),
-			Parent = (self.Type == "Window" and self.Structures.SidebarList) or (self.__instance or self),
+			Text = "",
+			AutoButtonColor = false,
+			Parent = parent,
 
 			create("UIListLayout")({
 				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			}),
 
 			create("Frame")({
+				Name = "SectionHeader",
 				AutomaticSize = Enum.AutomaticSize.Y,
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 1,
@@ -42,7 +114,8 @@ return function(self, properties: types.SectionProperties): types.Section
 				BorderSizePixel = 0,
 				Size = UDim2.fromScale(1, 0),
 
-				create("TextButton")({
+				create("Frame")({
+					Name = "Disclosure",
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
@@ -50,11 +123,11 @@ return function(self, properties: types.SectionProperties): types.Section
 					FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
 					LayoutOrder = 1,
 					Size = UDim2.fromOffset(13, 14),
-					Text = "",
 					TextColor3 = Color3.fromRGB(0, 0, 0),
 					TextSize = 14,
 
 					create("ImageLabel")({
+						Name = "DisclosureImage",
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 						BackgroundTransparency = 1,
@@ -85,6 +158,7 @@ return function(self, properties: types.SectionProperties): types.Section
 				}),
 
 				create("TextLabel")({
+					Name = "Title",
 					AutomaticSize = Enum.AutomaticSize.X,
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
@@ -109,30 +183,71 @@ return function(self, properties: types.SectionProperties): types.Section
 
 	--// Initialize
 	structures.SectionHeader = structures.SidebarGroup:FindFirstChild("SectionHeader") :: Frame
-	structures.Title = structures.SectionHeader:FindFirstChild("Section") :: TextLabel
+	structures.Title = structures.SectionHeader:FindFirstChild("Title") :: TextLabel
 	structures.Disclosure = structures.SectionHeader:FindFirstChild("Disclosure") :: TextButton
 	structures.DisclosureImage = structures.Disclosure:FindFirstChild("DisclosureImage") :: ImageLabel
 
-	local object = binder.Wrap(properties, {
-		Name = function(name: string)
+	local connections = {}
+	local bindings = {
+		Label = function(name: string)
 			structures.Title.Text = name
 		end,
 		Disclosure = function(state: boolean)
 			structures.Disclosure.Visible = state
 		end,
-		Expanded = function(state: boolean)
-			structures.SidebarGroup.AutomaticSize = state and Enum.AutomaticSize.Y or Enum.AutomaticSize.None
-			structures.DisclosureImage.Rotation = state and 0 or -90
-		end,
-	}, structures.SidebarGroup)
+		Expanded = function(state: boolean, tween: boolean?)
+			tween = (tween == nil and true) or false
 
-	structures.Disclosure.MouseButton1Click:Connect(function()
-		object.Expanded = not object.Expanded
-	end)
+			local sidebarGroup = structures.SidebarGroup.__instance
+			local disclosureImage = structures.DisclosureImage
+
+			sidebarGroup.AutomaticSize = Enum.AutomaticSize.None
+
+			for index, connection: RBXScriptConnection in pairs(connections) do
+				connection:Disconnect()
+				table.remove(connections, index)
+			end
+
+			local updateSize = function(useTween: boolean)
+				local targetHeight = state and calculateContentHeight(sidebarGroup) or 23
+				local tween = tweenService:Create(
+					sidebarGroup,
+					TweenInfo.new(useTween and 0.1 or 0, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+					{
+						Size = UDim2.new(1, 0, 0, targetHeight),
+					}
+				)
+				tween:Play()
+			end
+
+			if state then
+				watchAutosize(sidebarGroup, connections, updateSize, false)
+			end
+
+			updateSize(tween)
+			tweenService
+				:Create(
+					disclosureImage,
+					TweenInfo.new(tween and 0.1 or 0, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+					{
+						Rotation = state and 0 or -90,
+					}
+				)
+				:Play()
+		end,
+	}
+	local object = binder.Wrap(properties, bindings, structures.SidebarGroup)
 
 	object.Type = "Section"
 	object.Theme = self.Theme
 	object.Structures = structures
+	object.__container = self.__container
+	object.Tabs = self.Tabs or {}
+	object.addToHistory = self.addToHistory
+
+	structures.SidebarGroup.MouseButton1Click:Connect(function()
+		object.Expanded = not object.Expanded
+	end)
 
 	binder.Apply(properties, object)
 

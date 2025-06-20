@@ -6,13 +6,9 @@ function binder.Apply(properties: { [string]: any }, object: any, excludes: { [n
 			continue
 		end
 
-		local skipInstance = object[property] ~= nil
-
-		if not skipInstance then
-			pcall(function()
-				object[property] = value
-			end)
-		end
+		pcall(function()
+			object[property] = value
+		end)
 	end
 
 	return object
