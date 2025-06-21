@@ -42,22 +42,18 @@ local function createBlur(distance: number?)
 		Material = Enum.Material.Glass,
 		Size = Vector3.new(1, 1, 0),
 		Anchored = true,
+		CanTouch = false,
 		CanCollide = false,
+		CanQuery = false,
 		Locked = true,
 		CastShadow = false,
-		Transparency = 1,
+		Transparency = 0.98,
 
 		create("SpecialMesh")({
 			MeshType = Enum.MeshType.Brick,
 			Offset = Vector3.new(0, 0, -0.000001),
 		}),
-
-		create("Highlight")({
-			FillColor = Color3.fromRGB(255, 255, 255),
-			FillTransparency = 1,
-			OutlineTransparency = 1,
-		})
-	})
+	}) :: Part
 	local effect = create("DepthOfFieldEffect")({
 		FarIntensity = 0,
 		NearIntensity = 1,
@@ -97,7 +93,7 @@ local function createBlur(distance: number?)
 		)
 
 		if mesh then
-			mesh.Scale = Vector3.new(width, height + 0.003, 0)
+			mesh.Scale = Vector3.new(width, height, 0)
 		end
 	end
 
@@ -138,14 +134,16 @@ local function createBlur(distance: number?)
 
 	renderOnChange()
 
-	return onChange, model, model:FindFirstChildOfClass("Highlight")
+	return onChange, model
 end
 
 return function(frame: GuiObject, distance: number?)
 	local blur = {}
-	local onChange, model, highlight: Highlight = createBlur(distance)
+	local onChange, model = createBlur(distance)
 
-	onChange(frame)
+	blur.SetVisibility = function(Value)
+		model.Transparency = Value and 0.98 or 1
+	end
 
 	frame:GetPropertyChangedSignal("AbsolutePosition"):Connect(function()
 		onChange(frame)
@@ -154,10 +152,6 @@ return function(frame: GuiObject, distance: number?)
 	frame:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
 		onChange(frame)
 	end)
-
-	blur.SetVisibility = function(Value)
-		highlight.Enabled = Value
-	end
 
 	frame:GetPropertyChangedSignal("Visible"):Connect(function()
 		blur.SetVisibility(frame.Visible)
@@ -168,6 +162,8 @@ return function(frame: GuiObject, distance: number?)
 	end)
 
 	blur.Model = model
+
+	onChange(frame)
 
 	return blur
 end

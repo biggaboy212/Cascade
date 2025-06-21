@@ -24,17 +24,20 @@ return {
 		Quaternary = color4("000000", 10),
 		Quinary = color4("000000", 5),
 	},
-
-	Accents = {
-		Red = color4("FF3B30", 100),
-	},
-
+	
 	Controls = {
+		WindowControlIcon = color4("000000", 50),
+		WindowControlStroke = color4("000000", 20),
+		Exit = color4("FF5F57", 100),
+		Minimize = color4("FEBC2E", 100),
+		Zoom = color4("28C840", 100),
+
 		SwitchAccent = color4("478CF6", 100),
 		Selection = color4("007AFF", 100),
 		SelectionStroke = color4("007AFF", 50),
 		SelectionFocused = color4("0A82FF", 100),
 		SelectionFocusedAccent = color4("FFFFFF", 85),
+
 
 		Sidebar = color4("EAEAEA", 84),
 		Separator = {

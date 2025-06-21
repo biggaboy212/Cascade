@@ -24,7 +24,6 @@ cascade.New = function(properties: types.AppProperties): types.App
 		Name = "Cascade",
 		IgnoreGuiInset = true,
 		ResetOnSpawn = false,
-		ScreenInsets = Enum.ScreenInsets.None,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 
 		OnTopOfCoreBlur = true,

@@ -80,6 +80,7 @@ export type App = AppProperties & Components
 
 -- Window
 export type WindowProperties = Frame & {
+	Searching: boolean?,
 	Draggable: boolean?,
 	Resizable: boolean?,
 	Title: string?,
@@ -124,6 +125,13 @@ export type RowProperties = Frame & {
 }
 export type Row = BaseComponent & Components & RowProperties
 
+-- TitleStack
+export type TitleStackProperties = Frame & {
+	Title: string?,
+	Subtitle: string?,
+}
+export type TitleStack = BaseComponent & Components & TitleStackProperties
+
 -- Export
 export type Components = {
 	Window: (self: any, properties: WindowProperties?) -> Window,
@@ -131,6 +139,7 @@ export type Components = {
 	Tab: (self: any, properties: TabProperties?) -> Tab,
 	Form: (self: any, properties: FormProperties?) -> Form,
 	Row: (self: any, properties: RowProperties?) -> Row,
+	TitleStack: (self: any, properties: TitleStackProperties?) -> TitleStack,
 }
 
 return 1

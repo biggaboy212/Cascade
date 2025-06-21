@@ -26,11 +26,13 @@ return {
 		Quinary = color4("FFFFFF", 5),
 	},
 
-	Accents = {
-		Red = color4("FF453A", 100),
-	},
-
 	Controls = {
+		WindowControlIcon = color4("000000", 50),
+		WindowControlStroke = color4("FFFFFF", 10),
+		Exit = color4("FF5F57", 100),
+		Minimize = color4("FEBC2E", 100),
+		Zoom = color4("28C840", 100),
+
 		SwitchAccent = color4("478CF6", 100),
 		Selection = color4("007AFF", 100),
 		SelectionStroke = color4("007AFF", 60),
@@ -39,7 +41,7 @@ return {
 
 		Sidebar = color4("212121", 70),
 		Separator = {
-			Background = color4("000000", 100),
+			Background = color4("000000", 50),
 			Shadow = color4("FFFFFF", 0),
 		},
 

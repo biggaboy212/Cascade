@@ -6,6 +6,7 @@
         "components": "./src/components",
         "structures": "./src/structures",
         "themes": "./src/themes",
+        "packages": "./packages",
         
         "types": "./src/types",
         "init": "./src/init"

@@ -15,20 +15,7 @@ return function(self, properties: types.SectionProperties): types.Section
 	local structures = {}
 
 	--// Functions
-	local function calculateContentHeight(container: Instance)
-		local total = 0
-
-		for _, child in ipairs(container:GetChildren()) do
-			if child:IsA("GuiObject") and child.Visible then
-				total += child.Size.Y.Offset
-				total += child.LayoutOrder and 0 or 0
-			end
-		end
-
-		return total
-	end
-
-	local function watchAutosize(structure: Frame, connections: { RBXScriptConnection }, onUpdate: (...any) -> (), ...)
+	local function watchAutosize(structure: Frame, connections: { RBXScriptConnection }, update: (...any) -> (), ...)
 		local args = table.pack(...)
 
 		for _, child in ipairs(structure:GetChildren()) do
@@ -36,13 +23,13 @@ return function(self, properties: types.SectionProperties): types.Section
 				table.insert(
 					connections,
 					child:GetPropertyChangedSignal("Size"):Connect(function(...)
-						onUpdate(table.unpack(args, 1, args.n))
+						update(table.unpack(args, 1, args.n))
 					end)
 				)
 				table.insert(
 					connections,
 					child:GetPropertyChangedSignal("Visible"):Connect(function(...)
-						onUpdate(table.unpack(args, 1, args.n))
+						update(table.unpack(args, 1, args.n))
 					end)
 				)
 			end
@@ -55,16 +42,16 @@ return function(self, properties: types.SectionProperties): types.Section
 					table.insert(
 						connections,
 						child:GetPropertyChangedSignal("Size"):Connect(function(...)
-							onUpdate(table.unpack(args, 1, args.n))
+							update(table.unpack(args, 1, args.n))
 						end)
 					)
 					table.insert(
 						connections,
 						child:GetPropertyChangedSignal("Visible"):Connect(function(...)
-							onUpdate(table.unpack(args, 1, args.n))
+							update(table.unpack(args, 1, args.n))
 						end)
 					)
-					onUpdate(table.unpack(args, 1, args.n))
+					update(table.unpack(args, 1, args.n))
 				end
 			end)
 		)
@@ -72,7 +59,7 @@ return function(self, properties: types.SectionProperties): types.Section
 		table.insert(
 			connections,
 			structure.ChildRemoved:Connect(function(...)
-				onUpdate(table.unpack(args, 1, args.n))
+				update(table.unpack(args, 1, args.n))
 			end)
 		)
 	end
@@ -81,7 +68,7 @@ return function(self, properties: types.SectionProperties): types.Section
 	properties = properties or {}
 
 	properties.Label = properties.Label or "Label"
-	properties.Disclosure = properties.Disclosure == nil and true or properties.Disclosure
+	properties.Disclosure = properties.Disclosure ~= nil and properties.Disclosure or false
 	properties.Expanded = properties.Expanded == nil and true or properties.Expanded
 
 	local parent = self.Type == "Window" and self.Structures.SidebarList or self.__instance or self
@@ -182,6 +169,7 @@ return function(self, properties: types.SectionProperties): types.Section
 	) :: Frame
 
 	--// Initialize
+	structures.Layout = structures.SidebarGroup:FindFirstChild("UIListLayout") :: UIListLayout
 	structures.SectionHeader = structures.SidebarGroup:FindFirstChild("SectionHeader") :: Frame
 	structures.Title = structures.SectionHeader:FindFirstChild("Title") :: TextLabel
 	structures.Disclosure = structures.SectionHeader:FindFirstChild("Disclosure") :: TextButton
@@ -194,6 +182,8 @@ return function(self, properties: types.SectionProperties): types.Section
 		end,
 		Disclosure = function(state: boolean)
 			structures.Disclosure.Visible = state
+			structures.SectionHeader.Interactable = state
+			structures.SectionHeader.Active = state
 		end,
 		Expanded = function(state: boolean, tween: boolean?)
 			tween = (tween == nil and true) or false
@@ -209,7 +199,7 @@ return function(self, properties: types.SectionProperties): types.Section
 			end
 
 			local updateSize = function(useTween: boolean)
-				local targetHeight = state and calculateContentHeight(sidebarGroup) or 23
+				local targetHeight = state and structures.Layout.AbsoluteContentSize.Y or 23
 				local tween = tweenService:Create(
 					sidebarGroup,
 					TweenInfo.new(useTween and 0.1 or 0, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
@@ -246,6 +236,9 @@ return function(self, properties: types.SectionProperties): types.Section
 	object.addToHistory = self.addToHistory
 
 	structures.SidebarGroup.MouseButton1Click:Connect(function()
+		if not properties.Disclosure then 
+			return 
+		end
 		object.Expanded = not object.Expanded
 	end)
 

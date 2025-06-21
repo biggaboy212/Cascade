@@ -16,7 +16,7 @@ return function(self, properties: types.RowProperties): types.Row
 	--// UI
 	properties = properties or {}
 	properties.Title = properties.Title or "Title"
-	properties.Subtitle = properties.Subtitle or "Subtitle"
+	properties.SearchIndex = properties.SearchIndex or properties.Title
 
 	local parent = self.__container or self.__instance or self
 
@@ -91,13 +91,16 @@ return function(self, properties: types.RowProperties): types.Row
 				create("Frame")({
 					Name = "Divider",
 					AnchorPoint = Vector2.new(0, 1),
-					BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-					BackgroundTransparency = 0.95,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
 					Position = UDim2.fromScale(0, 1),
 					Size = UDim2.new(1, 0, 0, 1),
 					Visible = false,
+
+					__dynamicKeys = {
+						BackgroundColor3 = self.Theme.Controls.ViewBorder.Color,
+						BackgroundTransparency = self.Theme.Controls.ViewBorder.Transparency,
+					},
 				}),
 			}),
 		})
@@ -105,16 +108,18 @@ return function(self, properties: types.RowProperties): types.Row
 
 	--// Initialize
 	structures.LeftAccessories = structures.Body:FindFirstChild("LeftAccessory")
-	structures.RightAccessories = structures.Body:FindFirstChild("RightAccessories")
+	structures.RightAccessories = structures.Body:FindFirstChild("RightAccessory")
 
 	structures.TitleStack = titleStack(self)
 	structures.TitleStack.Body.Parent = structures.LeftAccessories
+	structures.TitleStack.Subtitle.Visible = false
 
 	local object = binder.Wrap(properties, {
 		Title = function(value: string)
 			structures.TitleStack.Title.Text = value
 		end,
 		Subtitle = function(value: string)
+			structures.TitleStack.Subtitle.Visible = true
 			structures.TitleStack.Subtitle.Text = value
 		end,
 		SearchIndex = function(value: string)
@@ -125,6 +130,7 @@ return function(self, properties: types.RowProperties): types.Row
 	object.Type = "Row"
 	object.Theme = self.Theme
 	object.Structures = structures
+	object.__container = structures.RightAccessories
 
 	binder.Apply(properties, object)
 

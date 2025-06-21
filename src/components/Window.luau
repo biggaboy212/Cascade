@@ -26,6 +26,7 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	properties.Maximized = properties.Maximized ~= nil and properties.Maximized or false
 	properties.Minimized = properties.Minimized ~= nil and properties.Minimized or false
+	properties.Searching = properties.Searching == nil and true or properties.Searching
 	properties.Resizable = properties.Resizable == nil and true or properties.Resizable
 	properties.Draggable = properties.Draggable == nil and true or properties.Draggable
 	properties.Resizable = properties.Resizable == nil and true or properties.Resizable
@@ -39,6 +40,7 @@ return function(self, properties: types.WindowProperties): types.Window
 		properties,
 		create("Frame")({
 			Name = "Body",
+			ClipsDescendants = true,
 			BorderSizePixel = 0,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
@@ -49,6 +51,10 @@ return function(self, properties: types.WindowProperties): types.Window
 				BackgroundColor3 = self.Theme.Controls.Sidebar.Color,
 				BackgroundTransparency = self.Theme.Controls.Sidebar.Transparency,
 			},
+
+			create("UIPadding")({
+				Name = "UIPadding",
+			}),
 
 			create("UICorner")({
 				Name = "UICorner",
@@ -141,8 +147,12 @@ return function(self, properties: types.WindowProperties): types.Window
 							BorderColor3 = Color3.fromRGB(0, 0, 0),
 							BorderSizePixel = 0,
 							Image = "rbxassetid://132228700346004",
-							ImageColor3 = Color3.fromRGB(255, 95, 87),
 							Size = UDim2.fromOffset(12, 12),
+
+							__dynamicKeys = {
+								ImageColor3 = self.Theme.Controls.Exit.Color,
+								ImageTransparency = self.Theme.Controls.Exit.Transparency,
+							},
 
 							create("ImageLabel")({
 								Name = "Stroke",
@@ -151,9 +161,12 @@ return function(self, properties: types.WindowProperties): types.Window
 								BorderColor3 = Color3.fromRGB(0, 0, 0),
 								BorderSizePixel = 0,
 								Image = "rbxassetid://94763505860483",
-								ImageColor3 = Color3.fromRGB(0, 0, 0),
-								ImageTransparency = 0.8,
 								Size = UDim2.fromScale(1, 1),
+
+								__dynamicKeys = {
+									ImageColor3 = self.Theme.Controls.WindowControlStroke.Color,
+									ImageTransparency = self.Theme.Controls.WindowControlStroke.Transparency,
+								},
 							}),
 
 							create("ImageLabel")({
@@ -164,11 +177,14 @@ return function(self, properties: types.WindowProperties): types.Window
 								BorderColor3 = Color3.fromRGB(0, 0, 0),
 								BorderSizePixel = 0,
 								Image = "rbxassetid://94781753558308",
-								ImageColor3 = Color3.fromRGB(0, 0, 0),
-								ImageTransparency = 0.5,
 								Position = UDim2.fromScale(0.5, 0.5),
 								Size = UDim2.fromScale(1, 1),
 								Visible = false,
+
+								__dynamicKeys = {
+									ImageColor3 = self.Theme.Controls.WindowControlIcon.Color,
+									ImageTransparency = self.Theme.Controls.WindowControlIcon.Transparency,
+								},
 							}),
 						}),
 
@@ -180,9 +196,13 @@ return function(self, properties: types.WindowProperties): types.Window
 							BorderColor3 = Color3.fromRGB(0, 0, 0),
 							BorderSizePixel = 0,
 							Image = "rbxassetid://132228700346004",
-							ImageColor3 = Color3.fromRGB(254, 188, 46),
 							LayoutOrder = 1,
 							Size = UDim2.fromOffset(12, 12),
+
+							__dynamicKeys = {
+								ImageColor3 = self.Theme.Controls.Minimize.Color,
+								ImageTransparency = self.Theme.Controls.Minimize.Transparency,
+							},
 
 							create("ImageLabel")({
 								Name = "Stroke",
@@ -191,9 +211,12 @@ return function(self, properties: types.WindowProperties): types.Window
 								BorderColor3 = Color3.fromRGB(0, 0, 0),
 								BorderSizePixel = 0,
 								Image = "rbxassetid://94763505860483",
-								ImageColor3 = Color3.fromRGB(0, 0, 0),
-								ImageTransparency = 0.8,
 								Size = UDim2.fromScale(1, 1),
+
+								__dynamicKeys = {
+									ImageColor3 = self.Theme.Controls.WindowControlStroke.Color,
+									ImageTransparency = self.Theme.Controls.WindowControlStroke.Transparency,
+								},
 							}),
 
 							create("ImageLabel")({
@@ -203,12 +226,15 @@ return function(self, properties: types.WindowProperties): types.Window
 								BackgroundTransparency = 1,
 								BorderColor3 = Color3.fromRGB(0, 0, 0),
 								BorderSizePixel = 0,
-								Image = "rbxassetid://119587944519839",
-								ImageColor3 = Color3.fromRGB(0, 0, 0),
-								ImageTransparency = 0.5,
+								Image = "rbxassetid://118368309445367",
 								Position = UDim2.fromScale(0.5, 0.5),
 								Size = UDim2.fromScale(1, 1),
 								Visible = false,
+
+								__dynamicKeys = {
+									ImageColor3 = self.Theme.Controls.WindowControlIcon.Color,
+									ImageTransparency = self.Theme.Controls.WindowControlIcon.Transparency,
+								},
 							}),
 						}),
 
@@ -220,9 +246,13 @@ return function(self, properties: types.WindowProperties): types.Window
 							BorderColor3 = Color3.fromRGB(0, 0, 0),
 							BorderSizePixel = 0,
 							Image = "rbxassetid://132228700346004",
-							ImageColor3 = Color3.fromRGB(40, 200, 64),
 							LayoutOrder = 2,
 							Size = UDim2.fromOffset(12, 12),
+
+							__dynamicKeys = {
+								ImageColor3 = self.Theme.Controls.Zoom.Color,
+								ImageTransparency = self.Theme.Controls.Zoom.Transparency,
+							},
 
 							create("ImageLabel")({
 								Name = "Stroke",
@@ -231,9 +261,12 @@ return function(self, properties: types.WindowProperties): types.Window
 								BorderColor3 = Color3.fromRGB(0, 0, 0),
 								BorderSizePixel = 0,
 								Image = "rbxassetid://94763505860483",
-								ImageColor3 = Color3.fromRGB(0, 0, 0),
-								ImageTransparency = 0.8,
 								Size = UDim2.fromScale(1, 1),
+
+								__dynamicKeys = {
+									ImageColor3 = self.Theme.Controls.WindowControlStroke.Color,
+									ImageTransparency = self.Theme.Controls.WindowControlStroke.Transparency,
+								},
 							}),
 
 							create("ImageLabel")({
@@ -244,11 +277,14 @@ return function(self, properties: types.WindowProperties): types.Window
 								BorderColor3 = Color3.fromRGB(0, 0, 0),
 								BorderSizePixel = 0,
 								Image = "rbxassetid://114376524082699",
-								ImageColor3 = Color3.fromRGB(0, 0, 0),
-								ImageTransparency = 0.5,
 								Position = UDim2.fromScale(0.5, 0.5),
 								Size = UDim2.fromScale(1, 1),
 								Visible = false,
+
+								__dynamicKeys = {
+									ImageColor3 = self.Theme.Controls.WindowControlIcon.Color,
+									ImageTransparency = self.Theme.Controls.WindowControlIcon.Transparency,
+								},
 							}),
 						}),
 					}),
@@ -474,14 +510,18 @@ return function(self, properties: types.WindowProperties): types.Window
 					Text = "",
 				}),
 
-				create("Frame")({
+				create("TextButton")({
 					Name = "TopArea",
+					AutoButtonColor = false,
+					Active = false,
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
 					Size = UDim2.new(1, 0, 0, 52),
 					ZIndex = 0,
+					Text = "",
+					Modal = true,
 				}),
 			}),
 		})
@@ -490,6 +530,7 @@ return function(self, properties: types.WindowProperties): types.Window
 	--// Initialize
 	structures.Cornering = structures.Body:FindFirstChild("UICorner") :: UICorner
 	structures.Handles = structures.Body:FindFirstChild("Handles") :: Folder
+	structures.Separator = structures.Body:FindFirstChild("Separator") :: Frame
 	structures.Sidebar = structures.Body:FindFirstChild("Sidebar") :: Frame
 	structures.SidebarList = structures.Sidebar:FindFirstChild("SidebarList") :: Frame
 	structures.Toolbar = structures.Sidebar:FindFirstChild("Toolbar") :: Frame
@@ -521,6 +562,9 @@ return function(self, properties: types.WindowProperties): types.Window
 				structures.Titlebar.Subtitle.Text = value
 			end
 		end,
+		Searching = function(value: boolean)
+			structures.Titlebar.SearchField.Body.Visible = value
+		end,
 		Draggable = function(value: boolean)
 			dragging = not value and false
 		end,
@@ -535,8 +579,7 @@ return function(self, properties: types.WindowProperties): types.Window
 				originalPosition = structures.Body.Position
 			end
 
-			local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
-
+			local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
 			local bodyTarget = {
 				Size = value and UDim2.fromScale(1, 1) or originalSize,
 				Position = value and UDim2.fromScale(0.5, 0.5) or originalPosition,
@@ -583,115 +626,161 @@ return function(self, properties: types.WindowProperties): types.Window
 	object.addToHistory = initializeTBar(object)
 	object.__container = structures.Content
 
-do -- Page searching
-	local field = structures.Titlebar.SearchField.Field
-	local pageCaches = {} -- key: page instance, value: { [GuiObject] = originalVisibleState }
+	do -- Sidebar button
+		local toggled = true
 
-	local function toCache(page, descendants)
-		local cache = {}
-		for _, child in ipairs(descendants) do
-			if child:IsA("GuiObject") then
-				cache[child] = child.Visible
+		local function toggle()
+			toggled = not toggled
+
+			local sidebarTargetSize = toggled and UDim.new(0, 0) or UDim.new(0, -201)
+			local cornerLeftSize = toggled and UDim2.new(0, 10, 1, 0) or UDim2.new(0, 10, 0.5, 0)
+
+			local tweenInfo = TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
+
+			structures.Separator.Visible = toggled and true or false
+			structures.CornerClip.Visible = toggled and true
+
+			local sidebarTween = tweenService:Create(structures.Body:FindFirstChild("UIPadding"), tweenInfo, {
+				PaddingLeft = sidebarTargetSize,
+			})
+
+			tweenService
+				:Create(structures.Titlebar.CornerClipLeft, tweenInfo, {
+					Size = cornerLeftSize,
+				})
+				:Play()
+
+			sidebarTween:Play()
+
+			if not toggled then
+				sidebarTween.Completed:Connect(function()
+					structures.CornerClip.Visible = false
+				end)
 			end
 		end
-		pageCaches[page] = cache
+
+		structures.Titlebar.SidebarButton.MouseButton1Click:Connect(toggle)
 	end
 
-	local function restoreFromCache(page, descendants)
-		local cache = pageCaches[page]
-		if not cache then return end
+	do -- Page searching
+		local field = structures.Titlebar.SearchField.Field
+		local pageCaches = {}
 
-		for _, child in ipairs(descendants) do
-			if child:IsA("GuiObject") then
-				child.Visible = cache[child] ~= false
+		local function toCache(page, descendants)
+			local cache = {}
+			for _, child in ipairs(descendants) do
+				if child:IsA("GuiObject") then
+					cache[child] = child.Visible
+				end
+			end
+			pageCaches[page] = cache
+		end
+
+		local function fromCache(page, descendants)
+			local cache = pageCaches[page]
+			if not cache then
+				return
+			end
+
+			for _, child in ipairs(descendants) do
+				if child:IsA("GuiObject") then
+					child.Visible = cache[child] ~= false
+				end
 			end
 		end
+
+		field:GetPropertyChangedSignal("Text"):Connect(function()
+			local page = structures.Content:FindFirstChildOfClass("ScrollingFrame")
+			if not page then
+				return
+			end
+
+			local descendants = page:GetDescendants()
+
+			if not pageCaches[page] then
+				toCache(page, descendants)
+			end
+
+			local query = field.Text:lower()
+
+			if query == "" then
+				fromCache(page, descendants)
+				return
+			end
+
+			local matches = {}
+			local items = {}
+
+			for _, child in ipairs(descendants) do
+				if child:IsA("GuiObject") then
+					local searchIndex = child:GetAttribute("SearchIndex")
+
+					if typeof(searchIndex) == "string" and searchIndex:lower():find(query) then
+						table.insert(matches, child)
+					end
+				end
+			end
+
+			for _, match in ipairs(matches) do
+				items[match] = true
+
+				local parent = match.Parent
+
+				while parent and parent ~= page do
+					if parent:IsA("GuiObject") then
+						items[parent] = true
+					end
+
+					parent = parent.Parent
+				end
+			end
+
+			for _, child in ipairs(descendants) do
+				if child:IsA("GuiObject") then
+					child.Visible = false
+				end
+			end
+
+			for _, match in ipairs(matches) do
+				match.Visible = true
+
+				local parent = match.Parent
+
+				while parent and parent ~= page do
+					if parent:IsA("GuiObject") then
+						parent.Visible = true
+					end
+
+					parent = parent.Parent
+				end
+
+				for _, descendant in ipairs(match:GetDescendants()) do
+					if descendant:IsA("GuiObject") then
+						descendant.Visible = true
+					end
+				end
+			end
+		end)
 	end
-
-	field:GetPropertyChangedSignal("Text"):Connect(function()
-		local page = structures.Content:FindFirstChildOfClass("ScrollingFrame")
-		if not page then return end
-
-		local descendants = page:GetDescendants()
-
-		if not pageCaches[page] then
-			toCache(page, descendants)
-		end
-
-		local query = field.Text:lower()
-
-		if query == "" then
-			restoreFromCache(page, descendants)
-			return
-		end
-
-		-- This is the list of direct hits from the search
-		local matches = {}
-		-- This is the set of things that MUST be visible: matches and their ancestors.
-		local essentialItems = {}
-
-		-- STEP 1: Find all direct matches.
-		for _, child in ipairs(descendants) do
-			if child:IsA("GuiObject") then
-				local searchIndex = child:GetAttribute("SearchIndex")
-				if typeof(searchIndex) == "string" and searchIndex:lower():find(query) then
-					table.insert(matches, child)
-				end
-			end
-		end
-
-		-- STEP 2: For each match, populate the `essentialItems` set with the match and its ancestors.
-		-- This builds the "path" to each result.
-		for _, match in ipairs(matches) do
-			essentialItems[match] = true
-			
-			local parent = match.Parent
-			while parent and parent ~= page do
-				if parent:IsA("GuiObject") then
-					essentialItems[parent] = true
-				end
-				parent = parent.Parent
-			end
-		end
-
-		-- STEP 3: The "Hide All, Show Some" pattern.
-		
-		-- First, hide every GuiObject on the page. This gives us a clean slate.
-		for _, child in ipairs(descendants) do
-			if child:IsA("GuiObject") then
-				child.Visible = false
-			end
-		end
-		
-		-- Now, show only the things that need to be visible.
-		for _, match in ipairs(matches) do
-			-- Make the match itself visible.
-			match.Visible = true
-
-			-- Make all of its ancestors visible.
-			local parent = match.Parent
-			while parent and parent ~= page do
-				if parent:IsA("GuiObject") then
-					parent.Visible = true
-				end
-				parent = parent.Parent
-			end
-
-			-- Make all of its descendants visible. This is crucial for when a container is the match.
-			for _, descendant in ipairs(match:GetDescendants()) do
-				if descendant:IsA("GuiObject") then
-					descendant.Visible = true
-				end
-			end
-		end
-	end)
-end
 
 	do -- Window controls
-		structures.WindowControls:FindFirstChild("Zoom").MouseButton1Click:Connect(function()
+		local exit = structures.WindowControls:FindFirstChild("Exit")
+		local minimize = structures.WindowControls:FindFirstChild("Minimize")
+		local zoom = structures.WindowControls:FindFirstChild("Zoom")
+
+		local function rollOver()
+			exit:FindFirstChild("Icon").Visible = structures.WindowControls.GuiState ~= Enum.GuiState.Hover
+			minimize:FindFirstChild("Icon").Visible = structures.WindowControls.GuiState ~= Enum.GuiState.Hover
+			zoom:FindFirstChild("Icon").Visible = structures.WindowControls.GuiState ~= Enum.GuiState.Hover
+		end
+
+		zoom.MouseButton1Click:Connect(function()
 			properties.Maximized = not properties.Maximized
 			bindings.Maximized(properties.Maximized, true)
 		end)
+
+		structures.WindowControls.MouseEnter:Connect(rollOver)
+		structures.WindowControls.MouseLeave:Connect(rollOver)
 	end
 
 	do -- Window dragging

@@ -52,7 +52,11 @@ return function(self, properties: types.Frame): types.Form
 			create("UIStroke")({
 				Name = "UIStroke",
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-				Transparency = 0.96,
+				
+				__dynamicKeys = {
+					Color = self.Theme.Controls.ViewBorder.Color,
+					Transparency = self.Theme.Controls.ViewBorder.Transparency,
+				},
 			}),
 		})
 	) :: Frame

@@ -69,8 +69,6 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 		end
 	end
 
-	changed()
-
     parent:GetPropertyChangedSignal("Visible"):Connect(changed)
 	parent:GetPropertyChangedSignal("ZIndex"):Connect(changed)
 	parent:GetPropertyChangedSignal("Position"):Connect(changed)
@@ -82,6 +80,8 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
     parent.Destroying:Connect(function()
 		layers:Destroy()
 	end)
+
+	changed()
 
 	return layers
 end

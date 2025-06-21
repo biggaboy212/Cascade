@@ -8,6 +8,7 @@ local components = {
 	Tab = require("@components/Tab"),
 	Form = require("@components/Form"),
 	Row = require("@components/Row"),
+	TitleStack = require("@components/TitleStack")
 }
 
 --// Intialize

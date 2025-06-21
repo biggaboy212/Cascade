@@ -329,7 +329,7 @@ return function(self)
 	structures.NavigationButtons = structures.Leading:FindFirstChild("NavigationButtons") :: Frame
 	structures.Back = structures.NavigationButtons:FindFirstChild("Back") :: TextButton
 	structures.Forward = structures.NavigationButtons:FindFirstChild("Forward") :: TextButton
-	structures.SidebarButton = structures.Leading:FindFirstChild("SidebarButton") :: Frame
+	structures.SidebarButton = structures.Leading:FindFirstChild("SidebarButton"):FindFirstChild("Image") :: ImageButton
 	structures.TitleStack = structures.Leading:FindFirstChild("TitleSubtitle") :: Frame
 	structures.Title = structures.TitleStack:FindFirstChild("Title") :: TextLabel
 	structures.Subtitle = structures.TitleStack:FindFirstChild("Subtitle") :: TextLabel

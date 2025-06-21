@@ -237,7 +237,7 @@ return function(self, properties: types.TabProperties): types.Tab
 		table.insert(self.Tabs, object)
 
 		if object.Selected then
-			self.addToHistory(structures.Page)
+			self.addToHistory(object.__container)
 		end
 
 		structures.Body.MouseButton1Click:Connect(function()
@@ -251,7 +251,7 @@ return function(self, properties: types.TabProperties): types.Tab
 
 			object.Selected = true
 
-			self.addToHistory(structures.Page)
+			self.addToHistory(object.__container)
 		end)
 	end
 
