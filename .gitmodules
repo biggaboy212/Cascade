@@ -1,0 +1,3 @@
+[submodule "packages/Flipper"]
+	path = packages/Flipper
+	url = https://github.com/Reselim/Flipper
