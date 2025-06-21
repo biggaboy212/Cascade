@@ -43,8 +43,8 @@ return function(self)
 			TextXAlignment = Enum.TextXAlignment.Left,
 
             __dynamicKeys = {
-                TextColor3 = self.Theme.Text.Secondary.Color,
-                TextTransparency = self.Theme.Text.Secondary.Transparency,
+                TextColor3 = self.Theme.Text.Secondary[1],
+                TextTransparency = self.Theme.Text.Secondary[2],
             }
 		}),
 
@@ -67,8 +67,8 @@ return function(self)
 			TextXAlignment = Enum.TextXAlignment.Left,
 
             __dynamicKeys = {
-                TextColor3 = self.Theme.Text.Primary.Color,
-                TextTransparency = self.Theme.Text.Primary.Transparency,
+                TextColor3 = self.Theme.Text.Primary[1],
+                TextTransparency = self.Theme.Text.Primary[2],
             }
 		}),
 	}) :: Frame

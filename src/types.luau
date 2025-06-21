@@ -57,6 +57,84 @@ export type Frame = {
 	Style: Enum.FrameStyle?,
 }
 
+export type CanvasGroup = {
+	-- Instance
+	Name: string?,
+	Parent: Instance?,
+	Archivable: boolean?,
+	ClassName: string?,
+
+	-- GuiObject
+	AnchorPoint: Vector2?,
+	BackgroundColor3: Color3?,
+	BackgroundTransparency: number?,
+	BorderColor3: Color3?,
+	BorderMode: Enum.BorderMode?,
+	BorderSizePixel: number?,
+	ClipsDescendants: boolean?,
+	LayoutOrder: number?,
+	Position: UDim2?,
+	Rotation: number?,
+	Selectable: boolean?,
+	SelectionImageObject: GuiObject?,
+	Size: UDim2?,
+	SizeConstraint: Enum.SizeConstraint?,
+	Visible: boolean?,
+	ZIndex: number?,
+	AutomaticSize: Enum.AutomaticSize?,
+
+	-- CanvasGroup
+	GroupColor3: Color3?,
+	GroupTransparency: Color3?,
+	ResolutionScale: number?
+}
+
+export type TextLabel = {
+	-- Instance
+	Name: string?,
+	Parent: Instance?,
+	Archivable: boolean?,
+	ClassName: string?,
+
+	-- GuiObject
+	AnchorPoint: Vector2?,
+	BackgroundColor3: Color3?,
+	BackgroundTransparency: number?,
+	BorderColor3: Color3?,
+	BorderMode: Enum.BorderMode?,
+	BorderSizePixel: number?,
+	ClipsDescendants: boolean?,
+	LayoutOrder: number?,
+	Position: UDim2?,
+	Rotation: number?,
+	Selectable: boolean?,
+	SelectionImageObject: GuiObject?,
+	Size: UDim2?,
+	SizeConstraint: Enum.SizeConstraint?,
+	Visible: boolean?,
+	ZIndex: number?,
+	AutomaticSize: Enum.AutomaticSize?,
+
+	-- TextLabel
+	FontFace: Font?,
+	LineHeight: number?,
+	MaxVisibleGraphemes: number?,
+	OpenTypeFeatures: string?,
+	RichText: boolean?,
+	Text: string?,
+	TextColor3: Color3?,
+	TextDirection: Enum.TextDirection?,
+	TextScaled: boolean?,
+	TextSize: number?,
+	TextStrokeColor3: Color3?,
+	TextStrokeTransparency: number?,
+	TextTransparency: number?,
+	TextTruncate: Enum.TextTruncate?,
+	TextWrapped: boolean?,
+	TextXAlignment: Enum.TextXAlignment?,
+	TextYAlignment: Enum.TextYAlignment?,
+}
+
 export type ValueState = {
 	Value: any,
 	Connect: (...any) -> any,
@@ -123,6 +201,7 @@ export type RowProperties = Frame & {
 	Title: string?,
 	Subtitle: string?,
 }
+
 export type Row = BaseComponent & Components & RowProperties
 
 -- TitleStack
@@ -130,7 +209,20 @@ export type TitleStackProperties = Frame & {
 	Title: string?,
 	Subtitle: string?,
 }
+
 export type TitleStack = BaseComponent & Components & TitleStackProperties
+
+-- Label
+export type LabelProperties = TextLabel
+export type Label = BaseComponent & Components & FormProperties
+
+-- Toggle
+export type ToggleProperties = CanvasGroup & {
+	Value: boolean?,
+	ValueChanged: ((self: Toggle, value: boolean) -> nil)?
+}
+
+export type Toggle = BaseComponent & Components & ToggleProperties
 
 -- Export
 export type Components = {
@@ -140,6 +232,8 @@ export type Components = {
 	Form: (self: any, properties: FormProperties?) -> Form,
 	Row: (self: any, properties: RowProperties?) -> Row,
 	TitleStack: (self: any, properties: TitleStackProperties?) -> TitleStack,
+	Label: (self: any, properties: LabelProperties) -> Label,
+	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
 }
 
 return 1

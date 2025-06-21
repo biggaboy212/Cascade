@@ -9,6 +9,7 @@ return function(self, properties: types.TabProperties): types.Tab
 	local create = creator.Create
 
 	--// Variables
+	local parent = self.Type == "Window" and self.Structures.SidebarList or self.__instance or self
 	local structures = {}
 
 	--// UI
@@ -17,8 +18,6 @@ return function(self, properties: types.TabProperties): types.Tab
 	properties.Label = properties.Label or "Label"
 	properties.Indentation = properties.Indentation or 0
 	properties.Selected = properties.Selected or false
-
-	local parent = self.Type == "Window" and self.Structures.SidebarList or self.__instance or self
 
 	structures.Body = binder.Apply(
 		properties,
@@ -36,15 +35,15 @@ return function(self, properties: types.TabProperties): types.Tab
 			Parent = parent,
 
 			__dynamicKeys = {
-				BackgroundColor3 = self.Theme.Controls.SelectionFocused.Color,
-				BackgroundTransparency = self.Theme.Controls.SelectionFocused.Transparency,
+				BackgroundColor3 = self.Theme.Controls.SelectionFocused[1],
+				BackgroundTransparency = self.Theme.Controls.SelectionFocused[2],
 			},
 			--[[ __contextKeys = {
 				BackgroundColor3 = function()
-					return properties.Selected and self.Theme.Controls.SelectionFocused.Color or value(1)
+					return properties.Selected and self.Theme.Controls.SelectionFocused[1] or value(1)
 				end,
 				BackgroundTransparency = function()
-					return properties.Selected and self.Theme.Controls.SelectionFocused.Transparency or value(1)
+					return properties.Selected and self.Theme.Controls.SelectionFocused[2] or value(1)
 				end,
 			}, ]]
 
@@ -93,17 +92,17 @@ return function(self, properties: types.TabProperties): types.Tab
 					TextXAlignment = Enum.TextXAlignment.Left,
 
 					__dynamicKeys = {
-						TextColor3 = self.Theme.Controls.SelectionFocusedAccent.Color,
-						TextTransparency = self.Theme.Controls.SelectionFocusedAccent.Transparency,
+						TextColor3 = self.Theme.Controls.SelectionFocusedAccent[1],
+						TextTransparency = self.Theme.Controls.SelectionFocusedAccent[2],
 					},
 					--[[ __contextKeys = {
 						TextColor3 = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Color
-								or self.Theme.Text.Primary.Color
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[1]
+								or self.Theme.Text.Primary[1]
 						end,
 						TextTransparency = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Transparency
-								or self.Theme.Text.Primary.Transparency
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[2]
+								or self.Theme.Text.Primary[2]
 						end,
 					}, ]]
 				}),
@@ -129,17 +128,17 @@ return function(self, properties: types.TabProperties): types.Tab
 					Size = UDim2.fromOffset(20, 20),
 
 					__dynamicKeys = {
-						ImageColor3 = self.Theme.Controls.Selection.Color,
-						ImageTransparency = self.Theme.Controls.Selection.Transparency,
+						ImageColor3 = self.Theme.Controls.Selection[1],
+						ImageTransparency = self.Theme.Controls.Selection[2],
 					},
 					--[[ __contextKeys = {
 						ImageColor3 = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Color
-								or self.Theme.Controls.Selection.Color
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[1]
+								or self.Theme.Controls.Selection[1]
 						end,
 						ImageTransparency = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent.Transparency
-								or self.Theme.Controls.Selection.Transparency
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[2]
+								or self.Theme.Controls.Selection[2]
 						end,
 					}, ]]
 				}),
@@ -208,19 +207,17 @@ return function(self, properties: types.TabProperties): types.Tab
 			structures.Body.Size -= UDim2.fromOffset((11 * indentation), 0)
 		end,
 		Selected = function(selected: boolean)
-			structures.Body.Transparency = selected and self.Theme.Controls.SelectionFocused.Transparency.Value or 1
+			structures.Body.Transparency = selected and self.Theme.Controls.SelectionFocused[2].Value or 1
 
-			structures.Title.TextColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value
-				or self.Theme.Text.Primary.Color.Value
-			structures.Title.TextTransparency = selected
-					and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value
-				or self.Theme.Text.Primary.Transparency.Value
+			structures.Title.TextColor3 = selected and self.Theme.Controls.SelectionFocusedAccent[1].Value
+				or self.Theme.Text.Primary[1].Value
+			structures.Title.TextTransparency = selected and self.Theme.Controls.SelectionFocusedAccent[2].Value
+				or self.Theme.Text.Primary[2].Value
 
-			structures.Symbol.ImageColor3 = selected and self.Theme.Controls.SelectionFocusedAccent.Color.Value
-				or self.Theme.Controls.Selection.Color.Value
-			structures.Symbol.ImageTransparency = selected
-					and self.Theme.Controls.SelectionFocusedAccent.Transparency.Value
-				or self.Theme.Controls.Selection.Transparency.Value
+			structures.Symbol.ImageColor3 = selected and self.Theme.Controls.SelectionFocusedAccent[1].Value
+				or self.Theme.Controls.Selection[1].Value
+			structures.Symbol.ImageTransparency = selected and self.Theme.Controls.SelectionFocusedAccent[2].Value
+				or self.Theme.Controls.Selection[2].Value
 
 			structures.Page.Parent = selected and self.__container or nil
 		end,

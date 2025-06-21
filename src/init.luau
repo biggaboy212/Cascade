@@ -16,9 +16,9 @@ local cascade = { Themes = themes, Symbols = symbols }
 
 --// Initialize
 cascade.New = function(properties: types.AppProperties): types.App
-	properties = {
-		Theme = properties and properties.Theme or themes.Light,
-	}
+	properties = properties or {}
+	
+	properties.Theme = properties and properties.Theme or themes.Light
 
 	local container = utility.ProtectUI(create("ScreenGui")({
 		Name = "Cascade",
@@ -32,17 +32,17 @@ cascade.New = function(properties: types.AppProperties): types.App
 	local object = binder.Wrap(properties, {
 		Theme = function(theme)
 			local function deepUpdate(target, new)
-				for k, v in pairs(new) do
-					if typeof(v) == "table" and typeof(target[k]) == "table" and not v.Value then
-						deepUpdate(target[k], v)
-					else
-						target[k].Value = v.Value
+				for key, value in pairs(new) do
+					if typeof(value) == "table" and typeof(target[key]) == "table" and not value.Value then
+						deepUpdate(target[key], value)
+					elseif target[key] and value and value.Value ~= nil then
+						target[key].Value = value.Value
 					end
 				end
 			end
 
 			deepUpdate(properties.Theme, theme)
-		end
+		end,
 	}, container, { "Theme" })
 
 	for component, make in pairs(components) do

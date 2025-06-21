@@ -18,8 +18,8 @@ return function(self)
 		Size = UDim2.new(1, 0, 0, 52),
 
 		__dynamicKeys = {
-			BackgroundColor3 = self.Theme.Controls.Titlebar.Color,
-			BackgroundTransparency = self.Theme.Controls.Titlebar.Transparency,
+			BackgroundColor3 = self.Theme.Controls.Titlebar[1],
+			BackgroundTransparency = self.Theme.Controls.Titlebar[2],
 		},
 
 		create("UICorner")({
@@ -39,8 +39,8 @@ return function(self)
 			ZIndex = 0,
 
 			__dynamicKeys = {
-				Color = self.Theme.Controls.TitlebarShadow.Background.Color,
-				Transparency = self.Theme.Controls.TitlebarShadow.Background.Transparency,
+				Color = self.Theme.Controls.TitlebarShadow.Background[1],
+				Transparency = self.Theme.Controls.TitlebarShadow.Background[2],
 			},
 
 			create("UIGradient")({
@@ -56,8 +56,8 @@ return function(self)
 				}),
 
 				__dynamicKeys = {
-					Color = self.Theme.Controls.TitlebarShadow.Color,
-					Transparency = self.Theme.Controls.TitlebarShadow.Transparency,
+					Color = self.Theme.Controls.TitlebarShadow[1],
+					Transparency = self.Theme.Controls.TitlebarShadow[2],
 				},
 			}),
 		}),
@@ -117,8 +117,8 @@ return function(self)
 						Visible = false,
 
 						__dynamicKeys = {
-							TextColor3 = self.Theme.Text.Secondary.Color,
-							TextTransparency = self.Theme.Text.Secondary.Transparency,
+							TextColor3 = self.Theme.Text.Secondary[1],
+							TextTransparency = self.Theme.Text.Secondary[2],
 						},
 					}),
 
@@ -141,8 +141,8 @@ return function(self)
 						TextSize = 16,
 
 						__dynamicKeys = {
-							TextColor3 = self.Theme.Text.Primary.Color,
-							TextTransparency = self.Theme.Text.Primary.Transparency,
+							TextColor3 = self.Theme.Text.Primary[1],
+							TextTransparency = self.Theme.Text.Primary[2],
 						},
 					}),
 				}),
@@ -194,8 +194,8 @@ return function(self)
 							Size = UDim2.fromOffset(9, 15),
 
 							__dynamicKeys = {
-								ImageColor3 = self.Theme.Text.Tertiary.Color,
-								ImageTransparency = self.Theme.Text.Tertiary.Transparency,
+								ImageColor3 = self.Theme.Text.Tertiary[1],
+								ImageTransparency = self.Theme.Text.Tertiary[2],
 							},
 						}),
 					}),
@@ -225,8 +225,8 @@ return function(self)
 							Size = UDim2.fromOffset(9, 15),
 
 							__dynamicKeys = {
-								ImageColor3 = self.Theme.Text.Tertiary.Color,
-								ImageTransparency = self.Theme.Text.Tertiary.Transparency,
+								ImageColor3 = self.Theme.Text.Tertiary[1],
+								ImageTransparency = self.Theme.Text.Tertiary[2],
 							},
 						}),
 					}),
@@ -254,8 +254,8 @@ return function(self)
 						Size = UDim2.fromOffset(20, 16),
 
 						__dynamicKeys = {
-							ImageColor3 = self.Theme.Text.Secondary.Color,
-							ImageTransparency = self.Theme.Text.Secondary.Transparency,
+							ImageColor3 = self.Theme.Text.Secondary[1],
+							ImageTransparency = self.Theme.Text.Secondary[2],
 						},
 					}),
 				}),
@@ -301,7 +301,7 @@ return function(self)
 			ZIndex = -1,
 
 			__dynamicKeys = {
-				BackgroundColor3 = self.Theme.Controls.Titlebar.Color,
+				BackgroundColor3 = self.Theme.Controls.Titlebar[1],
 			},
 		}),
 
@@ -315,7 +315,7 @@ return function(self)
 			ZIndex = -1,
 
 			__dynamicKeys = {
-				BackgroundColor3 = self.Theme.Controls.Titlebar.Color,
+				BackgroundColor3 = self.Theme.Controls.Titlebar[1],
 			},
 		}),
 	}) :: TextButton
@@ -354,8 +354,8 @@ return function(self)
 		Parent = structures.SearchField.Body.__instance,
 
 		__dynamicKeys = {
-			ImageColor3 = self.Theme.Text.PrimaryAccent.Color,
-			ImageTransparency = self.Theme.Text.PrimaryAccent.Transparency,
+			ImageColor3 = self.Theme.Text.PrimaryAccent[1],
+			ImageTransparency = self.Theme.Text.PrimaryAccent[2],
 		},
 	})
 
@@ -377,18 +377,18 @@ return function(self)
 		if backImage then
 			local backable = currentIndex > 1
 
-			backImage.ImageColor3 = (backable and theme.Secondary.Color.Value) or theme.Tertiary.Color.Value
-			backImage.ImageTransparency = (backable and theme.Secondary.Transparency.Value)
-				or theme.Tertiary.Transparency.Value
+			backImage.ImageColor3 = (backable and theme.Secondary[1].Value) or theme.Tertiary[1].Value
+			backImage.ImageTransparency = (backable and theme.Secondary[2].Value)
+				or theme.Tertiary[2].Value
 			structures.Back.Interactable = backable
 		end
 
 		if forwardImage then
 			local forwardable = currentIndex < #rawHistory
 
-			forwardImage.ImageColor3 = (forwardable and theme.Secondary.Color.Value) or theme.Tertiary.Color.Value
-			forwardImage.ImageTransparency = (forwardable and theme.Secondary.Transparency.Value)
-				or theme.Tertiary.Transparency.Value
+			forwardImage.ImageColor3 = (forwardable and theme.Secondary[1].Value) or theme.Tertiary[1].Value
+			forwardImage.ImageTransparency = (forwardable and theme.Secondary[2].Value)
+				or theme.Tertiary[2].Value
 			structures.Forward.Interactable = forwardable
 		end
 	end

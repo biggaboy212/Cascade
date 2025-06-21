@@ -11,14 +11,13 @@ return function(self, properties: types.RowProperties): types.Row
 	local create = creator.Create
 
 	--// Variables
+	local parent = self.__container or self.__instance or self
 	local structures = {}
 
 	--// UI
 	properties = properties or {}
 	properties.Title = properties.Title or "Title"
 	properties.SearchIndex = properties.SearchIndex or properties.Title
-
-	local parent = self.__container or self.__instance or self
 
 	structures.Body = binder.Apply(
 		properties,
@@ -98,8 +97,8 @@ return function(self, properties: types.RowProperties): types.Row
 					Visible = false,
 
 					__dynamicKeys = {
-						BackgroundColor3 = self.Theme.Controls.ViewBorder.Color,
-						BackgroundTransparency = self.Theme.Controls.ViewBorder.Transparency,
+						BackgroundColor3 = self.Theme.Controls.ViewBorder[1],
+						BackgroundTransparency = self.Theme.Controls.ViewBorder[2],
 					},
 				}),
 			}),
@@ -124,7 +123,7 @@ return function(self, properties: types.RowProperties): types.Row
 		end,
 		SearchIndex = function(value: string)
 			structures.Body:SetAttribute("SearchIndex", value)
-		end
+		end,
 	}, structures.Body)
 
 	object.Type = "Row"

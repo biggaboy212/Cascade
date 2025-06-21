@@ -16,6 +16,7 @@ return function(self, properties: types.WindowProperties): types.Window
 	local tweenService = services.TweenService
 
 	--// Variables
+	local parent = self.__container or self.__instance or self
 	local originalSize
 	local originalPosition
 	local dragging
@@ -34,8 +35,6 @@ return function(self, properties: types.WindowProperties): types.Window
 	properties.Dropshadow = properties.Dropshadow == nil and true or properties.Dropshadow
 	properties.UIBlur = properties.UIBlur == nil and true or properties.UIBlur
 
-	local parent = self.__container or self.__instance or self
-
 	structures.Body = binder.Apply(
 		properties,
 		create("Frame")({
@@ -48,8 +47,8 @@ return function(self, properties: types.WindowProperties): types.Window
 			Parent = parent,
 
 			__dynamicKeys = {
-				BackgroundColor3 = self.Theme.Controls.Sidebar.Color,
-				BackgroundTransparency = self.Theme.Controls.Sidebar.Transparency,
+				BackgroundColor3 = self.Theme.Controls.Sidebar[1],
+				BackgroundTransparency = self.Theme.Controls.Sidebar[2],
 			},
 
 			create("UIPadding")({
@@ -88,8 +87,8 @@ return function(self, properties: types.WindowProperties): types.Window
 						Size = UDim2.new(0, 5, 1, 0),
 						ZIndex = 0,
 						__dynamicKeys = {
-							BackgroundColor3 = self.Theme.Controls.Separator.Shadow.Color,
-							BackgroundTransparency = self.Theme.Controls.Separator.Shadow.Transparency,
+							BackgroundColor3 = self.Theme.Controls.Separator.Shadow[1],
+							BackgroundTransparency = self.Theme.Controls.Separator.Shadow[2],
 						},
 
 						create("UIGradient")({
@@ -150,8 +149,8 @@ return function(self, properties: types.WindowProperties): types.Window
 							Size = UDim2.fromOffset(12, 12),
 
 							__dynamicKeys = {
-								ImageColor3 = self.Theme.Controls.Exit.Color,
-								ImageTransparency = self.Theme.Controls.Exit.Transparency,
+								ImageColor3 = self.Theme.Controls.Exit[1],
+								ImageTransparency = self.Theme.Controls.Exit[2],
 							},
 
 							create("ImageLabel")({
@@ -164,8 +163,8 @@ return function(self, properties: types.WindowProperties): types.Window
 								Size = UDim2.fromScale(1, 1),
 
 								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlStroke.Color,
-									ImageTransparency = self.Theme.Controls.WindowControlStroke.Transparency,
+									ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
+									ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
 								},
 							}),
 
@@ -182,8 +181,8 @@ return function(self, properties: types.WindowProperties): types.Window
 								Visible = false,
 
 								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlIcon.Color,
-									ImageTransparency = self.Theme.Controls.WindowControlIcon.Transparency,
+									ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
+									ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
 								},
 							}),
 						}),
@@ -200,8 +199,8 @@ return function(self, properties: types.WindowProperties): types.Window
 							Size = UDim2.fromOffset(12, 12),
 
 							__dynamicKeys = {
-								ImageColor3 = self.Theme.Controls.Minimize.Color,
-								ImageTransparency = self.Theme.Controls.Minimize.Transparency,
+								ImageColor3 = self.Theme.Controls.Minimize[1],
+								ImageTransparency = self.Theme.Controls.Minimize[2],
 							},
 
 							create("ImageLabel")({
@@ -214,8 +213,8 @@ return function(self, properties: types.WindowProperties): types.Window
 								Size = UDim2.fromScale(1, 1),
 
 								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlStroke.Color,
-									ImageTransparency = self.Theme.Controls.WindowControlStroke.Transparency,
+									ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
+									ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
 								},
 							}),
 
@@ -232,8 +231,8 @@ return function(self, properties: types.WindowProperties): types.Window
 								Visible = false,
 
 								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlIcon.Color,
-									ImageTransparency = self.Theme.Controls.WindowControlIcon.Transparency,
+									ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
+									ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
 								},
 							}),
 						}),
@@ -250,8 +249,8 @@ return function(self, properties: types.WindowProperties): types.Window
 							Size = UDim2.fromOffset(12, 12),
 
 							__dynamicKeys = {
-								ImageColor3 = self.Theme.Controls.Zoom.Color,
-								ImageTransparency = self.Theme.Controls.Zoom.Transparency,
+								ImageColor3 = self.Theme.Controls.Zoom[1],
+								ImageTransparency = self.Theme.Controls.Zoom[2],
 							},
 
 							create("ImageLabel")({
@@ -264,8 +263,8 @@ return function(self, properties: types.WindowProperties): types.Window
 								Size = UDim2.fromScale(1, 1),
 
 								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlStroke.Color,
-									ImageTransparency = self.Theme.Controls.WindowControlStroke.Transparency,
+									ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
+									ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
 								},
 							}),
 
@@ -282,8 +281,8 @@ return function(self, properties: types.WindowProperties): types.Window
 								Visible = false,
 
 								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlIcon.Color,
-									ImageTransparency = self.Theme.Controls.WindowControlIcon.Transparency,
+									ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
+									ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
 								},
 							}),
 						}),
@@ -329,8 +328,8 @@ return function(self, properties: types.WindowProperties): types.Window
 				Position = UDim2.fromScale(1, 0),
 				Size = UDim2.new(0, 1, 1, 0),
 				__dynamicKeys = {
-					BackgroundColor3 = self.Theme.Controls.Separator.Background.Color,
-					BackgroundTransparency = self.Theme.Controls.Separator.Background.Transparency,
+					BackgroundColor3 = self.Theme.Controls.Separator.Background[1],
+					BackgroundTransparency = self.Theme.Controls.Separator.Background[2],
 				},
 			}),
 
@@ -345,8 +344,8 @@ return function(self, properties: types.WindowProperties): types.Window
 				Size = UDim2.new(1, -201, 1, 0),
 
 				__dynamicKeys = {
-					BackgroundColor3 = self.Theme.Controls.Background.Color,
-					BackgroundTransparency = self.Theme.Controls.Background.Transparency,
+					BackgroundColor3 = self.Theme.Controls.Background[1],
+					BackgroundTransparency = self.Theme.Controls.Background[2],
 				},
 
 				create("UICorner")({
@@ -384,7 +383,7 @@ return function(self, properties: types.WindowProperties): types.Window
 					ZIndex = -1,
 
 					__dynamicKeys = {
-						BackgroundColor3 = self.Theme.Controls.Background.Color,
+						BackgroundColor3 = self.Theme.Controls.Background[1],
 					},
 				}),
 			}),
@@ -570,6 +569,8 @@ return function(self, properties: types.WindowProperties): types.Window
 		end,
 		Minimized = function(value: boolean) end,
 		Maximized = function(value: boolean?, tween: boolean?)
+			tween = (tween == nil and true) or false
+			
 			if not value then
 				dragging = false
 			end
@@ -610,7 +611,7 @@ return function(self, properties: types.WindowProperties): types.Window
 				structures["BlurModel"] = nil
 			end
 
-			structures.Body.BackgroundTransparency = value and self.Theme.Controls.Sidebar.Transparency.Value or 0
+			structures.Body.BackgroundTransparency = value and self.Theme.Controls.Sidebar[2].Value or 0
 
 			if value then
 				structures.BlurModel = effects.UIBlur(structures.Body)

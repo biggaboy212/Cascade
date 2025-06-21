@@ -9,8 +9,8 @@ local function color4(color: Color3 | string, alpha: number)
 	local parsedColor = (typeof(color) == "Color3" and color) or (typeof(color) == "string" and Color3.fromHex(color))
 
 	return {
-		Color = value(parsedColor),
-		Transparency = value(1 - (alpha / 100)),
+		value(parsedColor),
+		value(1 - (alpha / 100)),
 	}
 end
 
@@ -24,8 +24,13 @@ return {
 		Quaternary = color4("000000", 10),
 		Quinary = color4("000000", 5),
 	},
-	
+
 	Controls = {
+		Background = color4("FFFFFF", 100),
+
+		View = color4("000000", 1.5),
+		ViewBorder = color4("000000", 5),
+
 		WindowControlIcon = color4("000000", 50),
 		WindowControlStroke = color4("000000", 20),
 		Exit = color4("FF5F57", 100),
@@ -38,14 +43,11 @@ return {
 		SelectionFocused = color4("0A82FF", 100),
 		SelectionFocusedAccent = color4("FFFFFF", 85),
 
-
 		Sidebar = color4("EAEAEA", 84),
 		Separator = {
 			Background = color4("000000", 18),
 			Shadow = color4("000000", 10),
 		},
-
-		Background = color4("FFFFFF", 100),
 
 		Titlebar = color4("EEEEEE", 100),
 		TitlebarShadow = {
@@ -60,7 +62,18 @@ return {
 			})),
 		},
 
-		View = color4("000000", 1.5),
-		ViewBorder = color4("000000", 5),
+		Toggle = {
+			Knob = color4("FFFFFF", 100),
+			KnobEffects = color4("FFFFFF", 100),
+
+			SwitchOff = color4("000000", 19),
+			SwitchOn = color4("478cf6", 100),
+
+			DepthEffect = value(ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(225, 225, 225)),
+				ColorSequenceKeypoint.new(0.68, Color3.fromRGB(255, 255, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
+			})),
+		},
 	},
 }

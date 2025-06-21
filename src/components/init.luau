@@ -8,7 +8,9 @@ local components = {
 	Tab = require("@components/Tab"),
 	Form = require("@components/Form"),
 	Row = require("@components/Row"),
-	TitleStack = require("@components/TitleStack")
+	TitleStack = require("@components/TitleStack"),
+	Label = require("@components/Label"),
+	Toggle = require("@components/Toggle"),
 }
 
 --// Intialize
@@ -18,7 +20,7 @@ for component, make in pairs(components) do
 			local object = make(...)
 
 			binder.Apply(components, object, { component })
-			
+
 			return object
 		end
 	end)(make)

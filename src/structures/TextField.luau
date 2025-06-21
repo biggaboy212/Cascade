@@ -34,8 +34,8 @@ return function(self)
 			Thickness = 1,
 
 			__dynamicKeys = {
-				Color = self.Theme.Controls.ViewBorder.Color,
-				Transparency = self.Theme.Controls.ViewBorder.Transparency,
+				Color = self.Theme.Controls.ViewBorder[1],
+				Transparency = self.Theme.Controls.ViewBorder[2],
 			},
 		}),
 
@@ -55,8 +55,8 @@ return function(self)
 			TextSize = 15,
 
 			__dynamicKeys = {
-                PlaceholderColor3 = self.Theme.Text.Tertiary.Color,
-                TextTransparency = self.Theme.Text.Tertiary.Transparency,
+                PlaceholderColor3 = self.Theme.Text.Tertiary[1],
+                TextTransparency = self.Theme.Text.Tertiary[2],
             },
 			
 			create("UIPadding")({
@@ -96,8 +96,8 @@ return function(self)
 		end
 
 		currentTween = tweenService:Create(structures.Stroke, enter, {
-			Color = self.Theme.Controls.SelectionStroke.Color.Value,
-			Transparency = self.Theme.Controls.SelectionStroke.Transparency.Value,
+			Color = self.Theme.Controls.SelectionStroke[1].Value,
+			Transparency = self.Theme.Controls.SelectionStroke[2].Value,
 			Thickness = 3,
 		})
 		currentTween:Play()
@@ -109,8 +109,8 @@ return function(self)
 		end
 
 		currentTween = tweenService:Create(structures.Stroke, leave, {
-			Color = self.Theme.Controls.ViewBorder.Color.Value,
-			Transparency = self.Theme.Controls.ViewBorder.Transparency.Value,
+			Color = self.Theme.Controls.ViewBorder[1].Value,
+			Transparency = self.Theme.Controls.ViewBorder[2].Value,
 			Thickness = 1,
 		})
 		currentTween:Play()
@@ -118,11 +118,11 @@ return function(self)
 
 	structures.Field:GetPropertyChangedSignal("Text"):Connect(function()
 		if structures.Field.Text == "" then
-			structures.Field.PlaceholderColor3 = self.Theme.Text.Tertiary.Color.Value
-			structures.Field.TextTransparency = self.Theme.Text.Tertiary.Transparency.Value
+			structures.Field.PlaceholderColor3 = self.Theme.Text.Tertiary[1].Value
+			structures.Field.TextTransparency = self.Theme.Text.Tertiary[2].Value
 		else
-			structures.Field.TextColor3 = self.Theme.Text.Primary.Color.Value
-			structures.Field.TextTransparency = self.Theme.Text.Primary.Transparency.Value
+			structures.Field.TextColor3 = self.Theme.Text.Primary[1].Value
+			structures.Field.TextTransparency = self.Theme.Text.Primary[2].Value
 		end
 	end)
 

@@ -3,7 +3,7 @@ local binder = require("./binder")
 
 local creator = {}
 
-function creator.Value(value: any): types.ValueState -- not the problem
+function creator.Value(value: any): types.ValueState
 	local callbacks = {}
 
 	return binder.Wrap({

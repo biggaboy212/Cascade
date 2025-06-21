@@ -9,13 +9,13 @@ return function(self, properties: types.Frame): types.Form
 	local create = creator.Create
 
 	--// Variables
+	local parent = self.__container or self.__instance or self
 	local structures = {}
 	local queue = {}
+	local entries = {}
 
 	--// UI
 	properties = properties or {}
-
-	local parent = self.__container or self.__instance or self
 
 	structures.Body = binder.Apply(
 		properties,
@@ -29,8 +29,8 @@ return function(self, properties: types.Frame): types.Form
 			Parent = parent,
 
 			__dynamicKeys = {
-				BackgroundColor3 = self.Theme.Controls.View.Color,
-				BackgroundTransparency = self.Theme.Controls.View.Transparency,
+				BackgroundColor3 = self.Theme.Controls.View[1],
+				BackgroundTransparency = self.Theme.Controls.View[2],
 			},
 
 			create("UIListLayout")({
@@ -52,10 +52,10 @@ return function(self, properties: types.Frame): types.Form
 			create("UIStroke")({
 				Name = "UIStroke",
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-				
+
 				__dynamicKeys = {
-					Color = self.Theme.Controls.ViewBorder.Color,
-					Transparency = self.Theme.Controls.ViewBorder.Transparency,
+					Color = self.Theme.Controls.ViewBorder[1],
+					Transparency = self.Theme.Controls.ViewBorder[2],
 				},
 			}),
 		})
@@ -68,14 +68,30 @@ return function(self, properties: types.Frame): types.Form
 	object.Theme = self.Theme
 	object.Structures = structures
 
-	structures.Body.ChildAdded:Connect(function(child)
-		for _, divider: Frame in pairs(queue) do
-			divider.Visible = true
+	local function updateDivs()
+		for i, entry in ipairs(entries) do
+			local currentVisible = entry.section.Visible
+			local nextEntry = entries[i + 1]
+			local nextVisible = nextEntry and nextEntry.section.Visible
+
+			entry.divider.Visible = currentVisible and nextVisible == true
 		end
-		
-		if child:IsA("Frame") and child:FindFirstChild("LayoutIgnore") and child:FindFirstChild("LayoutIgnore"):FindFirstChild("Divider") then
-			local divider = child:FindFirstChild("LayoutIgnore"):FindFirstChild("Divider")
-			table.insert(queue, divider)
+	end
+
+	structures.Body.ChildAdded:Connect(function(child)
+		if child:IsA("Frame") and child:FindFirstChild("LayoutIgnore") then
+			local divider = child.LayoutIgnore:FindFirstChild("Divider")
+
+			if divider then
+				table.insert(queue, divider)
+				table.insert(entries, { section = child, divider = divider })
+
+				child:GetPropertyChangedSignal("Visible"):Connect(function()
+					updateDivs()
+				end)
+
+				updateDivs()
+			end
 		end
 	end)
 

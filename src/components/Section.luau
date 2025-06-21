@@ -12,6 +12,7 @@ return function(self, properties: types.SectionProperties): types.Section
 	local tweenService = services.TweenService
 
 	--// Variables
+	local parent = self.Type == "Window" and self.Structures.SidebarList or self.__instance or self
 	local structures = {}
 
 	--// Functions
@@ -71,8 +72,6 @@ return function(self, properties: types.SectionProperties): types.Section
 	properties.Disclosure = properties.Disclosure ~= nil and properties.Disclosure or false
 	properties.Expanded = properties.Expanded == nil and true or properties.Expanded
 
-	local parent = self.Type == "Window" and self.Structures.SidebarList or self.__instance or self
-
 	structures.SidebarGroup = binder.Apply(
 		properties,
 		create("TextButton")({
@@ -124,8 +123,8 @@ return function(self, properties: types.SectionProperties): types.Section
 						Position = UDim2.fromScale(0.5, 0.5),
 						Size = UDim2.fromOffset(11, 7),
 						__dynamicKeys = {
-							ImageColor3 = self.Theme.Text.Tertiary.Color,
-							ImageTransparency = self.Theme.Text.Tertiary.Transparency,
+							ImageColor3 = self.Theme.Text.Tertiary[1],
+							ImageTransparency = self.Theme.Text.Tertiary[2],
 						},
 					}),
 				}),
@@ -160,8 +159,8 @@ return function(self, properties: types.SectionProperties): types.Section
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					__dynamicKeys = {
-						TextColor3 = self.Theme.Text.Tertiary.Color,
-						TextTransparency = self.Theme.Text.Tertiary.Transparency,
+						TextColor3 = self.Theme.Text.Tertiary[1],
+						TextTransparency = self.Theme.Text.Tertiary[2],
 					},
 				}),
 			}),
@@ -236,9 +235,10 @@ return function(self, properties: types.SectionProperties): types.Section
 	object.addToHistory = self.addToHistory
 
 	structures.SidebarGroup.MouseButton1Click:Connect(function()
-		if not properties.Disclosure then 
-			return 
+		if not properties.Disclosure then
+			return
 		end
+		
 		object.Expanded = not object.Expanded
 	end)
 
