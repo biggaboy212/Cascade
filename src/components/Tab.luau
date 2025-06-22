@@ -7,17 +7,18 @@ return function(self, properties: types.TabProperties): types.Tab
 
 	--// References
 	local create = creator.Create
+	local window = self.__window
 
 	--// Variables
-	local parent = self.Type == "Window" and self.Structures.SidebarList or self.__instance or self
+	local parent = self.Type == "Window" and self.Structures.SidebarList or self.Type == "Tab" and self.__instance.Parent or self.__instance or self
 	local structures = {}
 
 	--// UI
 	properties = properties or {}
 
-	properties.Label = properties.Label or "Label"
+	properties.Title = properties.Title or "Label"
 	properties.Indentation = properties.Indentation or 0
-	properties.Selected = properties.Selected or false
+	properties.Selected = properties.Selected == true
 
 	structures.Body = binder.Apply(
 		properties,
@@ -27,7 +28,7 @@ return function(self, properties: types.TabProperties): types.Tab
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderSizePixel = 0,
 			FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
-			LayoutOrder = self.Tabs and #self.Tabs or 1,
+			LayoutOrder = window.Tabs and #window.Tabs or 1,
 			Size = UDim2.new(1, 0, 0, 28),
 			Text = "",
 			TextColor3 = Color3.fromRGB(0, 0, 0),
@@ -193,7 +194,7 @@ return function(self, properties: types.TabProperties): types.Tab
 	}) :: ScrollingFrame
 
 	local object = binder.Wrap(properties, {
-		Label = function(name: string)
+		Title = function(name: string)
 			structures.Title.Text = name
 		end,
 		Icon = function(icon: string?)
@@ -219,7 +220,7 @@ return function(self, properties: types.TabProperties): types.Tab
 			structures.Symbol.ImageTransparency = selected and self.Theme.Controls.SelectionFocusedAccent[2].Value
 				or self.Theme.Controls.Selection[2].Value
 
-			structures.Page.Parent = selected and self.__container or nil
+			structures.Page.Parent = selected and window and window.__container or nil
 		end,
 	}, structures.Body)
 
@@ -227,14 +228,15 @@ return function(self, properties: types.TabProperties): types.Tab
 	object.Theme = self.Theme
 	object.Structures = structures
 	object.__container = structures.Page.__instance
+	object.__window = self.__window
 
 	binder.Apply(properties, object)
 
-	if self.Tabs and self.__container then
-		table.insert(self.Tabs, object)
+	if window then
+		table.insert(window.Tabs, object)
 
 		if object.Selected then
-			self.addToHistory(object.__container)
+			window.addToHistory(object.__container)
 		end
 
 		structures.Body.MouseButton1Click:Connect(function()
@@ -242,14 +244,18 @@ return function(self, properties: types.TabProperties): types.Tab
 				return
 			end
 
-			for _, tab: types.Tab in pairs(self.Tabs) do
+			for _, tab: types.Tab in pairs(window.Tabs) do
 				tab.Selected = false
 			end
 
 			object.Selected = true
 
-			self.addToHistory(object.__container)
+			window.addToHistory(object.__container)
 		end)
+	end
+
+	if self.Type == "Tab" then
+		object.Indentation = self.Indentation + 1
 	end
 
 	return object

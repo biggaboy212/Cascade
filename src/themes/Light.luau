@@ -66,7 +66,7 @@ return {
 			Knob = color4("FFFFFF", 100),
 			KnobEffects = color4("FFFFFF", 100),
 
-			SwitchOff = color4("000000", 19),
+			SwitchOff = color4("000000", 9),
 			SwitchOn = color4("478cf6", 100),
 
 			DepthEffect = value(ColorSequence.new({

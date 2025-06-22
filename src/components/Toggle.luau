@@ -18,7 +18,7 @@ return function(self, properties: types.ToggleProperties): types.Row
 
 	--// UI
 	properties = properties or {}
-	properties.Value = properties.Value ~= nil and properties.Value or false
+	properties.Value = properties.Value == true
 
 	structures.Body = binder.Apply(
 		properties,

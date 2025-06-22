@@ -1,11 +1,40 @@
-export type ScreenGui = {
-	-- Instance
+-- Base Types
+
+export type Instance = {
 	Name: string?,
 	Parent: Instance?,
 	Archivable: boolean?,
 	ClassName: string?,
 
-	-- GuiBase2d
+	Clone: ((self: Instance) -> Instance)?,
+	Destroy: ((self: Instance) -> ())?,
+	FindFirstAncestor: ((self: Instance, name: string) -> Instance?)?,
+	FindFirstAncestorWhichIsA: ((self: Instance, className: string) -> Instance?)?,
+	FindFirstAncestorOfClass: ((self: Instance, className: string) -> Instance?)?,
+	FindFirstChild: ((self: Instance, name: string, recursive: boolean?) -> Instance?)?,
+	FindFirstChildWhichIsA: ((self: Instance, className: string, recursive: boolean?) -> Instance?)?,
+	FindFirstChildOfClass: ((self: Instance, className: string, recursive: boolean?) -> Instance?)?,
+	GetAttribute: ((self: Instance, attribute: string) -> any)?,
+	GetAttributes: ((self: Instance) -> { [string]: any })?,
+	GetChildren: ((self: Instance) -> { Instance })?,
+	GetDescendants: ((self: Instance) -> { Instance })?,
+	HasTag: ((self: Instance, tag: string) -> boolean)?,
+	IsA: ((self: Instance, className: string) -> boolean)?,
+	IsAncestorOf: ((self: Instance, descendant: Instance) -> boolean)?,
+	IsDescendantOf: ((self: Instance, ancestor: Instance) -> boolean)?,
+	WaitForChild: ((self: Instance, childName: string, timeOut: number?) -> Instance)?,
+
+	AncestryChanged: ((self: Instance, handler: (child: Instance, parent: Instance?) -> ()) -> RBXScriptConnection)?,
+	AttributeChanged: ((self: Instance, handler: (attribute: string) -> ()) -> RBXScriptConnection)?,
+	ChildAdded: ((self: Instance, handler: (child: Instance) -> ()) -> RBXScriptConnection)?,
+	ChildRemoved: ((self: Instance, handler: (child: Instance) -> ()) -> RBXScriptConnection)?,
+	DescendantAdded: ((self: Instance, handler: (descendant: Instance) -> ()) -> RBXScriptConnection)?,
+	DescendantRemoving: ((self: Instance, handler: (descendant: Instance) -> ()) -> RBXScriptConnection)?,
+	Destroying: ((self: Instance, handler: () -> ()) -> RBXScriptConnection)?,
+	PropertyChanged: ((self: Instance, property: string) -> RBXScriptConnection)?,
+}
+
+export type GuiBase2d = {
 	AutoLocalize: boolean?,
 	RootLocalizationTable: LocalizationTable?,
 	SelectionBehaviorDown: Enum.SelectionBehavior?,
@@ -13,13 +42,35 @@ export type ScreenGui = {
 	SelectionBehaviorRight: Enum.SelectionBehavior?,
 	SelectionBehaviorUp: Enum.SelectionBehavior?,
 	SelectionGroup: boolean?,
+}
 
-	-- LayerCollector
+export type LayerCollector = {
 	Enabled: boolean?,
 	ResetOnSpawn: boolean?,
 	ZIndexBehavior: Enum.ZIndexBehavior?,
+}
 
-	-- ScreenGui
+export type GuiObject = {
+	AnchorPoint: Vector2?,
+	BackgroundColor3: Color3?,
+	BackgroundTransparency: number?,
+	BorderColor3: Color3?,
+	BorderMode: Enum.BorderMode?,
+	BorderSizePixel: number?,
+	ClipsDescendants: boolean?,
+	LayoutOrder: number?,
+	Position: UDim2?,
+	Rotation: number?,
+	Selectable: boolean?,
+	SelectionImageObject: GuiObject?,
+	Size: UDim2?,
+	SizeConstraint: Enum.SizeConstraint?,
+	Visible: boolean?,
+	ZIndex: number?,
+	AutomaticSize: Enum.AutomaticSize?,
+}
+
+export type ScreenGui = Instance & GuiBase2d & LayerCollector & {
 	DisplayOrder: number?,
 	IgnoreGuiInset: boolean?,
 	ScreenInsets: Enum.ScreenInsets?,
@@ -27,95 +78,17 @@ export type ScreenGui = {
 	SafeAreaCompatibility: Enum.SafeAreaCompatibility?,
 }
 
-export type Frame = {
-	-- Instance
-	Name: string?,
-	Parent: Instance?,
-	Archivable: boolean?,
-	ClassName: string?,
-
-	-- GuiObject
-	AnchorPoint: Vector2?,
-	BackgroundColor3: Color3?,
-	BackgroundTransparency: number?,
-	BorderColor3: Color3?,
-	BorderMode: Enum.BorderMode?,
-	BorderSizePixel: number?,
-	ClipsDescendants: boolean?,
-	LayoutOrder: number?,
-	Position: UDim2?,
-	Rotation: number?,
-	Selectable: boolean?,
-	SelectionImageObject: GuiObject?,
-	Size: UDim2?,
-	SizeConstraint: Enum.SizeConstraint?,
-	Visible: boolean?,
-	ZIndex: number?,
-	AutomaticSize: Enum.AutomaticSize?,
-
-	-- Frame
+export type Frame = Instance & GuiObject & {
 	Style: Enum.FrameStyle?,
 }
 
-export type CanvasGroup = {
-	-- Instance
-	Name: string?,
-	Parent: Instance?,
-	Archivable: boolean?,
-	ClassName: string?,
-
-	-- GuiObject
-	AnchorPoint: Vector2?,
-	BackgroundColor3: Color3?,
-	BackgroundTransparency: number?,
-	BorderColor3: Color3?,
-	BorderMode: Enum.BorderMode?,
-	BorderSizePixel: number?,
-	ClipsDescendants: boolean?,
-	LayoutOrder: number?,
-	Position: UDim2?,
-	Rotation: number?,
-	Selectable: boolean?,
-	SelectionImageObject: GuiObject?,
-	Size: UDim2?,
-	SizeConstraint: Enum.SizeConstraint?,
-	Visible: boolean?,
-	ZIndex: number?,
-	AutomaticSize: Enum.AutomaticSize?,
-
-	-- CanvasGroup
+export type CanvasGroup = Instance & GuiObject & {
 	GroupColor3: Color3?,
 	GroupTransparency: Color3?,
-	ResolutionScale: number?
+	ResolutionScale: number?,
 }
 
-export type TextLabel = {
-	-- Instance
-	Name: string?,
-	Parent: Instance?,
-	Archivable: boolean?,
-	ClassName: string?,
-
-	-- GuiObject
-	AnchorPoint: Vector2?,
-	BackgroundColor3: Color3?,
-	BackgroundTransparency: number?,
-	BorderColor3: Color3?,
-	BorderMode: Enum.BorderMode?,
-	BorderSizePixel: number?,
-	ClipsDescendants: boolean?,
-	LayoutOrder: number?,
-	Position: UDim2?,
-	Rotation: number?,
-	Selectable: boolean?,
-	SelectionImageObject: GuiObject?,
-	Size: UDim2?,
-	SizeConstraint: Enum.SizeConstraint?,
-	Visible: boolean?,
-	ZIndex: number?,
-	AutomaticSize: Enum.AutomaticSize?,
-
-	-- TextLabel
+export type TextLabel = Instance & GuiObject & {
 	FontFace: Font?,
 	LineHeight: number?,
 	MaxVisibleGraphemes: number?,
@@ -133,6 +106,46 @@ export type TextLabel = {
 	TextWrapped: boolean?,
 	TextXAlignment: Enum.TextXAlignment?,
 	TextYAlignment: Enum.TextYAlignment?,
+}
+
+export type TextBox = Instance & GuiObject & {
+	ClearTextOnFocus: boolean?,
+	CursorPosition: number?,
+	MultiLine: boolean?,
+	ShowNativeInput: boolean?,
+	TextEditable: boolean?,
+	ContentText: string?,
+	FontFace: Font?,
+	LineHeight: number?,
+	MaxVisibleGraphemes: number?,
+	OpenTypeFeatures: string?,
+	OpenTypeFeaturesError: string?,
+	PlaceholderColor3: Color3?,
+	PlaceholderText: string?,
+	RichText: boolean?,
+	Text: string?,
+	TextBounds: Vector2?,
+	TextColor3: Color3?,
+	TextDirection: Enum.TextDirection?,
+	TextFits: boolean?,
+	TextScaled: boolean?,
+	TextSize: number?,
+	TextStrokeColor3: Color3?,
+	TextStrokeTransparency: number?,
+	TextTransparency: number?,
+	TextTruncate: Enum.TextTruncate?,
+	TextWrapped: boolean?,
+	TextXAlignment: Enum.TextXAlignment?,
+	TextYAlignment: Enum.TextYAlignment?,
+	SelectionStart: number?,
+
+	CaptureFocus: ((self: TextBox) -> ())?,
+	IsFocused: ((self: TextBox) -> boolean)?,
+	ReleaseFocus: ((self: TextBox, submitted: boolean?) -> ())?,
+
+	Focused: ((self: TextBox, handler: () -> ()) -> RBXScriptConnection)?,
+	FocusLost: ((self: TextBox, handler: (enterPressed: boolean, inputThatCausedFocusLoss: InputObject) -> ()) -> RBXScriptConnection)?,
+	ReturnPressedFromOnScreenKeyboard: ((self: TextBox, handler: () -> ()) -> RBXScriptConnection)?,
 }
 
 export type ValueState = {
@@ -174,7 +187,7 @@ export type Window = BaseComponent & Components & WindowProperties
 
 -- Section
 export type SectionProperties = Frame & {
-	Label: string?,
+	Title: string?,
 	Disclosure: boolean?,
 	Expanded: boolean?,
 }
@@ -183,7 +196,7 @@ export type Section = BaseComponent & Components & SectionProperties
 
 -- Tab
 export type TabProperties = Frame & {
-	Label: string?,
+	Title: string?,
 	Icon: string?,
 	Indentation: number?,
 	Selected: boolean?,
@@ -224,6 +237,16 @@ export type ToggleProperties = CanvasGroup & {
 
 export type Toggle = BaseComponent & Components & ToggleProperties
 
+-- TextField
+export type TextFieldProperties = Frame & {
+	Placeholder: string?,
+	Value: string?,
+	FocusLost: ((self: TextField, value: string) -> nil)?,
+	ValueChanged: ((self: TextField, value: string) -> nil)?
+}
+
+export type TextField = BaseComponent & Components & TextFieldProperties
+
 -- Export
 export type Components = {
 	Window: (self: any, properties: WindowProperties?) -> Window,
@@ -234,6 +257,7 @@ export type Components = {
 	TitleStack: (self: any, properties: TitleStackProperties?) -> TitleStack,
 	Label: (self: any, properties: LabelProperties) -> Label,
 	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
+	TextField: (self: any, properties: TextFieldProperties) -> TextField,
 }
 
 return 1

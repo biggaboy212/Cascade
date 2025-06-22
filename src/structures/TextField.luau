@@ -5,8 +5,7 @@ return function(self)
 
 	--// References
 	local create = creator.Create
-
-	local runService = services.RunService
+	
 	local tweenService = services.TweenService
 
 	--// Variables

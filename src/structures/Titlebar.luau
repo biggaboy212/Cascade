@@ -1,7 +1,7 @@
 return function(self)
 	--// Imports
 	local creator = require("@modules/creator")
-	local textField = require("@structures/TextField")
+	local textField = require("@structures/TextField")(self)
 
 	--// References
 	local create = creator.Create
@@ -9,6 +9,18 @@ return function(self)
 	--// Variables
 	local window = nil
 	local structures = {}
+
+	--// Functions
+	local function getBounds(frame)
+		local pos = frame.AbsolutePosition
+		local size = frame.AbsoluteSize
+		return {
+			Left = pos.X,
+			Right = pos.X + size.X,
+			Top = pos.Y,
+			Bottom = pos.Y + size.Y,
+		}
+	end
 
 	--// UI
 	structures.Body = create("Frame")({
@@ -56,8 +68,8 @@ return function(self)
 				}),
 
 				__dynamicKeys = {
-					Color = self.Theme.Controls.TitlebarShadow[1],
-					Transparency = self.Theme.Controls.TitlebarShadow[2],
+					Color = self.Theme.Controls.TitlebarShadow.Color,
+					Transparency = self.Theme.Controls.TitlebarShadow.Transparency,
 				},
 			}),
 		}),
@@ -334,7 +346,7 @@ return function(self)
 	structures.Title = structures.TitleStack:FindFirstChild("Title") :: TextLabel
 	structures.Subtitle = structures.TitleStack:FindFirstChild("Subtitle") :: TextLabel
 
-	structures.SearchField = textField(self)
+	structures.SearchField = textField
 	structures.SearchField.Body.Size = UDim2.fromOffset(126, 28)
 	structures.SearchField.Field.Size = UDim2.fromOffset(90, 0)
 	structures.SearchField.Layout.Padding = UDim.new(0, 8)
@@ -378,8 +390,7 @@ return function(self)
 			local backable = currentIndex > 1
 
 			backImage.ImageColor3 = (backable and theme.Secondary[1].Value) or theme.Tertiary[1].Value
-			backImage.ImageTransparency = (backable and theme.Secondary[2].Value)
-				or theme.Tertiary[2].Value
+			backImage.ImageTransparency = (backable and theme.Secondary[2].Value) or theme.Tertiary[2].Value
 			structures.Back.Interactable = backable
 		end
 
@@ -387,8 +398,7 @@ return function(self)
 			local forwardable = currentIndex < #rawHistory
 
 			forwardImage.ImageColor3 = (forwardable and theme.Secondary[1].Value) or theme.Tertiary[1].Value
-			forwardImage.ImageTransparency = (forwardable and theme.Secondary[2].Value)
-				or theme.Tertiary[2].Value
+			forwardImage.ImageTransparency = (forwardable and theme.Secondary[2].Value) or theme.Tertiary[2].Value
 			structures.Forward.Interactable = forwardable
 		end
 	end
@@ -436,6 +446,37 @@ return function(self)
 			end
 		end)
 	end
+
+	structures.Body:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+		for _, trailing in pairs(structures.Trailing:GetChildren()) do
+			if not trailing:IsA("GuiObject") then
+				continue
+			end
+
+			local trailingBounds = getBounds(trailing)
+			local isVisible = true
+
+			for _, leading in pairs(structures.Leading:GetChildren()) do
+				if not leading:IsA("GuiObject") then
+					continue
+				end
+					
+				local leadingBounds = getBounds(leading)
+
+				local overlapping = (
+					leadingBounds.Right >= trailingBounds.Left and leadingBounds.Left <= trailingBounds.Right
+				)
+					and (leadingBounds.Bottom >= trailingBounds.Top and leadingBounds.Top <= trailingBounds.Bottom)
+
+				if overlapping then
+					isVisible = false
+					break
+				end
+			end
+
+			trailing.Visible = isVisible
+		end
+	end)
 
 	return structures,
 		function(newWindow)

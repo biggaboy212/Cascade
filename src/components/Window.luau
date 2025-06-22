@@ -7,7 +7,8 @@ return function(self, properties: types.WindowProperties): types.Window
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
 
-	local titleBar = require("@structures/Titlebar")
+	local titleBar, addToHistory = require("@structures/Titlebar")(self)
+	local resizeHandler = require("@modules/resizeHandler")
 
 	--// References
 	local create = creator.Create
@@ -19,21 +20,24 @@ return function(self, properties: types.WindowProperties): types.Window
 	local parent = self.__container or self.__instance or self
 	local originalSize
 	local originalPosition
+	local originalPosition2
+	local minimizing
 	local dragging
+	local resizeClient
 	local structures = {}
 
 	--// UI
 	properties = properties or {}
 
-	properties.Maximized = properties.Maximized ~= nil and properties.Maximized or false
-	properties.Minimized = properties.Minimized ~= nil and properties.Minimized or false
-	properties.Searching = properties.Searching == nil and true or properties.Searching
-	properties.Resizable = properties.Resizable == nil and true or properties.Resizable
-	properties.Draggable = properties.Draggable == nil and true or properties.Draggable
-	properties.Resizable = properties.Resizable == nil and true or properties.Resizable
+	properties.Maximized = properties.Maximized == true
+	properties.Minimized = properties.Minimized == true
+	properties.Searching = properties.Searching ~= false
+	properties.Resizable = properties.Resizable ~= false
+	properties.Draggable = properties.Draggable ~= false
+	properties.Resizable = properties.Resizable ~= false
+	properties.Dropshadow = properties.Dropshadow ~= false
+	properties.UIBlur = properties.UIBlur ~= false
 	properties.Title = properties.Title or "Title"
-	properties.Dropshadow = properties.Dropshadow == nil and true or properties.Dropshadow
-	properties.UIBlur = properties.UIBlur == nil and true or properties.UIBlur
 
 	structures.Body = binder.Apply(
 		properties,
@@ -43,7 +47,6 @@ return function(self, properties: types.WindowProperties): types.Window
 			BorderSizePixel = 0,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
-			Size = UDim2.fromOffset(850, 530),
 			Parent = parent,
 
 			__dynamicKeys = {
@@ -341,7 +344,7 @@ return function(self, properties: types.WindowProperties): types.Window
 				ClipsDescendants = true,
 				LayoutOrder = 2,
 				Position = UDim2.fromScale(1, 0),
-				Size = UDim2.new(1, -201, 1, 0),
+				Size = UDim2.new(1, -202, 1, 0),
 
 				__dynamicKeys = {
 					BackgroundColor3 = self.Theme.Controls.Background[1],
@@ -389,125 +392,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			}),
 
 			create("Folder")({
-				Name = "Handles",
-
-				create("TextButton")({
-					Name = "W",
-					Active = false,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					AutoButtonColor = false,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Position = UDim2.fromScale(0, 0.5),
-					Selectable = false,
-					Size = UDim2.new(0, 5, 1, -10),
-					Text = "",
-				}),
-
-				create("TextButton")({
-					Name = "N",
-					Active = false,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					AutoButtonColor = false,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Position = UDim2.fromScale(0.5, 0),
-					Selectable = false,
-					Size = UDim2.new(1, -10, 0, 5),
-					Text = "",
-				}),
-
-				create("TextButton")({
-					Name = "SE",
-					Active = false,
-					AnchorPoint = Vector2.new(1, 1),
-					AutoButtonColor = false,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Position = UDim2.fromScale(1, 1),
-					Selectable = false,
-					Size = UDim2.fromOffset(8, 8),
-					Text = "",
-				}),
-
-				create("TextButton")({
-					Name = "NW",
-					Active = false,
-					AutoButtonColor = false,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Selectable = false,
-					Size = UDim2.fromOffset(8, 8),
-					Text = "",
-				}),
-
-				create("TextButton")({
-					Name = "SW",
-					Active = false,
-					AnchorPoint = Vector2.new(0, 1),
-					AutoButtonColor = false,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Position = UDim2.fromScale(0, 1),
-					Selectable = false,
-					Size = UDim2.fromOffset(8, 8),
-					Text = "",
-				}),
-
-				create("TextButton")({
-					Name = "S",
-					Active = false,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					AutoButtonColor = false,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Position = UDim2.fromScale(0.5, 1),
-					Selectable = false,
-					Size = UDim2.new(1, -10, 0, 5),
-					Text = "",
-				}),
-
-				create("TextButton")({
-					Name = "E",
-					Active = false,
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					AutoButtonColor = false,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Position = UDim2.fromScale(1, 0.5),
-					Selectable = false,
-					Size = UDim2.new(0, 5, 1, -10),
-					Text = "",
-				}),
-
-				create("TextButton")({
-					Name = "NE",
-					Active = false,
-					AnchorPoint = Vector2.new(1, 0),
-					AutoButtonColor = false,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Position = UDim2.fromScale(1, 0),
-					Selectable = false,
-					Size = UDim2.fromOffset(8, 8),
-					Text = "",
-				}),
+				Name = "LayoutIgnore",
 
 				create("TextButton")({
 					Name = "TopArea",
@@ -527,8 +412,11 @@ return function(self, properties: types.WindowProperties): types.Window
 	) :: Frame
 
 	--// Initialize
+	structures.Scale = create("UIScale")({
+		Parent = parent,
+	})
 	structures.Cornering = structures.Body:FindFirstChild("UICorner") :: UICorner
-	structures.Handles = structures.Body:FindFirstChild("Handles") :: Folder
+	structures.LayoutIgnore = structures.Body:FindFirstChild("LayoutIgnore") :: Folder
 	structures.Separator = structures.Body:FindFirstChild("Separator") :: Frame
 	structures.Sidebar = structures.Body:FindFirstChild("Sidebar") :: Frame
 	structures.SidebarList = structures.Sidebar:FindFirstChild("SidebarList") :: Frame
@@ -538,9 +426,7 @@ return function(self, properties: types.WindowProperties): types.Window
 	structures.Content = structures.ContentBody:FindFirstChild("Content") :: Frame
 	structures.CornerClip = structures.ContentBody:FindFirstChild("CornerClip") :: Frame
 
-	local _titleBar, initializeTBar = titleBar(self)
-
-	structures.Titlebar = _titleBar
+	structures.Titlebar = titleBar
 	structures.Titlebar.Body.Parent = structures.ContentBody
 
 	originalSize = structures.Body.Size
@@ -567,17 +453,57 @@ return function(self, properties: types.WindowProperties): types.Window
 		Draggable = function(value: boolean)
 			dragging = not value and false
 		end,
-		Minimized = function(value: boolean) end,
-		Maximized = function(value: boolean?, tween: boolean?)
-			tween = (tween == nil and true) or false
-			
-			if not value then
-				dragging = false
+		Resizable = function(value: boolean)
+			if resizeClient and not properties.Maximized then
+				resizeClient.SetEnabled(value)
 			end
+		end,
+		Minimized = function(value: boolean?, tween: boolean?)
+			local useTween = tween ~= false
+
+			if value and not minimizing then
+				originalPosition2 = structures.Body.Position
+				structures["BlurModel"].SetVisibility(false)
+			end
+
+			local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
+			local bodyTarget = {
+				Position = value and UDim2.new(0.5, 0, 0.5, structures.Body.AbsoluteSize.Y * 2) or originalPosition2,
+			}
+			local scaleTarget = { Scale = value and 0 or 1 }
+
+			if useTween then
+				minimizing = true
+				tweenService:Create(structures.Body.__instance, tweenInfo, bodyTarget):Play()
+
+				local scaleTween: Tween = tweenService:Create(structures.Scale.__instance, tweenInfo, scaleTarget)
+
+				scaleTween:Play()
+				scaleTween.Completed:Once(function()
+					minimizing = false
+
+					if structures["BlurModel"] and tween ~= nil and not properties.Minimized then
+						structures["BlurModel"].SetVisibility(true)
+					end
+				end)
+			else
+				structures.Body.Position = bodyTarget.Position
+				structures.Scale.Scale = scaleTarget.Scale
+
+				if value and structures["BlurModel"] then
+					structures["BlurModel"].SetVisibility(false)
+				end
+			end
+		end,
+		Maximized = function(value: boolean?, tween: boolean?)
+			tween = tween ~= false
 
 			if value then
 				originalSize = structures.Body.Size
 				originalPosition = structures.Body.Position
+				resizeClient.SetEnabled(false)
+			else
+				dragging = false
 			end
 
 			local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
@@ -595,6 +521,10 @@ return function(self, properties: types.WindowProperties): types.Window
 				structures.Body.Position = bodyTarget.Position
 				structures.Cornering.CornerRadius = cornerTarget.CornerRadius
 			end
+
+			if not value then
+				resizeClient.SetEnabled(properties.Resizable)
+			end
 		end,
 		Dropshadow = function(value: boolean)
 			if structures["ShadowLayers"] then
@@ -602,7 +532,8 @@ return function(self, properties: types.WindowProperties): types.Window
 			end
 
 			if value then
-				structures.ShadowLayers = effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14)
+				structures.ShadowLayers =
+					effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14, structures.Body.Parent)
 			end
 		end,
 		UIBlur = function(value: boolean)
@@ -613,7 +544,7 @@ return function(self, properties: types.WindowProperties): types.Window
 
 			structures.Body.BackgroundTransparency = value and self.Theme.Controls.Sidebar[2].Value or 0
 
-			if value then
+			if value and not properties.Minimized then
 				structures.BlurModel = effects.UIBlur(structures.Body)
 			end
 		end,
@@ -624,8 +555,14 @@ return function(self, properties: types.WindowProperties): types.Window
 	object.Theme = self.Theme
 	object.Structures = structures
 	object.Tabs = {}
-	object.addToHistory = initializeTBar(object)
+	object.addToHistory = addToHistory(object)
 	object.__container = structures.Content
+
+	do -- Resize handler
+		resizeClient = resizeHandler(structures.Body.__instance, Vector2.new(350, 250))
+
+		resizeClient.CreateClient()
+	end
 
 	do -- Sidebar button
 		local toggled = true
@@ -755,9 +692,14 @@ return function(self, properties: types.WindowProperties): types.Window
 					parent = parent.Parent
 				end
 
+				local cache = pageCaches[page]
+
 				for _, descendant in ipairs(match:GetDescendants()) do
 					if descendant:IsA("GuiObject") then
-						descendant.Visible = true
+						local wasVisible = cache and cache[descendant]
+						if wasVisible then
+							descendant.Visible = true
+						end
 					end
 				end
 			end
@@ -765,9 +707,9 @@ return function(self, properties: types.WindowProperties): types.Window
 	end
 
 	do -- Window controls
-		local exit = structures.WindowControls:FindFirstChild("Exit")
-		local minimize = structures.WindowControls:FindFirstChild("Minimize")
-		local zoom = structures.WindowControls:FindFirstChild("Zoom")
+		local exit = structures.WindowControls:FindFirstChild("Exit") :: ImageButton
+		local minimize = structures.WindowControls:FindFirstChild("Minimize") :: ImageButton
+		local zoom = structures.WindowControls:FindFirstChild("Zoom") :: ImageButton
 
 		local function rollOver()
 			exit:FindFirstChild("Icon").Visible = structures.WindowControls.GuiState ~= Enum.GuiState.Hover
@@ -780,6 +722,16 @@ return function(self, properties: types.WindowProperties): types.Window
 			bindings.Maximized(properties.Maximized, true)
 		end)
 
+		minimize.MouseButton1Click:Connect(function()
+			properties.Minimized = not properties.Minimized
+			bindings.Minimized(properties.Minimized, true)
+		end)
+
+		exit.MouseButton1Click:Connect(function()
+			bindings.Minimized(true)
+			task.delay(0.25, structures.Body.Destroy)
+		end)
+
 		structures.WindowControls.MouseEnter:Connect(rollOver)
 		structures.WindowControls.MouseLeave:Connect(rollOver)
 	end
@@ -788,7 +740,7 @@ return function(self, properties: types.WindowProperties): types.Window
 		local inputPos = nil
 		local startPos = nil
 		local connection = nil
-		local boundingUi = structures.Handles:FindFirstChild("TopArea")
+		local boundingUi = structures.LayoutIgnore:FindFirstChild("TopArea")
 
 		boundingUi.InputBegan:Connect(function(input)
 			if

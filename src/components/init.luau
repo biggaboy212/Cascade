@@ -11,6 +11,7 @@ local components = {
 	TitleStack = require("@components/TitleStack"),
 	Label = require("@components/Label"),
 	Toggle = require("@components/Toggle"),
+	TextField = require("@components/TextField"),
 }
 
 --// Intialize
@@ -19,7 +20,7 @@ for component, make in pairs(components) do
 		return function(...)
 			local object = make(...)
 
-			binder.Apply(components, object, { component })
+			binder.Apply(components, object)
 
 			return object
 		end

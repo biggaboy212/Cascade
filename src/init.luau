@@ -16,6 +16,10 @@ local cascade = { Themes = themes, Symbols = symbols }
 
 --// Initialize
 cascade.New = function(properties: types.AppProperties): types.App
+	if not game:IsLoaded() then
+		game.Loaded:Wait()
+	end
+
 	properties = properties or {}
 	
 	properties.Theme = properties and properties.Theme or themes.Light

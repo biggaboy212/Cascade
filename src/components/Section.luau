@@ -68,9 +68,9 @@ return function(self, properties: types.SectionProperties): types.Section
 	--// UI
 	properties = properties or {}
 
-	properties.Label = properties.Label or "Label"
-	properties.Disclosure = properties.Disclosure ~= nil and properties.Disclosure or false
-	properties.Expanded = properties.Expanded == nil and true or properties.Expanded
+	properties.Title = properties.Title or "Section Title"
+	properties.Disclosure = properties.Disclosure ~= false
+	properties.Expanded = properties.Expanded ~= false
 
 	structures.SidebarGroup = binder.Apply(
 		properties,
@@ -176,7 +176,7 @@ return function(self, properties: types.SectionProperties): types.Section
 
 	local connections = {}
 	local bindings = {
-		Label = function(name: string)
+		Title = function(name: string)
 			structures.Title.Text = name
 		end,
 		Disclosure = function(state: boolean)
@@ -201,7 +201,7 @@ return function(self, properties: types.SectionProperties): types.Section
 				local targetHeight = state and structures.Layout.AbsoluteContentSize.Y or 23
 				local tween = tweenService:Create(
 					sidebarGroup,
-					TweenInfo.new(useTween and 0.1 or 0, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+					TweenInfo.new(useTween and 0.35 or 0, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out),
 					{
 						Size = UDim2.new(1, 0, 0, targetHeight),
 					}
@@ -217,7 +217,7 @@ return function(self, properties: types.SectionProperties): types.Section
 			tweenService
 				:Create(
 					disclosureImage,
-					TweenInfo.new(tween and 0.1 or 0, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+					TweenInfo.new(tween and 0.35 or 0, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out),
 					{
 						Rotation = state and 0 or -90,
 					}
@@ -230,9 +230,7 @@ return function(self, properties: types.SectionProperties): types.Section
 	object.Type = "Section"
 	object.Theme = self.Theme
 	object.Structures = structures
-	object.__container = self.__container
-	object.Tabs = self.Tabs or {}
-	object.addToHistory = self.addToHistory
+	object.__window = self
 
 	structures.SidebarGroup.MouseButton1Click:Connect(function()
 		if not properties.Disclosure then

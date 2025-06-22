@@ -5,10 +5,9 @@ local creator = require("@modules/creator")
 local create = creator.Create
 
 --// Initialize
-return function(parent: GuiObject, color: Color3, transparency: number, spread: number)
+return function(parent: GuiObject, color: Color3, transparency: number, spread: number, overrideParent: Instance?)
 	local function gaussian(n, sigma)
-		local weights = {}
-		local sum = 0
+		local weights, sum = {}, 0
 
 		for i = -n, n do
 			local weight = math.exp(-((i ^ 2) / (2 * sigma ^ 2)))
@@ -30,8 +29,14 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 	})
 
 	local function changed()
+		if not parent or not parent.Parent then
+			layers:Destroy()
+
+			return
+		end
+
 		layers:ClearAllChildren()
-		layers.Parent = parent.Parent
+		layers.Parent = overrideParent or parent.Parent
 
 		if not parent.Visible then
 			return
@@ -69,7 +74,7 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 		end
 	end
 
-    parent:GetPropertyChangedSignal("Visible"):Connect(changed)
+	parent:GetPropertyChangedSignal("Visible"):Connect(changed)
 	parent:GetPropertyChangedSignal("ZIndex"):Connect(changed)
 	parent:GetPropertyChangedSignal("Position"):Connect(changed)
 	parent:GetPropertyChangedSignal("Size"):Connect(changed)
@@ -77,11 +82,11 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 	parent.ChildAdded:Connect(changed)
 	parent.ChildRemoved:Connect(changed)
 	parent.AncestryChanged:Connect(changed)
-    parent.Destroying:Connect(function()
+
+	parent.Destroying:Connect(function()
 		layers:Destroy()
 	end)
 
 	changed()
-
 	return layers
 end
