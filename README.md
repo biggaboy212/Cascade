@@ -16,4 +16,4 @@
 
 [![Discord][badges/disc]][disc]
 
-Cascade is an open-source LuaU UI library based on SwiftUI.
+Cascade is an open-source LuaU UI library based on macOS Sequoia.
