@@ -77,13 +77,13 @@ return {
 		},
 
 		Slider = {
-			Track = color4("2C2C2E", 100), -- Slightly lighter than Controls.Background for visibility
-			TrackEffects = color4("000000", 10), -- Subtle shadowing
-			TrackFill = color4("478CF6", 100), -- Matches Toggle.SwitchOn and Controls.SwitchAccent
+			Track = color4("2C2C2E", 100),
+			TrackEffects = color4("000000", 10),
+			TrackFill = color4("478CF6", 100),
 
-			Thumb = color4("FFFFFF", 100), -- Crisp white thumb
-			ThumbStroke = color4("000000", 20), -- Gentle contrast for thumb edges
-			ThumbEffects = color4("FFFFFF", 80), -- Light inner glow
+			Thumb = color4("FFFFFF", 100),
+			ThumbStroke = color4("000000", 20),
+			ThumbEffects = color4("FFFFFF", 80),
 		},
 	},
 }

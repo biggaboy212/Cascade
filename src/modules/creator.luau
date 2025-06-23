@@ -35,17 +35,9 @@ function creator.Create(className: string)
 					end)
 
 					valueObject:Connect(function(newValue)
-						-- TODO: Find a way for contextKeys to not reference the old state
-						-- i've been on this for 3 fucking days
-						if properties["__contextKeys"] and properties["__contextKeys"][property] then
-							pcall(function()
-								instance[property] = properties["__contextKeys"][property]().Value
-							end)
-						else
-							pcall(function()
-								instance[property] = newValue
-							end)
-						end
+						pcall(function()
+							instance[property] = properties["__contextKeys"] and properties["__contextKeys"][property] and properties["__contextKeys"][property]() or newValue
+						end)
 					end)
 				end
 

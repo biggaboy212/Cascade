@@ -559,7 +559,7 @@ return function(self, properties: types.WindowProperties): types.Window
 	object.__container = structures.Content
 
 	do -- Resize handler
-		resizeClient = resizeHandler(structures.Body.__instance, Vector2.new(350, 250))
+		resizeClient = resizeHandler(structures.Body.__instance, Vector2.new(450, 250))
 
 		resizeClient.CreateClient()
 	end
