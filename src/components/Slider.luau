@@ -144,7 +144,7 @@ return function(self, properties: types.SliderProperties): types.Slider
 						ZIndex = 0,
 
 						__dynamicKeys = {
-							ImageColor = theme.ThumbEffects[1],
+							ImageColor3 = theme.ThumbEffects[1],
 							ImageTransparency = theme.ThumbEffects[2],
 						},
 

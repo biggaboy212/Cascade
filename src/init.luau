@@ -22,7 +22,7 @@ cascade.New = function(properties: types.AppProperties): types.App
 
 	properties = properties or {}
 	
-	properties.Theme = properties and properties.Theme or themes.Light
+	properties.Theme = utility.Clone(properties and properties.Theme or themes.Light)
 
 	local container = utility.ProtectUI(create("ScreenGui")({
 		Name = "Cascade",

@@ -53,8 +53,8 @@ return function(self)
 			ZIndex = 0,
 
 			__dynamicKeys = {
-				Color = self.Theme.Controls.TitlebarShadow.Background[1],
-				Transparency = self.Theme.Controls.TitlebarShadow.Background[2],
+				BackgroundColor3 = self.Theme.Controls.TitlebarShadow.Background[1],
+				BackgroundTransparency = self.Theme.Controls.TitlebarShadow.Background[2],
 			},
 
 			create("UIGradient")({

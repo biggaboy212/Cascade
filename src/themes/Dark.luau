@@ -18,11 +18,17 @@ end
 return {
 	Text = {
 		Primary = color4("FFFFFF", 85),
-		PrimaryAccent = color4("FFFFFF", 38),
 		Secondary = color4("FFFFFF", 55),
 		Tertiary = color4("FFFFFF", 25),
 		Quaternary = color4("FFFFFF", 10),
 		Quinary = color4("FFFFFF", 5),
+
+		SelectionPrimary = color4("FFFFFF", 100),
+		PrimaryAccent = color4("FFFFFF", 38),
+	},
+
+	Accents = {
+		Red = color4("FF453A", 100),
 	},
 
 	Controls = {
@@ -84,6 +90,18 @@ return {
 			Thumb = color4("FFFFFF", 100),
 			ThumbStroke = color4("000000", 20),
 			ThumbEffects = color4("FFFFFF", 80),
+		},
+
+		PushButton = {
+			Shadow = value(Color3.fromRGB(0, 0, 0)),
+			FillPrimary = value(ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(72, 148, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(10, 110, 255)),
+			})),
+			FillSecondary = value(ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(60, 60, 60)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(55, 55, 55)),
+			})),
 		},
 	},
 }

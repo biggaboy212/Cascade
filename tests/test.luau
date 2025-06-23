@@ -7,7 +7,7 @@ local userInputService = services.UserInputService
 
 --// UI
 local app = cascade.New({
-	Theme = cascade.Themes.Light,
+	Theme = cascade.Themes.Dark,
 })
 
 do -- App window
@@ -80,11 +80,45 @@ do -- App window
 						end
 					end
 				})
+
+				local buttonRow = form:Row()
+
+				buttonRow:PushButton({
+					Label = "Primary",
+					State = "Primary",
+					Pushed = function()
+						print("Pushed!")
+					end
+				})
+
+				buttonRow:PushButton({
+					Label = "Secondary",
+					State = "Secondary",
+					Pushed = function()
+						print("Pushed!")
+					end
+				})
+				
+				buttonRow:PushButton({
+					Label = "Destructive",
+					State = "Destructive",
+					Pushed = function()
+						print("Pushed!")
+					end
+				})
 			end
 		end
 
 		section:Tab({
 			Icon = cascade.Symbols.doc,
+		}):Form():Row({
+			Title = "Dark mode",
+			Subtitle = "Toggle dark mode on or off."
+		}):Toggle({
+			Value = app.Theme == cascade.Themes.Dark,
+			ValueChanged = function(self, value: boolean)
+				app.Theme = value and cascade.Themes.Dark or cascade.Themes.Light
+			end
 		})
 
 		section:Tab({
@@ -120,7 +154,3 @@ do -- App window
 		})
 	end
 end
-
-task.wait(4)
-
-app.Theme = cascade.Themes.Dark

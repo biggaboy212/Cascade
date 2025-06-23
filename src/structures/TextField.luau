@@ -79,8 +79,6 @@ return function(self)
 						return 1
 					end
 
-					print(self.Theme.Text.Primary[1].Value)
-
 					return structures["Field"].Text == "" and self.Theme.Text.Tertiary[2].Value
 						or self.Theme.Text.Primary[2].Value
 				end,

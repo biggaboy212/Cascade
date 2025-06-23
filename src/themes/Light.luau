@@ -18,11 +18,17 @@ end
 return {
 	Text = {
 		Primary = color4("000000", 85),
-		PrimaryAccent = color4("4D4D4D", 100),
 		Secondary = color4("000000", 50),
 		Tertiary = color4("000000", 25),
 		Quaternary = color4("000000", 10),
 		Quinary = color4("000000", 5),
+
+		SelectionPrimary = color4("FFFFFF", 100),
+		PrimaryAccent = color4("4D4D4D", 100),
+	},
+
+	Accents = {
+		Red = color4("FF3B30", 100)
 	},
 
 	Controls = {
@@ -79,10 +85,22 @@ return {
 		Slider = {
 			Track = color4("000000", 5),
 			TrackEffects = color4("000000", 0),
-			
+
 			Thumb = color4("FFFFFF", 100),
 			ThumbStroke = color4("000000", 2),
 			ThumbEffects = color4("FFFFFF", 100),
-		}
+		},
+
+		PushButton = {
+			Shadow = value(Color3.new(0, 0, 0)),
+			FillPrimary = value(ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(43, 145, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 122, 255)),
+			})),
+			FillSecondary = value(ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
+			})),
+		},
 	},
 }

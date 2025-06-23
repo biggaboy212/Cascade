@@ -1,4 +1,4 @@
-# ![Cascade span dark](Assets/cascade_span_dark.png#gh-dark-mode-only) ![Cascade span light](Assets/cascade_span_light.png#gh-light-mode-only)
+# Cascade
 
 [stars]: https://github.com/biggaboy212/Cascade/stargazers
 [lastrel]: https://github.com/biggaboy212/Cascade/releases/latest
@@ -14,6 +14,10 @@
 [![Stars][badges/stars]][stars]
 [![Latest Release][badges/lastrel]][lastrel]
 [![Last Modified][badges/lastcom]][lastcom]
+
+</br>
+
+![Cascade span dark](Assets/cascade_span_dark.png#gh-dark-mode-only) ![Cascade span light](Assets/cascade_span_light.png#gh-light-mode-only)
 
 Cascade is an open-source LuaU UI library based on macOS Sequoia.
 

@@ -166,6 +166,47 @@ export type ImageLabel = GuiObject & {
 	TileSize: UDim2?,
 }
 
+export type GuiButton = GuiObject & {
+	AutoButtonColor: boolean?,
+	Modal: boolean?,
+	Style: Enum.ButtonStyle?,
+	HoverHapticEffect: HapticEffect?,
+	PressHapticEffect: HapticEffect?,
+	Selected: boolean?,
+
+	Activated: (
+		(self: GuiButton, handler: (inputObject: InputObject, clickCount: number) -> ()) -> RBXScriptConnection
+	)?,
+	MouseButton1Click: ((self: GuiButton, handler: () -> ()) -> RBXScriptConnection)?,
+	MouseButton1Down: ((self: GuiButton, handler: (x: number, y: number) -> ()) -> RBXScriptConnection)?,
+	MouseButton1Up: ((self: GuiButton, handler: (x: number, y: number) -> ()) -> RBXScriptConnection)?,
+	MouseButton2Click: ((self: GuiButton, handler: () -> ()) -> RBXScriptConnection)?,
+	MouseButton2Down: ((self: GuiButton, handler: (x: number, y: number) -> ()) -> RBXScriptConnection)?,
+	MouseButton2Up: ((self: GuiButton, handler: (x: number, y: number) -> ()) -> RBXScriptConnection)?,
+}
+
+export type TextButton = GuiButton & {
+	FontFace: Font?,
+	LineHeight: number?,
+	MaxVisibleGraphemes: number?,
+	OpenTypeFeatures: string?,
+	RichText: boolean?,
+	Text: string?,
+	TextColor3: Color3?,
+	TextDirection: Enum.TextDirection?,
+	TextScaled: boolean?,
+	TextSize: number?,
+	TextStrokeColor3: Color3?,
+	TextStrokeTransparency: number?,
+	TextTransparency: number?,
+	TextTruncate: Enum.TextTruncate?,
+	TextWrapped: boolean?,
+	TextXAlignment: Enum.TextXAlignment?,
+	TextYAlignment: Enum.TextYAlignment?,
+
+	SetTextFromInput: ((self: TextButton, text: string) -> ())?,
+}
+
 export type ValueState = {
 	Value: any,
 	Connect: (...any) -> any,
@@ -266,7 +307,7 @@ export type TextFieldProperties = Frame & {
 export type TextField = BaseComponent & Components & TextFieldProperties
 
 -- Slider
-export type SliderProperties = Frame & {
+export type SliderProperties = ImageLabel & {
 	Minimum: number?,
 	Maximum: number?,
 	Value: number?,
@@ -274,6 +315,15 @@ export type SliderProperties = Frame & {
 }
 
 export type Slider = BaseComponent & Components & SliderProperties
+
+-- PushButton
+export type PushButtonProperties = TextButton & {
+	State: string?,
+	Label: string?,
+	Pushed: ((self: PushButton) -> nil)?,
+}
+
+export type PushButton = BaseComponent & Components & PushButtonProperties
 
 -- Export
 export type Components = {
@@ -287,6 +337,7 @@ export type Components = {
 	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
 	TextField: (self: any, properties: TextFieldProperties) -> TextField,
 	Slider: (self: any, properties: SliderProperties) -> Slider,
+	PushButton: (self: any, properties: PushButtonProperties) -> PushButton,
 }
 
 return 1
