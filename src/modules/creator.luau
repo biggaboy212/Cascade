@@ -35,8 +35,15 @@ function creator.Create(className: string)
 					end)
 
 					valueObject:Connect(function(newValue)
-						pcall(function()
-							instance[property] = properties["__contextKeys"] and properties["__contextKeys"][property] and properties["__contextKeys"][property]() or newValue
+						task.defer(pcall, function()
+							if properties["__contextKeys"] and properties["__contextKeys"]["_general"] then
+								properties["__contextKeys"]["_general"]()
+							end
+
+							instance[property] = properties["__contextKeys"]
+									and properties["__contextKeys"][property]
+									and properties["__contextKeys"][property]()
+								or newValue
 						end)
 					end)
 				end

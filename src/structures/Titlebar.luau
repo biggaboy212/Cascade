@@ -8,6 +8,8 @@ return function(self)
 
 	--// Variables
 	local window = nil
+	local rawHistory = {}
+	local currentIndex = 0
 	local structures = {}
 
 	--// Functions
@@ -209,6 +211,20 @@ return function(self)
 								ImageColor3 = self.Theme.Text.Tertiary[1],
 								ImageTransparency = self.Theme.Text.Tertiary[2],
 							},
+							__contextKeys = {
+								ImageColor3 = function()
+									local backable = currentIndex > 1
+									local theme = window.Theme.Text
+
+									return (backable and theme.Secondary[1].Value) or theme.Tertiary[1].Value
+								end,
+								ImageTransparency = function()
+									local backable = currentIndex > 1
+									local theme = window.Theme.Text
+
+									return (backable and theme.Secondary[2].Value) or theme.Tertiary[2].Value
+								end,
+							},
 						}),
 					}),
 
@@ -239,6 +255,20 @@ return function(self)
 							__dynamicKeys = {
 								ImageColor3 = self.Theme.Text.Tertiary[1],
 								ImageTransparency = self.Theme.Text.Tertiary[2],
+							},
+							__contextKeys = {
+								ImageColor3 = function()
+									local forwardable = currentIndex < #rawHistory
+									local theme = window.Theme.Text
+
+									return (forwardable and theme.Secondary[1].Value) or theme.Tertiary[1].Value
+								end,
+								ImageTransparency = function()
+									local forwardable = currentIndex < #rawHistory
+									local theme = window.Theme.Text
+
+									return (forwardable and theme.Secondary[2].Value) or theme.Tertiary[2].Value
+								end,
 							},
 						}),
 					}),
@@ -373,9 +403,6 @@ return function(self)
 
 	structures.SearchField.Body.Parent = structures.Trailing
 
-	local rawHistory = {}
-	local currentIndex = 0
-
 	local function updateNavStates()
 		if not window then
 			return
@@ -460,7 +487,7 @@ return function(self)
 				if not leading:IsA("GuiObject") then
 					continue
 				end
-					
+
 				local leadingBounds = getBounds(leading)
 
 				local overlapping = (

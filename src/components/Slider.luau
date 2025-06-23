@@ -144,8 +144,8 @@ return function(self, properties: types.SliderProperties): types.Slider
 						ZIndex = 0,
 
 						__dynamicKeys = {
-							Color = theme.ThumbEffects[1],
-							Transparency = theme.ThumbEffects[2],
+							ImageColor = theme.ThumbEffects[1],
+							ImageTransparency = theme.ThumbEffects[2],
 						},
 
 						create("UICorner")({

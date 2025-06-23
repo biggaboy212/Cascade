@@ -7,7 +7,7 @@ local userInputService = services.UserInputService
 
 --// UI
 local app = cascade.New({
-	Theme = cascade.Themes.Dark,
+	Theme = cascade.Themes.Light,
 })
 
 do -- App window

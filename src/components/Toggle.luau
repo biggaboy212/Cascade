@@ -47,6 +47,14 @@ return function(self, properties: types.ToggleProperties): types.Row
 					ImageColor3 = theme.SwitchOff[1],
 					ImageTransparency = theme.SwitchOff[2],
 				},
+				__contextKeys = {
+					ImageColor3 = function()
+						return properties.Value and theme.SwitchOn[1].Value or theme.SwitchOff[1].Value
+					end,
+					ImageTransparency = function()
+						return properties.Value and theme.SwitchOn[2].Value or theme.SwitchOff[2].Value
+					end,
+				},
 
 				create("ImageLabel")({
 					Name = "Knob",

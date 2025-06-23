@@ -5,7 +5,7 @@ return function(self)
 
 	--// References
 	local create = creator.Create
-	
+
 	local tweenService = services.TweenService
 
 	--// Variables
@@ -54,10 +54,38 @@ return function(self)
 			TextSize = 15,
 
 			__dynamicKeys = {
-                PlaceholderColor3 = self.Theme.Text.Tertiary[1],
-                TextTransparency = self.Theme.Text.Tertiary[2],
-            },
-			
+				PlaceholderColor3 = self.Theme.Text.Tertiary[1],
+				TextTransparency = self.Theme.Text.Tertiary[2],
+			},
+
+			__contextKeys = {
+				_general = function()
+					local field = structures["Field"]
+
+					if not field then
+						return
+					end
+
+					if field.Text == "" then
+						field.PlaceholderColor3 = self.Theme.Text.Tertiary[1].Value
+						field.TextTransparency = self.Theme.Text.Tertiary[2].Value
+					else
+						field.TextColor3 = self.Theme.Text.Primary[1].Value
+						field.TextTransparency = self.Theme.Text.Primary[2].Value
+					end
+				end,
+				TextTransparency = function()
+					if not structures["Field"] then
+						return 1
+					end
+
+					print(self.Theme.Text.Primary[1].Value)
+
+					return structures["Field"].Text == "" and self.Theme.Text.Tertiary[2].Value
+						or self.Theme.Text.Primary[2].Value
+				end,
+			},
+
 			create("UIPadding")({
 				Name = "UIPadding",
 				PaddingTop = UDim.new(0, 4),
@@ -75,7 +103,7 @@ return function(self)
 			Name = "UIListLayout",
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-            FillDirection = Enum.FillDirection.Horizontal
+			FillDirection = Enum.FillDirection.Horizontal,
 		}),
 	}) :: Frame
 
@@ -102,7 +130,7 @@ return function(self)
 		currentTween:Play()
 	end)
 
-    structures.Field.FocusLost:Connect(function()
+	structures.Field.FocusLost:Connect(function()
 		if currentTween then
 			currentTween:Cancel()
 		end

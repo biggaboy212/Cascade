@@ -39,14 +39,14 @@ return function(self, properties: types.TabProperties): types.Tab
 				BackgroundColor3 = self.Theme.Controls.SelectionFocused[1],
 				BackgroundTransparency = self.Theme.Controls.SelectionFocused[2],
 			},
-			--[[ __contextKeys = {
+			__contextKeys = {
 				BackgroundColor3 = function()
-					return properties.Selected and self.Theme.Controls.SelectionFocused[1] or value(1)
+					return properties.Selected and self.Theme.Controls.SelectionFocused[1].Value or 1
 				end,
 				BackgroundTransparency = function()
-					return properties.Selected and self.Theme.Controls.SelectionFocused[2] or value(1)
+					return properties.Selected and self.Theme.Controls.SelectionFocused[2].Value or 1
 				end,
-			}, ]]
+			},
 
 			create("UICorner")({
 				Name = "UICorner",
@@ -96,16 +96,16 @@ return function(self, properties: types.TabProperties): types.Tab
 						TextColor3 = self.Theme.Controls.SelectionFocusedAccent[1],
 						TextTransparency = self.Theme.Controls.SelectionFocusedAccent[2],
 					},
-					--[[ __contextKeys = {
+					__contextKeys = {
 						TextColor3 = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[1]
-								or self.Theme.Text.Primary[1]
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[1].Value
+								or self.Theme.Text.Primary[1].Value
 						end,
 						TextTransparency = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[2]
-								or self.Theme.Text.Primary[2]
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[2].Value
+								or self.Theme.Text.Primary[2].Value
 						end,
-					}, ]]
+					},
 				}),
 
 				create("UIListLayout")({
@@ -132,16 +132,16 @@ return function(self, properties: types.TabProperties): types.Tab
 						ImageColor3 = self.Theme.Controls.Selection[1],
 						ImageTransparency = self.Theme.Controls.Selection[2],
 					},
-					--[[ __contextKeys = {
+					__contextKeys = {
 						ImageColor3 = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[1]
-								or self.Theme.Controls.Selection[1]
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[1].Value
+								or self.Theme.Controls.Selection[1].Value
 						end,
 						ImageTransparency = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[2]
-								or self.Theme.Controls.Selection[2]
+							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[2].Value
+								or self.Theme.Controls.Selection[2].Value
 						end,
-					}, ]]
+					},
 				}),
 			}),
 
