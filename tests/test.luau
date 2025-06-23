@@ -10,147 +10,145 @@ local app = cascade.New({
 	Theme = cascade.Themes.Dark,
 })
 
-do -- App window
+do -- Main window
 	local window = app:Window({
-		Title = "Title",
-		Subtitle = `Subtitle`,
+		Title = "Cascade",
+		Subtitle = "Cascade test application",
 		Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
 	})
 
-	-- Window keybind handling
 	userInputService.InputEnded:Connect(function(input, gameProcessedEvent)
 		if input.KeyCode == Enum.KeyCode.RightControl and not gameProcessedEvent then
 			window.Minimized = not window.Minimized
 		end
 	end)
 
-	do -- Section 1
+	-- Section 1
+	do
 		local section = window:Section({
 			Disclosure = true,
+			Title = "Section Title",
 		})
 
 		do -- Tab 1
 			local tab = section:Tab({
 				Selected = true,
+				Name = "Tab",
 				Icon = cascade.Symbols.doc,
 			})
 
 			do -- Form 1
 				local form = tab:Form()
 
-				form:Row():Toggle({
-					Value = true,
-					ValueChanged = function(self, value: boolean)
-						print(`Value changed: {value}`)
-					end
-				})
+				do -- Toggle Off
+					local row = form:Row({
+						SearchIndex = "ToggleOff",
+					})
 
-				form:Row():Toggle({
-					Value = false,
-					ValueChanged = function(self, value: boolean)
-						print(`Value changed: {value}`)
-					end
-				})
+					row:Left():TitleStack({
+						Title = "Toggle",
+						Subtitle = "Toggle with a falsey value",
+					})
 
-				form:Row({ Subtitle = "Subtitle" }):TextField({
-					Value = "Label",
-					Placeholder = "Placeholder",
-					ValueChanged = function(self, value: string)
-						print(`Value changed: {value}`)
-					end,
-					FocusLost = function(self, value: string)
-						print(`Input complete: {value}`)
-					end,
-				})
+					row:Right():Toggle({
+						Value = false,
+						ValueChanged = function(self, value: boolean)
+							print("Value changed:", value)
+						end,
+					})
+				end
 
-				local sliderRow = form:Row({
-					Title = "Slider",
-					Subtitle = "A slider is a horizontal track with a control, called a thumb, that people can adjust between a minimum and maximum value."
-				})
-				local label = sliderRow:Label()
-				sliderRow:Slider({
-					Value = 16,
-					Minimum = 1,
-					Maximum = 100,
-					ValueChanged = function(self, value: number)
-						print(`Value changed: {value}`)
+				do -- Toggle on
+					local row = form:Row({
+						SearchIndex = "ToggleOn",
+					})
 
-						if label then
-							label.Text = tostring(math.round(value))
-						end
-					end
-				})
+					row:Left():TitleStack({
+						Title = "Toggle",
+						Subtitle = "Toggle with a truthy value",
+					})
 
-				local buttonRow = form:Row()
+					row:Right():Toggle({
+						Value = true,
+						ValueChanged = function(self, value: boolean)
+							print("Value changed:", value)
+						end,
+					})
+				end
 
-				buttonRow:PushButton({
-					Label = "Primary",
-					State = "Primary",
-					Pushed = function()
-						print("Pushed!")
-					end
-				})
+				do -- Push buttons
+					local row = form:Row({
+						SearchIndex = "PushButtons",
+					})
 
-				buttonRow:PushButton({
-					Label = "Secondary",
-					State = "Secondary",
-					Pushed = function()
-						print("Pushed!")
-					end
-				})
-				
-				buttonRow:PushButton({
-					Label = "Destructive",
-					State = "Destructive",
-					Pushed = function()
-						print("Pushed!")
-					end
-				})
+					row:Left():TitleStack({
+						Title = "Push Buttons",
+						Subtitle = "Static buttons, these hold no value.",
+					})
+
+					row:Right():PushButton({
+						Label = "Primary",
+						State = "Primary",
+						Pushed = function(self) 
+							print("Pushed")
+						end,
+					})
+
+					row:Right():PushButton({
+						Label = "Secondary",
+						State = "Secondary",
+						Pushed = function(self) 
+							print("Pushed")
+						end,
+					})
+
+					row:Right():PushButton({
+						Label = "Destructive",
+						State = "Destructive",
+						Pushed = function(self) 
+							print("Pushed")
+						end,
+					})
+				end
+
+				do
+					local row = form:Row({
+						SearchIndex = "PushButtons",
+					})
+
+					row:Left():TitleStack({
+						Title = "Bigger Push Buttons",
+						Subtitle = "Static buttons, these hold no value.",
+					})
+
+					row:Right():PushButton({
+						State = "Primary",
+						Label = "Primary",
+						Size = UDim2.fromOffset(80, 25),
+						Pushed = function(self) 
+							print("Pushed")
+						end,
+					})
+
+					row:Right():PushButton({
+						State = "Secondary",
+						Label = "Secondary",
+						Size = UDim2.fromOffset(80, 25),
+						Pushed = function(self) 
+							print("Pushed")
+						end,
+					})
+
+					row:Right():PushButton({
+						State = "Destructive",
+						Label = "Destructive",
+						Size = UDim2.fromOffset(80, 25),
+						Pushed = function(self) 
+							print("Pushed")
+						end,
+					})
+				end
 			end
 		end
-
-		section:Tab({
-			Icon = cascade.Symbols.doc,
-		}):Form():Row({
-			Title = "Dark mode",
-			Subtitle = "Toggle dark mode on or off."
-		}):Toggle({
-			Value = app.Theme == cascade.Themes.Dark,
-			ValueChanged = function(self, value: boolean)
-				app.Theme = value and cascade.Themes.Dark or cascade.Themes.Light
-			end
-		})
-
-		section:Tab({
-			Icon = cascade.Symbols.doc,
-		})
-
-		section:Tab({
-			Icon = cascade.Symbols.doc,
-		})
-	end
-
-	do -- Section 2
-		local section = window:Section({
-			Disclosure = true,
-		})
-
-		section
-			:Tab({
-				Icon = cascade.Symbols.doc,
-			})
-			:Tab({
-				Icon = cascade.Symbols.doc,
-			})
-			:Tab({
-				Icon = cascade.Symbols.doc,
-			})
-			:Tab({
-				Icon = cascade.Symbols.doc,
-			})
-
-		section:Tab({
-			Icon = cascade.Symbols.doc,
-		})
 	end
 end

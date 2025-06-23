@@ -270,11 +270,12 @@ export type Form = BaseComponent & Components & FormProperties
 -- Row
 export type RowProperties = Frame & {
 	SearchIndex: string?,
-	Title: string?,
-	Subtitle: string?,
 }
 
-export type Row = BaseComponent & Components & RowProperties
+export type Row = BaseComponent & Components & RowProperties & {
+	Left: (self: Row) -> Row,
+	Right: (self: Row) -> Row,
+}
 
 -- TitleStack
 export type TitleStackProperties = Frame & {

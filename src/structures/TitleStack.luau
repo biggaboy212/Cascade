@@ -41,6 +41,7 @@ return function(self)
 			TextSize = 13,
 			TextWrapped = true,
 			TextXAlignment = Enum.TextXAlignment.Left,
+			Visible = false,
 
             __dynamicKeys = {
                 TextColor3 = self.Theme.Text.Secondary[1],

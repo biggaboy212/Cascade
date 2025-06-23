@@ -1,3 +1,6 @@
+-- We uh
+-- We dont talk about this..
+
 local types = require("@types")
 
 return function(self, properties: types.WindowProperties): types.Window
@@ -54,10 +57,6 @@ return function(self, properties: types.WindowProperties): types.Window
 				BackgroundTransparency = self.Theme.Controls.Sidebar[2],
 			},
 
-			create("UIPadding")({
-				Name = "UIPadding",
-			}),
-
 			create("UICorner")({
 				Name = "UICorner",
 				CornerRadius = UDim.new(0, 10),
@@ -78,246 +77,258 @@ return function(self, properties: types.WindowProperties): types.Window
 				BorderSizePixel = 0,
 				Size = UDim2.new(0, 200, 1, 0),
 
-				create("Folder")({
-					Name = "LayoutIgnore",
-
-					create("Frame")({
-						Name = "Shadow",
-						AnchorPoint = Vector2.new(1, 0),
-						BorderColor3 = Color3.fromRGB(0, 0, 0),
-						BorderSizePixel = 0,
-						Position = UDim2.new(1, 2, 0, 0),
-						Size = UDim2.new(0, 5, 1, 0),
-						ZIndex = 0,
-						__dynamicKeys = {
-							BackgroundColor3 = self.Theme.Controls.Separator.Shadow[1],
-							BackgroundTransparency = self.Theme.Controls.Separator.Shadow[2],
-						},
-
-						create("UIGradient")({
-							Name = "UIGradient",
-							Transparency = NumberSequence.new({
-								NumberSequenceKeypoint.new(0, 1),
-								NumberSequenceKeypoint.new(1, 0),
-							}),
-						}),
-					}),
-				}),
-
 				create("UIPadding")({
 					Name = "UIPadding",
-					PaddingRight = UDim.new(0, 2),
 				}),
 
 				create("Frame")({
-					Name = "Toolbar",
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					Name = "Margins",
+					BackgroundColor3 = Color3.fromRGB(234, 234, 234),
 					BackgroundTransparency = 1,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
-					Size = UDim2.new(1, 0, 0, 52),
+					Size = UDim2.new(0, 200, 1, 0),
+					create("Folder")({
+						Name = "LayoutIgnore",
 
-					create("Frame")({
-						Name = "WindowControls",
-						AnchorPoint = Vector2.new(0, 0.5),
-						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-						BackgroundTransparency = 1,
-						BorderColor3 = Color3.fromRGB(0, 0, 0),
-						BorderSizePixel = 0,
-						Position = UDim2.fromScale(0, 0.5),
-						Size = UDim2.fromOffset(92, 38),
-
-						create("UIListLayout")({
-							Name = "UIListLayout",
-							FillDirection = Enum.FillDirection.Horizontal,
-							Padding = UDim.new(0, 8),
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-						}),
-
-						create("UIPadding")({
-							Name = "UIPadding",
-							PaddingLeft = UDim.new(0, 20),
-							PaddingRight = UDim.new(0, 20),
-						}),
-
-						create("ImageButton")({
-							Name = "Exit",
-							AutoButtonColor = false,
-							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-							BackgroundTransparency = 1,
+						create("Frame")({
+							Name = "Shadow",
+							AnchorPoint = Vector2.new(1, 0),
 							BorderColor3 = Color3.fromRGB(0, 0, 0),
 							BorderSizePixel = 0,
-							Image = "rbxassetid://132228700346004",
-							Size = UDim2.fromOffset(12, 12),
-
+							Position = UDim2.new(1, 2, 0, 0),
+							Size = UDim2.new(0, 5, 1, 0),
+							ZIndex = 0,
 							__dynamicKeys = {
-								ImageColor3 = self.Theme.Controls.Exit[1],
-								ImageTransparency = self.Theme.Controls.Exit[2],
+								BackgroundColor3 = self.Theme.Controls.Separator.Shadow[1],
+								BackgroundTransparency = self.Theme.Controls.Separator.Shadow[2],
 							},
 
-							create("ImageLabel")({
-								Name = "Stroke",
-								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-								BackgroundTransparency = 1,
-								BorderColor3 = Color3.fromRGB(0, 0, 0),
-								BorderSizePixel = 0,
-								Image = "rbxassetid://94763505860483",
-								Size = UDim2.fromScale(1, 1),
-
-								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
-									ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
-								},
-							}),
-
-							create("ImageLabel")({
-								Name = "Icon",
-								AnchorPoint = Vector2.new(0.5, 0.5),
-								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-								BackgroundTransparency = 1,
-								BorderColor3 = Color3.fromRGB(0, 0, 0),
-								BorderSizePixel = 0,
-								Image = "rbxassetid://94781753558308",
-								Position = UDim2.fromScale(0.5, 0.5),
-								Size = UDim2.fromScale(1, 1),
-								Visible = false,
-
-								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
-									ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
-								},
+							create("UIGradient")({
+								Name = "UIGradient",
+								Transparency = NumberSequence.new({
+									NumberSequenceKeypoint.new(0, 1),
+									NumberSequenceKeypoint.new(1, 0),
+								}),
 							}),
 						}),
-
-						create("ImageButton")({
-							Name = "Minimize",
-							AutoButtonColor = false,
-							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-							BackgroundTransparency = 1,
-							BorderColor3 = Color3.fromRGB(0, 0, 0),
-							BorderSizePixel = 0,
-							Image = "rbxassetid://132228700346004",
-							LayoutOrder = 1,
-							Size = UDim2.fromOffset(12, 12),
-
-							__dynamicKeys = {
-								ImageColor3 = self.Theme.Controls.Minimize[1],
-								ImageTransparency = self.Theme.Controls.Minimize[2],
-							},
-
-							create("ImageLabel")({
-								Name = "Stroke",
-								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-								BackgroundTransparency = 1,
-								BorderColor3 = Color3.fromRGB(0, 0, 0),
-								BorderSizePixel = 0,
-								Image = "rbxassetid://94763505860483",
-								Size = UDim2.fromScale(1, 1),
-
-								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
-									ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
-								},
-							}),
-
-							create("ImageLabel")({
-								Name = "Icon",
-								AnchorPoint = Vector2.new(0.5, 0.5),
-								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-								BackgroundTransparency = 1,
-								BorderColor3 = Color3.fromRGB(0, 0, 0),
-								BorderSizePixel = 0,
-								Image = "rbxassetid://118368309445367",
-								Position = UDim2.fromScale(0.5, 0.5),
-								Size = UDim2.fromScale(1, 1),
-								Visible = false,
-
-								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
-									ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
-								},
-							}),
-						}),
-
-						create("ImageButton")({
-							Name = "Zoom",
-							AutoButtonColor = false,
-							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-							BackgroundTransparency = 1,
-							BorderColor3 = Color3.fromRGB(0, 0, 0),
-							BorderSizePixel = 0,
-							Image = "rbxassetid://132228700346004",
-							LayoutOrder = 2,
-							Size = UDim2.fromOffset(12, 12),
-
-							__dynamicKeys = {
-								ImageColor3 = self.Theme.Controls.Zoom[1],
-								ImageTransparency = self.Theme.Controls.Zoom[2],
-							},
-
-							create("ImageLabel")({
-								Name = "Stroke",
-								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-								BackgroundTransparency = 1,
-								BorderColor3 = Color3.fromRGB(0, 0, 0),
-								BorderSizePixel = 0,
-								Image = "rbxassetid://94763505860483",
-								Size = UDim2.fromScale(1, 1),
-
-								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
-									ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
-								},
-							}),
-
-							create("ImageLabel")({
-								Name = "Icon",
-								AnchorPoint = Vector2.new(0.5, 0.5),
-								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-								BackgroundTransparency = 1,
-								BorderColor3 = Color3.fromRGB(0, 0, 0),
-								BorderSizePixel = 0,
-								Image = "rbxassetid://114376524082699",
-								Position = UDim2.fromScale(0.5, 0.5),
-								Size = UDim2.fromScale(1, 1),
-								Visible = false,
-
-								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
-									ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
-								},
-							}),
-						}),
-					}),
-				}),
-
-				create("ScrollingFrame")({
-					Name = "SidebarList",
-					AutomaticCanvasSize = Enum.AutomaticSize.Y,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					CanvasSize = UDim2.new(),
-					Position = UDim2.fromOffset(0, 52),
-					ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0),
-					ScrollBarImageTransparency = 0.7,
-					ScrollBarThickness = 6,
-					Size = UDim2.new(1, 0, 1, -52),
-
-					create("UIListLayout")({
-						Name = "UIListLayout",
-						Padding = UDim.new(0, 9),
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						HorizontalAlignment = Enum.HorizontalAlignment.Right,
 					}),
 
 					create("UIPadding")({
 						Name = "UIPadding",
-						PaddingLeft = UDim.new(0, 10),
-						PaddingRight = UDim.new(0, 10),
-						PaddingBottom = UDim.new(0, 10),
+						PaddingRight = UDim.new(0, 2),
+					}),
+
+					create("Frame")({
+						Name = "Toolbar",
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						Size = UDim2.new(1, 0, 0, 52),
+
+						create("Frame")({
+							Name = "WindowControls",
+							AnchorPoint = Vector2.new(0, 0.5),
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							BorderColor3 = Color3.fromRGB(0, 0, 0),
+							BorderSizePixel = 0,
+							Position = UDim2.fromScale(0, 0.5),
+							Size = UDim2.fromOffset(92, 38),
+
+							create("UIListLayout")({
+								Name = "UIListLayout",
+								FillDirection = Enum.FillDirection.Horizontal,
+								Padding = UDim.new(0, 8),
+								SortOrder = Enum.SortOrder.LayoutOrder,
+								VerticalAlignment = Enum.VerticalAlignment.Center,
+							}),
+
+							create("UIPadding")({
+								Name = "UIPadding",
+								PaddingLeft = UDim.new(0, 20),
+								PaddingRight = UDim.new(0, 20),
+							}),
+
+							create("ImageButton")({
+								Name = "Exit",
+								AutoButtonColor = false,
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BackgroundTransparency = 1,
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Image = "rbxassetid://132228700346004",
+								Size = UDim2.fromOffset(12, 12),
+
+								__dynamicKeys = {
+									ImageColor3 = self.Theme.Controls.Exit[1],
+									ImageTransparency = self.Theme.Controls.Exit[2],
+								},
+
+								create("ImageLabel")({
+									Name = "Stroke",
+									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+									BackgroundTransparency = 1,
+									BorderColor3 = Color3.fromRGB(0, 0, 0),
+									BorderSizePixel = 0,
+									Image = "rbxassetid://94763505860483",
+									Size = UDim2.fromScale(1, 1),
+
+									__dynamicKeys = {
+										ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
+										ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
+									},
+								}),
+
+								create("ImageLabel")({
+									Name = "Icon",
+									AnchorPoint = Vector2.new(0.5, 0.5),
+									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+									BackgroundTransparency = 1,
+									BorderColor3 = Color3.fromRGB(0, 0, 0),
+									BorderSizePixel = 0,
+									Image = "rbxassetid://94781753558308",
+									Position = UDim2.fromScale(0.5, 0.5),
+									Size = UDim2.fromScale(1, 1),
+									Visible = false,
+
+									__dynamicKeys = {
+										ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
+										ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
+									},
+								}),
+							}),
+
+							create("ImageButton")({
+								Name = "Minimize",
+								AutoButtonColor = false,
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BackgroundTransparency = 1,
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Image = "rbxassetid://132228700346004",
+								LayoutOrder = 1,
+								Size = UDim2.fromOffset(12, 12),
+
+								__dynamicKeys = {
+									ImageColor3 = self.Theme.Controls.Minimize[1],
+									ImageTransparency = self.Theme.Controls.Minimize[2],
+								},
+
+								create("ImageLabel")({
+									Name = "Stroke",
+									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+									BackgroundTransparency = 1,
+									BorderColor3 = Color3.fromRGB(0, 0, 0),
+									BorderSizePixel = 0,
+									Image = "rbxassetid://94763505860483",
+									Size = UDim2.fromScale(1, 1),
+
+									__dynamicKeys = {
+										ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
+										ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
+									},
+								}),
+
+								create("ImageLabel")({
+									Name = "Icon",
+									AnchorPoint = Vector2.new(0.5, 0.5),
+									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+									BackgroundTransparency = 1,
+									BorderColor3 = Color3.fromRGB(0, 0, 0),
+									BorderSizePixel = 0,
+									Image = "rbxassetid://118368309445367",
+									Position = UDim2.fromScale(0.5, 0.5),
+									Size = UDim2.fromScale(1, 1),
+									Visible = false,
+
+									__dynamicKeys = {
+										ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
+										ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
+									},
+								}),
+							}),
+
+							create("ImageButton")({
+								Name = "Zoom",
+								AutoButtonColor = false,
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BackgroundTransparency = 1,
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Image = "rbxassetid://132228700346004",
+								LayoutOrder = 2,
+								Size = UDim2.fromOffset(12, 12),
+
+								__dynamicKeys = {
+									ImageColor3 = self.Theme.Controls.Zoom[1],
+									ImageTransparency = self.Theme.Controls.Zoom[2],
+								},
+
+								create("ImageLabel")({
+									Name = "Stroke",
+									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+									BackgroundTransparency = 1,
+									BorderColor3 = Color3.fromRGB(0, 0, 0),
+									BorderSizePixel = 0,
+									Image = "rbxassetid://94763505860483",
+									Size = UDim2.fromScale(1, 1),
+
+									__dynamicKeys = {
+										ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
+										ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
+									},
+								}),
+
+								create("ImageLabel")({
+									Name = "Icon",
+									AnchorPoint = Vector2.new(0.5, 0.5),
+									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+									BackgroundTransparency = 1,
+									BorderColor3 = Color3.fromRGB(0, 0, 0),
+									BorderSizePixel = 0,
+									Image = "rbxassetid://114376524082699",
+									Position = UDim2.fromScale(0.5, 0.5),
+									Size = UDim2.fromScale(1, 1),
+									Visible = false,
+
+									__dynamicKeys = {
+										ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
+										ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
+									},
+								}),
+							}),
+						}),
+					}),
+
+					create("ScrollingFrame")({
+						Name = "SidebarList",
+						AutomaticCanvasSize = Enum.AutomaticSize.Y,
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						CanvasSize = UDim2.new(),
+						Position = UDim2.fromOffset(0, 52),
+						ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0),
+						ScrollBarImageTransparency = 0.7,
+						ScrollBarThickness = 6,
+						Size = UDim2.new(1, 0, 1, -52),
+
+						create("UIListLayout")({
+							Name = "UIListLayout",
+							Padding = UDim.new(0, 9),
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							HorizontalAlignment = Enum.HorizontalAlignment.Right,
+						}),
+
+						create("UIPadding")({
+							Name = "UIPadding",
+							PaddingLeft = UDim.new(0, 10),
+							PaddingRight = UDim.new(0, 10),
+							PaddingBottom = UDim.new(0, 10),
+						}),
 					}),
 				}),
 			}),
@@ -418,7 +429,8 @@ return function(self, properties: types.WindowProperties): types.Window
 	structures.Cornering = structures.Body:FindFirstChild("UICorner") :: UICorner
 	structures.LayoutIgnore = structures.Body:FindFirstChild("LayoutIgnore") :: Folder
 	structures.Separator = structures.Body:FindFirstChild("Separator") :: Frame
-	structures.Sidebar = structures.Body:FindFirstChild("Sidebar") :: Frame
+	structures.SidebarMargins = structures.Body:FindFirstChild("Sidebar")
+	structures.Sidebar = structures.SidebarMargins:FindFirstChild("Margins") :: Frame
 	structures.SidebarList = structures.Sidebar:FindFirstChild("SidebarList") :: Frame
 	structures.Toolbar = structures.Sidebar:FindFirstChild("Toolbar") :: Frame
 	structures.WindowControls = structures.Toolbar:FindFirstChild("WindowControls") :: Frame
@@ -559,7 +571,7 @@ return function(self, properties: types.WindowProperties): types.Window
 	object.__container = structures.Content
 
 	do -- Resize handler
-		resizeClient = resizeHandler(structures.Body.__instance, Vector2.new(450, 250))
+		resizeClient = resizeHandler(structures.Body.__instance, Vector2.new(350, 250))
 
 		resizeClient.CreateClient()
 	end
@@ -570,7 +582,9 @@ return function(self, properties: types.WindowProperties): types.Window
 		local function toggle()
 			toggled = not toggled
 
-			local sidebarTargetSize = toggled and UDim.new(0, 0) or UDim.new(0, -201)
+			local marginsTargetSize = toggled and UDim.new(0, 0) or UDim.new(0, -200)
+			local sidebarTargetSize = toggled and UDim2.new(0, 200, 1, 0) or UDim2.new(0, 0, 1, 0)
+			local contentTargetSize = toggled and UDim2.new(1, -202, 1, 0) or UDim2.new(1, 0, 1, 0)
 			local cornerLeftSize = toggled and UDim2.new(0, 10, 1, 0) or UDim2.new(0, 10, 0.5, 0)
 
 			local tweenInfo = TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
@@ -578,8 +592,20 @@ return function(self, properties: types.WindowProperties): types.Window
 			structures.Separator.Visible = toggled and true or false
 			structures.CornerClip.Visible = toggled and true
 
-			local sidebarTween = tweenService:Create(structures.Body:FindFirstChild("UIPadding"), tweenInfo, {
-				PaddingLeft = sidebarTargetSize,
+			tweenService
+				:Create(structures.ContentBody, tweenInfo, {
+					Size = contentTargetSize,
+				})
+				:Play()
+
+			tweenService
+				:Create(structures.SidebarMargins:FindFirstChild("UIPadding"), tweenInfo, {
+					PaddingLeft = marginsTargetSize,
+				})
+				:Play()
+
+			local sidebarTween = tweenService:Create(structures.SidebarMargins, tweenInfo, {
+				Size = sidebarTargetSize,
 			})
 
 			tweenService

@@ -5,8 +5,6 @@ return function(self, properties: types.RowProperties): types.Row
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
 
-	local titleStack = require("@structures/TitleStack")
-
 	--// References
 	local create = creator.Create
 
@@ -16,8 +14,6 @@ return function(self, properties: types.RowProperties): types.Row
 
 	--// UI
 	properties = properties or {}
-	properties.Title = properties.Title or "Title"
-	properties.SearchIndex = properties.SearchIndex or properties.Title
 
 	structures.Body = binder.Apply(
 		properties,
@@ -38,7 +34,17 @@ return function(self, properties: types.RowProperties): types.Row
 				BackgroundTransparency = 1,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.fromScale(0, 1),
+
+				create("UIListLayout")({
+					Name = "UIListLayout",
+					FillDirection = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Right,
+					Padding = UDim.new(0, 10),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					Wraps = true,
+				}),
 
 				create("UIPadding")({
 					Name = "UIPadding",
@@ -50,14 +56,15 @@ return function(self, properties: types.RowProperties): types.Row
 
 			create("Frame")({
 				Name = "RightAccessory",
-				AnchorPoint = Vector2.new(1, 0.5),
+				AnchorPoint = Vector2.new(1, 0),
 				AutomaticSize = Enum.AutomaticSize.XY,
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 1,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
 				LayoutOrder = 1,
-				Position = UDim2.fromScale(1, 0.5),
+				Position = UDim2.fromScale(1, 0),
+				Size = UDim2.fromScale(0, 1),
 
 				create("UIListLayout")({
 					Name = "UIListLayout",
@@ -66,6 +73,7 @@ return function(self, properties: types.RowProperties): types.Row
 					Padding = UDim.new(0, 10),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
+					Wraps = true,
 				}),
 
 				create("UIPadding")({
@@ -101,9 +109,6 @@ return function(self, properties: types.RowProperties): types.Row
 	structures.LeftAccessories = structures.Body:FindFirstChild("LeftAccessory") :: Frame
 	structures.RightAccessories = structures.Body:FindFirstChild("RightAccessory") :: Frame
 
-	structures.TitleStack = titleStack(self)
-	structures.TitleStack.Body.Parent = structures.LeftAccessories
-	structures.TitleStack.Subtitle.Visible = false
 	structures.LeftAccessories.Size = UDim2.new(1, -structures.RightAccessories.AbsoluteSize.X, 1, 0)
 
 	structures.RightAccessories:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
@@ -111,13 +116,6 @@ return function(self, properties: types.RowProperties): types.Row
 	end)
 
 	local object = binder.Wrap(properties, {
-		Title = function(value: string)
-			structures.TitleStack.Title.Text = value
-		end,
-		Subtitle = function(value: string)
-			structures.TitleStack.Subtitle.Visible = true
-			structures.TitleStack.Subtitle.Text = value
-		end,
 		SearchIndex = function(value: string)
 			structures.Body:SetAttribute("SearchIndex", value)
 		end,
@@ -126,7 +124,20 @@ return function(self, properties: types.RowProperties): types.Row
 	object.Type = "Row"
 	object.Theme = self.Theme
 	object.Structures = structures
-	object.__container = structures.RightAccessories
+	object.Left = function(self)
+		local newObject = table.clone(object)
+
+		newObject.__container = structures.LeftAccessories
+
+		return newObject
+	end
+	object.Right = function(self)
+		local newObject = table.clone(object)
+
+		newObject.__container = structures.RightAccessories
+
+		return newObject
+	end
 
 	binder.Apply(properties, object)
 

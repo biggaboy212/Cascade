@@ -15,8 +15,6 @@
 [![Latest Release][badges/lastrel]][lastrel]
 [![Last Modified][badges/lastcom]][lastcom]
 
-</br>
-
 Cascade is an open-source LuaU UI library based on macOS Sequoia.
 
 ![Cascade](assets/cascade_show.png)

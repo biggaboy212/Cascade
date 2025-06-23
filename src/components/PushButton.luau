@@ -96,6 +96,10 @@ return function(self, properties: types.PushButtonProperties): types.PushButton
 	) :: TextButton
 
 	--// Initialize
+	structures.Shadows = structures.Body:FindFirstChild("ShadowLayers")
+	structures.Shadow1 = structures.Shadows:FindFirstChild("Layer1"):FindFirstChild("UIStroke")
+	structures.Shadow2 = structures.Shadows:FindFirstChild("Layer2"):FindFirstChild("UIStroke")
+
 	local labelContext = {
 		TextColor3 = function()
 			local state = properties.State
@@ -122,6 +126,7 @@ return function(self, properties: types.PushButtonProperties): types.PushButton
 	}
 
 	structures.Label = create("TextLabel")({
+		Size = UDim2.fromScale(1, 1),
 		Name = "Label",
 		AutomaticSize = Enum.AutomaticSize.XY,
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
@@ -133,7 +138,8 @@ return function(self, properties: types.PushButtonProperties): types.PushButton
 		RichText = true,
 		TextSize = 14,
 		TextWrapped = true,
-		TextXAlignment = Enum.TextXAlignment.Left,
+		TextXAlignment = Enum.TextXAlignment.Center,
+		TextYAlignment = Enum.TextYAlignment.Center,
 		Parent = structures.Body.__instance,
 
 		__dynamicKeys = {
@@ -185,6 +191,54 @@ return function(self, properties: types.PushButtonProperties): types.PushButton
 		if properties.Pushed then
 			task.spawn(properties.Pushed, object)
 		end
+	end)
+
+	structures.Body.MouseButton1Down:Connect(function()
+		local tweenInfo = TweenInfo.new(0.08, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out)
+
+		tweenService
+			:Create(structures.Shadow1, tweenInfo, {
+				Transparency = 0.8,
+			})
+			:Play()
+
+		tweenService
+			:Create(structures.Shadow2, tweenInfo, {
+				Transparency = 0.9,
+			})
+			:Play()
+	end)
+
+	structures.Body.MouseButton1Up:Connect(function()
+		local tweenInfo = TweenInfo.new(0.12, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+
+		tweenService
+			:Create(structures.Shadow1, tweenInfo, {
+				Transparency = 0.95,
+			})
+			:Play()
+
+		tweenService
+			:Create(structures.Shadow2, tweenInfo, {
+				Transparency = 0.98,
+			})
+			:Play()
+	end)
+
+	structures.Body.MouseLeave:Connect(function()
+		local tweenInfo = TweenInfo.new(0.12, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+
+		tweenService
+			:Create(structures.Shadow1, tweenInfo, {
+				Transparency = 0.95,
+			})
+			:Play()
+
+		tweenService
+			:Create(structures.Shadow2, tweenInfo, {
+				Transparency = 0.98,
+			})
+			:Play()
 	end)
 
 	binder.Apply(properties, object)

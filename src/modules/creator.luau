@@ -35,7 +35,7 @@ function creator.Create(className: string)
 					end)
 
 					valueObject:Connect(function(newValue)
-						task.spawn(pcall, function()
+						task.defer(pcall, function()
 							if properties["__contextKeys"] and properties["__contextKeys"]["_general"] then
 								properties["__contextKeys"]["_general"]()
 							end

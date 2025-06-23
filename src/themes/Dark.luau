@@ -93,7 +93,7 @@ return {
 		},
 
 		PushButton = {
-			Shadow = value(Color3.fromRGB(0, 0, 0)),
+			Shadow = value(Color3.fromRGB(145, 145, 145)),
 			FillPrimary = value(ColorSequence.new({
 				ColorSequenceKeypoint.new(0, Color3.fromRGB(72, 148, 255)),
 				ColorSequenceKeypoint.new(1, Color3.fromRGB(10, 110, 255)),
