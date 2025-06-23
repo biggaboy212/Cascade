@@ -28,7 +28,7 @@ return {
 	Controls = {
 		Background = color4("FFFFFF", 100),
 
-		View = color4("000000", 1.5),
+		View = color4("FCFCFC", 100),
 		ViewBorder = color4("000000", 5),
 
 		WindowControlIcon = color4("000000", 50),
@@ -75,5 +75,14 @@ return {
 				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
 			})),
 		},
+
+		Slider = {
+			Track = color4("000000", 5),
+			TrackEffects = color4("000000", 0),
+			
+			Thumb = color4("FFFFFF", 100),
+			ThumbStroke = color4("000000", 2),
+			ThumbEffects = color4("FFFFFF", 100),
+		}
 	},
 }

@@ -19,7 +19,7 @@ return function(self)
 		BackgroundTransparency = 1,
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BorderSizePixel = 0,
-		Size = UDim2.fromOffset(159, 23),
+		Size = UDim2.fromOffset(150, 23),
 		SizeConstraint = Enum.SizeConstraint.RelativeXX,
 
 		create("UICorner")({
@@ -41,7 +41,7 @@ return function(self)
 		create("TextBox")({
 			Name = "Field",
 			AutomaticSize = Enum.AutomaticSize.XY,
-			Size = UDim2.fromOffset(147, 0),
+			Size = UDim2.fromOffset(144, 0),
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
 			BorderColor3 = Color3.fromRGB(0, 0, 0),

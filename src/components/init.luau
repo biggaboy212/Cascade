@@ -12,6 +12,7 @@ local components = {
 	Label = require("@components/Label"),
 	Toggle = require("@components/Toggle"),
 	TextField = require("@components/TextField"),
+	Slider = require("@components/Slider"),
 }
 
 --// Intialize

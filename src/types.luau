@@ -34,7 +34,7 @@ export type Instance = {
 	PropertyChanged: ((self: Instance, property: string) -> RBXScriptConnection)?,
 }
 
-export type GuiBase2d = {
+export type GuiBase2d = Instance & {
 	AutoLocalize: boolean?,
 	RootLocalizationTable: LocalizationTable?,
 	SelectionBehaviorDown: Enum.SelectionBehavior?,
@@ -44,13 +44,13 @@ export type GuiBase2d = {
 	SelectionGroup: boolean?,
 }
 
-export type LayerCollector = {
+export type LayerCollector = GuiBase2d & {
 	Enabled: boolean?,
 	ResetOnSpawn: boolean?,
 	ZIndexBehavior: Enum.ZIndexBehavior?,
 }
 
-export type GuiObject = {
+export type GuiObject = GuiBase2d & {
 	AnchorPoint: Vector2?,
 	BackgroundColor3: Color3?,
 	BackgroundTransparency: number?,
@@ -70,7 +70,7 @@ export type GuiObject = {
 	AutomaticSize: Enum.AutomaticSize?,
 }
 
-export type ScreenGui = Instance & GuiBase2d & LayerCollector & {
+export type ScreenGui = LayerCollector & {
 	DisplayOrder: number?,
 	IgnoreGuiInset: boolean?,
 	ScreenInsets: Enum.ScreenInsets?,
@@ -78,17 +78,17 @@ export type ScreenGui = Instance & GuiBase2d & LayerCollector & {
 	SafeAreaCompatibility: Enum.SafeAreaCompatibility?,
 }
 
-export type Frame = Instance & GuiObject & {
+export type Frame = GuiObject & {
 	Style: Enum.FrameStyle?,
 }
 
-export type CanvasGroup = Instance & GuiObject & {
+export type CanvasGroup = GuiObject & {
 	GroupColor3: Color3?,
 	GroupTransparency: Color3?,
 	ResolutionScale: number?,
 }
 
-export type TextLabel = Instance & GuiObject & {
+export type TextLabel = GuiObject & {
 	FontFace: Font?,
 	LineHeight: number?,
 	MaxVisibleGraphemes: number?,
@@ -108,7 +108,7 @@ export type TextLabel = Instance & GuiObject & {
 	TextYAlignment: Enum.TextYAlignment?,
 }
 
-export type TextBox = Instance & GuiObject & {
+export type TextBox = GuiObject & {
 	ClearTextOnFocus: boolean?,
 	CursorPosition: number?,
 	MultiLine: boolean?,
@@ -144,8 +144,26 @@ export type TextBox = Instance & GuiObject & {
 	ReleaseFocus: ((self: TextBox, submitted: boolean?) -> ())?,
 
 	Focused: ((self: TextBox, handler: () -> ()) -> RBXScriptConnection)?,
-	FocusLost: ((self: TextBox, handler: (enterPressed: boolean, inputThatCausedFocusLoss: InputObject) -> ()) -> RBXScriptConnection)?,
+	FocusLost: ((
+		self: TextBox,
+		handler: (enterPressed: boolean, inputThatCausedFocusLoss: InputObject) -> ()
+	) -> RBXScriptConnection)?,
 	ReturnPressedFromOnScreenKeyboard: ((self: TextBox, handler: () -> ()) -> RBXScriptConnection)?,
+}
+
+export type ImageLabel = GuiObject & {
+	Image: string?,
+	ImageColor3: Color3?,
+	ImageContent: string?,
+	ImageRectOffset: Vector2?,
+	ImageRectSize: Vector2?,
+	ImageTransparency: number?,
+	IsLoaded: boolean?,
+	ResampleMode: Enum.ResamplerMode?,
+	ScaleType: Enum.ScaleType?,
+	SliceCenter: Rect?,
+	SliceScale: number?,
+	TileSize: UDim2?,
 }
 
 export type ValueState = {
@@ -232,7 +250,7 @@ export type Label = BaseComponent & Components & FormProperties
 -- Toggle
 export type ToggleProperties = CanvasGroup & {
 	Value: boolean?,
-	ValueChanged: ((self: Toggle, value: boolean) -> nil)?
+	ValueChanged: ((self: Toggle, value: boolean) -> nil)?,
 }
 
 export type Toggle = BaseComponent & Components & ToggleProperties
@@ -242,10 +260,20 @@ export type TextFieldProperties = Frame & {
 	Placeholder: string?,
 	Value: string?,
 	FocusLost: ((self: TextField, value: string) -> nil)?,
-	ValueChanged: ((self: TextField, value: string) -> nil)?
+	ValueChanged: ((self: TextField, value: string) -> nil)?,
 }
 
 export type TextField = BaseComponent & Components & TextFieldProperties
+
+-- Slider
+export type SliderProperties = Frame & {
+	Minimum: number?,
+	Maximum: number?,
+	Value: number?,
+	ValueChanged: ((self: Slider, value: number) -> nil)?,
+}
+
+export type Slider = BaseComponent & Components & SliderProperties
 
 -- Export
 export type Components = {
@@ -258,6 +286,7 @@ export type Components = {
 	Label: (self: any, properties: LabelProperties) -> Label,
 	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
 	TextField: (self: any, properties: TextFieldProperties) -> TextField,
+	Slider: (self: any, properties: SliderProperties) -> Slider,
 }
 
 return 1

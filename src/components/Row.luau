@@ -38,7 +38,7 @@ return function(self, properties: types.RowProperties): types.Row
 				BackgroundTransparency = 1,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
-				Size = UDim2.new(0.5, -28, 0, 0),
+				Size = UDim2.new(1, 0, 1, 0),
 
 				create("UIPadding")({
 					Name = "UIPadding",
@@ -50,13 +50,14 @@ return function(self, properties: types.RowProperties): types.Row
 
 			create("Frame")({
 				Name = "RightAccessory",
-				AutomaticSize = Enum.AutomaticSize.Y,
+				AnchorPoint = Vector2.new(1, 0.5),
+				AutomaticSize = Enum.AutomaticSize.XY,
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 1,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
 				LayoutOrder = 1,
-				Size = UDim2.new(0.5, -28, 0, 0),
+				Position = UDim2.fromScale(1, 0.5),
 
 				create("UIListLayout")({
 					Name = "UIListLayout",
@@ -73,15 +74,6 @@ return function(self, properties: types.RowProperties): types.Row
 					PaddingLeft = UDim.new(0, 11),
 					PaddingTop = UDim.new(0, 10),
 				}),
-			}),
-
-			create("UIListLayout")({
-				Name = "UIListLayout",
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				Padding = UDim.new(0, 56),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
 
 			create("Folder")({
@@ -106,12 +98,17 @@ return function(self, properties: types.RowProperties): types.Row
 	) :: Frame
 
 	--// Initialize
-	structures.LeftAccessories = structures.Body:FindFirstChild("LeftAccessory")
-	structures.RightAccessories = structures.Body:FindFirstChild("RightAccessory")
+	structures.LeftAccessories = structures.Body:FindFirstChild("LeftAccessory") :: Frame
+	structures.RightAccessories = structures.Body:FindFirstChild("RightAccessory") :: Frame
 
 	structures.TitleStack = titleStack(self)
 	structures.TitleStack.Body.Parent = structures.LeftAccessories
 	structures.TitleStack.Subtitle.Visible = false
+	structures.LeftAccessories.Size = UDim2.new(1, -structures.RightAccessories.AbsoluteSize.X, 1, 0)
+
+	structures.RightAccessories:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+		structures.LeftAccessories.Size = UDim2.new(1, -structures.RightAccessories.AbsoluteSize.X, 1, 0)
+	end)
 
 	local object = binder.Wrap(properties, {
 		Title = function(value: string)

@@ -28,7 +28,7 @@ return {
 	Controls = {
 		Background = color4("1C1C1E", 100),
 
-		View = color4("FFFFFF", 1.5),
+		View = color4("1F1F21", 100),
 		ViewBorder = color4("FFFFFF", 5),
 
 		WindowControlIcon = color4("000000", 50),
@@ -74,6 +74,16 @@ return {
 				ColorSequenceKeypoint.new(0.68, Color3.fromRGB(255, 255, 255)),
 				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
 			})),
+		},
+
+		Slider = {
+			Track = color4("2C2C2E", 100), -- Slightly lighter than Controls.Background for visibility
+			TrackEffects = color4("000000", 10), -- Subtle shadowing
+			TrackFill = color4("478CF6", 100), -- Matches Toggle.SwitchOn and Controls.SwitchAccent
+
+			Thumb = color4("FFFFFF", 100), -- Crisp white thumb
+			ThumbStroke = color4("000000", 20), -- Gentle contrast for thumb edges
+			ThumbEffects = color4("FFFFFF", 80), -- Light inner glow
 		},
 	},
 }

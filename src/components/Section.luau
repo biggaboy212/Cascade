@@ -181,8 +181,8 @@ return function(self, properties: types.SectionProperties): types.Section
 		end,
 		Disclosure = function(state: boolean)
 			structures.Disclosure.Visible = state
-			structures.SectionHeader.Interactable = state
-			structures.SectionHeader.Active = state
+			structures.SidebarGroup.Interactable = state
+			structures.SidebarGroup.Active = state
 		end,
 		Expanded = function(state: boolean, tween: boolean?)
 			tween = (tween == nil and true) or false

@@ -24,7 +24,6 @@ return function(self, properties: types.LabelProperties): types.Label
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BorderSizePixel = 0,
 		FontFace = Font.new("rbxassetid://12187365364"),
-		LayoutOrder = 1,
 		RichText = true,
 		TextSize = 15,
 		TextTruncate = Enum.TextTruncate.AtEnd,

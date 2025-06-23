@@ -482,7 +482,7 @@ return function(self, properties: types.WindowProperties): types.Window
 				scaleTween.Completed:Once(function()
 					minimizing = false
 
-					if structures["BlurModel"] and tween ~= nil and not properties.Minimized then
+					if structures["BlurModel"] and not properties.Minimized then
 						structures["BlurModel"].SetVisibility(true)
 					end
 				end)
