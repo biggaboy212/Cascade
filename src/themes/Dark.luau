@@ -49,7 +49,7 @@ return {
 		SelectionFocused = color4("0A82FF", 100),
 		SelectionFocusedAccent = color4("FFFFFF", 85),
 
-		Sidebar = color4("212121", 70),
+		Sidebar = color4("202023", 84),
 		Separator = {
 			Background = color4("000000", 50),
 			Shadow = color4("FFFFFF", 0),
