@@ -1,6 +1,6 @@
 local types = require("@types")
 
-return function(self, properties: types.PushButtonProperties): types.PushButton
+return function(self, properties: types.ButtonProperties): types.Button
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
@@ -13,7 +13,7 @@ return function(self, properties: types.PushButtonProperties): types.PushButton
 
 	--// Variables
 	local parent = self.__container or self.__instance or self
-	local theme = self.Theme.Controls.PushButton
+	local theme = self.Theme.Controls.Button
 	local structures = {}
 
 	--// UI
@@ -24,7 +24,7 @@ return function(self, properties: types.PushButtonProperties): types.PushButton
 	structures.Body = binder.Apply(
 		properties,
 		create("TextButton")({
-			Name = "PushButton",
+			Name = "Button",
 			AutoButtonColor = false,
 			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
@@ -134,7 +134,6 @@ return function(self, properties: types.PushButtonProperties): types.PushButton
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BorderSizePixel = 0,
 		FontFace = Font.new("rbxassetid://12187365364"),
-		LayoutOrder = 1,
 		RichText = true,
 		TextSize = 14,
 		TextWrapped = true,
@@ -183,7 +182,7 @@ return function(self, properties: types.PushButtonProperties): types.PushButton
 
 	object = binder.Wrap(properties, bindings, structures.Body)
 
-	object.Type = "PushButton"
+	object.Type = "Button"
 	object.Theme = self.Theme
 	object.Structures = structures
 

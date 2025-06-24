@@ -13,7 +13,8 @@ local components = {
 	Toggle = require("@components/Toggle"),
 	TextField = require("@components/TextField"),
 	Slider = require("@components/Slider"),
-	PushButton = require("@components/PushButton"),
+	Button = require("@components/Button"),
+	Stepper = require("@components/Stepper"),
 }
 
 --// Intialize

@@ -317,14 +317,29 @@ export type SliderProperties = ImageLabel & {
 
 export type Slider = BaseComponent & Components & SliderProperties
 
--- PushButton
-export type PushButtonProperties = TextButton & {
+-- Button
+export type ButtonProperties = TextButton & {
 	State: string?,
 	Label: string?,
-	Pushed: ((self: PushButton) -> nil)?,
+	Pushed: ((self: Button) -> nil)?,
 }
 
-export type PushButton = BaseComponent & Components & PushButtonProperties
+export type Button = BaseComponent & Components & ButtonProperties
+
+-- Stepper
+export type StepperProperties = ImageLabel & {
+	Minimum: number?,
+	Maximum: number?,
+	Step: number?,
+	Fielded: boolean?,
+	Value: number?,
+	ValueChanged: ((self: Slider, value: number) -> nil)?,
+}
+
+export type Stepper = BaseComponent & Components & StepperProperties & {
+	Increment: () -> nil,
+	Decrement: () -> nil,
+}
 
 -- Export
 export type Components = {
@@ -338,7 +353,8 @@ export type Components = {
 	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
 	TextField: (self: any, properties: TextFieldProperties) -> TextField,
 	Slider: (self: any, properties: SliderProperties) -> Slider,
-	PushButton: (self: any, properties: PushButtonProperties) -> PushButton,
+	Button: (self: any, properties: ButtonProperties) -> Button,
+	Stepper: (self: any, properties: StepperProperties) -> Stepper,
 }
 
 return 1
