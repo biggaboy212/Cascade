@@ -277,6 +277,15 @@ export type Row = BaseComponent & Components & RowProperties & {
 	Right: (self: Row) -> Row,
 }
 
+-- Stack
+export type StackProperties = Frame & {
+	Padding: UDim?,
+	HorizontalAlignment: Enum.HorizontalAlignment?,
+	VerticalAlignment: Enum.VerticalAlignment?
+}
+
+export type Stack = BaseComponent & Components & StackProperties
+
 -- TitleStack
 export type TitleStackProperties = Frame & {
 	Title: string?,
@@ -356,9 +365,12 @@ export type Components = {
 	Tab: (self: any, properties: TabProperties?) -> Tab,
 	Form: (self: any, properties: FormProperties?) -> Form,
 	Row: (self: any, properties: RowProperties?) -> Row,
+	VStack: (self: any, properties: StackProperties?) -> Stack,
+	HStack: (self: any, properties: StackProperties?) -> Stack,
 	TitleStack: (self: any, properties: TitleStackProperties?) -> TitleStack,
 	PageSection: (self: any, properties: PageSectionProperties?) -> PageSection,
 	Label: (self: any, properties: LabelProperties) -> Label,
+	Symbol: (self: any, properties: ImageLabel) -> ImageLabel,
 	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
 	TextField: (self: any, properties: TextFieldProperties) -> TextField,
 	Slider: (self: any, properties: SliderProperties) -> Slider,

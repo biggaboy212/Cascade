@@ -39,7 +39,7 @@ return function(self, properties: types.RowProperties): types.Row
 				create("UIListLayout")({
 					Name = "UIListLayout",
 					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					Padding = UDim.new(0, 10),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					VerticalAlignment = Enum.VerticalAlignment.Center,

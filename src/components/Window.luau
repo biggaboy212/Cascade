@@ -57,6 +57,12 @@ return function(self, properties: types.WindowProperties): types.Window
 				BackgroundTransparency = self.Theme.Controls.Sidebar[2],
 			},
 
+			__contextKeys = {
+				BackgroundTransparency = function()
+					return properties.UIBlur and self.Theme.Controls.Sidebar[2].Value or 0
+				end
+			},
+
 			create("UICorner")({
 				Name = "UICorner",
 				CornerRadius = UDim.new(0, 10),

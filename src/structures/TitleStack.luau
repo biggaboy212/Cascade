@@ -11,12 +11,12 @@ return function(self)
 	--// UI
 	structures.Body = create("Frame")({
 		Name = "TitleStack",
-		AutomaticSize = Enum.AutomaticSize.Y,
+		AutomaticSize = Enum.AutomaticSize.XY,
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		BackgroundTransparency = 1,
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BorderSizePixel = 0,
-		Size = UDim2.fromScale(1, 0),
+		Size = UDim2.fromOffset(0, 0),
 
 		create("UIListLayout")({
 			Name = "UIListLayout",
@@ -31,7 +31,7 @@ return function(self)
 
 		create("TextLabel")({
 			Name = "Subtitle",
-			AutomaticSize = Enum.AutomaticSize.Y,
+			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
@@ -39,7 +39,7 @@ return function(self)
 			FontFace = Font.new("rbxassetid://12187365364"),
 			LayoutOrder = 1,
 			RichText = true,
-			Size = UDim2.new(1, 0, 0, 14),
+			Size = UDim2.new(0, 0, 0, 14),
 			Text = "Subtitle",
 			TextSize = 13,
 			TextWrapped = true,
@@ -54,14 +54,14 @@ return function(self)
 
 		create("TextLabel")({
 			Name = "Title",
-			AutomaticSize = Enum.AutomaticSize.Y,
+			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderSizePixel = 0,
 			FontFace = Font.new("rbxassetid://12187365364"),
 			RichText = true,
-			Size = UDim2.new(1, 0, 0, 16),
+			Size = UDim2.new(0, 0, 0, 16),
 			Text = "Title",
 			TextColor3 = Color3.fromRGB(0, 0, 0),
 			TextSize = 15,

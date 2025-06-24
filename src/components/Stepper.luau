@@ -60,7 +60,6 @@ return function(self, properties: types.StepperProperties): types.Stepper
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderSizePixel = 0,
 			Image = "rbxassetid://85888499115674",
-			LayoutOrder = 1,
 			Size = UDim2.fromOffset(13, 20),
 			Parent = parent,
 
@@ -250,9 +249,11 @@ return function(self, properties: types.StepperProperties): types.Stepper
 			if value then
 				structures.Field.Body.Parent = parent
 				structures.Body.Parent = structures.Field.Body.__instance
+				structures.Body.LayoutOrder = 1
 			else
 				structures.Field.Body.Parent = nil
 				structures.Body.Parent = parent
+				structures.Body.LayoutOrder = 0
 			end
 		end,
 		Value = function(value: number)

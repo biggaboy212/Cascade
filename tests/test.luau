@@ -146,15 +146,19 @@ do -- Main window
 						Subtitle = "A horizontal track with a control, called a thumb, that people can adjust between a minimum and maximum value.",
 					})
 
-					local label = row:Right():Label()
+					row:Right():Symbol({
+						Image = cascade.Symbols.sunMin,
+					})
 
 					row:Right():Slider({
 						Value = 0.5,
 						ValueChanged = function(self, value: number)
 							print("Value changed:", value)
-
-							label.Text = string.format(`%.2f`, value)
 						end,
+					})
+
+					row:Right():Symbol({
+						Image = cascade.Symbols.sunMax,
 					})
 				end
 
@@ -167,7 +171,7 @@ do -- Main window
 						Title = "Stepper",
 						Subtitle = "A two-segment control that people use to increase or decrease an incremental value.",
 					})
-
+					
 					local label = row:Right():Label()
 
 					row:Right():Stepper({
@@ -289,7 +293,10 @@ do -- Main window
 			end
 
 			do -- Effects
-				local form = tab:PageSection({ Title = "Effects", Subtitle = "These effects may be resource intensive across different systems." }):Form()
+				local form = tab:PageSection({
+					Title = "Effects",
+					Subtitle = "These effects may be resource intensive across different systems.",
+				}):Form()
 
 				do -- Dropshadow
 					local row = form:Row({
