@@ -49,7 +49,7 @@ return function(self)
 			CursorPosition = -1,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			FontFace = Font.new("rbxassetid://12187365364"),
-			PlaceholderText = "Placeholder",
+			PlaceholderText = "",
 			Text = "",
 			TextSize = 15,
 
@@ -102,6 +102,7 @@ return function(self)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			FillDirection = Enum.FillDirection.Horizontal,
+			Padding = UDim.new(0, 4)
 		}),
 	}) :: Frame
 

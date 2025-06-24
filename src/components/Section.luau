@@ -23,7 +23,7 @@ return function(self, properties: types.SectionProperties): types.Section
 			if child:IsA("GuiObject") then
 				table.insert(
 					connections,
-					child:GetPropertyChangedSignal("Size"):Connect(function(...)
+					child:GetPropertyChangedSignal("AbsoluteSize"):Connect(function(...)
 						update(table.unpack(args, 1, args.n))
 					end)
 				)
@@ -42,7 +42,7 @@ return function(self, properties: types.SectionProperties): types.Section
 				if child:IsA("GuiObject") then
 					table.insert(
 						connections,
-						child:GetPropertyChangedSignal("Size"):Connect(function(...)
+						child:GetPropertyChangedSignal("AbsoluteSize"):Connect(function(...)
 							update(table.unpack(args, 1, args.n))
 						end)
 					)

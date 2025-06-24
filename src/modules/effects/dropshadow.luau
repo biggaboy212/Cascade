@@ -1,17 +1,13 @@
---// Imports
 local creator = require("@modules/creator")
-
---// References
 local create = creator.Create
 
---// Initialize
 return function(parent: GuiObject, color: Color3, transparency: number, spread: number, overrideParent: Instance?)
 	local function gaussian(n, sigma)
 		local weights, sum = {}, 0
 
 		for i = -n, n do
 			local weight = math.exp(-((i ^ 2) / (2 * sigma ^ 2)))
-			table.insert(weights, weight)
+			weights[#weights + 1] = weight
 			sum += weight
 		end
 
@@ -24,69 +20,100 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 
 	local sigma = spread / 2
 	local weights = gaussian(spread, sigma)
-	local layers = create("Folder")({
-		Name = "ShadowLayers",
-	})
+	local layers = create("Folder")({ Name = "ShadowLayers" })
 
-	local function changed()
-		if not parent or not parent.Parent then
-			layers:Destroy()
+	local lastState = {
+		Visible = nil,
+		Size = nil,
+		Position = nil,
+		ZIndex = nil,
+		AnchorPoint = nil,
+	}
 
-			return
-		end
+	local pendingUpdate = false
+	local function scheduleUpdate()
+		if pendingUpdate then return end
+		pendingUpdate = true
 
-		layers:ClearAllChildren()
-		layers.Parent = overrideParent or parent.Parent
+		task.defer(function()
+			pendingUpdate = false
 
-		if not parent.Visible then
-			return
-		end
-
-		for i, opacity in ipairs(weights) do
-			local index = i - math.floor(#weights / 2)
-			local offsetAmount = math.abs(index) - 1
-
-			local layer = create("Frame")({
-				Name = `Layer{i}`,
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				ZIndex = parent.ZIndex - 1,
-				AnchorPoint = parent.AnchorPoint,
-				Position = parent.Position,
-				Size = UDim2.fromOffset(
-					parent.AbsoluteSize.X + (offsetAmount * 2),
-					parent.AbsoluteSize.Y + (offsetAmount * 2)
-				),
-				Parent = layers.__instance,
-
-				create("UIStroke")({
-					Name = "UIStroke",
-					Color = color,
-					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-					Transparency = 1 - opacity,
-				}),
-			})
-
-			local corner = parent:FindFirstChildOfClass("UICorner")
-			if corner then
-				corner:Clone().Parent = layer.__instance
+			if not parent or not parent.Parent then
+				layers:Destroy()
+				return
 			end
-		end
+
+			local changedVisible = parent.Visible ~= lastState.Visible
+			local changedSize = parent.AbsoluteSize ~= lastState.Size
+			local changedPos = parent.Position ~= lastState.Position
+			local changedZ = parent.ZIndex ~= lastState.ZIndex
+			local changedAnchor = parent.AnchorPoint ~= lastState.AnchorPoint
+
+			if not (changedVisible or changedSize or changedPos or changedZ or changedAnchor) then
+				return
+			end
+
+			lastState.Visible = parent.Visible
+			lastState.Size = parent.AbsoluteSize
+			lastState.Position = parent.Position
+			lastState.ZIndex = parent.ZIndex
+			lastState.AnchorPoint = parent.AnchorPoint
+
+			layers:ClearAllChildren()
+			layers.Parent = overrideParent or parent.Parent
+
+			if not parent.Visible then return end
+
+			for i, opacity in ipairs(weights) do
+				local index = i - math.floor(#weights / 2)
+				local offsetAmount = math.abs(index) - 1
+
+				local layer = create("Frame")({
+					Name = `Layer{i}`,
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					ZIndex = parent.ZIndex - 1,
+					AnchorPoint = parent.AnchorPoint,
+					Position = parent.Position,
+					Size = UDim2.fromOffset(
+						parent.AbsoluteSize.X + (offsetAmount * 2),
+						parent.AbsoluteSize.Y + (offsetAmount * 2)
+					),
+					Parent = layers.__instance,
+
+					create("UIStroke")({
+						Name = "UIStroke",
+						Color = color,
+						ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+						Transparency = 1 - opacity,
+					}),
+				})
+
+				local corner = parent:FindFirstChildOfClass("UICorner")
+				if corner then
+					corner:Clone().Parent = layer.__instance
+				end
+			end
+		end)
 	end
 
-	parent:GetPropertyChangedSignal("Visible"):Connect(changed)
-	parent:GetPropertyChangedSignal("ZIndex"):Connect(changed)
-	parent:GetPropertyChangedSignal("Position"):Connect(changed)
-	parent:GetPropertyChangedSignal("Size"):Connect(changed)
-	parent:GetPropertyChangedSignal("AnchorPoint"):Connect(changed)
-	parent.ChildAdded:Connect(changed)
-	parent.ChildRemoved:Connect(changed)
-	parent.AncestryChanged:Connect(changed)
+	local function connectSignals()
+		local props = { "Visible", "ZIndex", "Position", "Size", "AnchorPoint" }
+		for _, prop in ipairs(props) do
+			parent:GetPropertyChangedSignal(prop):Connect(scheduleUpdate)
+		end
+
+		parent.ChildAdded:Connect(scheduleUpdate)
+		parent.ChildRemoved:Connect(scheduleUpdate)
+		parent.AncestryChanged:Connect(scheduleUpdate)
+	end
 
 	parent.Destroying:Connect(function()
 		layers:Destroy()
 	end)
 
-	changed()
+	connectSignals()
+	scheduleUpdate()
+
 	return layers
 end

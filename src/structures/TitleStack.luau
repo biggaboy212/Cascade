@@ -16,7 +16,6 @@ return function(self)
 		BackgroundTransparency = 1,
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BorderSizePixel = 0,
-		LayoutOrder = 2,
 		Size = UDim2.fromScale(1, 0),
 
 		create("UIListLayout")({

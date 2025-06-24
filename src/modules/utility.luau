@@ -18,11 +18,24 @@ utility.Clone = function(object: any)
 end
 
 utility.ProtectUI = function(gui: Instance): ScreenGui | string
+	local sHiddenUi, hiddenUi = pcall(function()
+		return gethui()
+	end)
+
+	local sCoreGui, coreGui = pcall(function()
+		local layer = utility.Clone(game:GetService("CoreGui"))
+
+		if layer and layer.ClassName then
+			return layer
+		end
+
+		return
+	end)
+
 	local success, returned = pcall(function()
-		gui.Parent = utility.Clone(game:GetService("RunService")):IsStudio()
-				and utility.Clone(game:GetService("Players")).LocalPlayer.PlayerGui
-			or gethui and gethui()
-			or utility.Clone(game:GetService("CoreGui"))
+		gui.Parent = sHiddenUi and hiddenUi
+			or sCoreGui and coreGui
+			or utility.Clone(game:GetService("Players")).LocalPlayer.PlayerGui
 	end)
 
 	return success and gui or returned

@@ -7,13 +7,13 @@ local userInputService = services.UserInputService
 
 --// UI
 local app = cascade.New({
-	Theme = cascade.Themes.Dark,
+	Theme = cascade.Themes.Light,
 })
 
 do -- Main window
 	local window = app:Window({
 		Title = "Cascade",
-		Subtitle = "Cascade test application",
+		Subtitle = "Cascade demo app",
 		Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
 	})
 
@@ -23,24 +23,27 @@ do -- Main window
 		end
 	end)
 
-	-- Section 1
+	window.Destroying:Connect(function()
+		print("Closed window!")
+	end)
+
+	-- API demo
 	do
 		local section = window:Section({
-			Disclosure = true,
-			Title = "Section Title",
+			Title = "Demo",
 		})
 
-		do -- Tab 1
+		do -- Components
 			local tab = section:Tab({
 				Selected = true,
-				Name = "Tab",
-				Icon = cascade.Symbols.doc,
+				Title = "Components",
+				Icon = cascade.Symbols.switch2,
 			})
 
 			do -- Form 1
 				local form = tab:Form()
 
-				do -- Toggle Off
+				do -- Toggle off
 					local row = form:Row({
 						SearchIndex = "ToggleOff",
 					})
@@ -76,7 +79,28 @@ do -- Main window
 					})
 				end
 
-				do -- Push buttons
+				do -- Text Field
+					local row = form:Row({
+						SearchIndex = "TextField",
+					})
+
+					row:Left():TitleStack({
+						Title = "Text Field",
+						Subtitle = "A rectangular area in which people enter or edit small, specific pieces of text.",
+					})
+
+					row:Right():TextField({
+						Value = "Label",
+						ValueChanged = function(self, value: string)
+							print("Value changed:", value)
+						end,
+						FocusLost = function(self, value: string)
+							print("Focus lost with:", value)
+						end,
+					})
+				end
+
+				do -- Buttons
 					local row = form:Row({
 						SearchIndex = "PushButtons",
 					})
@@ -86,69 +110,135 @@ do -- Main window
 						Subtitle = "Static buttons, these hold no value.",
 					})
 
-					row:Right():PushButton({
+					row:Right():Button({
 						Label = "Primary",
 						State = "Primary",
-						Pushed = function(self) 
+						Pushed = function(self)
 							print("Pushed")
 						end,
 					})
 
-					row:Right():PushButton({
+					row:Right():Button({
 						Label = "Secondary",
 						State = "Secondary",
-						Pushed = function(self) 
+						Pushed = function(self)
 							print("Pushed")
 						end,
 					})
 
-					row:Right():PushButton({
+					row:Right():Button({
 						Label = "Destructive",
 						State = "Destructive",
-						Pushed = function(self) 
+						Pushed = function(self)
 							print("Pushed")
 						end,
 					})
 				end
 
-				do
+				do -- Slider
 					local row = form:Row({
-						SearchIndex = "PushButtons",
+						SearchIndex = "Sliders",
 					})
 
 					row:Left():TitleStack({
-						Title = "Bigger Push Buttons",
-						Subtitle = "Static buttons, these hold no value.",
+						Title = "Slider",
+						Subtitle = "A horizontal track with a control, called a thumb, that people can adjust between a minimum and maximum value.",
 					})
 
-					row:Right():PushButton({
-						State = "Primary",
-						Label = "Primary",
-						Size = UDim2.fromOffset(80, 25),
-						Pushed = function(self) 
-							print("Pushed")
+					local label = row:Right():Label()
+
+					row:Right():Slider({
+						Value = 0.5,
+						ValueChanged = function(self, value: number)
+							print("Value changed:", value)
+
+							label.Text = string.format(`%.2f`, value)
 						end,
 					})
+				end
 
-					row:Right():PushButton({
-						State = "Secondary",
-						Label = "Secondary",
-						Size = UDim2.fromOffset(80, 25),
-						Pushed = function(self) 
-							print("Pushed")
-						end,
+				do -- Stepper
+					local row = form:Row({
+						SearchIndex = "Stepper",
 					})
 
-					row:Right():PushButton({
-						State = "Destructive",
-						Label = "Destructive",
-						Size = UDim2.fromOffset(80, 25),
-						Pushed = function(self) 
-							print("Pushed")
+					row:Left():TitleStack({
+						Title = "Stepper",
+						Subtitle = "A two-segment control that people use to increase or decrease an incremental value.",
+					})
+
+					local label = row:Right():Label()
+
+					row:Right():Stepper({
+						ValueChanged = function(self, value: number)
+							print("Value is now:", value)
+
+							label.Text = tostring(value)
 						end,
+					})
+				end
+
+				do -- Fielded Stepper
+					local row = form:Row({
+						SearchIndex = "StepperFielded",
+					})
+
+					row:Left():TitleStack({
+						Title = "Stepper (Fielded)",
+						Subtitle = "Stepper with a editable field",
+					})
+
+					row:Right():Stepper({
+						Fielded = true,
+						ValueChanged = function(self, value: number)
+							print("Value is now:", value)
+						end,
+					})
+				end
+
+				do -- Radio Button Group
+				end
+			end
+		end
+
+		do -- Window
+			local tab = section:Tab({
+				Title = "Window",
+				Icon = cascade.Symbols.sidebarLeft,
+			})
+
+			do -- Form 1
+				local form = tab:Form()
+
+				do -- Dark mode toggle
+					local row = form:Row()
+
+					row:Left():TitleStack({
+						Title = "Dark mode",
+						Subtitle = "Dark Mode is a systemwide appearance setting that uses a dark color palette to provide a comfortable viewing experience tailored for low-light environments."
+					})
+
+					row:Right():Toggle({
+						Value = app.Theme == cascade.Themes.Dark,
+						ValueChanged = function(self, value: boolean)
+							app.Theme = value and cascade.Themes.Dark or cascade.Themes.Light
+						end
 					})
 				end
 			end
 		end
+	end
+
+	-- Tab demo
+	do
+		local section = window:Section()
+
+		section
+			:Tab({ Icon = cascade.Symbols.photo })
+			:Tab({ Icon = cascade.Symbols.photo })
+			:Tab({ Icon = cascade.Symbols.photo })
+			:Tab({ Icon = cascade.Symbols.photo })
+
+		section:Tab({ Icon = cascade.Symbols.photo })
 	end
 end

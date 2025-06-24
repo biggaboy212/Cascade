@@ -28,7 +28,7 @@ return {
 	},
 
 	Accents = {
-		Red = color4("FF3B30", 100)
+		Red = color4("FF3B30", 100),
 	},
 
 	Controls = {
@@ -91,7 +91,7 @@ return {
 			ThumbEffects = color4("FFFFFF", 100),
 		},
 
-		PushButton = {
+		Button = {
 			Shadow = value(Color3.new(0, 0, 0)),
 			FillPrimary = value(ColorSequence.new({
 				ColorSequenceKeypoint.new(0, Color3.fromRGB(43, 145, 255)),
@@ -99,6 +99,17 @@ return {
 			})),
 			FillSecondary = value(ColorSequence.new({
 				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
+			})),
+		},
+
+		Stepper = {
+			Background = color4("FFFFFF", 100),
+			Dropshadow = color4("000000", 100),
+			Separator = color4("000000", 22),
+			Filler = color4("000000", 5),
+			SegmentShadow = value(ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
 				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
 			})),
 		},
