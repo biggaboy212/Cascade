@@ -30,6 +30,7 @@ do -- Main window
 	-- API demo
 	do
 		local section = window:Section({
+			Disclosure = false,
 			Title = "Demo",
 		})
 
@@ -49,8 +50,8 @@ do -- Main window
 					})
 
 					row:Left():TitleStack({
-						Title = "Toggle",
-						Subtitle = "Toggle with a falsey value",
+						Title = "Toggle (Off)",
+						Subtitle = "Lets people choose between a pair of opposing states, like on and off, using a different appearance to indicate each state.",
 					})
 
 					row:Right():Toggle({
@@ -67,7 +68,7 @@ do -- Main window
 					})
 
 					row:Left():TitleStack({
-						Title = "Toggle",
+						Title = "Toggle (On)",
 						Subtitle = "Toggle with a truthy value",
 					})
 
@@ -207,22 +208,122 @@ do -- Main window
 				Icon = cascade.Symbols.sidebarLeft,
 			})
 
-			do -- Form 1
+			do -- Appearance
 				local form = tab:Form()
 
-				do -- Dark mode toggle
-					local row = form:Row()
+				do -- Dark mode
+					local row = form:Row({
+						SearchIndex = "Dark mode",
+					})
 
 					row:Left():TitleStack({
 						Title = "Dark mode",
-						Subtitle = "Dark Mode is a systemwide appearance setting that uses a dark color palette to provide a comfortable viewing experience tailored for low-light environments."
+						Subtitle = "Dark Mode is a application appearance setting that uses a dark color palette to provide a comfortable viewing experience tailored for low-light environments.",
 					})
 
 					row:Right():Toggle({
 						Value = app.Theme == cascade.Themes.Dark,
 						ValueChanged = function(self, value: boolean)
 							app.Theme = value and cascade.Themes.Dark or cascade.Themes.Light
-						end
+						end,
+					})
+				end
+			end
+
+			do -- Input
+				local form = tab:Form()
+
+				do -- Searching
+					local row = form:Row({
+						SearchIndex = "Searchable",
+					})
+
+					row:Left():TitleStack({
+						Title = "Searchable",
+						Subtitle = "Allows pages to be searched using a text field in the title bar.",
+					})
+
+					row:Right():Toggle({
+						Value = window.Searching,
+						ValueChanged = function(self, value: boolean)
+							window.Searching = value
+						end,
+					})
+				end
+
+				do -- Draggable
+					local row = form:Row({
+						SearchIndex = "Draggable",
+					})
+
+					row:Left():TitleStack({
+						Title = "Draggable",
+						Subtitle = "Allows users to move the window with a mouse or touch device.",
+					})
+
+					row:Right():Toggle({
+						Value = window.Draggable,
+						ValueChanged = function(self, value: boolean)
+							window.Draggable = value
+						end,
+					})
+				end
+
+				do -- Resizable
+					local row = form:Row({
+						SearchIndex = "Resizable",
+					})
+
+					row:Left():TitleStack({
+						Title = "Resizable",
+						Subtitle = "Allows users to resize the window with a mouse or touch device.",
+					})
+
+					row:Right():Toggle({
+						Value = window.Resizable,
+						ValueChanged = function(self, value: boolean)
+							window.Resizable = value
+						end,
+					})
+				end
+			end
+
+			do -- Effects
+				local form = tab:Form()
+
+				do -- Dropshadow
+					local row = form:Row({
+						SearchIndex = "Dropshadow",
+					})
+
+					row:Left():TitleStack({
+						Title = "Dropshadow",
+						Subtitle = "Enables a dropshadow effect on the window.",
+					})
+
+					row:Right():Toggle({
+						Value = window.Dropshadow,
+						ValueChanged = function(self, value: boolean)
+							window.Dropshadow = value
+						end,
+					})
+				end
+
+				do -- UI Blur
+					local row = form:Row({
+						SearchIndex = "Background blur",
+					})
+
+					row:Left():TitleStack({
+						Title = "Background blur",
+						Subtitle = "Enables a UI background blur effect on the window. This can be detectable in some games.",
+					})
+
+					row:Right():Toggle({
+						Value = window.UIBlur,
+						ValueChanged = function(self, value: boolean)
+							window.UIBlur = value
+						end,
 					})
 				end
 			end

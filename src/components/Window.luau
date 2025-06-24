@@ -460,7 +460,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			end
 		end,
 		Searching = function(value: boolean)
-			structures.Titlebar.SearchField.Body.Visible = value
+			structures.Titlebar.SearchField.Body.Parent = value and structures.Titlebar.Trailing or nil
 		end,
 		Draggable = function(value: boolean)
 			dragging = not value and false
@@ -540,12 +540,14 @@ return function(self, properties: types.WindowProperties): types.Window
 		end,
 		Dropshadow = function(value: boolean)
 			if structures["ShadowLayers"] then
-				structures["ShadowLayers"]:Destroy()
+				structures["ShadowLayers"].SetEnabled(value)
+
+				return
 			end
 
 			if value then
-				structures.ShadowLayers =
-					effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14, structures.Body.Parent)
+				print("s")
+				structures.ShadowLayers = effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14, structures.Body.Parent)
 			end
 		end,
 		UIBlur = function(value: boolean)

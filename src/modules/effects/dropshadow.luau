@@ -21,6 +21,7 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 	local sigma = spread / 2
 	local weights = gaussian(spread, sigma)
 	local layers = create("Folder")({ Name = "ShadowLayers" })
+	local enabled = true
 
 	local lastState = {
 		Visible = nil,
@@ -31,8 +32,8 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 	}
 
 	local pendingUpdate = false
-	local function scheduleUpdate()
-		if pendingUpdate then return end
+	local function scheduleUpdate(overrideCheck: boolean?)
+		if pendingUpdate or not enabled then return end
 		pendingUpdate = true
 
 		task.defer(function()
@@ -49,7 +50,7 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 			local changedZ = parent.ZIndex ~= lastState.ZIndex
 			local changedAnchor = parent.AnchorPoint ~= lastState.AnchorPoint
 
-			if not (changedVisible or changedSize or changedPos or changedZ or changedAnchor) then
+			if not (changedVisible or changedSize or changedPos or changedZ or changedAnchor) and not overrideCheck then
 				return
 			end
 
@@ -103,9 +104,15 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 			parent:GetPropertyChangedSignal(prop):Connect(scheduleUpdate)
 		end
 
-		parent.ChildAdded:Connect(scheduleUpdate)
-		parent.ChildRemoved:Connect(scheduleUpdate)
-		parent.AncestryChanged:Connect(scheduleUpdate)
+		parent.ChildAdded:Connect(function()
+			scheduleUpdate()
+		end)
+		parent.ChildRemoved:Connect(function()
+			scheduleUpdate()
+		end)
+		parent.AncestryChanged:Connect(function()
+			scheduleUpdate()
+		end)
 	end
 
 	parent.Destroying:Connect(function()
@@ -115,5 +122,16 @@ return function(parent: GuiObject, color: Color3, transparency: number, spread: 
 	connectSignals()
 	scheduleUpdate()
 
-	return layers
+	return {
+		Layers = layers, 
+		SetEnabled = function(value)
+			enabled = value
+
+			if not value then
+				layers:ClearAllChildren()
+			else
+				scheduleUpdate(true)
+			end
+		end
+	}
 end
