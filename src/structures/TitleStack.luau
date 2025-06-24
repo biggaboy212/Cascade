@@ -25,6 +25,10 @@ return function(self)
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}),
 
+		create("UIPadding")({
+			Name = "UIPadding",
+		}),
+
 		create("TextLabel")({
 			Name = "Subtitle",
 			AutomaticSize = Enum.AutomaticSize.Y,
@@ -42,10 +46,10 @@ return function(self)
 			TextXAlignment = Enum.TextXAlignment.Left,
 			Visible = false,
 
-            __dynamicKeys = {
-                TextColor3 = self.Theme.Text.Secondary[1],
-                TextTransparency = self.Theme.Text.Secondary[2],
-            }
+			__dynamicKeys = {
+				TextColor3 = self.Theme.Text.Secondary[1],
+				TextTransparency = self.Theme.Text.Secondary[2],
+			},
 		}),
 
 		create("TextLabel")({
@@ -66,16 +70,17 @@ return function(self)
 			TextWrapped = true,
 			TextXAlignment = Enum.TextXAlignment.Left,
 
-            __dynamicKeys = {
-                TextColor3 = self.Theme.Text.Primary[1],
-                TextTransparency = self.Theme.Text.Primary[2],
-            }
+			__dynamicKeys = {
+				TextColor3 = self.Theme.Text.Primary[1],
+				TextTransparency = self.Theme.Text.Primary[2],
+			},
 		}),
 	}) :: Frame
 
 	--// Initialize
-    structures.Title = structures.Body:FindFirstChild("Title") :: TextLabel
-    structures.Subtitle = structures.Body:FindFirstChild("Subtitle") :: TextLabel
+	structures.Title = structures.Body:FindFirstChild("Title") :: TextLabel
+	structures.Subtitle = structures.Body:FindFirstChild("Subtitle") :: TextLabel
+	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
 
 	return structures
 end

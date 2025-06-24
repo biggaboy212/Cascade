@@ -24,7 +24,7 @@ do -- Main window
 	end)
 
 	window.Destroying:Connect(function()
-		print("Closed window!")
+		print("Closed window")
 	end)
 
 	-- API demo
@@ -209,7 +209,7 @@ do -- Main window
 			})
 
 			do -- Appearance
-				local form = tab:Form()
+				local form = tab:FormSection({ Title = "Appearance" }):Form()
 
 				do -- Dark mode
 					local row = form:Row({
@@ -231,7 +231,7 @@ do -- Main window
 			end
 
 			do -- Input
-				local form = tab:Form()
+				local form = tab:FormSection({ Title = "Input" }):Form()
 
 				do -- Searching
 					local row = form:Row({
@@ -289,7 +289,7 @@ do -- Main window
 			end
 
 			do -- Effects
-				local form = tab:Form()
+				local form = tab:FormSection({ Title = "Effects", Subtitle = "These effects may be resource intensive across different systems." }):Form()
 
 				do -- Dropshadow
 					local row = form:Row({

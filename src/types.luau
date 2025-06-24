@@ -285,6 +285,14 @@ export type TitleStackProperties = Frame & {
 
 export type TitleStack = BaseComponent & Components & TitleStackProperties
 
+-- FormSection
+export type FormSectionProperties = Frame & {
+	Title: string?,
+	Subtitle: string?,
+}
+
+export type FormSection = BaseComponent & Components & FormSectionProperties
+
 -- Label
 export type LabelProperties = TextLabel
 export type Label = BaseComponent & Components & FormProperties
@@ -319,7 +327,7 @@ export type Slider = BaseComponent & Components & SliderProperties
 
 -- Button
 export type ButtonProperties = TextButton & {
-	State: string?,
+	State: ("Primary" | "Secondary" | "Destructive")?,
 	Label: string?,
 	Pushed: ((self: Button) -> nil)?,
 }
@@ -349,6 +357,7 @@ export type Components = {
 	Form: (self: any, properties: FormProperties?) -> Form,
 	Row: (self: any, properties: RowProperties?) -> Row,
 	TitleStack: (self: any, properties: TitleStackProperties?) -> TitleStack,
+	FormSection: (self: any, properties: FormSectionProperties?) -> FormSection,
 	Label: (self: any, properties: LabelProperties) -> Label,
 	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
 	TextField: (self: any, properties: TextFieldProperties) -> TextField,

@@ -546,7 +546,6 @@ return function(self, properties: types.WindowProperties): types.Window
 			end
 
 			if value then
-				print("s")
 				structures.ShadowLayers = effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14, structures.Body.Parent)
 			end
 		end,

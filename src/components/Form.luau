@@ -24,7 +24,6 @@ return function(self, properties: types.Frame): types.Form
 			AutomaticSize = Enum.AutomaticSize.Y,
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderSizePixel = 0,
-			Position = UDim2.fromScale(0.0164, 0.00228),
 			Size = UDim2.fromScale(1, 0),
 			Parent = parent,
 
