@@ -281,7 +281,7 @@ export type Row = BaseComponent & Components & RowProperties & {
 export type StackProperties = Frame & {
 	Padding: UDim?,
 	HorizontalAlignment: Enum.HorizontalAlignment?,
-	VerticalAlignment: Enum.VerticalAlignment?
+	VerticalAlignment: Enum.VerticalAlignment?,
 }
 
 export type Stack = BaseComponent & Components & StackProperties
@@ -328,7 +328,12 @@ export type TextField = BaseComponent & Components & TextFieldProperties
 export type KeybindFieldProperties = Frame & {
 	Placeholder: string?,
 	Value: Enum.KeyCode?,
-	BindPressed: ((self: KeybindField, value: Enum.KeyCode, inputComplete: boolean, gameProcessedEvent: boolean) -> unknown)?,
+	BindPressed: ((
+		self: KeybindField,
+		value: Enum.KeyCode,
+		inputComplete: boolean,
+		gameProcessedEvent: boolean
+	) -> unknown)?,
 	ValueChanged: ((self: KeybindField, value: Enum.KeyCode) -> unknown)?,
 }
 
@@ -360,13 +365,22 @@ export type StepperProperties = ImageLabel & {
 	Step: number?,
 	Fielded: boolean?,
 	Value: number?,
-	ValueChanged: ((self: Slider, value: number) -> unknown)?,
+	ValueChanged: ((self: Stepper, value: number) -> unknown)?,
 }
 
 export type Stepper = BaseComponent & Components & StepperProperties & {
 	Increment: () -> nil,
 	Decrement: () -> nil,
 }
+
+-- RadioButtonGroup
+export type RadioButtonGroupProperties = Frame & {
+	Options: { [number]: string }?,
+	Value: number?,
+	ValueChanged: ((self: RadioButtonGroup, value: number) -> unknown)?,
+}
+
+export type RadioButtonGroup = BaseComponent & Components & RadioButtonGroupProperties
 
 -- Export
 export type Components = {
@@ -387,6 +401,7 @@ export type Components = {
 	Slider: (self: any, properties: SliderProperties) -> Slider,
 	Button: (self: any, properties: ButtonProperties) -> Button,
 	Stepper: (self: any, properties: StepperProperties) -> Stepper,
+	RadioButtonGroup: (self: any, properties: RadioButtonGroupProperties) -> RadioButtonGroup,
 }
 
 return 1

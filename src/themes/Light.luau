@@ -113,5 +113,13 @@ return {
 				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
 			})),
 		},
+
+		RadioButtonGroup = {
+			Background = color4("FFFFFF", 100),
+			Dot = color4("FFFFFF", 100),
+			Stroke = color4("000000", 8),
+			Overlay = color4("FFFFFF", 17),
+			InnerShadow = color4("000000", 10),
+		},
 	},
 }

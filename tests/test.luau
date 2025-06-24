@@ -234,6 +234,24 @@ do -- Main window
 				end
 
 				do -- Radio Button Group
+					local row = form:Row({
+						SearchIndex = "Radio Buttons",
+					})
+
+					row:Left():TitleStack({
+						Title = "Radio Buttons",
+						Subtitle = "Lets people choose an option from a set of mutually exclusive choices, using a circular indicator to show the selected option.",
+					})
+
+					row:Right():RadioButtonGroup({
+						Options = {
+							"Option 1",
+							"Option 2"
+						},
+						ValueChanged = function(self, value: number)
+							print("Value is now:", self.Options[value])
+						end,
+					})
 				end
 			end
 		end
@@ -391,11 +409,11 @@ do -- Main window
 		local section = window:Section()
 
 		section
-			:Tab({ Icon = cascade.Symbols.photo })
-			:Tab({ Icon = cascade.Symbols.photo })
-			:Tab({ Icon = cascade.Symbols.photo })
-			:Tab({ Icon = cascade.Symbols.photo })
+			:Tab({ Icon = cascade.Symbols.squareStack3dUp })
+			:Tab({ Icon = cascade.Symbols.squareStack3dUp })
+			:Tab({ Icon = cascade.Symbols.squareStack3dUp })
+			:Tab({ Icon = cascade.Symbols.squareStack3dUp })
 
-		section:Tab({ Icon = cascade.Symbols.photo })
+		section:Tab({ Icon = cascade.Symbols.squareStack3dUp })
 	end
 end

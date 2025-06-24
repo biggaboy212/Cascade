@@ -6,6 +6,7 @@ local components = {
 	Window = require("@components/Window"),
 	Section = require("@components/Section"),
 	Tab = require("@components/Tab"),
+	PageSection = require("@components/PageSection"),
 	Form = require("@components/Form"),
 	Row = require("@components/Row"),
 	HStack = require("@components/HStack"),
@@ -19,7 +20,7 @@ local components = {
 	Slider = require("@components/Slider"),
 	Button = require("@components/Button"),
 	Stepper = require("@components/Stepper"),
-	PageSection = require("@components/PageSection")
+	RadioButtonGroup = require("@components/RadioButtonGroup"),
 }
 
 --// Intialize
