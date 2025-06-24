@@ -208,7 +208,7 @@ do -- Main window
 
 					row:Right():Stepper({
 						ValueChanged = function(self, value: number)
-							print("Value is now:", value)
+							print("Value changed:", value)
 
 							label.Text = tostring(value)
 						end,
@@ -228,7 +228,7 @@ do -- Main window
 					row:Right():Stepper({
 						Fielded = true,
 						ValueChanged = function(self, value: number)
-							print("Value is now:", value)
+							print("Value changed:", value)
 						end,
 					})
 				end
@@ -243,15 +243,20 @@ do -- Main window
 						Subtitle = "Lets people choose an option from a set of mutually exclusive choices, using a circular indicator to show the selected option.",
 					})
 
-					row:Right():RadioButtonGroup({
-						Options = {
-							"Option 1",
-							"Option 2"
-						},
+					local options = {
+						"Option 1",
+						"Option 2"
+					}
+
+					local radioButtonGroup = row:Right():RadioButtonGroup({
 						ValueChanged = function(self, value: number)
-							print("Value is now:", self.Options[value])
+							print("Value changed:", options[value])
 						end,
 					})
+
+					for _, name in ipairs(options) do
+						radioButtonGroup:Option(name)
+					end
 				end
 			end
 		end
