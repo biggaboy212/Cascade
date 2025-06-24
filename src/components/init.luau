@@ -15,7 +15,7 @@ local components = {
 	Slider = require("@components/Slider"),
 	Button = require("@components/Button"),
 	Stepper = require("@components/Stepper"),
-	FormSection = require("@components/FormSection")
+	PageSection = require("@components/PageSection")
 }
 
 --// Intialize

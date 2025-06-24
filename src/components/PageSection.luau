@@ -1,6 +1,6 @@
 local types = require("@types")
 
-return function(self, properties: types.FormSectionProperties): types.FormSection
+return function(self, properties: types.PageSectionProperties): types.PageSection
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
@@ -18,12 +18,12 @@ return function(self, properties: types.FormSectionProperties): types.FormSectio
 	properties = properties or {}
 	properties.Title = properties.Title or "Title"
 
-	local formSections, instance = parent:FindFirstChild("FormSections"), true
+	local PageSections, instance = parent:FindFirstChild("PageSections"), true
 
-	if not formSections then
+	if not PageSections then
 		instance = false
-		formSections = create("Frame")({
-			Name = "FormSections",
+		PageSections = create("Frame")({
+			Name = "PageSections",
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
@@ -38,11 +38,11 @@ return function(self, properties: types.FormSectionProperties): types.FormSectio
 	end
 
 	local section = create("Frame")({
-		Name = "FormSection",
+		Name = "PageSection",
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(1, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
-		Parent = instance and formSections or formSections.__instance,
+		Parent = instance and PageSections or PageSections.__instance,
 
 		create("UIListLayout")({
 			Name = "UIListLayout",
@@ -70,7 +70,7 @@ return function(self, properties: types.FormSectionProperties): types.FormSectio
 		end,
 	}, section)
 
-	object.Type = "FormSection"
+	object.Type = "PageSection"
 	object.Theme = self.Theme
 	object.Structures = structures
 	object.__container = section.__instance

@@ -285,13 +285,13 @@ export type TitleStackProperties = Frame & {
 
 export type TitleStack = BaseComponent & Components & TitleStackProperties
 
--- FormSection
-export type FormSectionProperties = Frame & {
+-- PageSection
+export type PageSectionProperties = Frame & {
 	Title: string?,
 	Subtitle: string?,
 }
 
-export type FormSection = BaseComponent & Components & FormSectionProperties
+export type PageSection = BaseComponent & Components & PageSectionProperties
 
 -- Label
 export type LabelProperties = TextLabel
@@ -357,7 +357,7 @@ export type Components = {
 	Form: (self: any, properties: FormProperties?) -> Form,
 	Row: (self: any, properties: RowProperties?) -> Row,
 	TitleStack: (self: any, properties: TitleStackProperties?) -> TitleStack,
-	FormSection: (self: any, properties: FormSectionProperties?) -> FormSection,
+	PageSection: (self: any, properties: PageSectionProperties?) -> PageSection,
 	Label: (self: any, properties: LabelProperties) -> Label,
 	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
 	TextField: (self: any, properties: TextFieldProperties) -> TextField,
