@@ -309,7 +309,7 @@ export type Label = BaseComponent & Components & FormProperties
 -- Toggle
 export type ToggleProperties = CanvasGroup & {
 	Value: boolean?,
-	ValueChanged: ((self: Toggle, value: boolean) -> nil)?,
+	ValueChanged: ((self: Toggle, value: boolean) -> unknown)?,
 }
 
 export type Toggle = BaseComponent & Components & ToggleProperties
@@ -318,18 +318,28 @@ export type Toggle = BaseComponent & Components & ToggleProperties
 export type TextFieldProperties = Frame & {
 	Placeholder: string?,
 	Value: string?,
-	FocusLost: ((self: TextField, value: string) -> nil)?,
-	ValueChanged: ((self: TextField, value: string) -> nil)?,
+	FocusLost: ((self: TextField, value: string) -> unknown)?,
+	ValueChanged: ((self: TextField, value: string) -> unknown)?,
 }
 
 export type TextField = BaseComponent & Components & TextFieldProperties
+
+-- KeybindField
+export type KeybindFieldProperties = Frame & {
+	Placeholder: string?,
+	Value: Enum.KeyCode?,
+	BindPressed: ((self: KeybindField, value: Enum.KeyCode, inputComplete: boolean, gameProcessedEvent: boolean) -> unknown)?,
+	ValueChanged: ((self: KeybindField, value: Enum.KeyCode) -> unknown)?,
+}
+
+export type KeybindField = BaseComponent & Components & KeybindFieldProperties
 
 -- Slider
 export type SliderProperties = ImageLabel & {
 	Minimum: number?,
 	Maximum: number?,
 	Value: number?,
-	ValueChanged: ((self: Slider, value: number) -> nil)?,
+	ValueChanged: ((self: Slider, value: number) -> unknown)?,
 }
 
 export type Slider = BaseComponent & Components & SliderProperties
@@ -338,7 +348,7 @@ export type Slider = BaseComponent & Components & SliderProperties
 export type ButtonProperties = TextButton & {
 	State: ("Primary" | "Secondary" | "Destructive")?,
 	Label: string?,
-	Pushed: ((self: Button) -> nil)?,
+	Pushed: ((self: Button) -> unknown)?,
 }
 
 export type Button = BaseComponent & Components & ButtonProperties
@@ -350,7 +360,7 @@ export type StepperProperties = ImageLabel & {
 	Step: number?,
 	Fielded: boolean?,
 	Value: number?,
-	ValueChanged: ((self: Slider, value: number) -> nil)?,
+	ValueChanged: ((self: Slider, value: number) -> unknown)?,
 }
 
 export type Stepper = BaseComponent & Components & StepperProperties & {
@@ -373,6 +383,7 @@ export type Components = {
 	Symbol: (self: any, properties: ImageLabel) -> ImageLabel,
 	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
 	TextField: (self: any, properties: TextFieldProperties) -> TextField,
+	KeybindField: (self: any, properties: KeybindFieldProperties) -> KeybindField,
 	Slider: (self: any, properties: SliderProperties) -> Slider,
 	Button: (self: any, properties: ButtonProperties) -> Button,
 	Stepper: (self: any, properties: StepperProperties) -> Stepper,

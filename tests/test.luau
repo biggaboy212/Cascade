@@ -5,6 +5,9 @@ local services = require("@modules/services")
 --// References
 local userInputService = services.UserInputService
 
+--// Variables
+local minimizeKeybind = Enum.KeyCode.RightControl
+
 --// UI
 local app = cascade.New({
 	Theme = cascade.Themes.Light,
@@ -18,7 +21,7 @@ do -- Main window
 	})
 
 	userInputService.InputEnded:Connect(function(input, gameProcessedEvent)
-		if input.KeyCode == Enum.KeyCode.RightControl and not gameProcessedEvent then
+		if input.KeyCode == minimizeKeybind and not gameProcessedEvent then
 			window.Minimized = not window.Minimized
 		end
 	end)
@@ -101,6 +104,35 @@ do -- Main window
 					})
 				end
 
+				do -- Keybind Field
+					local row = form:Row({
+						SearchIndex = "KeybindField",
+					})
+
+					row:Left():TitleStack({
+						Title = "Keybind Field",
+						Subtitle = "A rectangular area in which people can enter and store keyboard input.",
+					})
+
+					row:Right():KeybindField({
+						ValueChanged = function(self, value: Enum.KeyCode)
+							print("Value changed:", value)
+						end,
+						BindPressed = function(
+							self,
+							value: Enum.KeyCode,
+							inputComplete: boolean,
+							gameProcessedEvent: boolean
+						)
+							if not inputComplete or gameProcessedEvent then
+								return
+							end
+
+							print("Pressed bind:", value)
+						end,
+					})
+				end
+
 				do -- Buttons
 					local row = form:Row({
 						SearchIndex = "PushButtons",
@@ -171,7 +203,7 @@ do -- Main window
 						Title = "Stepper",
 						Subtitle = "A two-segment control that people use to increase or decrease an incremental value.",
 					})
-					
+
 					local label = row:Right():Label()
 
 					row:Right():Stepper({
@@ -236,6 +268,23 @@ do -- Main window
 
 			do -- Input
 				local form = tab:PageSection({ Title = "Input" }):Form()
+
+				do -- Minimize shortcut
+					local row = form:Row({
+						SearchIndex = "Minimize shortcut",
+					})
+
+					row:Left():TitleStack({
+						Title = "Minimize shortcut",
+					})
+
+					row:Right():KeybindField({
+						Value = minimizeKeybind,
+						ValueChanged = function(self, value: Enum.KeyCode)
+							minimizeKeybind = value
+						end,
+					})
+				end
 
 				do -- Searching
 					local row = form:Row({

@@ -15,6 +15,7 @@ local components = {
 	Symbol = require("@components/Symbol"),
 	Toggle = require("@components/Toggle"),
 	TextField = require("@components/TextField"),
+	KeybindField = require("@components/KeybindField"),
 	Slider = require("@components/Slider"),
 	Button = require("@components/Button"),
 	Stepper = require("@components/Stepper"),

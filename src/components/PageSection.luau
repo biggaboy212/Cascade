@@ -57,7 +57,7 @@ return function(self, properties: types.PageSectionProperties): types.PageSectio
 	structures.Padding.PaddingLeft = UDim.new(0, 8)
 	structures.Padding.PaddingRight = UDim.new(0, 8)
 
-	structures.Title.FontFace = Font.new(structures.Title.FontFace.Family, Enum.FontWeight.Bold)
+	structures.Title.FontFace = Font.new(structures.Title.FontFace.Family, Enum.FontWeight.SemiBold)
 	structures.Body.LayoutOrder = -1
 
 	local object = binder.Wrap(properties, {

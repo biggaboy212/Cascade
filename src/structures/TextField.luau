@@ -41,7 +41,7 @@ return function(self)
 		create("TextBox")({
 			Name = "Field",
 			AutomaticSize = Enum.AutomaticSize.XY,
-			Size = UDim2.fromOffset(144, 0),
+			Size = UDim2.fromOffset(0, 0),
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
@@ -100,6 +100,7 @@ return function(self)
 		create("UIListLayout")({
 			Name = "UIListLayout",
 			SortOrder = Enum.SortOrder.LayoutOrder,
+			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			FillDirection = Enum.FillDirection.Horizontal,
 			Padding = UDim.new(0, 4)
