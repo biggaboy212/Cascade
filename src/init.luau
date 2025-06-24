@@ -14,6 +14,24 @@ local create = creator.Create
 --// Variables
 local cascade = { Themes = themes, Symbols = symbols }
 
+--// Functions
+local function deepCopy(original)
+	local copy = {}
+	for key, value in pairs(original) do
+		local vType = typeof(value)
+		if vType == "table" then
+			if value.Value ~= nil and value.Connect and typeof(value.Connect) == "function" then
+				copy[key] = creator.Value(value.Value)
+			else
+				copy[key] = deepCopy(value)
+			end
+		else
+			copy[key] = value
+		end
+	end
+	return copy
+end
+
 --// Initialize
 cascade.New = function(properties: types.AppProperties): types.App
 	if not game:IsLoaded() then
@@ -21,8 +39,9 @@ cascade.New = function(properties: types.AppProperties): types.App
 	end
 
 	properties = properties or {}
-	
-	properties.Theme = properties and properties.Theme or themes.Light
+
+	local initialTheme = properties.Theme or themes.Light
+	properties.Theme = deepCopy(initialTheme)
 
 	local container = utility.ProtectUI(create("ScreenGui")({
 		Name = "Cascade",
