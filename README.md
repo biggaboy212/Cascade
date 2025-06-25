@@ -6,7 +6,7 @@
 [disc]: https://discord.gg/2cB4vBAEWk
 
 [badges/stars]: https://img.shields.io/github/stars/biggaboy212/Cascade?label=Stars&logo=GitHub
-[badges/lastrel]: https://img.shields.io/github/v/release/biggaboy212/Cascade?label=Latest%20Release
+[badges/lastrel]: https://img.shields.io/github/version/release/biggaboy212/Cascade?label=Latest%20Release
 [badges/lastcom]: https://img.shields.io/github/last-commit/biggaboy212/Cascade?label=Last%20Modifed
 [badges/disc]: https://img.shields.io/discord/1384338360012898406?&label=Discord
 
@@ -38,11 +38,12 @@ To use cascade from source, simply clone the repository into your packages folde
 You can download a valid release from our github releases page, or in single-file systems, you can load it dynamically in-game:
 
 ```lua
-local function import(owner, repository, release, file)
-    return loadstring(game:HttpGetAsync(("https://github.com/%s/%s/releases/%s/download/%s"):format(owner, repository, release, file)), file)()
+local function import(owner, release, version, file)
+    local tag = (version == "latest" and "latest" or "download/"..version)
+    return loadstring(game:HttpGet(("https://github.com/%s/%s/releases/%s/%s"):format(owner, release, tag, file)), file)()
 end
 
-local cascade = import("biggaboy212", "Cascade", "latest", "release.luau")
+local cascade = import("biggaboy212", "Cascade", "v1.0.0-beta.1", "pre.luau")
 ```
 
 ### Adding components

@@ -61,7 +61,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			__contextKeys = {
 				BackgroundTransparency = function()
 					return properties.UIBlur and self.Theme.Controls.Sidebar[2].Value or 0
-				end
+				end,
 			},
 
 			create("UICorner")({
@@ -553,7 +553,8 @@ return function(self, properties: types.WindowProperties): types.Window
 			end
 
 			if value then
-				structures.ShadowLayers = effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14, structures.Body.Parent)
+				structures.ShadowLayers =
+					effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14, structures.Body.Parent)
 			end
 		end,
 		UIBlur = function(value: boolean)
@@ -823,6 +824,19 @@ return function(self, properties: types.WindowProperties): types.Window
 	end
 
 	binder.Apply(properties, object)
+
+	task.delay(1, function() -- Due to roblox resizing issues
+		-- If there's a better way to do this please tell me or make a PR
+		for i, v in pairs(structures.Body:GetDescendants()) do
+			if not pcall(function() return v.Size end) then
+				continue
+			end
+
+			local original = v.Size
+			v.Size = UDim2.fromOffset(0, 0)
+			v.Size = original
+		end
+	end)
 
 	return object
 end
