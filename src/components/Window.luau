@@ -825,10 +825,12 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	binder.Apply(properties, object)
 
-	task.delay(1, function() -- Due to roblox resizing issues
+	local function recheck() -- Due to roblox resizing issues
 		-- If there's a better way to do this please tell me or make a PR
 		for i, v in pairs(structures.Body:GetDescendants()) do
-			if not pcall(function() return v.Size end) then
+			if not pcall(function()
+				return v.Size
+			end) then
 				continue
 			end
 
@@ -836,7 +838,10 @@ return function(self, properties: types.WindowProperties): types.Window
 			v.Size = UDim2.fromOffset(0, 0)
 			v.Size = original
 		end
-	end)
+	end
+
+	task.defer(recheck)
+	task.delay(1, recheck)
 
 	return object
 end
