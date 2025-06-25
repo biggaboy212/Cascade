@@ -3,7 +3,7 @@
 --!optimize 2
 
 --[[
-    @author Proton-Utilities
+    @author biggaboy212
     @name Cascade
     @description A LuaU UI library based on macOS
     @license MIT License
