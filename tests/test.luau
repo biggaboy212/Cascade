@@ -243,20 +243,17 @@ do -- Main window
 						Subtitle = "Lets people choose an option from a set of mutually exclusive choices, using a circular indicator to show the selected option.",
 					})
 
-					local options = {
-						"Option 1",
-						"Option 2"
-					}
-
 					local radioButtonGroup = row:Right():RadioButtonGroup({
+						Options = {
+							"Option 1",
+							"Option 2",
+						},
 						ValueChanged = function(self, value: number)
-							print("Value changed:", options[value])
+							print("Value changed:", self.Options[value])
 						end,
 					})
 
-					for _, name in ipairs(options) do
-						radioButtonGroup:Option(name)
-					end
+					radioButtonGroup:Option("Option 3") -- This returns the radio button instance.
 				end
 			end
 		end

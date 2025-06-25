@@ -15,28 +15,93 @@
 [![Latest Release][badges/lastrel]][lastrel]
 [![Last Modified][badges/lastcom]][lastcom]
 
-Cascade is an open-source LuaU UI library based on macOS Sequoia.
+Cascade is a LuaU UI library based on macOS Sequoia.
 
 ![Cascade](assets/cascade_show.png)
 
-## Features
+## The Pitch
 
-### Pixel Perfect
+Cascade is a retained-mode, user-centric UI library designed to be both easy for developers and beautiful for users. Its API is fully typed, so once you learn one component, you can use 99% of the rest without needing to reference the documentation.
 
-Every detail has been carefully crafted, you might even feel like you're using a native macOS app.
-
-### Innovative API
-
-Cascade's API was tediously thought out before work on the UI even started, this becomes evident when you experience the consistency and innovation throughout each aspect of the library.
-
-### Versatile Components
-
-Cascade has virtually every component you could ever need. From steppers to radio buttons and pop-down buttons, you will never feel limited with options.
-
-### Free
-
-Yes, Cascade is completely free to use, no credits required. You can use it in both free and paid scripts without restriction.
+Cascade was designed from the ground up as a superior design paradigm. It combines simplicity and customizability into a high level bloat-free API, enabling developers to build polished software-grade UIs in minutes.
 
 ## Usage
 
-Cascade documentation is in development.
+### Importing the library
+
+#### From source
+
+To use cascade from source, simply clone the repository into your packages folder and you can reference `src/init.luau` from there.
+
+#### From release
+
+You can download a valid release from our github releases page, or in single-file systems, you can load it dynamically in-game:
+
+```lua
+local function import(owner, repository, release, file)
+    return loadstring(game:HttpGetAsync(("https://github.com/%s/%s/releases/%s/download/%s"):format(owner, repository, release, file)), file)()
+end
+
+local cascade = Import("biggaboy212", "Cascade", "latest", "release.luau")
+```
+
+### Adding components
+
+You can choose how complex to make your app, we dont bombard you with useless bloat that makes the library a borderline instance creator.
+
+```lua
+-- Create our main application.
+local app = cascade.New({ Theme = cascade.Themes.Light })
+
+do -- Make the main window
+    local window = app:Window({
+        Title = "My Window",
+        Subtitle = "My window",
+    })
+
+    do -- Make a static tab section
+        local section = window:Section({ Title = "Section title" })
+
+        do -- Make our main tab
+            local tab = section:Tab({
+                Selected = true,
+                Title = "Main",
+                Icon = cascade.Symbols.squareStack3dUp,
+            })
+
+            do
+                local form = tab:Form()
+            
+                do -- Make the toggle
+                    local row = form:Row()
+
+                    -- You can of course add a wrapper to simplify creating page components if you only want a title stack and a component to go along.
+                    row:Left():TitleStack({
+                        Title = "Toggle",
+                        Subtitle = "My toggle",
+                    })
+
+                    row:Right():Toggle()
+                end
+
+                do -- Make the button
+                    local row = form:Row()
+
+                    row:Left():TitleStack({
+                        Title = "Button",
+                        Subtitle = "My button",
+                    })
+
+                    row:Right():Button({ Label = "Click me" })
+                end
+            end
+        end
+    end
+end
+```
+
+![Showcase application](assets/demoapp.png)
+
+### Getting started
+
+Reference the Cascade documentation for more. (In development.)

@@ -118,9 +118,9 @@ return {
 		RadioButtonGroup = {
 			Background = color4("373737", 100),
 			Dot = color4("FFFFFF", 100),
-			Stroke = color4("FFFFFF", 5),
-			Overlay = color4("FFFFFF", 10),
-			InnerShadow = color4("FFFFFF", 12),
+			Stroke = color4("000000", 20),
+			Overlay = color4("FFFFFF", 8),
+			InnerShadow = color4("FFFFFF", 10),
 		},
 	},
 }

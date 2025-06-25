@@ -32,6 +32,7 @@ return function(self, properties: types.WindowProperties): types.Window
 	--// UI
 	properties = properties or {}
 
+	properties.Size = properties.Size or UDim2.fromOffset(850, 530)
 	properties.Maximized = properties.Maximized == true
 	properties.Minimized = properties.Minimized == true
 	properties.Searching = properties.Searching ~= false

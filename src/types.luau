@@ -375,6 +375,7 @@ export type Stepper = BaseComponent & Components & StepperProperties & {
 
 -- RadioButtonGroup
 export type RadioButtonGroupProperties = Frame & {
+	Options: {[number]: string}?,
 	Value: number?,
 	ValueChanged: ((self: RadioButtonGroup, value: number) -> unknown)?,
 }
