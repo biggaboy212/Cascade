@@ -15,6 +15,11 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	local theme = self.Theme.Controls.Stepper
 	local structures = {}
 
+	local holding = false
+	local stepConnections = {}
+	local repeatDelay = 0.35
+	local repeatInterval = 0.083
+
 	--// Functions
 	local function getPrecision(step)
 		local stepStr = tostring(step)
@@ -29,14 +34,14 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	end
 
 	local function stepFormat(value, step)
-        local stepPrecision = getPrecision(step)
-        local valuePrecision = getPrecision(value)
+		local stepPrecision = getPrecision(step)
+		local valuePrecision = getPrecision(value)
 
-        local displayPrecision = math.max(stepPrecision, valuePrecision)
+		local displayPrecision = math.max(stepPrecision, valuePrecision)
 
-        local formatStr = "%." .. displayPrecision .. "f"
-        return string.format(formatStr, value)
-    end
+		local formatStr = "%." .. displayPrecision .. "f"
+		return string.format(formatStr, value)
+	end
 
 	local function round(value, decimals)
 		local mult = 10 ^ (decimals or 0)
@@ -257,7 +262,6 @@ return function(self, properties: types.StepperProperties): types.Stepper
 			end
 		end,
 		Value = function(value: number)
-
 			if value <= properties.Minimum then
 				structures.IMinus.ImageColor3 = self.Theme.Text.Tertiary[1].Value
 				structures.IMinus.ImageTransparency = self.Theme.Text.Tertiary[2].Value
@@ -299,7 +303,7 @@ return function(self, properties: types.StepperProperties): types.Stepper
 		assert(properties.Maximum)
 
 		local precision = math.max(getPrecision(object.Value), getPrecision(properties.Step))
-        local rawValue = object.Value + properties.Step
+		local rawValue = object.Value + properties.Step
 		local newValue = round(rawValue, precision)
 
 		object.Value = math.clamp(newValue, properties.Minimum, properties.Maximum)
@@ -312,13 +316,81 @@ return function(self, properties: types.StepperProperties): types.Stepper
 		local precision = math.max(getPrecision(object.Value), getPrecision(properties.Step))
 		local rawValue = object.Value - properties.Step
 		local newValue = round(rawValue, precision)
-		
+
 		object.Value = math.clamp(newValue, properties.Minimum, properties.Maximum)
 	end
 
-	structures.IPlus.MouseButton1Click:Connect(object.Increment)
+	local function stepStart(direction: string)
+		holding = true
 
-	structures.IMinus.MouseButton1Click:Connect(object.Decrement)
+		local action = (direction == "Up") and object.Increment or object.Decrement
+
+		stepConnections[direction] = task.spawn(function()
+			if  holding then
+				task.wait(repeatDelay)
+			end
+
+			if not  holding then return end
+
+			action()
+
+			while  holding do
+				task.wait(repeatInterval)
+				if  holding then
+					action()
+				end
+			end
+		end)
+	end
+
+	local function stepStop(direction: string)
+		 holding = false
+		if stepConnections[direction] then
+			task.cancel(stepConnections[direction])
+			stepConnections[direction] = nil
+		end
+	end
+
+	structures.IPlus.MouseButton1Down:Connect(function()
+		object.Increment()
+		stepStart("Up")
+	end)
+	structures.IPlus.MouseButton1Up:Connect(function()
+		stepStop("Up")
+	end)
+	structures.IPlus.MouseLeave:Connect(function()
+		stepStop("Up")
+	end)
+
+	structures.IMinus.MouseButton1Down:Connect(function()
+		object.Decrement() -- Execute once on click/down
+		stepStart("Down")
+	end)
+	structures.IMinus.MouseButton1Up:Connect(function()
+		stepStop("Down")
+	end)
+	structures.IMinus.MouseLeave:Connect(function()
+		stepStop("Down")
+	end)
+
+	structures.Body.AncestryChanged:Connect(function(_, parent)
+		if not parent then
+			stepStop("Up")
+			stepStop("Down")
+			for _, conn in pairs(stepConnections) do
+				if typeof(conn) == "RBXScriptConnection" then
+					conn:Disconnect()
+				end
+			end
+			stepConnections = {}
+		end
+	end)
+
+	-- Change end
+
+	-- Removed MouseButton1Click connections as MouseButton1Down now handles the initial click
+	-- structures.IPlus.MouseButton1Click:Connect(object.Increment)
+	-- structures.IMinus.MouseButton1Click:Connect(object.Decrement)
 
 	structures.Field.Field.FocusLost:Connect(function(fromEnter)
 		if fromEnter then
