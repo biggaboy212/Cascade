@@ -94,77 +94,103 @@ end
 --// Deploy
 if configOptions.promptDeploy and config.deployment.enabled then
 	local ghCfg = config.deployment.github
+	local wallyCfg = config.deployment.wally
 
 	if io.prompt("confirm", "Do you want to distribute this build publicly?") then
-		fs.writeFile(RELEASE_BODY, `# {ghCfg.repo} {buildVers}`)
+		if ghCfg and ghCfg.enabled == true then
+			fs.writeFile(RELEASE_BODY, `# {ghCfg.repo} {buildVers}`)
 
-		if process.os == "windows" then
-			process.exec("powershell", {
-				"-ExecutionPolicy",
-				"Bypass",
-				"-NoProfile",
-				"-Command",
-				`code '{RELEASE_BODY}'`,
-			})
-		end
+			if process.os == "windows" then
+				process.exec("powershell", {
+					"-ExecutionPolicy",
+					"Bypass",
+					"-NoProfile",
+					"-Command",
+					`code '{RELEASE_BODY}'`,
+				})
+			end
 
-		if io.prompt("confirm", "Add release notes, and confirm when done") then
-			local response = net.request({
-				url = string.format("https://api.github.com/repos/%s/%s/releases", ghCfg.owner, ghCfg.repo),
-				method = "POST",
-				headers = {
-					["Authorization"] = "Bearer " .. ghCfg.apiKey,
-					["Content-Type"] = "application/json",
-				},
-				body = serde.encode("json", {
-					tag_name = buildVers,
-					name = `{buildConfig} {buildVers}`,
-					body = fs.isFile(RELEASE_BODY) and fs.readFile(RELEASE_BODY) or "",
-					draft = false,
-					prerelease = configOptions.prerelease,
-				}),
-			})
+			if io.prompt("confirm", "Add release notes, and confirm when done") then
+				local response = net.request({
+					url = string.format("https://api.github.com/repos/%s/%s/releases", ghCfg.owner, ghCfg.repo),
+					method = "POST",
+					headers = {
+						["Authorization"] = "Bearer " .. ghCfg.apiKey,
+						["Content-Type"] = "application/json",
+					},
+					body = serde.encode("json", {
+						tag_name = buildVers,
+						name = `{buildConfig} {buildVers}`,
+						body = fs.isFile(RELEASE_BODY) and fs.readFile(RELEASE_BODY) or "",
+						draft = false,
+						prerelease = configOptions.prerelease,
+					}),
+				})
 
-			if response.ok then
-				print("Deployment successful: " .. response.statusMessage)
-				local releaseData = serde.decode("json", response.body)
-				local releaseId = releaseData.id
-				if releaseId and fs.isFile(configOptions.output) then
-					local assetName = getBaseName(configOptions.output)
-					local uploadUrl = string.format(
-						"https://uploads.github.com/repos/%s/%s/releases/%s/assets?name=%s",
-						ghCfg.owner, ghCfg.repo, tostring(releaseId), assetName
-					)
-					local fileContent = fs.readFile(configOptions.output)
-					local uploadResp = net.request({
-						url = uploadUrl,
-						method = "POST",
-						headers = {
-							["Authorization"] = "Bearer " .. ghCfg.apiKey,
-							["Content-Type"] = "application/octet-stream",
-						},
-						body = fileContent,
-					})
-					if uploadResp.ok then
-						print("Asset uploaded: " .. assetName)
+				if response.ok then
+					print("Deployment successful: " .. response.statusMessage)
+					local releaseData = serde.decode("json", response.body)
+					local releaseId = releaseData.id
+					if releaseId and fs.isFile(configOptions.output) then
+						local assetName = getBaseName(configOptions.output)
+						local uploadUrl = string.format(
+							"https://uploads.github.com/repos/%s/%s/releases/%s/assets?name=%s",
+							ghCfg.owner,
+							ghCfg.repo,
+							tostring(releaseId),
+							assetName
+						)
+						local fileContent = fs.readFile(configOptions.output)
+						local uploadResp = net.request({
+							url = uploadUrl,
+							method = "POST",
+							headers = {
+								["Authorization"] = "Bearer " .. ghCfg.apiKey,
+								["Content-Type"] = "application/octet-stream",
+							},
+							body = fileContent,
+						})
+						if uploadResp.ok then
+							print("Asset uploaded: " .. assetName)
+						else
+							print("Asset upload failed: " .. uploadResp.statusMessage)
+							print(uploadResp.body)
+						end
 					else
-						print("Asset upload failed: " .. uploadResp.statusMessage)
-						print(uploadResp.body)
+						print("Could not upload asset: release id or file missing")
 					end
 				else
-					print("Could not upload asset: release id or file missing")
-				end
-			else
-				print("Deployment failed: " .. response.statusMessage)
-				print(response.body)
-				if response.body:find("Bad credentials") then
-					warn("❓ Did you set up github deployment in the pcmp configuration file?")
+					print("Deployment failed: " .. response.statusMessage)
+					print(response.body)
+					if response.body:find("Bad credentials") then
+						warn("❓ Did you set up github deployment in the pcmp configuration file?")
+					end
 				end
 			end
-		end
-	end
 
-	if fs.isFile(RELEASE_BODY) then
-		fs.removeFile(RELEASE_BODY)
+			if fs.isFile(RELEASE_BODY) then
+				fs.removeFile(RELEASE_BODY)
+			end
+		end
+
+		if wallyCfg and wallyCfg.enabled == true and wallyCfg.location and fs.isFile(wallyCfg.location) then
+			print("Publishing wally build")
+
+			local wallyToml = fs.readFile(wallyCfg.location)
+			local wallyVersion = buildVers:gsub("^v", "")
+			local replacementLine = 'version = "' .. wallyVersion .. '"'
+			wallyToml = wallyToml:gsub("[^\n]*version[^\n]*", replacementLine)
+			fs.writeFile(wallyCfg.location, wallyToml)
+
+			local wallyResult = process.exec("wally", { "publish" })
+
+			if wallyResult.ok then
+				print("Wally publish successful:")
+				io.write(wallyResult.stdout)
+			else
+				print("Wally publish failed:")
+				io.write(wallyResult.stderr)
+			end
+		end
 	end
 end

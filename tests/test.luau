@@ -64,7 +64,7 @@ do -- Main window
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 				Transparency = 0.65,
 			}),
-		})
+		}) :: TextButton
 
 		mobileToggle.MouseButton1Click:Connect(function()
 			window.Minimized = not window.Minimized
