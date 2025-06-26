@@ -41,7 +41,7 @@ return function(self)
 		create("TextBox")({
 			Name = "Field",
 			AutomaticSize = Enum.AutomaticSize.XY,
-			Size = UDim2.fromOffset(0, 0),
+			Size = UDim2.fromOffset(138, 0),
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
 			BorderColor3 = Color3.fromRGB(0, 0, 0),

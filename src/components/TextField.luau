@@ -13,6 +13,7 @@ return function(self, properties: types.TextFieldProperties): types.TextField
 	properties.Placeholder = properties.Placeholder or "Placeholder"
 
 	--// Initialize
+	structures.Field.TextTruncate = Enum.TextTruncate.AtEnd
 	structures.Field.TextXAlignment = Enum.TextXAlignment.Right
 	structures.Body.Parent = self.__container or self.__instance or self
 
@@ -31,13 +32,13 @@ return function(self, properties: types.TextFieldProperties): types.TextField
 		end,
 	}, structures.Body)
 
-	structures.Field.FocusLost:Connect(function()
-		if properties.FocusLost then
-			task.spawn(properties.FocusLost, object, properties.Value or "")
-		end
+	structures.Field.Focused:Connect(function()
+		structures.Body.AutomaticSize = Enum.AutomaticSize.XY
 	end)
 
-	structures.Field:GetPropertyChangedSignal("Text"):Connect(function()
+	structures.Field.FocusLost:Connect(function()
+		structures.Body.AutomaticSize = Enum.AutomaticSize.None
+
 		if object.Value ~= structures.Field.Text then
 			object.Value = structures.Field.Text
 		end
@@ -48,6 +49,12 @@ return function(self, properties: types.TextFieldProperties): types.TextField
 	object.Structures = structures
 
 	binder.Apply(properties, object)
+
+	structures.Field:GetPropertyChangedSignal("Text"):Connect(function()
+		if properties.TextChanged then
+			task.spawn(properties.TextChanged, object, structures.Field.Text or "")
+		end
+	end)
 
 	return object
 end

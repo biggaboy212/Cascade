@@ -318,8 +318,8 @@ export type Toggle = BaseComponent & Components & ToggleProperties
 export type TextFieldProperties = Frame & {
 	Placeholder: string?,
 	Value: string?,
-	FocusLost: ((self: TextField, value: string) -> unknown)?,
-	ValueChanged: ((self: TextField, value: string) -> unknown)?,
+	TextChanged: ((self: TextField, value: string) -> unknown)?,
+	ValueChanged: ((self: TextField, text: string) -> unknown)?,
 }
 
 export type TextField = BaseComponent & Components & TextFieldProperties

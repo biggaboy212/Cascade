@@ -21,6 +21,15 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	--// Variables
 	local parent = self.__container or self.__instance or self
+	local window = create("Frame")({
+		Name = "Window",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(1, 1),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromScale(0.5, 0.5),
+		Parent = parent,
+	}).__instance
 	local originalSize
 	local originalPosition
 	local originalPosition2
@@ -51,7 +60,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			BorderSizePixel = 0,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
-			Parent = parent,
+			Parent = window,
 
 			__dynamicKeys = {
 				BackgroundColor3 = self.Theme.Controls.Sidebar[1],
@@ -431,7 +440,7 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	--// Initialize
 	structures.Scale = create("UIScale")({
-		Parent = parent,
+		Parent = window,
 	})
 	structures.Cornering = structures.Body:FindFirstChild("UICorner") :: UICorner
 	structures.LayoutIgnore = structures.Body:FindFirstChild("LayoutIgnore") :: Folder
