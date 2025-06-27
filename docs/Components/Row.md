@@ -8,7 +8,7 @@ A `Row` is a horizontal container that splits its contents into `Left` and `Righ
 
 | Property       | Type       | Description |
 |----------------|------------|-------------|
-| `SearchIndex` | `string?`   | A string that determines what the user has to type in to show this row in their search query |
+| `SearchIndex` | `#!luau string?`   | A string that determines what the user has to type in to show this row in their search query |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -18,8 +18,8 @@ A `Row` is a horizontal container that splits its contents into `Left` and `Righ
 
 | Method | Arguments | Description | Returns |
 |--------|-----------|-------------|---------|
-| `Left`  | `self: Row` | This returns a shallow clone of `Row` with the container set to the row's right container. | `Row (Shallow clone)` |
-| `Right`  | `self: Row` | This returns a shallow clone of `Row` with the container set to the row's right container. | `Row (Shallow clone)` |
+| `Left`  | `#!luau self: Row` | This returns a shallow clone of `Row` with the container set to the row's right container. | `#!luau Row` (Shallow clone) |
+| `Right`  | `#!luau self: Row` | This returns a shallow clone of `Row` with the container set to the row's right container. | `#!luau Row` (Shallow clone) |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
 

@@ -10,15 +10,15 @@
 
 | Property       | Type       | Description |
 |----------------|------------|-------------|
-| `Searching` | `boolean?` | Shows a text field in the title bar which can be used to search pages for content. |
-| `Draggable` |  `boolean?` | Enables window dragging via mouse or touch device. |
-| `Resizable` | `boolean?` | Enables resizing via sides or corners. |
-| `Title` | `string?` | Title displayed in the content titlebar. |
-| `Subtitle` | `string?` | Subtitle displayed under the title. Will be visually disabled if not defined. |
-| `Maximized` | `boolean?` | Should the window be maximized by default? |
-| `Minimized` | `boolean?` | Should the window be minimized by default? |
-| `Dropshadow` | `boolean?` | Enables a dropshadow effect on the window. |
-| `UIBlur` | `boolean?` | Applies a background blur effect to the sidebar. |
+| `Searching` | `#!luau boolean?` | Shows a text field in the title bar which can be used to search pages for content. |
+| `Draggable` |  `#!luau boolean?` | Enables window dragging via mouse or touch device. |
+| `Resizable` | `#!luau boolean?` | Enables resizing via sides or corners. |
+| `Title` | `#!luau string?` | Title displayed in the content titlebar. |
+| `Subtitle` | `#!luau string?` | Subtitle displayed under the title. Will be visually disabled if not defined. |
+| `Maximized` | `#!luau boolean?` | Should the window be maximized by default? |
+| `Minimized` | `#!luau boolean?` | Should the window be minimized by default? |
+| `Dropshadow` | `#!luau boolean?` | Enables a dropshadow effect on the window. |
+| `UIBlur` | `#!luau boolean?` | Applies a background blur effect to the sidebar. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 

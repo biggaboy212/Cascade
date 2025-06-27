@@ -10,10 +10,10 @@ A `Tab` separates content into different pages, and lets users navigate between 
 
 | Property       | Type       | Description |
 |----------------|------------|-------------|
-| `Title` | `string?` | The tab and page's title. |
-| `Icon` | `string?` | The `rbassetid://` of the image to display. You can use cascade.Symbols for pre-made symbols. |
-| `Indentation` | `boolean?` | The tab indentation/How far right it is. This is automatically increased by `1` when you chain a tab on another tab. |
-| `Selected` | `boolean?` | Whether or not the tab is selected by default. Defaults to false. |
+| `Title` | `#!luau string?` | The tab and page's title. |
+| `Icon` | `#!luau string?` | The `rbassetid://` of the image to display. You can use cascade.Symbols for pre-made symbols. |
+| `Indentation` | `#!luau boolean?` | The tab indentation/How far right it is. This is automatically increased by `1` when you chain a tab on another tab. |
+| `Selected` | `#!luau boolean?` | Whether or not the tab is selected by default. Defaults to false. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 

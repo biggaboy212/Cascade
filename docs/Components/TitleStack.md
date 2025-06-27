@@ -8,8 +8,8 @@ A `TitleStack` is a vertical stack with title and subtitle label's that people c
 
 | Property       | Type       | Description |
 |----------------|------------|-------------|
-| `Title` | `string?` | The text content of the title label |
-| `Subtitle` | `string?` | The text content of the subtitle label. Subtitle becomes non visible if left nil. |
+| `Title` | `#!luau string?` | The text content of the title label |
+| `Subtitle` | `#!luau string?` | The text content of the subtitle label. Subtitle becomes non visible if left nil. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
