@@ -304,7 +304,7 @@ export type PageSection = BaseComponent & Components & PageSectionProperties
 
 -- Label
 export type LabelProperties = TextLabel
-export type Label = BaseComponent & Components & FormProperties
+export type Label = BaseComponent & Components & LabelProperties
 
 -- Toggle
 export type ToggleProperties = CanvasGroup & {
@@ -318,8 +318,8 @@ export type Toggle = BaseComponent & Components & ToggleProperties
 export type TextFieldProperties = Frame & {
 	Placeholder: string?,
 	Value: string?,
-	TextChanged: ((self: TextField, value: string) -> unknown)?,
-	ValueChanged: ((self: TextField, text: string) -> unknown)?,
+	TextChanged: ((self: TextField, text: string) -> unknown)?,
+	ValueChanged: ((self: TextField, value: string) -> unknown)?,
 }
 
 export type TextField = BaseComponent & Components & TextFieldProperties

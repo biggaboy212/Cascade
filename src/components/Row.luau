@@ -124,14 +124,14 @@ return function(self, properties: types.RowProperties): types.Row
 	object.Type = "Row"
 	object.Theme = self.Theme
 	object.Structures = structures
-	object.Left = function(self)
+	object.Left = function()
 		local newObject = table.clone(object)
 
 		newObject.__container = structures.LeftAccessories
 
 		return newObject
 	end
-	object.Right = function(self)
+	object.Right = function()
 		local newObject = table.clone(object)
 
 		newObject.__container = structures.RightAccessories
