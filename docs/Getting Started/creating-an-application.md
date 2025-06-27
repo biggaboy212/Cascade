@@ -24,7 +24,7 @@ The returned object exposes all built-in components such as `Window`, `Tab`, and
 
 ## Types
 
-```lua
+```luau
 type AppProperties = ScreenGui & {
     Theme: Theme?,
 }
@@ -34,13 +34,13 @@ type App = AppProperties & Components
 
 ### Function Signature
 
-```lua
-function(properties: AppProperties): App
+```luau
+function(self, properties: AppProperties): App
 ```
 
 ## Example
 
-```lua linenums="1"
+```luau linenums="1"
 local app = cascade.New({
     Theme = cascade.Themes.Light
 })

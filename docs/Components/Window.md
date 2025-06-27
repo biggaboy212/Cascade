@@ -10,15 +10,15 @@
 
 | Property       | Type       | Description |
 |----------------|------------|-------------|
-| `Searching`    | `boolean?` | Shows a text field in the title bar which can be used to search pages for content. |
-| `Draggable`    | `boolean?` | Enables window dragging via mouse or touch device. |
-| `Resizable`    | `boolean?` | Enables resizing via sides or corners. |
-| `Title`        | `string?`  | Title displayed in the content titlebar. |
-| `Subtitle`     | `string?`  | Subtitle displayed under the title. Will be visually disabled if not defined. |
-| `Maximized`    | `boolean?` | Should the window be maximized by default? |
-| `Minimized`    | `boolean?` | Should the window be minimized by default? |
-| `Dropshadow`   | `boolean?` | Enables a dropshadow effect on the window. |
-| `UIBlur`       | `boolean?` | Applies a background blur effect to the sidebar. |
+| `Searching` | `boolean?` | Shows a text field in the title bar which can be used to search pages for content. |
+| `Draggable` |  `boolean?` | Enables window dragging via mouse or touch device. |
+| `Resizable` | `boolean?` | Enables resizing via sides or corners. |
+| `Title` | `string?` | Title displayed in the content titlebar. |
+| `Subtitle` | `string?` | Subtitle displayed under the title. Will be visually disabled if not defined. |
+| `Maximized` | `boolean?` | Should the window be maximized by default? |
+| `Minimized` | `boolean?` | Should the window be minimized by default? |
+| `Dropshadow` | `boolean?` | Enables a dropshadow effect on the window. |
+| `UIBlur` | `boolean?` | Applies a background blur effect to the sidebar. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -34,7 +34,7 @@
 
 ## Types
 
-```lua
+```luau
 type WindowProperties = Frame & {
     Searching: boolean?,
     Draggable: boolean?,
@@ -54,13 +54,13 @@ type Window = BaseComponent & Components & WindowProperties
 
 ### Function Signature
 
-```lua
-function(properties: WindowProperties): Window
+```luau
+function(self, properties: WindowProperties): Window
 ```
 
 ## Example
 
-```lua
+```luau
 local window = app:Window({
     Title = "Cascade",
     Subtitle = "This is my subtitle.",

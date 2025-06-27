@@ -16,7 +16,7 @@
 
 2. Add a loader module directly into your `packages` folder:
 
-    ```lua
+    ```luau
     -- packages/cascade.luau
     return require("./_index/Cascade/src/init.luau")
     ```
@@ -27,7 +27,7 @@
 
 4. Now you can easily access the Cascade API:
 
-    ```lua
+    ```luau
     -- To use aliases such as "@packages", use a .luaurc file.
     local cascade = require("@packages/cascade")
     ```
@@ -42,7 +42,7 @@ Cascade also has pre-built `luau` modules.
 
 This method will download the release dynamically using HttpGet.
 
-```lua
+```luau
 local function import(owner, release, version, file)
     local tag = (version == "latest" and "latest" or "download/"..version)
 

@@ -14,11 +14,14 @@
 | `Theme` | `string` | **[Read-only]** Inherited theme from the calling component. |
 | `Structures` | `table` | **[Read-only]** Table of defined component structures. |
 
+!!! warning
+    Note that to access a component's actual instance, you will need to index `__instance` on it, this will return the actual roblox object instead of a merged metatable with the custom object.
+
 ---
 
 ## Types
 
-```lua
+```luau
 export type BaseComponent = {
     Type: string,
     Theme: Theme,
