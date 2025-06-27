@@ -105,4 +105,4 @@ end
 
 ### Getting started
 
-Reference the Cascade documentation for more. (In development.)
+Reference the [Cascade documentation](https://biggaboy212.github.io/Cascade/) for more.
