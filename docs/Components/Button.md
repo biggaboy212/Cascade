@@ -25,9 +25,9 @@ A `Button` initiates an instantaneous action.
 
 ### Events
 
-| Event       | Type       | Description |
-|----------------|------------|-------------|
-| `Pushed` | `#!luau ((self: Button) -> unknown)?` | A Callback function that is triggered when the button has been fully clicked or tapped. |
+| Event   | Signature                         | Description |
+|---------|-----------------------------------|-------------|
+| `Pushed` | `#!luau ((self: Button) -> unknown)?` | A callback function that is triggered when the button has been fully clicked or tapped. |
 
 [View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-events)
 
@@ -60,7 +60,7 @@ local button = row:Right():Button({
     end,
 })
 
-print(button:IsA("TextButton")) -- true
+print(button:IsA("TextButton")) --> true
 print(button.ClassName) --> "TextButton"
 print(button.Type) --> "Button"
 ```

@@ -66,7 +66,7 @@ local window = app:Window({
     Subtitle = "This is my subtitle.",
 })
 
-print(window:IsA("Frame")) -- true
+print(window:IsA("Frame")) --> true
 print(window.ClassName) --> "Frame"
 print(window.Type) --> "Window"
 ```

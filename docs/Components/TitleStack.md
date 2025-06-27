@@ -48,7 +48,7 @@ local titleStack = row:Left():TitleStack({
     Subtitle = "Lets people choose between a pair of opposing states, like on and off, using a different appearance to indicate each state.",
 })
 
-print(titleStack:IsA("Frame")) -- true
+print(titleStack:IsA("Frame")) --> true
 print(titleStack.ClassName) --> "Frame"
 print(titleStack.Type) --> "TitleStack"
 ```

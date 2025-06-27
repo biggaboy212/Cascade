@@ -55,7 +55,7 @@ local tab = section:Tab({
     Icon = cascade.Symbols.squareStack3dUp,
 })
 
-print(tab:IsA("Frame")) -- true
+print(tab:IsA("Frame")) --> true
 print(tab.ClassName) --> "Frame"
 print(tab.Type) --> "Tab"
 ```

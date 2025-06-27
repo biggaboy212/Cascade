@@ -41,7 +41,7 @@ local label = row:Right():Label({
     Text = "Label"
 })
 
-print(label:IsA("TextLabel")) -- true
+print(label:IsA("TextLabel")) --> true
 print(label.ClassName) --> "TextLabel"
 print(label.Type) --> "Label"
 ```

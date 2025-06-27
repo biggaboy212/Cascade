@@ -47,7 +47,7 @@ function(self, properties: StackProperties): Stack
 ```luau
 local vStack = row:Right():VStack()
 
-print(vStack:IsA("Frame")) -- true
+print(vStack:IsA("Frame")) --> true
 print(vStack.ClassName) --> "Frame"
 print(vStack.Type) --> "VStack"
 ```

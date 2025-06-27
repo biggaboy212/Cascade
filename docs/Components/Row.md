@@ -16,10 +16,10 @@ A `Row` is a horizontal container that splits its contents into `Left` and `Righ
 
 ### Methods
 
-| Method | Arguments | Description | Returns |
-|--------|-----------|-------------|---------|
-| `Left`  | `#!luau self: Row` | This returns a shallow clone of `Row` with the container set to the row's right container. | `#!luau Row` (Shallow clone) |
-| `Right`  | `#!luau self: Row` | This returns a shallow clone of `Row` with the container set to the row's right container. | `#!luau Row` (Shallow clone) |
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `Left`  | `#!luau () -> Row` | Returns a shallow clone of `Row` with the container set to the row's **left** container. |
+| `Right` | `#!luau () -> Row` | Returns a shallow clone of `Row` with the container set to the row's **right** container. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
 
@@ -53,7 +53,7 @@ local row = section:Row({
     SearchIndex = "Cool Row"
 })
 
-print(row:IsA("Frame")) -- true
+print(row:IsA("Frame")) --> true
 print(row.ClassName) --> "Frame"
 print(row.Type) --> "Row"
 ```

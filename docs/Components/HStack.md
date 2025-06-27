@@ -47,7 +47,7 @@ function(self, properties: StackProperties): Stack
 ```luau
 local hStack = row:Right():HStack()
 
-print(hStack:IsA("Frame")) -- true
+print(hStack:IsA("Frame")) --> true
 print(hStack.ClassName) --> "Frame"
 print(hStack.Type) --> "HStack"
 ```

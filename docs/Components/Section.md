@@ -52,7 +52,7 @@ local section = window:Section({
     Title = "Settings",
 })
 
-print(section:IsA("Frame")) -- true
+print(section:IsA("Frame")) --> true
 print(section.ClassName) --> "Frame"
 print(section.Type) --> "Section"
 ```
