@@ -48,6 +48,7 @@ cascade.New = function(properties: types.AppProperties): types.App
 		IgnoreGuiInset = true,
 		ResetOnSpawn = false,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+		DisplayOrder = 200,
 
 		OnTopOfCoreBlur = true,
 	}))

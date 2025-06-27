@@ -56,7 +56,6 @@ return function(self, properties: types.WindowProperties): types.Window
 		properties,
 		create("Frame")({
 			Name = "Body",
-			ClipsDescendants = true,
 			BorderSizePixel = 0,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
@@ -92,6 +91,7 @@ return function(self, properties: types.WindowProperties): types.Window
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
 				Size = UDim2.new(0, 200, 1, 0),
+				ClipsDescendants = true,
 
 				create("UIPadding")({
 					Name = "UIPadding",
@@ -371,7 +371,7 @@ return function(self, properties: types.WindowProperties): types.Window
 				ClipsDescendants = true,
 				LayoutOrder = 2,
 				Position = UDim2.fromScale(1, 0),
-				Size = UDim2.new(1, -202, 1, 0),
+				Size = UDim2.new(1, -201, 1, 0),
 
 				__dynamicKeys = {
 					BackgroundColor3 = self.Theme.Controls.Background[1],
@@ -434,6 +434,23 @@ return function(self, properties: types.WindowProperties): types.Window
 					Text = "",
 					Modal = true,
 				}),
+
+				create("ImageLabel")({
+					Name = "Dropshadow",
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					Image = "rbxassetid://138260268144845",
+					ImageTransparency = 0.65,
+					Interactable = false,
+					Position = UDim2.new(0.5, 0, 0.5, 3),
+					ScaleType = Enum.ScaleType.Slice,
+					Size = UDim2.new(1, 24, 1, 24),
+					SliceCenter = Rect.new(28, 26, 96, 94),
+					ZIndex = 0,
+				}),
 			}),
 		})
 	) :: Frame
@@ -444,6 +461,7 @@ return function(self, properties: types.WindowProperties): types.Window
 	})
 	structures.Cornering = structures.Body:FindFirstChild("UICorner") :: UICorner
 	structures.LayoutIgnore = structures.Body:FindFirstChild("LayoutIgnore") :: Folder
+	structures.Dropshadow = structures.LayoutIgnore:FindFirstChild("Dropshadow") :: ImageLabel
 	structures.Separator = structures.Body:FindFirstChild("Separator") :: Frame
 	structures.SidebarMargins = structures.Body:FindFirstChild("Sidebar")
 	structures.Sidebar = structures.SidebarMargins:FindFirstChild("Margins") :: Frame
@@ -491,7 +509,9 @@ return function(self, properties: types.WindowProperties): types.Window
 
 			if value and not minimizing then
 				originalPosition2 = structures.Body.Position
-				structures["BlurModel"].SetVisibility(false)
+				if structures["BlurModel"] then
+						structures["BlurModel"].SetVisibility(false)
+					end
 			end
 
 			local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
@@ -555,16 +575,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			end
 		end,
 		Dropshadow = function(value: boolean)
-			if structures["ShadowLayers"] then
-				structures["ShadowLayers"].SetEnabled(value)
-
-				return
-			end
-
-			if value then
-				structures.ShadowLayers =
-					effects.Dropshadow(structures.Body, Color3.new(0, 0, 0), 0.25, 14, structures.Body.Parent)
-			end
+			structures.Dropshadow.Visible = value
 		end,
 		UIBlur = function(value: boolean)
 			if structures["BlurModel"] then
@@ -602,7 +613,7 @@ return function(self, properties: types.WindowProperties): types.Window
 
 			local marginsTargetSize = toggled and UDim.new(0, 0) or UDim.new(0, -200)
 			local sidebarTargetSize = toggled and UDim2.new(0, 200, 1, 0) or UDim2.new(0, 0, 1, 0)
-			local contentTargetSize = toggled and UDim2.new(1, -202, 1, 0) or UDim2.new(1, 0, 1, 0)
+			local contentTargetSize = toggled and UDim2.new(1, -201, 1, 0) or UDim2.new(1, 0, 1, 0)
 			local cornerLeftSize = toggled and UDim2.new(0, 10, 1, 0) or UDim2.new(0, 10, 0.5, 0)
 
 			local tweenInfo = TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)

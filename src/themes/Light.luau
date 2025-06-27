@@ -121,5 +121,10 @@ return {
 			Overlay = color4("FFFFFF", 17),
 			InnerShadow = color4("000000", 10),
 		},
+		
+		PopUpButton = {
+			IndicatorBackground = color4("000000", 5)
+			
+		}
 	},
 }

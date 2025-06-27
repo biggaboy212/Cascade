@@ -1,6 +1,6 @@
 # RadioButtonGroup
 
-A `TextField` is a rectangular area in which people enter or edit small, specific pieces of text.
+A `RadioButtonGroup` lets people choose an option from a set of mutually exclusive choices, using a circular indicator to show the selected option.
 
 ![Component preview](../assets/component_radioButtonGroup.png)
 
