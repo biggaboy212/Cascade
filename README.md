@@ -6,14 +6,14 @@
 [disc]: https://discord.gg/2cB4vBAEWk
 
 [badges/stars]: https://img.shields.io/github/stars/biggaboy212/Cascade?label=Stars&logo=GitHub
-[badges/lastrel]: https://img.shields.io/github/version/release/biggaboy212/Cascade?label=Latest%20Release
+[badges/lastrel]: https://img.shields.io/github/v/release/biggaboy212/Cascade?include_prereleases&label=Latest%20Release
 [badges/lastcom]: https://img.shields.io/github/last-commit/biggaboy212/Cascade?label=Last%20Modifed
 [badges/disc]: https://img.shields.io/discord/1384338360012898406?&label=Discord
 
-[![Discord][badges/disc]][disc]
 [![Stars][badges/stars]][stars]
 [![Latest Release][badges/lastrel]][lastrel]
 [![Last Modified][badges/lastcom]][lastcom]
+[![Discord][badges/disc]][disc]
 
 Cascade is a LuaU UI library based on macOS Sequoia.
 

@@ -1,6 +1,6 @@
 local types = require("@types")
 
-return function(self, properties: types.PopUpButton): types.PopUpButton
+return function(self, properties: types.PopUpButtonProperties): types.PopUpButton
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
@@ -96,13 +96,10 @@ return function(self, properties: types.PopUpButton): types.PopUpButton
 	) :: CanvasGroup
 
 	--// Initialize
-	structures.Switch = structures.Body:FindFirstChild("Switch") :: ImageButton
-	structures.Knob = structures.Switch:FindFirstChild("Knob") :: ImageLabel
-
 	local object
 	local bindings = {
 		Expanded = function(value: boolean)
-			
+
 		end,
 		Value = function(value: boolean)
 			if properties.ValueChanged then
