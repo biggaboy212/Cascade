@@ -109,11 +109,25 @@ return function(self, properties: types.RowProperties): types.Row
 	structures.LeftAccessories = structures.Body:FindFirstChild("LeftAccessory") :: Frame
 	structures.RightAccessories = structures.Body:FindFirstChild("RightAccessory") :: Frame
 
-	structures.LeftAccessories.Size = UDim2.new(1, -structures.RightAccessories.AbsoluteSize.X, 1, 0)
+	local function updateAccessories()
+		local parentWidth = structures.LeftAccessories.Parent.AbsoluteSize.X
+		local rightWidth = structures.RightAccessories.AbsoluteSize.X
 
-	structures.RightAccessories:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-		structures.LeftAccessories.Size = UDim2.new(1, -structures.RightAccessories.AbsoluteSize.X, 1, 0)
-	end)
+		local minLeftWidth = 75
+		local calculatedLeftWidth = math.max(parentWidth - rightWidth, minLeftWidth)
+
+		if parentWidth - rightWidth < minLeftWidth then
+			structures.LeftAccessories.Size = UDim2.new(0, minLeftWidth, 1, 0)
+			structures.RightAccessories.Size = UDim2.new(0, parentWidth - minLeftWidth, 1, 0)
+		else
+			structures.LeftAccessories.Size = UDim2.new(0, calculatedLeftWidth, 1, 0)
+			structures.RightAccessories.Size = UDim2.new(0, rightWidth, 1, 0)
+		end
+	end
+
+	updateAccessories()
+	structures.RightAccessories:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAccessories)
+	structures.LeftAccessories.Parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAccessories)
 
 	local object = binder.Wrap(properties, {
 		SearchIndex = function(value: string)

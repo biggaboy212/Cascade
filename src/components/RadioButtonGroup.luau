@@ -236,6 +236,7 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 				Padding = UDim.new(0, 16),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
+				Wraps = true,
 			}),
 		})
 	) :: Frame

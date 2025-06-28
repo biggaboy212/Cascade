@@ -510,8 +510,8 @@ return function(self, properties: types.WindowProperties): types.Window
 			if value and not minimizing then
 				originalPosition2 = structures.Body.Position
 				if structures["BlurModel"] then
-						structures["BlurModel"].SetVisibility(false)
-					end
+					structures["BlurModel"].SetVisibility(false)
+				end
 			end
 
 			local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
@@ -781,6 +781,15 @@ return function(self, properties: types.WindowProperties): types.Window
 			properties.Minimized = not properties.Minimized
 			bindings.Minimized(properties.Minimized, true)
 		end)
+
+		if self.Structures and self.Structures["WindowPill"] then
+			local pill: ImageButton = self.Structures["WindowPill"]
+
+			pill.MouseButton1Click:Connect(function()
+				properties.Minimized = not properties.Minimized
+				bindings.Minimized(properties.Minimized, true)
+			end)
+		end
 
 		exit.MouseButton1Click:Connect(function()
 			bindings.Minimized(true)

@@ -223,6 +223,7 @@ export type BaseComponent = {
 
 -- App
 export type AppProperties = ScreenGui & {
+	WindowPill: boolean?,
 	Theme: Theme?,
 }
 

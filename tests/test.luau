@@ -1,11 +1,8 @@
 --// Imports
 local cascade = require("@src/init")
-local creator = require("@modules/creator")
 local services = require("@modules/services")
 
 --// References
-local create = creator.Create
-
 local userInputService = services.UserInputService
 
 --// Variables
@@ -13,6 +10,7 @@ local minimizeKeybind = Enum.KeyCode.RightControl
 
 --// UI
 local app = cascade.New({
+	WindowPill = true,
 	Theme = cascade.Themes.Light,
 })
 
@@ -32,44 +30,6 @@ do -- Main window
 	window.Destroying:Connect(function()
 		print("Closed window")
 	end)
-
-	if userInputService.TouchEnabled then -- Mobile window toggle
-		local mobileToggle = create("TextButton")({
-			BackgroundColor3 = Color3.new(255, 255, 255),
-			AnchorPoint = Vector2.new(0.5, 0),
-			AutoButtonColor = false,
-			AutomaticSize = Enum.AutomaticSize.XY,
-			BorderSizePixel = 0,
-			FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-			Position = UDim2.new(0.5, 0, 0, 5),
-			Size = UDim2.fromOffset(35, 0),
-			Text = "Cascade",
-			TextSize = 14,
-			TextTransparency = 0.15,
-			ZIndex = 2,
-			Parent = app.__instance,
-
-			create("UICorner")({
-				CornerRadius = UDim.new(1, 0),
-			}),
-
-			create("UIPadding")({
-				PaddingBottom = UDim.new(0, 3),
-				PaddingLeft = UDim.new(0, 5),
-				PaddingRight = UDim.new(0, 5),
-				PaddingTop = UDim.new(0, 3),
-			}),
-
-			create("UIStroke")({
-				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-				Transparency = 0.65,
-			}),
-		}) :: TextButton
-
-		mobileToggle.MouseButton1Click:Connect(function()
-			window.Minimized = not window.Minimized
-		end)
-	end
 
 	-- API demo
 	do

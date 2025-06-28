@@ -10,6 +10,7 @@ The returned object exposes all built-in components such as `Window`, `Tab`, and
 
 | Property | Type | Description |
 |--------|--------|--------|
+| WindowPill | `boolean?` | Whether or not the window minimize/restore pill should be visible. |
 | Theme | `Theme?` | Defines the color pallete used by the overall application. |
 
 [View all inherited from ScreenGui](https://create.roblox.com/docs/reference/engine/classes/ScreenGui#summary-properties)
@@ -26,6 +27,7 @@ The returned object exposes all built-in components such as `Window`, `Tab`, and
 
 ```luau
 type AppProperties = ScreenGui & {
+    WindowPill: boolean?,
     Theme: Theme?,
 }
 
@@ -42,6 +44,7 @@ function(self, properties: AppProperties): App
 
 ```luau linenums="1"
 local app = cascade.New({
+    WindowPill = true,
     Theme = cascade.Themes.Light
 })
 ```

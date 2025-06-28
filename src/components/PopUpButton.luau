@@ -13,91 +13,84 @@ return function(self, properties: types.PopUpButton): types.PopUpButton
 
 	--// Variables
 	local parent = self.__container or self.__instance or self
-	local theme = self.Theme.Controls.RadioButton
+	local theme = self.Theme.Controls.PopUpButton
 	local structures = {}
 
 	--// UI
 	properties = properties or {}
+	properties.Expanded = properties.Expanded or false
 	properties.Value = properties.Value == true
 
 	structures.Body = binder.Apply(
 		properties,
-		create("CanvasGroup")({
-			Name = "Toggle",
+		create("TextButton")({
+			Name = "PopUpButton",
+			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderSizePixel = 0,
-			Size = UDim2.fromOffset(28, 16),
-			Parent = parent,
+			Selectable = false,
+			Text = "",
 
-			create("ImageButton")({
-				Name = "Switch",
-				AutoButtonColor = false,
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				BackgroundTransparency = 1,
+			create("UIPadding")({
+				Name = "UIPadding",
+				PaddingBottom = UDim.new(0, 3),
+				PaddingLeft = UDim.new(0, 7),
+				PaddingRight = UDim.new(0, 3),
+				PaddingTop = UDim.new(0, 3),
+			}),
+
+			create("UIListLayout")({
+				Name = "UIListLayout",
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = UDim.new(0, 7),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
+
+			create("Frame")({
+				Name = "PopUpIndicator",
+				BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+				BackgroundTransparency = 0.95,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
-				Image = "rbxassetid://104426531889908",
-				ImageColor3 = Color3.fromRGB(0, 0, 0),
-				ImageTransparency = 0.91,
-				Size = UDim2.fromOffset(28, 16),
+				LayoutOrder = 1,
+				Selectable = true,
+				Size = UDim2.fromOffset(16, 16),
 
-				__dynamicKeys = {
-					ImageColor3 = theme.SwitchOff[1],
-					ImageTransparency = theme.SwitchOff[2],
-				},
-				__contextKeys = {
-					ImageColor3 = function()
-						return properties.Value and theme.SwitchOn[1].Value or theme.SwitchOff[1].Value
-					end,
-					ImageTransparency = function()
-						return properties.Value and theme.SwitchOn[2].Value or theme.SwitchOff[2].Value
-					end,
-				},
+				create("UICorner")({
+					Name = "UICorner",
+					CornerRadius = UDim.new(0, 4),
+				}),
 
 				create("ImageLabel")({
-					Name = "Knob",
-					AnchorPoint = Vector2.new(0, 0.5),
+					Name = "Indicators",
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
-					Image = "rbxassetid://99107881432922",
-					Position = UDim2.new(0, 1, 0.5, 0),
-					Size = UDim2.fromOffset(14, 14),
-
-					__dynamicKeys = {
-						ImageColor3 = theme.Knob[1],
-						ImageTransparency = theme.Knob[2],
-					},
-
-					create("ImageLabel")({
-						Name = "Effects",
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-						BackgroundTransparency = 1,
-						BorderColor3 = Color3.fromRGB(0, 0, 0),
-						BorderSizePixel = 0,
-						Image = "rbxassetid://138042641797315",
-						Position = UDim2.fromScale(0.5, 0.5),
-						Size = UDim2.fromOffset(16, 16),
-
-						__dynamicKeys = {
-							ImageColor3 = theme.KnobEffects[1],
-							ImageTransparency = theme.KnobEffects[2],
-						},
-					}),
+					Image = "rbxassetid://89151647333378",
+					ImageColor3 = Color3.fromRGB(0, 0, 0),
+					ImageTransparency = 0.15,
+					Size = UDim2.fromScale(1, 1),
 				}),
+			}),
 
-				create("UIGradient")({
-					Name = "UIGradient",
-					Rotation = 90,
-
-					__dynamicKeys = {
-						Color = theme.DepthEffect[1],
-					},
-				}),
+			create("TextLabel")({
+				Name = "Label",
+				AutomaticSize = Enum.AutomaticSize.XY,
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundTransparency = 1,
+				BorderColor3 = Color3.fromRGB(0, 0, 0),
+				BorderSizePixel = 0,
+				FontFace = Font.new("rbxassetid://12187365364"),
+				RichText = true,
+				Text = "Item One",
+				TextColor3 = Color3.fromRGB(0, 0, 0),
+				TextSize = 15,
+				TextTransparency = 0.15,
+				TextTruncate = Enum.TextTruncate.AtEnd,
 			}),
 		})
 	) :: CanvasGroup
@@ -108,12 +101,10 @@ return function(self, properties: types.PopUpButton): types.PopUpButton
 
 	local object
 	local bindings = {
-        Expanded = function(value: boolean, instant: boolean)
-            
-        end,
+		Expanded = function(value: boolean)
+			
+		end,
 		Value = function(value: boolean)
-
-
 			if properties.ValueChanged then
 				properties.Value = value
 				task.spawn(properties.ValueChanged, object, value)
