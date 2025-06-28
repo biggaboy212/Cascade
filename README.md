@@ -43,7 +43,7 @@ local function import(owner, release, version, file)
     return loadstring(game:HttpGet(("https://github.com/%s/%s/releases/%s/%s"):format(owner, release, tag, file)), file)()
 end
 
-local cascade = import("biggaboy212", "Cascade", "v1.0.0-beta.1", "pre.luau")
+local cascade = import("biggaboy212", "Cascade", "v1.0.0-beta.2", "pre.luau")
 ```
 
 ### Adding components
