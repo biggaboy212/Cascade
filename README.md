@@ -3,14 +3,14 @@
 [stars]: https://github.com/biggaboy212/Cascade/stargazers
 [lastrel]: https://github.com/biggaboy212/Cascade/releases/latest
 [lastcom]: https://github.com/biggaboy212/Cascade/commits
-[disc]: https://discord.gg/2cB4vBAEWk
 [publish]: https://github.com/biggaboy212/Cascade/actions/workflows/publish.yml
+[disc]: https://discord.gg/2cB4vBAEWk
 
 [badges/stars]: https://img.shields.io/github/stars/biggaboy212/Cascade?label=Stars&logo=GitHub
 [badges/lastrel]: https://img.shields.io/github/v/release/biggaboy212/Cascade?include_prereleases&label=Latest%20Release
 [badges/lastcom]: https://img.shields.io/github/last-commit/biggaboy212/Cascade?label=Last%20Modifed
-[badges/disc]: https://img.shields.io/discord/1384338360012898406?&label=Discord
 [badges/publish]: https://img.shields.io/github/actions/workflow/status/biggaboy212/Cascade/.github%2Fworkflows%2Fpublish.yml?label=Publish%20Docs
+[badges/disc]: https://img.shields.io/discord/1384338360012898406?&label=Discord
 
 [![Stars][badges/stars]][stars]
 [![Latest Release][badges/lastrel]][lastrel]
