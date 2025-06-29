@@ -267,7 +267,7 @@ do -- Main window
 						Subtitle = "Displays a menu of mutually exclusive options.",
 					})
 
-					local radioButtonGroup = row:Right():PopUpButton()
+					--local popUpButton = row:Right():PopUpButton()
 				end
 			end
 		end
