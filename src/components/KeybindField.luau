@@ -22,6 +22,7 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 	structures.Body.AutomaticSize = Enum.AutomaticSize.XY
 	structures.Body.Size = UDim2.fromOffset(0, 23)
 	structures.Field.Size = UDim2.fromOffset(0, 23)
+	structures.Corner.CornerRadius = UDim.new(0, 6)
 
 	local object
 	object = binder.Wrap(properties, {

@@ -384,6 +384,7 @@ return function(self)
 	structures.SearchField.Field.PlaceholderText = "Search"
 	structures.SearchField.Padding.PaddingLeft = UDim.new(0, 7)
 	structures.SearchField.Padding.PaddingRight = UDim.new(0, 7)
+	structures.SearchField.Corner = UDim.new(0, 6)
 
 	create("ImageLabel")({
 		Name = "ImageLabel",

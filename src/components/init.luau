@@ -21,6 +21,7 @@ local components = {
 	Button = require("@components/Button"),
 	Stepper = require("@components/Stepper"),
 	RadioButtonGroup = require("@components/RadioButtonGroup"),
+	PopUpButton = require("@components/PopUpButton"),
 }
 
 --// Intialize

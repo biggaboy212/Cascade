@@ -256,6 +256,19 @@ do -- Main window
 
 					radioButtonGroup:Option("Option 3") -- This returns the radio button instance.
 				end
+
+				do -- Pop Up Button
+					local row = form:Row({
+						SearchIndex = "Pop Up Button",
+					})
+
+					row:Left():TitleStack({
+						Title = "Pop Up Button",
+						Subtitle = "Displays a menu of mutually exclusive options.",
+					})
+
+					local radioButtonGroup = row:Right():PopUpButton()
+				end
 			end
 		end
 

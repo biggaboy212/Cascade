@@ -307,6 +307,13 @@ export type PageSection = BaseComponent & Components & PageSectionProperties
 export type LabelProperties = TextLabel
 export type Label = BaseComponent & Components & LabelProperties
 
+-- Symbol
+export type SymbolProperties = ImageLabel & {
+	Style: ("Primary" | "Secondary")?,
+}
+
+export type Symbol = BaseComponent & Components & SymbolProperties
+
 -- Toggle
 export type ToggleProperties = CanvasGroup & {
 	Value: boolean?,
@@ -397,7 +404,7 @@ export type Components = {
 	TitleStack: (self: any, properties: TitleStackProperties?) -> TitleStack,
 	PageSection: (self: any, properties: PageSectionProperties?) -> PageSection,
 	Label: (self: any, properties: LabelProperties) -> Label,
-	Symbol: (self: any, properties: ImageLabel) -> ImageLabel,
+	Symbol: (self: any, properties: SymbolProperties) -> Symbol,
 	Toggle: (self: any, properties: ToggleProperties) -> Toggle,
 	TextField: (self: any, properties: TextFieldProperties) -> TextField,
 	KeybindField: (self: any, properties: KeybindFieldProperties) -> KeybindField,

@@ -247,6 +247,8 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	structures.Field.Padding.PaddingRight = UDim.new(0, 2)
 	structures.Field.Body.Size = UDim2.fromOffset(0, 23)
 	structures.Field.Field.Size = UDim2.fromOffset(0, 0)
+	structures.Field.Corner.CornerRadius = UDim.new(0, 6)
+	structures.Field.FieldPadding:Destroy()
 
 	local object
 	local bindings = {

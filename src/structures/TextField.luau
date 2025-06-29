@@ -110,8 +110,10 @@ return function(self)
 	--// Initialize
 	structures.Stroke = structures.Body:FindFirstChild("UIStroke") :: UIStroke
 	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
+	structures.Corner = structures.Body:FindFirstChild("UICorner") :: UICorner
 	structures.Layout = structures.Body:FindFirstChild("UIListLayout") :: UIListLayout
 	structures.Field = structures.Body:FindFirstChild("Field") :: TextBox
+	structures.FieldPadding = structures.Field:FindFirstChild("UIPadding") :: UIPadding
 
 	local currentTween: Tween
 	local enter = TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)

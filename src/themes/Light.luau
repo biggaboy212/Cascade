@@ -123,8 +123,8 @@ return {
 		},
 		
 		PopUpButton = {
-			IndicatorBackground = color4("000000", 5)
-			
+			IndicatorBackground = color4("000000", 5),
+			MenuBackground = color4("F6F6F6", 90),
 		}
 	},
 }
