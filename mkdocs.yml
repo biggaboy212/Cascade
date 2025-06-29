@@ -1,5 +1,9 @@
 site_name: Cascade Developer Documentation
 
+repo_name: biggaboy212/Cascade
+repo_url: https://github.com/biggaboy212/Cascade
+edit_uri: edit/main/docs
+
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -20,6 +24,12 @@ plugins:
 
 theme:
   name: material
+
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
+
   palette:
     - scheme: default
       primary: light blue
@@ -64,5 +74,11 @@ theme:
 extra:
   generator: false
 
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/biggaboy212/Cascade
+
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/2cB4vBAEWk
 extra_css:
   - assets/styles/extra.css

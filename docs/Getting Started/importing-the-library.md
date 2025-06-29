@@ -49,8 +49,19 @@ local function import(owner, release, version, file)
     return loadstring(game:HttpGet(("https://github.com/%s/%s/releases/%s/%s"):format(owner, release, tag, file)), file)()
 end
 
-local cascade = import("biggaboy212", "Cascade", "latest", "release.luau")
+local cascade = import("biggaboy212", "Cascade", "latest", "release.luau") -- (1)
 ```
+
+1. For beta releases:
+
+    1. Replace `latest` with the beta release *tag* you want.
+    2. Replace `release.luau` with `pre.luau`
+
+    Example:
+
+    ```luau
+    local cascade = import("biggaboy212", "Cascade", "v1.0.0-beta.2", "pre.luau")
+    ```
 
 ### Manual
 
@@ -58,6 +69,6 @@ This method is usually unstable on bundlers like darklua, however if it does wor
 
 1. Download a valid release:
 
-    🔗 [Cascade Releases](https://github.com/biggaboy212/Cascade/releases)
+    [Cascade Releases](https://github.com/biggaboy212/Cascade/releases)
 
 2. Place the `luau` module into your project (e.g., under `packages/`).

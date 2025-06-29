@@ -22,10 +22,18 @@ A `Symbol` is a static image component mainly used to add visual context and bra
 
 ## Types
 
+```luau
+type SymbolProperties = ImageLabel & {
+    Style: ("Primary" | "Secondary")?,
+}
+
+type Symbol = BaseComponent & Components & SymbolProperties
+```
+
 ### Function Signature
 
 ```luau
-function(self, properties: ImageLabel): ImageLabel
+function(self, properties: SymbolProperties): Symbol
 ```
 
 ## Example

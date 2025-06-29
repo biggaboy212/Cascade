@@ -1,4 +1,4 @@
-# 📝 Example
+# Example
 
 View a example application that can be made with Cascade.
 
