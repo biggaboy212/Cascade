@@ -93,16 +93,16 @@ return function(self, properties: types.TabProperties): types.Tab
 					TextXAlignment = Enum.TextXAlignment.Left,
 
 					__dynamicKeys = {
-						TextColor3 = self.Theme.Controls.SelectionFocusedAccent[1],
-						TextTransparency = self.Theme.Controls.SelectionFocusedAccent[2],
+						TextColor3 = self.Theme.Text.SelectionPrimary[1],
+						TextTransparency = self.Theme.Text.SelectionPrimary[2],
 					},
 					__contextKeys = {
 						TextColor3 = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[1].Value
+							return properties.Selected and self.Theme.Text.SelectionPrimary[1].Value
 								or self.Theme.Text.Primary[1].Value
 						end,
 						TextTransparency = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[2].Value
+							return properties.Selected and self.Theme.Text.SelectionPrimary[2].Value
 								or self.Theme.Text.Primary[2].Value
 						end,
 					},
@@ -134,11 +134,11 @@ return function(self, properties: types.TabProperties): types.Tab
 					},
 					__contextKeys = {
 						ImageColor3 = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[1].Value
+							return properties.Selected and self.Theme.Text.SelectionPrimary[1].Value
 								or self.Theme.Controls.Selection[1].Value
 						end,
 						ImageTransparency = function()
-							return properties.Selected and self.Theme.Controls.SelectionFocusedAccent[2].Value
+							return properties.Selected and self.Theme.Text.SelectionPrimary[2].Value
 								or self.Theme.Controls.Selection[2].Value
 						end,
 					},
@@ -210,14 +210,14 @@ return function(self, properties: types.TabProperties): types.Tab
 		Selected = function(selected: boolean)
 			structures.Body.Transparency = selected and self.Theme.Controls.SelectionFocused[2].Value or 1
 
-			structures.Title.TextColor3 = selected and self.Theme.Controls.SelectionFocusedAccent[1].Value
+			structures.Title.TextColor3 = selected and self.Theme.Text.SelectionPrimary[1].Value
 				or self.Theme.Text.Primary[1].Value
-			structures.Title.TextTransparency = selected and self.Theme.Controls.SelectionFocusedAccent[2].Value
+			structures.Title.TextTransparency = selected and self.Theme.Text.SelectionPrimary[2].Value
 				or self.Theme.Text.Primary[2].Value
 
-			structures.Symbol.ImageColor3 = selected and self.Theme.Controls.SelectionFocusedAccent[1].Value
+			structures.Symbol.ImageColor3 = selected and self.Theme.Text.SelectionPrimary[1].Value
 				or self.Theme.Controls.Selection[1].Value
-			structures.Symbol.ImageTransparency = selected and self.Theme.Controls.SelectionFocusedAccent[2].Value
+			structures.Symbol.ImageTransparency = selected and self.Theme.Text.SelectionPrimary[2].Value
 				or self.Theme.Controls.Selection[2].Value
 
 			structures.Page.Parent = selected and window and window.__container or nil
