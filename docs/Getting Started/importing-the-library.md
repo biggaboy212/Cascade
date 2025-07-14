@@ -49,19 +49,9 @@ local function import(owner, release, version, file)
     return loadstring(game:HttpGet(("https://github.com/%s/%s/releases/%s/%s"):format(owner, release, tag, file)), file)()
 end
 
-local cascade = import("biggaboy212", "Cascade", "latest", "release.luau") -- (1)
+local cascade = import("biggaboy212", "Cascade", "latest", "dist.luau")
+-- If you want to use a specific release (i.e, beta releases), replace 'latest' with it's release tag.
 ```
-
-1. For beta releases:
-
-    1. Replace `latest` with the beta release *tag* you want.
-    2. Replace `release.luau` with `pre.luau`
-
-    Example:
-
-    ```luau
-    local cascade = import("biggaboy212", "Cascade", "v1.0.0-beta.2", "pre.luau")
-    ```
 
 ### Manual
 
