@@ -475,7 +475,7 @@ return function(self)
 		end)
 	end
 
-	structures.Body:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+	local function checkAccessoryBounds()
 		for _, trailing in pairs(structures.Trailing:GetChildren()) do
 			if not trailing:IsA("GuiObject") then
 				continue
@@ -504,7 +504,10 @@ return function(self)
 
 			trailing.Visible = isVisible
 		end
-	end)
+	end
+
+	structures.Body:GetPropertyChangedSignal("AbsoluteSize"):Connect(checkAccessoryBounds)
+	checkAccessoryBounds()
 
 	return structures,
 		function(newWindow)

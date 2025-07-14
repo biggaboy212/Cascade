@@ -7,7 +7,7 @@ return function(self, properties: types.TabProperties): types.Tab
 
 	--// References
 	local create = creator.Create
-	local window = self.__window
+	local window = self.Type == "Window" and self or self.__window
 
 	--// Variables
 	local parent = self.Type == "Window" and self.Structures.SidebarList or self.Type == "Tab" and self.__instance.Parent or self.__instance or self

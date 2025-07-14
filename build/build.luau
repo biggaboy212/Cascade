@@ -94,7 +94,6 @@ end
 --// Deploy
 if configOptions.promptDeploy and config.deployment.enabled then
 	local ghCfg = config.deployment.github
-	local wallyCfg = config.deployment.wally
 
 	if io.prompt("confirm", "Do you want to distribute this build publicly?") then
 		if ghCfg and ghCfg.enabled == true then
@@ -170,26 +169,6 @@ if configOptions.promptDeploy and config.deployment.enabled then
 
 			if fs.isFile(RELEASE_BODY) then
 				fs.removeFile(RELEASE_BODY)
-			end
-		end
-
-		if wallyCfg and wallyCfg.enabled == true and wallyCfg.location and fs.isFile(wallyCfg.location) then
-			print("Publishing wally build")
-
-			local wallyToml = fs.readFile(wallyCfg.location)
-			local wallyVersion = buildVers:gsub("^v", "")
-			local replacementLine = 'version = "' .. wallyVersion .. '"'
-			wallyToml = wallyToml:gsub("[^\n]*version[^\n]*", replacementLine)
-			fs.writeFile(wallyCfg.location, wallyToml)
-
-			local wallyResult = process.exec("wally", { "publish" })
-
-			if wallyResult.ok then
-				print("Wally publish successful:")
-				io.write(wallyResult.stdout)
-			else
-				print("Wally publish failed:")
-				io.write(wallyResult.stderr)
 			end
 		end
 	end

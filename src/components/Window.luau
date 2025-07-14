@@ -509,6 +509,7 @@ return function(self, properties: types.WindowProperties): types.Window
 
 			if value and not minimizing then
 				originalPosition2 = structures.Body.Position
+				
 				if structures["BlurModel"] then
 					structures["BlurModel"].SetVisibility(false)
 				end

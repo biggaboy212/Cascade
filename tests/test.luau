@@ -19,6 +19,7 @@ do -- Main window
 		Title = "Cascade",
 		Subtitle = "Cascade demo app",
 		Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
+		UIBlur = false,
 	})
 
 	userInputService.InputEnded:Connect(function(input, gameProcessedEvent)
