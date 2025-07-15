@@ -73,11 +73,10 @@ print(popUpButton:IsA("Frame")) --> true
 print(popUpButton.ClassName) --> "Frame"
 print(popUpButton.Type) --> "PopUpButton"
 
-popUpButton.Value = 2 --> Value changed: "Option 2"
+popUpButton.Value = 3 --> Value changed: "Item Three"
 
 local itemThree = popUpButton:Option("Item Three")
 
 print(itemThree.ClassName) --> Frame
 popUpButton:Remove(13)
-popUpButton.Value = 3 --> Value changed: "Item Three"
 ```
