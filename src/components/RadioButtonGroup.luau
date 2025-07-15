@@ -215,7 +215,6 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 
 	--// UI
 	properties = properties or {}
-	properties.Value = properties.Value or 1
 	properties.Options = properties.Options or {}
 
 	structures.Body = binder.Apply(

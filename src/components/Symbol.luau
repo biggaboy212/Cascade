@@ -33,7 +33,6 @@ return function(self, properties: types.SymbolProperties): types.Symbol
 
 		__contextKeys = {
 			ImageColor3 = function()
-				print(properties.Style)
 				return properties.Style == "Primary" and self.Theme.Text.Primary[1].Value or self.Theme.Text.Secondary[1].Value
 			end,
 			ImageTransparency = function()

@@ -118,10 +118,8 @@ return function(self, properties: types.RowProperties): types.Row
 
 		if parentWidth - rightWidth < minLeftWidth then
 			structures.LeftAccessories.Size = UDim2.new(0, minLeftWidth, 1, 0)
-			structures.RightAccessories.Size = UDim2.new(0, parentWidth - minLeftWidth, 1, 0)
 		else
 			structures.LeftAccessories.Size = UDim2.new(0, calculatedLeftWidth, 1, 0)
-			structures.RightAccessories.Size = UDim2.new(0, rightWidth, 1, 0)
 		end
 	end
 

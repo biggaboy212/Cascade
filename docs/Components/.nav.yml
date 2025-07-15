@@ -18,3 +18,4 @@ nav:
   - KeybindField.md
   - TextField.md
   - RadioButtonGroup.md
+  - PopUpButton.md

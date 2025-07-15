@@ -19,7 +19,6 @@ do -- Main window
 		Title = "Cascade",
 		Subtitle = "Cascade demo app",
 		Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
-		UIBlur = false,
 	})
 
 	userInputService.InputEnded:Connect(function(input, gameProcessedEvent)
@@ -250,12 +249,13 @@ do -- Main window
 							"Option 1",
 							"Option 2",
 						},
+						Value = 1,
 						ValueChanged = function(self, value: number)
 							print("Value changed:", self.Options[value])
 						end,
 					})
 
-					radioButtonGroup:Option("Option 3") -- This returns the radio button instance.
+					radioButtonGroup:Option("Option 3") -- This returns the option instance. Useful if you want to customize it, or make a custom wrapper
 				end
 
 				do -- Pop Up Button
@@ -268,7 +268,29 @@ do -- Main window
 						Subtitle = "Displays a menu of mutually exclusive options.",
 					})
 
-					--local popUpButton = row:Right():PopUpButton()
+					local popUpButton = row:Right():PopUpButton({
+						Options = {
+							"Item One",
+							"Item Two",
+							"Item Three",
+							"Item Four",
+							"Item Five",
+							"Item Six",
+							"Item Seven",
+							"Item Eight",
+							"Item Nine",
+							"Item Ten",
+							"Item Eleven",
+						},
+						Value = 2,
+						ValueChanged = function(self, value: number)
+							print("Value changed:", self.Options[value])
+						end,
+					})
+
+					popUpButton:Option("Item Twelve") -- This returns the option instance. Useful if you want to customize it, or make a custom wrapper.
+					popUpButton:Option("Item Thirteen")
+					popUpButton:Remove(13)
 				end
 			end
 		end

@@ -82,12 +82,6 @@ export type Frame = GuiObject & {
 	Style: Enum.FrameStyle?,
 }
 
-export type CanvasGroup = GuiObject & {
-	GroupColor3: Color3?,
-	GroupTransparency: Color3?,
-	ResolutionScale: number?,
-}
-
 export type TextLabel = GuiObject & {
 	FontFace: Font?,
 	LineHeight: number?,
@@ -315,7 +309,7 @@ export type SymbolProperties = ImageLabel & {
 export type Symbol = BaseComponent & Components & SymbolProperties
 
 -- Toggle
-export type ToggleProperties = CanvasGroup & {
+export type ToggleProperties = Frame & {
 	Value: boolean?,
 	ValueChanged: ((self: Toggle, value: boolean) -> unknown)?,
 }
@@ -383,13 +377,26 @@ export type Stepper = BaseComponent & Components & StepperProperties & {
 
 -- RadioButtonGroup
 export type RadioButtonGroupProperties = Frame & {
-	Options: {[number]: string}?,
+	Options: { [number]: string }?,
 	Value: number?,
 	ValueChanged: ((self: RadioButtonGroup, value: number) -> unknown)?,
 }
 
 export type RadioButtonGroup = BaseComponent & Components & RadioButtonGroupProperties & {
 	Option: (Name: string?) -> Frame,
+}
+
+-- PopUpButton
+export type PopUpButtonProperties = Frame & {
+	Options: { [number]: string }?,
+	Expanded: boolean?,
+	Value: number?,
+	ValueChanged: ((self: PopUpButton, value: number) -> unknown)?,
+}
+
+export type PopUpButton = BaseComponent & Components & PopUpButtonProperties & {
+	Option: (Name: string?) -> Frame,
+	Remove: (Index: number?) -> nil,
 }
 
 -- Export
@@ -412,6 +419,7 @@ export type Components = {
 	Button: (self: any, properties: ButtonProperties) -> Button,
 	Stepper: (self: any, properties: StepperProperties) -> Stepper,
 	RadioButtonGroup: (self: any, properties: RadioButtonGroupProperties) -> RadioButtonGroup,
+	PopUpButton: (self: any, properties: PopUpButtonProperties) -> PopUpButton,
 }
 
 return 1

@@ -22,7 +22,7 @@ return function(self, properties: types.ToggleProperties): types.Row
 
 	structures.Body = binder.Apply(
 		properties,
-		create("CanvasGroup")({
+		create("Frame")({
 			Name = "Toggle",
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
@@ -100,7 +100,7 @@ return function(self, properties: types.ToggleProperties): types.Row
 				}),
 			}),
 		})
-	) :: CanvasGroup
+	) :: Frame
 
 	--// Initialize
 	structures.Switch = structures.Body:FindFirstChild("Switch") :: ImageButton

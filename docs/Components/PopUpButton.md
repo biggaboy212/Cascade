@@ -1,8 +1,8 @@
-# RadioButtonGroup
+# PopUpButton
 
-A `RadioButtonGroup` lets people choose an option from a set of mutually exclusive choices, using a circular indicator to show the selected option.
+A `PopUpbutton` displays a menu of mutually exclusive options.
 
-![Component preview](../assets/component_radioButtonGroup.png)
+![Component preview](../assets/component_popUpButton.png)
 
 ## Summary
 
@@ -22,6 +22,7 @@ A `RadioButtonGroup` lets people choose an option from a set of mutually exclusi
 | Method         | Signature     | Description |
 |----------------|---------------|-------------|
 | `Option` | `#!luau (Name: string?) -> Frame` | Can be used to seperately create options, use this if you want to access the option instances themselves. An example of use would be a dynamically updating playerlist. |
+| `Remove` | `#!luau (Index: number?) -> nil,` | Can be used to remove options from the pop-up menu, this automatically removes it from the options list as well. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
 
@@ -29,51 +30,54 @@ A `RadioButtonGroup` lets people choose an option from a set of mutually exclusi
 
 | Event          | Signature     | Description |
 |----------------|---------------|-------------|
-| `ValueChanged` | `#!luau ((self: RadioButtonGroup, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
+| `ValueChanged` | `#!luau ((self: PopUpButton, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
 
 ## Types
 
 ```luau
-type RadioButtonGroupProperties = Frame & {
-    Options: {[number]: string}?,
+type PopUpButtonProperties = Frame & {
+    Options: { [number]: string }?,
+    Expanded: boolean?,
     Value: number?,
-    ValueChanged: ((self: RadioButtonGroup, value: number) -> unknown)?,
+    ValueChanged: ((self: PopUpButton, value: number) -> unknown)?,
 }
 
-type RadioButtonGroup = BaseComponent & Components & RadioButtonGroupProperties & {
+type PopUpButton = BaseComponent & Components & PopUpButtonProperties & {
     Option: (Name: string?) -> Frame,
+    Remove: (Index: number?) -> nil,
 }
 ```
 
 ### Function Signature
 
 ```luau
-function(self, properties: RadioButtonGroupProperties): RadioButtonGroup
+function(self, properties: PopUpButtonProperties): PopUpButton
 ```
 
 ## Example
 
 ```luau
-local radioButtonGroup = row:Right():RadioButtonGroup({
+local popUpButton = row:Right():PopUpButton({
     Options = {
-        "Option 1",
-        "Option 2",
+        "Item One",
+        "Item Two",
     },
     ValueChanged = function(self, value: number)
         print("Value changed:", self.Options[value])
     end,
 })
 
-print(radioButtonGroup:IsA("Frame")) --> true
-print(radioButtonGroup.ClassName) --> "Frame"
-print(radioButtonGroup.Type) --> "RadioButtonGroup"
+print(popUpButton:IsA("Frame")) --> true
+print(popUpButton.ClassName) --> "Frame"
+print(popUpButton.Type) --> "PopUpButton"
 
-radioButtonGroup.Value = 2 --> Value changed: "Option 2"
+popUpButton.Value = 2 --> Value changed: "Option 2"
 
-local option3 = radioButtonGroup:Option("Option 3")
+local itemThree = popUpButton:Option("Item Three")
 
-print(option3.ClassName) --> Frame
-radioButtonGroup.Value = 3 --> Value changed: "Option 3"
+print(itemThree.ClassName) --> Frame
+popUpButton:Remove(13)
+popUpButton.Value = 3 --> Value changed: "Item Three"
 ```

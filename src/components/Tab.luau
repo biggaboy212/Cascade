@@ -205,7 +205,7 @@ return function(self, properties: types.TabProperties): types.Tab
 			end
 		end,
 		Indentation = function(indentation: number)
-			structures.Body.Size -= UDim2.fromOffset((11 * indentation), 0)
+			structures.Padding.PaddingLeft += UDim.new(0, (11 * indentation))
 		end,
 		Selected = function(selected: boolean)
 			structures.Body.Transparency = selected and self.Theme.Controls.SelectionFocused[2].Value or 1

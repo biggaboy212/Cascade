@@ -4,6 +4,20 @@
 
 ## Beta
 
+### `v1.0.0-beta.4`
+
+```diff
++ Added pop-up buttons
+
+- Removed a leftover print statement in symbols (Prints its style)
+
+! Optimized toggles slightly by not putting them in a canvas groups, this should improve memory consumption.
+! Changed the way a tab indent's itself, now instead of it's size being changed, the contents margins shrink to the right.
+! Fixed unchanged statements in radio button groups (docs) from a copied component document in the docs.
+! Fixed radio button groups having a default value if no value was given.
+! Fixed accessory sizing behavior in rows (particularly the issue was for text fields, but this extends to all components.)
+```
+
 ### `v1.0.0-beta.3`
 
 ```diff

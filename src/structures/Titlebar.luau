@@ -506,8 +506,8 @@ return function(self)
 		end
 	end
 
-	structures.Body:GetPropertyChangedSignal("AbsoluteSize"):Connect(checkAccessoryBounds)
 	checkAccessoryBounds()
+	structures.Body:GetPropertyChangedSignal("AbsoluteSize"):Connect(checkAccessoryBounds)
 
 	return structures,
 		function(newWindow)
