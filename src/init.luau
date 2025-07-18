@@ -135,6 +135,7 @@ cascade.New = function(properties: types.AppProperties): types.App
 	end
 
 	binder.Apply(properties, object)
+	task.defer(binder.Apply, properties, object)
 
 	return object
 end

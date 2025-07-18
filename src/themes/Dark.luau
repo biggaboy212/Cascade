@@ -123,7 +123,7 @@ return {
 			InnerShadow = color4("FFFFFF", 10),
 		},
 
-		PopUpButton = {
+		MenuButton = {
 			IndicatorBackground = color4("FFFFFF", 10),
 			MenuBackground = color4("2C2C2E", 95),
 		},

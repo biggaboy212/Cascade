@@ -292,6 +292,32 @@ do -- Main window
 					popUpButton:Option("Item Thirteen")
 					popUpButton:Remove(13)
 				end
+
+				do -- Pull Down Button
+					local row = form:Row({
+						SearchIndex = "Pull Down Button",
+					})
+
+					row:Left():TitleStack({
+						Title = "Pull Down Button",
+						Subtitle = "Displays a menu of items or actions that directly relate to the button’s purpose.",
+					})
+
+					local pullDownButton = row:Right():PullDownButton({
+						Options = {
+							"Action One",
+							"Action Two",
+						},
+						Label = "Options",
+						ValueChanged = function(self, value: number)
+							print("Selected:", self.Options[value])
+						end,
+					})
+
+					pullDownButton:Option("Action Three") -- This returns the option instance. Useful if you want to customize it, or make a custom wrapper.
+					pullDownButton:Option("Action Four")
+					pullDownButton:Remove(4)
+				end
 			end
 		end
 

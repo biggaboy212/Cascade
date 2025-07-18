@@ -4,6 +4,16 @@
 
 ## Beta
 
+### `v1.0.0-beta.5`
+
+```diff
++ Added pull-down buttons
+
+! Fixed an issue where clicking off a menu (pull down buttons, pop up buttons) is offset around 30-40 pixels. This was fixed by counter-accounting for topbar inset.
+
+? Possibly fixed an issue with the toggle's theme not using the correct theme on startup
+```
+
 ### `v1.0.0-beta.4`
 
 ```diff

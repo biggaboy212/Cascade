@@ -1,6 +1,6 @@
 local types = require("@types")
 
-return function(self, properties: types.PopUpButtonProperties): types.PopUpButton
+return function(self, properties: types.PullDownButtonProperties): types.PullDownButton
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
@@ -28,25 +28,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	local VERTICAL_PADDING = 6
 	local EDGE_BUFFER = 6
 
-	local SIZE_CONSTRAINT_Y = 239
-
 	--// Functions
-	local function resize()
-		structures.Menu.AutomaticSize = Enum.AutomaticSize.XY
-
-		task.defer(function()
-			local menuHeight = structures.Menu.AbsoluteSize.Y
-
-			if menuHeight >= SIZE_CONSTRAINT_Y then
-				structures.Menu.AutomaticSize = Enum.AutomaticSize.X
-				structures.Menu.Size = UDim2.fromOffset(0, SIZE_CONSTRAINT_Y)
-			else
-				structures.Menu.Size = UDim2.fromOffset(0, menuHeight)
-				structures.Menu.AutomaticSize = Enum.AutomaticSize.X
-			end
-		end)
-	end
-
 	local function anchor()
 		local body = structures.Body
 		local menu = structures.Menu
@@ -61,7 +43,8 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 		local viewportSize = camera.ViewportSize
 
 		local desiredX = bodyPos.X + HORIZONTAL_OFFSET
-		local desiredY = bodyPos.Y + bodySize.Y + VERTICAL_PADDING
+		local desiredY = bodyPos.Y + (bodySize.Y * 3) + (VERTICAL_PADDING * 3) -- position below
+
 		local maxX = math.max(EDGE_BUFFER, viewportSize.X - EDGE_BUFFER - menuSize.X)
 		local maxY = math.max(EDGE_BUFFER, viewportSize.Y - EDGE_BUFFER - menuSize.Y)
 
@@ -102,34 +85,6 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
 
-			create("ImageLabel")({
-				Name = "Checkmark",
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				BackgroundTransparency = 1,
-				BorderColor3 = Color3.fromRGB(0, 0, 0),
-				BorderSizePixel = 0,
-				Image = "rbxassetid://127464789357538",
-				ImageColor3 = Color3.fromRGB(0, 0, 0),
-				ImageTransparency = 1,
-				Size = UDim2.fromOffset(16, 16),
-				Visible = false,
-
-				__dynamicKeys = {
-					ImageColor3 = self.Theme.Text.Primary[1],
-					ImageTransparency = self.Theme.Text.Primary[2],
-				},
-			}),
-
-			create("Frame")({
-				Name = "CheckmarkRepl",
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				BackgroundTransparency = 1,
-				BorderColor3 = Color3.fromRGB(0, 0, 0),
-				BorderSizePixel = 0,
-				Size = UDim2.fromOffset(16, 16),
-				Visible = true,
-			}),
-
 			create("TextLabel")({
 				Name = "Label",
 				AutomaticSize = Enum.AutomaticSize.XY,
@@ -158,7 +113,6 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 			}),
 		}) :: TextButton
 		local label = option:FindFirstChild("Label")
-		local checkmark = option:FindFirstChild("Checkmark")
 
 		structures.Options[index] = option.__instance
 
@@ -172,24 +126,17 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 
 				label.TextColor3 = self.Theme.Controls.SelectionFocusedAccent[1].Value
 				label.TextTransparency = self.Theme.Controls.SelectionFocusedAccent[2].Value
-
-				checkmark.ImageColor3 = self.Theme.Controls.SelectionFocusedAccent[1].Value
-				checkmark.ImageTransparency = self.Theme.Controls.SelectionFocusedAccent[2].Value
 			else
 				option.BackgroundTransparency = 1
 
 				label.TextColor3 = self.Theme.Text.Primary[1].Value
 				label.TextTransparency = self.Theme.Text.Primary[2].Value
-
-				checkmark.ImageColor3 = self.Theme.Text.Primary[1].Value
-				checkmark.ImageTransparency = self.Theme.Text.Primary[2].Value
 			end
 		end)
 
 		option.MouseButton1Click:Connect(function()
 			if object then
 				object.Expanded = false
-				task.wait(0.2)
 				object.Value = index
 			end
 		end)
@@ -202,7 +149,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	structures.Body = binder.Apply(
 		properties,
 		create("TextButton")({
-			Name = "PopUpButton",
+			Name = "PullDownButton",
 			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
@@ -215,7 +162,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 			create("UIPadding")({
 				Name = "UIPadding",
 				PaddingBottom = UDim.new(0, 3),
-				PaddingLeft = UDim.new(0, 3),
+				PaddingLeft = UDim.new(0, 7),
 				PaddingRight = UDim.new(0, 3),
 				PaddingTop = UDim.new(0, 3),
 			}),
@@ -229,7 +176,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 			}),
 
 			create("Frame")({
-				Name = "PopUpIndicator",
+				Name = "PullDownIndicator",
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
 				LayoutOrder = 1,
@@ -252,7 +199,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 					BackgroundTransparency = 1,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
-					Image = "rbxassetid://89151647333378",
+					Image = "rbxassetid://86693411280110",
 					Size = UDim2.fromScale(1, 1),
 
 					__dynamicKeys = {
@@ -271,10 +218,10 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 				BorderSizePixel = 0,
 				FontFace = Font.new("rbxassetid://12187365364"),
 				RichText = true,
-				Text = "None",
 				TextSize = 15,
 				TextTransparency = 0.15,
 				TextTruncate = Enum.TextTruncate.AtEnd,
+				Visible = false,
 
 				__dynamicKeys = {
 					TextColor3 = self.Theme.Text.Primary[1],
@@ -285,7 +232,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	) :: TextButton
 
 	--// Initialize
-	structures.PopUpIndicator = structures.Body:FindFirstChild("PopUpIndicator") :: Frame
+	structures.PullDownIndicator = structures.Body:FindFirstChild("PullDownIndicator") :: Frame
 	structures.CurrentTab = structures.Body:FindFirstChild("Label") :: TextLabel
 
 	structures.MenuContainer = create("ScreenGui")({
@@ -303,8 +250,8 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 			Size = UDim2.fromScale(1, 1),
 
 			create("ScrollingFrame")({
-				Name = "PopUpMenu",
-				AutomaticSize = Enum.AutomaticSize.X,
+				Name = "PullDownMenu",
+				AutomaticSize = Enum.AutomaticSize.XY,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
@@ -347,7 +294,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	}) :: ScreenGui
 
 	structures.MenuBody = structures.MenuContainer:FindFirstChild("MenuBody") :: CanvasGroup
-	structures.Menu = structures.MenuBody:FindFirstChild("PopUpMenu") :: ScrollingFrame
+	structures.Menu = structures.MenuBody:FindFirstChild("PullDownMenu") :: ScrollingFrame
 
 	local object
 	local bindings = {
@@ -358,7 +305,6 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 
 			for index, _option in ipairs(value) do
 				option(object, _option, index)
-				resize()
 			end
 		end,
 
@@ -383,29 +329,14 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 			end)
 		end,
 
-		Value = function(value: number)
-			structures.CurrentTab.Text = structures.Options[value]:FindFirstChild("Label").Text
-
-			for index, option in ipairs(structures.Options) do
-				local currentIndex = index == value
-
-				if not option or not option:FindFirstChild("Checkmark") then
-					continue
-				end
-
-				if not currentIndex then
-					option:FindFirstChild("Checkmark").Visible = false
-					option:FindFirstChild("CheckmarkRepl").Visible = true -- Scuffed way to do this but 🤷‍♂️
-				else
-					option:FindFirstChild("CheckmarkRepl").Visible = false
-					if not value then
-						option:FindFirstChild("Checkmark").Visible = false
-					else
-						option:FindFirstChild("Checkmark").Visible = true
-					end
-				end
+		Label = function(value: string)
+			if type(value) == "string" then
+				structures.CurrentTab.Visible = true
+				structures.CurrentTab.Text = value
 			end
+		end,
 
+		Value = function(value: number)
 			if properties.ValueChanged then
 				properties.Value = value
 				task.spawn(properties.ValueChanged, object, value)
@@ -415,14 +346,13 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 
 	object = binder.Wrap(properties, bindings, structures.Body)
 
-	object.Type = "PopUpButton"
+	object.Type = "PullDownButton"
 	object.Theme = self.Theme
 	object.Structures = structures
 	object.Option = function(self, name: string?)
 		local index = #structures.Options + 1
 
 		option(object, name, index)
-		resize()
 
 		table.insert(object.Options, name)
 

@@ -399,6 +399,20 @@ export type PopUpButton = BaseComponent & Components & PopUpButtonProperties & {
 	Remove: (Index: number?) -> nil,
 }
 
+-- PullDownButton
+export type PullDownButtonProperties = Frame & {
+	Options: { [number]: string }?,
+	Expanded: boolean?,
+	Label: string?,
+	Value: number?,
+	ValueChanged: ((self: PullDownButton, value: number) -> unknown)?,
+}
+
+export type PullDownButton = BaseComponent & Components & PullDownButtonProperties & {
+	Option: (Name: string?) -> Frame,
+	Remove: (Index: number?) -> nil,
+}
+
 -- Export
 export type Components = {
 	Window: (self: any, properties: WindowProperties?) -> Window,
@@ -420,6 +434,7 @@ export type Components = {
 	Stepper: (self: any, properties: StepperProperties) -> Stepper,
 	RadioButtonGroup: (self: any, properties: RadioButtonGroupProperties) -> RadioButtonGroup,
 	PopUpButton: (self: any, properties: PopUpButtonProperties) -> PopUpButton,
+	PullDownButton: (self: any, properties: PullDownButtonProperties) -> PullDownButton,
 }
 
 return 1
