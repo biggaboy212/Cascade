@@ -241,6 +241,7 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 		ScreenInsets = Enum.ScreenInsets.None,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		DisplayOrder = 201,
+		OnTopOfCoreBlur = true,
 
 		create("CanvasGroup")({
 			Name = "MenuBody",

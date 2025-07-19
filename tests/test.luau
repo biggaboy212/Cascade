@@ -8,6 +8,20 @@ local userInputService = services.UserInputService
 --// Variables
 local minimizeKeybind = Enum.KeyCode.RightControl
 
+--// Functions
+local function titledRow(parent: any, title: string, subtitle: string?) -- You can use this to automate the process of creating similar rows.
+	local row = parent:Row({
+		SearchIndex = title,
+	})
+
+	row:Left():TitleStack({
+		Title = title,
+		Subtitle = subtitle,
+	})
+
+	return row
+end
+
 --// UI
 local app = cascade.New({
 	WindowPill = true,
@@ -49,14 +63,11 @@ do -- Main window
 				local form = tab:Form()
 
 				do -- Toggle off
-					local row = form:Row({
-						SearchIndex = "ToggleOff",
-					})
-
-					row:Left():TitleStack({
-						Title = "Toggle (Off)",
-						Subtitle = "Lets people choose between a pair of opposing states, like on and off, using a different appearance to indicate each state.",
-					})
+					local row = titledRow(
+						form,
+						"Toggle (Off)",
+						"Lets people choose between a pair of opposing states, like on and off, using a different appearance to indicate each state."
+					)
 
 					row:Right():Toggle({
 						Value = false,
@@ -67,14 +78,7 @@ do -- Main window
 				end
 
 				do -- Toggle on
-					local row = form:Row({
-						SearchIndex = "ToggleOn",
-					})
-
-					row:Left():TitleStack({
-						Title = "Toggle (On)",
-						Subtitle = "Toggle with a truthy value",
-					})
+					local row = titledRow(form, "Toggle (On)", "Toggle with a truthy value")
 
 					row:Right():Toggle({
 						Value = true,
@@ -85,14 +89,11 @@ do -- Main window
 				end
 
 				do -- Text Field
-					local row = form:Row({
-						SearchIndex = "TextField",
-					})
-
-					row:Left():TitleStack({
-						Title = "Text Field",
-						Subtitle = "A rectangular area in which people enter or edit small, specific pieces of text.",
-					})
+					local row = titledRow(
+						form,
+						"Text Field",
+						"A rectangular area in which people enter or edit small, specific pieces of text."
+					)
 
 					row:Right():TextField({
 						Value = "Label",
@@ -106,14 +107,11 @@ do -- Main window
 				end
 
 				do -- Keybind Field
-					local row = form:Row({
-						SearchIndex = "KeybindField",
-					})
-
-					row:Left():TitleStack({
-						Title = "Keybind Field",
-						Subtitle = "A rectangular area in which people can enter and store keyboard input.",
-					})
+					local row = titledRow(
+						form,
+						"Keybind Field",
+						"A rectangular area in which people can enter and store keyboard input."
+					)
 
 					row:Right():KeybindField({
 						ValueChanged = function(self, value: Enum.KeyCode)
@@ -135,14 +133,7 @@ do -- Main window
 				end
 
 				do -- Buttons
-					local row = form:Row({
-						SearchIndex = "PushButtons",
-					})
-
-					row:Left():TitleStack({
-						Title = "Push Buttons",
-						Subtitle = "Static buttons, these hold no value.",
-					})
+					local row = titledRow(form, "Push Buttons", "Static buttons, these hold no value.")
 
 					row:Right():Button({
 						Label = "Primary",
@@ -151,7 +142,6 @@ do -- Main window
 							print("Pushed")
 						end,
 					})
-
 					row:Right():Button({
 						Label = "Secondary",
 						State = "Secondary",
@@ -159,7 +149,6 @@ do -- Main window
 							print("Pushed")
 						end,
 					})
-
 					row:Right():Button({
 						Label = "Destructive",
 						State = "Destructive",
@@ -170,61 +159,44 @@ do -- Main window
 				end
 
 				do -- Slider
-					local row = form:Row({
-						SearchIndex = "Sliders",
-					})
-
-					row:Left():TitleStack({
-						Title = "Slider",
-						Subtitle = "A horizontal track with a control, called a thumb, that people can adjust between a minimum and maximum value.",
-					})
+					local row = titledRow(
+						form,
+						"Slider",
+						"A horizontal track with a control, called a thumb, that people can adjust between a minimum and maximum value."
+					)
 
 					row:Right():Symbol({
 						Image = cascade.Symbols.sunMin,
 					})
-
 					row:Right():Slider({
 						Value = 0.5,
 						ValueChanged = function(self, value: number)
 							print("Value changed:", value)
 						end,
 					})
-
 					row:Right():Symbol({
 						Image = cascade.Symbols.sunMax,
 					})
 				end
 
 				do -- Stepper
-					local row = form:Row({
-						SearchIndex = "Stepper",
-					})
-
-					row:Left():TitleStack({
-						Title = "Stepper",
-						Subtitle = "A two-segment control that people use to increase or decrease an incremental value.",
-					})
-
+					local row = titledRow(
+						form,
+						"Stepper",
+						"A two-segment control that people use to increase or decrease an incremental value."
+					)
 					local label = row:Right():Label()
 
 					row:Right():Stepper({
 						ValueChanged = function(self, value: number)
 							print("Value changed:", value)
-
 							label.Text = tostring(value)
 						end,
 					})
 				end
 
 				do -- Fielded Stepper
-					local row = form:Row({
-						SearchIndex = "StepperFielded",
-					})
-
-					row:Left():TitleStack({
-						Title = "Stepper (Fielded)",
-						Subtitle = "Stepper with a editable field",
-					})
+					local row = titledRow(form, "Stepper (Fielded)", "Stepper with a editable field")
 
 					row:Right():Stepper({
 						Fielded = true,
@@ -235,15 +207,11 @@ do -- Main window
 				end
 
 				do -- Radio Button Group
-					local row = form:Row({
-						SearchIndex = "Radio Buttons",
-					})
-
-					row:Left():TitleStack({
-						Title = "Radio Buttons",
-						Subtitle = "Lets people choose an option from a set of mutually exclusive choices, using a circular indicator to show the selected option.",
-					})
-
+					local row = titledRow(
+						form,
+						"Radio Buttons",
+						"Lets people choose an option from a set of mutually exclusive choices, using a circular indicator to show the selected option."
+					)
 					local radioButtonGroup = row:Right():RadioButtonGroup({
 						Options = {
 							"Option 1",
@@ -255,19 +223,11 @@ do -- Main window
 						end,
 					})
 
-					radioButtonGroup:Option("Option 3") -- This returns the option instance. Useful if you want to customize it, or make a custom wrapper
+					radioButtonGroup:Option("Option 3")
 				end
 
 				do -- Pop Up Button
-					local row = form:Row({
-						SearchIndex = "Pop Up Button",
-					})
-
-					row:Left():TitleStack({
-						Title = "Pop Up Button",
-						Subtitle = "Displays a menu of mutually exclusive options.",
-					})
-
+					local row = titledRow(form, "Pop Up Button", "Displays a menu of mutually exclusive options.")
 					local popUpButton = row:Right():PopUpButton({
 						Options = {
 							"Item One",
@@ -288,21 +248,17 @@ do -- Main window
 						end,
 					})
 
-					popUpButton:Option("Item Twelve") -- This returns the option instance. Useful if you want to customize it, or make a custom wrapper.
+					popUpButton:Option("Item Twelve")
 					popUpButton:Option("Item Thirteen")
 					popUpButton:Remove(13)
 				end
 
 				do -- Pull Down Button
-					local row = form:Row({
-						SearchIndex = "Pull Down Button",
-					})
-
-					row:Left():TitleStack({
-						Title = "Pull Down Button",
-						Subtitle = "Displays a menu of items or actions that directly relate to the button’s purpose.",
-					})
-
+					local row = titledRow(
+						form,
+						"Pull Down Button",
+						"Displays a menu of items or actions that directly relate to the button’s purpose."
+					)
 					local pullDownButton = row:Right():PullDownButton({
 						Options = {
 							"Action One",
@@ -314,7 +270,7 @@ do -- Main window
 						end,
 					})
 
-					pullDownButton:Option("Action Three") -- This returns the option instance. Useful if you want to customize it, or make a custom wrapper.
+					pullDownButton:Option("Action Three")
 					pullDownButton:Option("Action Four")
 					pullDownButton:Remove(4)
 				end
@@ -331,14 +287,11 @@ do -- Main window
 				local form = tab:PageSection({ Title = "Appearance" }):Form()
 
 				do -- Dark mode
-					local row = form:Row({
-						SearchIndex = "Dark mode",
-					})
-
-					row:Left():TitleStack({
-						Title = "Dark mode",
-						Subtitle = "Dark Mode is a application appearance setting that uses a dark color palette to provide a comfortable viewing experience tailored for low-light environments.",
-					})
+					local row = titledRow(
+						form,
+						"Dark mode",
+						"An application appearance setting that uses a dark color palette to provide a comfortable viewing experience tailored for low-light environments."
+					)
 
 					row:Right():Toggle({
 						Value = app.Theme == cascade.Themes.Dark,
@@ -353,13 +306,7 @@ do -- Main window
 				local form = tab:PageSection({ Title = "Input" }):Form()
 
 				do -- Minimize shortcut
-					local row = form:Row({
-						SearchIndex = "Minimize shortcut",
-					})
-
-					row:Left():TitleStack({
-						Title = "Minimize shortcut",
-					})
+					local row = titledRow(form, "Minimize shortcut")
 
 					row:Right():KeybindField({
 						Value = minimizeKeybind,
@@ -370,14 +317,11 @@ do -- Main window
 				end
 
 				do -- Searching
-					local row = form:Row({
-						SearchIndex = "Searchable",
-					})
-
-					row:Left():TitleStack({
-						Title = "Searchable",
-						Subtitle = "Allows pages to be searched using a text field in the title bar.",
-					})
+					local row = titledRow(
+						form,
+						"Searchable",
+						"Allows users to search for content in a page with a search-field in the titlebar."
+					)
 
 					row:Right():Toggle({
 						Value = window.Searching,
@@ -388,14 +332,8 @@ do -- Main window
 				end
 
 				do -- Draggable
-					local row = form:Row({
-						SearchIndex = "Draggable",
-					})
-
-					row:Left():TitleStack({
-						Title = "Draggable",
-						Subtitle = "Allows users to move the window with a mouse or touch device.",
-					})
+					local row =
+						titledRow(form, "Draggable", "Allows users to move the window with a mouse or touch device.")
 
 					row:Right():Toggle({
 						Value = window.Draggable,
@@ -406,14 +344,8 @@ do -- Main window
 				end
 
 				do -- Resizable
-					local row = form:Row({
-						SearchIndex = "Resizable",
-					})
-
-					row:Left():TitleStack({
-						Title = "Resizable",
-						Subtitle = "Allows users to resize the window with a mouse or touch device.",
-					})
+					local row =
+						titledRow(form, "Resizable", "Allows users to resize the window with a mouse or touch device.")
 
 					row:Right():Toggle({
 						Value = window.Resizable,
@@ -431,14 +363,7 @@ do -- Main window
 				}):Form()
 
 				do -- Dropshadow
-					local row = form:Row({
-						SearchIndex = "Dropshadow",
-					})
-
-					row:Left():TitleStack({
-						Title = "Dropshadow",
-						Subtitle = "Enables a dropshadow effect on the window.",
-					})
+					local row = titledRow(form, "Dropshadow", "Enables a dropshadow effect on the window.")
 
 					row:Right():Toggle({
 						Value = window.Dropshadow,
@@ -449,14 +374,11 @@ do -- Main window
 				end
 
 				do -- UI Blur
-					local row = form:Row({
-						SearchIndex = "Background blur",
-					})
-
-					row:Left():TitleStack({
-						Title = "Background blur",
-						Subtitle = "Enables a UI background blur effect on the window. This can be detectable in some games.",
-					})
+					local row = titledRow(
+						form,
+						"Background blur",
+						"Enables a UI background blur effect on the window. This can be detectable in some games."
+					)
 
 					row:Right():Toggle({
 						Value = window.UIBlur,

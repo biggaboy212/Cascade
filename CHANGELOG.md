@@ -4,6 +4,13 @@
 
 ## Beta
 
+### `v1.0.0-beta.6`
+
+```diff
+! Fixed an issue where menus (pop-up menu, pull-down menu) would show behind the main window.
+! Fixed an issue where the search field would not be visible at first.
+```
+
 ### `v1.0.0-beta.5`
 
 ```diff

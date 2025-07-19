@@ -495,6 +495,7 @@ return function(self, properties: types.WindowProperties): types.Window
 		end,
 		Searching = function(value: boolean)
 			structures.Titlebar.SearchField.Body.Parent = value and structures.Titlebar.Trailing or nil
+			structures.Titlebar.SearchField.Body.Visible = value
 		end,
 		Draggable = function(value: boolean)
 			dragging = not value and false
