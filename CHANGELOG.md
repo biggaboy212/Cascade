@@ -7,6 +7,7 @@
 ### `v1.0.0-beta.6`
 
 ```diff
+! Fixed an issue where some first person games wouldn't let you move your camera around with a cascade window open. This was due to a modal frame.
 ! Fixed an issue where menus (pop-up menu, pull-down menu) would show behind the main window.
 ! Fixed an issue where the search field would not be visible at first.
 ```

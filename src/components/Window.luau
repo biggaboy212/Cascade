@@ -432,7 +432,7 @@ return function(self, properties: types.WindowProperties): types.Window
 					Size = UDim2.new(1, 0, 0, 52),
 					ZIndex = 0,
 					Text = "",
-					Modal = true,
+					Modal = false,
 				}),
 
 				create("ImageLabel")({
