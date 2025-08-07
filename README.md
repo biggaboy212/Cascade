@@ -19,7 +19,7 @@
 
 [![Discord][badges/disc]][disc]
 
-Cascade is a LuaU UI library based on macOS Sequoia.
+Cascade is a Luau UI library based on macOS Sequoia.
 
 ![Cascade](assets/cascade_show.png)
 

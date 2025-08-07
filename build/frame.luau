@@ -5,7 +5,7 @@
 --[[
     @author biggaboy212
     @name Cascade
-    @description A LuaU UI library based on macOS
+    @description A Luau UI library based on macOS Sequoia.
     @license MIT License
 
     This file was automatically generated with darklua, it is not intended for manual editing.
