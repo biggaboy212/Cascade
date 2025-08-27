@@ -1,9 +1,9 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.Frame): types.Form
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
 
     --// References
     local create = creator.Create
@@ -19,8 +19,8 @@ return function (self, properties: types.Frame): types.Form
 
     structures.Body = binder.Apply (
         properties,
-        create ('Frame') ({
-            Name = 'Form',
+        create ("Frame") ({
+            Name = "Form",
             AutomaticSize = Enum.AutomaticSize.Y,
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
@@ -32,24 +32,24 @@ return function (self, properties: types.Frame): types.Form
                 BackgroundTransparency = self.Theme.Controls.View[2],
             },
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 SortOrder = Enum.SortOrder.LayoutOrder,
             }),
 
-            create ('UIPadding') ({
-                Name = 'Margins',
+            create ("UIPadding") ({
+                Name = "Margins",
                 PaddingLeft = UDim.new (0, 10),
                 PaddingRight = UDim.new (0, 10),
             }),
 
-            create ('UICorner') ({
-                Name = 'UICorner',
+            create ("UICorner") ({
+                Name = "UICorner",
                 CornerRadius = UDim.new (0, 6),
             }),
 
-            create ('UIStroke') ({
-                Name = 'UIStroke',
+            create ("UIStroke") ({
+                Name = "UIStroke",
                 ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 
                 __dynamicKeys = {
@@ -63,7 +63,7 @@ return function (self, properties: types.Frame): types.Form
     --// Initialize
     local object = binder.Wrap (properties, {}, structures.Body)
 
-    object.Type = 'Form'
+    object.Type = "Form"
     object.Theme = self.Theme
     object.Structures = structures
 
@@ -78,14 +78,14 @@ return function (self, properties: types.Frame): types.Form
     end
 
     structures.Body.ChildAdded:Connect (function (child)
-        if child:IsA ('Frame') and child:FindFirstChild ('LayoutIgnore') then
-            local divider = child.LayoutIgnore:FindFirstChild ('Divider')
+        if child:IsA ("Frame") and child:FindFirstChild ("LayoutIgnore") then
+            local divider = child.LayoutIgnore:FindFirstChild ("Divider")
 
             if divider then
                 table.insert (queue, divider)
                 table.insert (entries, { section = child, divider = divider })
 
-                child:GetPropertyChangedSignal ('Visible'):Connect (function ()
+                child:GetPropertyChangedSignal ("Visible"):Connect (function ()
                     updateDivs ()
                 end)
 

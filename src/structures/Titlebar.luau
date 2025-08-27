@@ -1,7 +1,7 @@
 return function (self)
     --// Imports
-    local creator = require ('@modules/creator')
-    local textField = require ('@structures/TextField') (self)
+    local creator = require ("@modules/creator")
+    local textField = require ("@structures/TextField") (self)
 
     --// References
     local create = creator.Create
@@ -25,8 +25,8 @@ return function (self)
     end
 
     --// UI
-    structures.Body = create ('Frame') ({
-        Name = 'Toolbar',
+    structures.Body = create ("Frame") ({
+        Name = "Toolbar",
         BorderColor3 = Color3.fromRGB (0, 0, 0),
         BorderSizePixel = 0,
         Size = UDim2.new (1, 0, 0, 52),
@@ -36,13 +36,13 @@ return function (self)
             BackgroundTransparency = self.Theme.Controls.Titlebar[2],
         },
 
-        create ('UICorner') ({
-            Name = 'UICorner',
+        create ("UICorner") ({
+            Name = "UICorner",
             CornerRadius = UDim.new (0, 10),
         }),
 
-        create ('Frame') ({
-            Name = 'Shadow',
+        create ("Frame") ({
+            Name = "Shadow",
             AnchorPoint = Vector2.new (1, 0),
             BackgroundColor3 = Color3.fromRGB (234, 234, 234),
             BackgroundTransparency = 0.75,
@@ -57,8 +57,8 @@ return function (self)
                 BackgroundTransparency = self.Theme.Controls.TitlebarShadow.Background[2],
             },
 
-            create ('UIGradient') ({
-                Name = 'UIGradient',
+            create ("UIGradient") ({
+                Name = "UIGradient",
                 Color = ColorSequence.new ({
                     ColorSequenceKeypoint.new (
                         0,
@@ -79,32 +79,32 @@ return function (self)
             }),
         }),
 
-        create ('Frame') ({
-            Name = 'Content',
+        create ("Frame") ({
+            Name = "Content",
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BackgroundTransparency = 1,
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
             Size = UDim2.fromScale (1, 1),
 
-            create ('Frame') ({
-                Name = 'Leading',
+            create ("Frame") ({
+                Name = "Leading",
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
                 Size = UDim2.fromScale (0, 1),
 
-                create ('UIListLayout') ({
-                    Name = 'UIListLayout',
+                create ("UIListLayout") ({
+                    Name = "UIListLayout",
                     FillDirection = Enum.FillDirection.Horizontal,
                     Padding = UDim.new (0, 8),
                     SortOrder = Enum.SortOrder.LayoutOrder,
                     VerticalAlignment = Enum.VerticalAlignment.Center,
                 }),
 
-                create ('Frame') ({
-                    Name = 'TitleSubtitle',
+                create ("Frame") ({
+                    Name = "TitleSubtitle",
                     AutomaticSize = Enum.AutomaticSize.XY,
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
@@ -112,27 +112,27 @@ return function (self)
                     BorderSizePixel = 0,
                     LayoutOrder = 2,
 
-                    create ('UIListLayout') ({
-                        Name = 'UIListLayout',
+                    create ("UIListLayout") ({
+                        Name = "UIListLayout",
                         SortOrder = Enum.SortOrder.LayoutOrder,
                         VerticalAlignment = Enum.VerticalAlignment.Center,
                     }),
 
-                    create ('TextLabel') ({
-                        Name = 'Subtitle',
+                    create ("TextLabel") ({
+                        Name = "Subtitle",
                         AutomaticSize = Enum.AutomaticSize.X,
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
                         FontFace = Font.new (
-                            'rbxassetid://12187365364',
+                            "rbxassetid://12187365364",
                             Enum.FontWeight.Medium,
                             Enum.FontStyle.Normal
                         ),
                         LayoutOrder = 1,
                         RichText = true,
                         Size = UDim2.fromOffset (0, 14),
-                        Text = 'Subtitle',
+                        Text = "Subtitle",
                         TextColor3 = Color3.fromRGB (0, 0, 0),
                         TextSize = 12,
                         Visible = false,
@@ -143,22 +143,22 @@ return function (self)
                         },
                     }),
 
-                    create ('TextLabel') ({
-                        Name = 'Title',
+                    create ("TextLabel") ({
+                        Name = "Title",
                         AutomaticSize = Enum.AutomaticSize.X,
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
                         FontFace = Font.new (
-                            'rbxassetid://12187365364',
+                            "rbxassetid://12187365364",
                             Enum.FontWeight.SemiBold,
                             Enum.FontStyle.Normal
                         ),
                         LineHeight = 0,
                         RichText = true,
                         Size = UDim2.fromOffset (0, 20),
-                        Text = 'Title',
+                        Text = "Title",
                         TextSize = 16,
 
                         __dynamicKeys = {
@@ -168,14 +168,14 @@ return function (self)
                     }),
                 }),
 
-                create ('UIPadding') ({
-                    Name = 'UIPadding',
+                create ("UIPadding") ({
+                    Name = "UIPadding",
                     PaddingLeft = UDim.new (0, 12),
                     PaddingRight = UDim.new (0, 12),
                 }),
 
-                create ('Frame') ({
-                    Name = 'NavigationButtons',
+                create ("Frame") ({
+                    Name = "NavigationButtons",
                     AutomaticSize = Enum.AutomaticSize.XY,
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
@@ -183,35 +183,35 @@ return function (self)
                     BorderSizePixel = 0,
                     LayoutOrder = 1,
 
-                    create ('UIListLayout') ({
-                        Name = 'UIListLayout',
+                    create ("UIListLayout") ({
+                        Name = "UIListLayout",
                         FillDirection = Enum.FillDirection.Horizontal,
                         Padding = UDim.new (0, 1),
                         SortOrder = Enum.SortOrder.LayoutOrder,
                         VerticalAlignment = Enum.VerticalAlignment.Center,
                     }),
 
-                    create ('TextButton') ({
-                        Name = 'Back',
+                    create ("TextButton") ({
+                        Name = "Back",
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
                         FontFace = Font.new (
-                            'rbxasset://fonts/families/SourceSansPro.json'
+                            "rbxasset://fonts/families/SourceSansPro.json"
                         ),
                         Size = UDim2.fromOffset (27, 20),
-                        Text = '',
+                        Text = "",
                         TextColor3 = Color3.fromRGB (0, 0, 0),
                         TextSize = 14,
 
-                        create ('ImageLabel') ({
-                            Name = 'Image',
+                        create ("ImageLabel") ({
+                            Name = "Image",
                             AnchorPoint = Vector2.new (0.5, 0.5),
                             BackgroundTransparency = 1,
                             BorderColor3 = Color3.fromRGB (0, 0, 0),
                             BorderSizePixel = 0,
-                            Image = 'rbxassetid://137248392050045',
+                            Image = "rbxassetid://137248392050045",
                             ImageColor3 = Color3.fromRGB (0, 0, 0),
                             Position = UDim2.fromScale (0.5, 0.5),
                             Size = UDim2.fromOffset (9, 15),
@@ -243,29 +243,29 @@ return function (self)
                         }),
                     }),
 
-                    create ('TextButton') ({
-                        Name = 'Forward',
+                    create ("TextButton") ({
+                        Name = "Forward",
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
                         FontFace = Font.new (
-                            'rbxasset://fonts/families/SourceSansPro.json'
+                            "rbxasset://fonts/families/SourceSansPro.json"
                         ),
                         LayoutOrder = 1,
                         Size = UDim2.fromOffset (27, 20),
-                        Text = '',
+                        Text = "",
                         TextColor3 = Color3.fromRGB (0, 0, 0),
                         TextSize = 14,
 
-                        create ('ImageLabel') ({
-                            Name = 'Image',
+                        create ("ImageLabel") ({
+                            Name = "Image",
                             AnchorPoint = Vector2.new (0.5, 0.5),
                             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                             BackgroundTransparency = 1,
                             BorderColor3 = Color3.fromRGB (0, 0, 0),
                             BorderSizePixel = 0,
-                            Image = 'rbxassetid://95285878898359',
+                            Image = "rbxassetid://95285878898359",
                             Position = UDim2.fromScale (0.5, 0.5),
                             Size = UDim2.fromOffset (9, 15),
 
@@ -301,8 +301,8 @@ return function (self)
                     }),
                 }),
 
-                create ('Frame') ({
-                    Name = 'SidebarButton',
+                create ("Frame") ({
+                    Name = "SidebarButton",
                     AutomaticSize = Enum.AutomaticSize.XY,
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
@@ -310,15 +310,15 @@ return function (self)
                     BorderSizePixel = 0,
                     Size = UDim2.fromOffset (38, 34),
 
-                    create ('ImageButton') ({
-                        Name = 'Image',
+                    create ("ImageButton") ({
+                        Name = "Image",
                         AnchorPoint = Vector2.new (0.5, 0.5),
                         AutoButtonColor = false,
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
-                        Image = 'rbxassetid://74380920233260',
+                        Image = "rbxassetid://74380920233260",
                         Position = UDim2.fromScale (0.5, 0.5),
                         Size = UDim2.fromOffset (20, 16),
 
@@ -330,29 +330,29 @@ return function (self)
                 }),
             }),
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 HorizontalFlex = Enum.UIFlexAlignment.Fill,
                 SortOrder = Enum.SortOrder.LayoutOrder,
             }),
 
-            create ('Frame') ({
-                Name = 'Trailing',
+            create ("Frame") ({
+                Name = "Trailing",
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
                 Size = UDim2.fromScale (0, 1),
 
-                create ('UIPadding') ({
-                    Name = 'UIPadding',
+                create ("UIPadding") ({
+                    Name = "UIPadding",
                     PaddingLeft = UDim.new (0, 12),
                     PaddingRight = UDim.new (0, 12),
                 }),
 
-                create ('UIListLayout') ({
-                    Name = 'UIListLayout',
+                create ("UIListLayout") ({
+                    Name = "UIListLayout",
                     HorizontalAlignment = Enum.HorizontalAlignment.Right,
                     SortOrder = Enum.SortOrder.LayoutOrder,
                     VerticalAlignment = Enum.VerticalAlignment.Center,
@@ -360,8 +360,8 @@ return function (self)
             }),
         }),
 
-        create ('Frame') ({
-            Name = 'CornerClipRight',
+        create ("Frame") ({
+            Name = "CornerClipRight",
             AnchorPoint = Vector2.new (1, 1),
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
@@ -374,8 +374,8 @@ return function (self)
             },
         }),
 
-        create ('Frame') ({
-            Name = 'CornerClipLeft',
+        create ("Frame") ({
+            Name = "CornerClipLeft",
             AnchorPoint = Vector2.new (0, 1),
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
@@ -391,46 +391,46 @@ return function (self)
 
     --// Initialize
     structures.CornerClipLeft =
-        structures.Body:FindFirstChild ('CornerClipLeft') :: Frame
+        structures.Body:FindFirstChild ("CornerClipLeft") :: Frame
     structures.CornerClipRight =
-        structures.Body:FindFirstChild ('ConerClipRight') :: Frame
-    structures.Content = structures.Body:FindFirstChild ('Content') :: Frame
-    structures.Leading = structures.Content:FindFirstChild ('Leading') :: Frame
+        structures.Body:FindFirstChild ("ConerClipRight") :: Frame
+    structures.Content = structures.Body:FindFirstChild ("Content") :: Frame
+    structures.Leading = structures.Content:FindFirstChild ("Leading") :: Frame
     structures.Trailing =
-        structures.Content:FindFirstChild ('Trailing') :: Frame
+        structures.Content:FindFirstChild ("Trailing") :: Frame
     structures.NavigationButtons =
-        structures.Leading:FindFirstChild ('NavigationButtons') :: Frame
+        structures.Leading:FindFirstChild ("NavigationButtons") :: Frame
     structures.Back =
-        structures.NavigationButtons:FindFirstChild ('Back') :: TextButton
+        structures.NavigationButtons:FindFirstChild ("Back") :: TextButton
     structures.Forward =
-        structures.NavigationButtons:FindFirstChild ('Forward') :: TextButton
+        structures.NavigationButtons:FindFirstChild ("Forward") :: TextButton
     structures.SidebarButton = structures.Leading
-        :FindFirstChild ('SidebarButton')
-        :FindFirstChild ('Image') :: ImageButton
+        :FindFirstChild ("SidebarButton")
+        :FindFirstChild ("Image") :: ImageButton
     structures.TitleStack =
-        structures.Leading:FindFirstChild ('TitleSubtitle') :: Frame
+        structures.Leading:FindFirstChild ("TitleSubtitle") :: Frame
     structures.Title =
-        structures.TitleStack:FindFirstChild ('Title') :: TextLabel
+        structures.TitleStack:FindFirstChild ("Title") :: TextLabel
     structures.Subtitle =
-        structures.TitleStack:FindFirstChild ('Subtitle') :: TextLabel
+        structures.TitleStack:FindFirstChild ("Subtitle") :: TextLabel
 
     structures.SearchField = textField
     structures.SearchField.Body.Size = UDim2.fromOffset (126, 28)
     structures.SearchField.Field.Size = UDim2.fromOffset (90, 0)
     structures.SearchField.Layout.Padding = UDim.new (0, 8)
     structures.SearchField.Field.LayoutOrder = 1
-    structures.SearchField.Field.PlaceholderText = 'Search'
+    structures.SearchField.Field.PlaceholderText = "Search"
     structures.SearchField.Padding.PaddingLeft = UDim.new (0, 7)
     structures.SearchField.Padding.PaddingRight = UDim.new (0, 7)
     structures.SearchField.Corner = UDim.new (0, 6)
 
-    create ('ImageLabel') ({
-        Name = 'ImageLabel',
+    create ("ImageLabel") ({
+        Name = "ImageLabel",
         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
         BackgroundTransparency = 1,
         BorderColor3 = Color3.fromRGB (0, 0, 0),
         BorderSizePixel = 0,
-        Image = 'rbxassetid://120817720539967',
+        Image = "rbxassetid://120817720539967",
         Size = UDim2.fromOffset (13, 14),
         Parent = structures.SearchField.Body.__instance,
 
@@ -447,8 +447,8 @@ return function (self)
             return
         end
 
-        local backImage = structures.Back:FindFirstChild ('Image')
-        local forwardImage = structures.Forward:FindFirstChild ('Image')
+        local backImage = structures.Back:FindFirstChild ("Image")
+        local forwardImage = structures.Forward:FindFirstChild ("Image")
 
         local theme = window.Theme.Text
 
@@ -522,7 +522,7 @@ return function (self)
 
     local function checkAccessoryBounds ()
         for _, trailing in pairs (structures.Trailing:GetChildren ()) do
-            if not trailing:IsA ('GuiObject') then
+            if not trailing:IsA ("GuiObject") then
                 continue
             end
 
@@ -530,7 +530,7 @@ return function (self)
             local isVisible = true
 
             for _, leading in pairs (structures.Leading:GetChildren ()) do
-                if not leading:IsA ('GuiObject') then
+                if not leading:IsA ("GuiObject") then
                     continue
                 end
 
@@ -557,7 +557,7 @@ return function (self)
 
     checkAccessoryBounds ()
     structures.Body
-        :GetPropertyChangedSignal ('AbsoluteSize')
+        :GetPropertyChangedSignal ("AbsoluteSize")
         :Connect (checkAccessoryBounds)
 
     return structures,

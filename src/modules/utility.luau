@@ -8,9 +8,9 @@ local utility = {}
 utility.Clone = function (object: any)
     local clonedObject: any
 
-    if type (object) == 'function' then
+    if type (object) == "function" then
         clonedObject = clonefunction and clonefunction (object)
-    elseif typeof (object) == 'Instance' then
+    elseif typeof (object) == "Instance" then
         clonedObject = cloneref and cloneref (object)
     end
 
@@ -23,7 +23,7 @@ utility.ProtectUI = function (gui: Instance): ScreenGui | string
     end)
 
     local sCoreGui, coreGui = pcall (function ()
-        local layer = utility.Clone (game:GetService ('CoreGui'))
+        local layer = utility.Clone (game:GetService ("CoreGui"))
 
         if layer and layer.ClassName then
             return layer
@@ -35,7 +35,7 @@ utility.ProtectUI = function (gui: Instance): ScreenGui | string
     local success, returned = pcall (function ()
         gui.Parent = sHiddenUi and hiddenUi
             or sCoreGui and coreGui
-            or utility.Clone (game:GetService ('Players')).LocalPlayer.PlayerGui
+            or utility.Clone (game:GetService ("Players")).LocalPlayer.PlayerGui
     end)
 
     return success and gui or returned

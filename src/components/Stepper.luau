@@ -1,11 +1,11 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.StepperProperties): types.Stepper
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
 
-    local textField = require ('@structures/TextField')
+    local textField = require ("@structures/TextField")
 
     --// References
     local create = creator.Create
@@ -23,7 +23,7 @@ return function (self, properties: types.StepperProperties): types.Stepper
     --// Functions
     local function getPrecision (step)
         local stepStr = tostring (step)
-        local dot = string.find (stepStr, '%.')
+        local dot = string.find (stepStr, "%.")
         local precision = 0
 
         if dot then
@@ -39,7 +39,7 @@ return function (self, properties: types.StepperProperties): types.Stepper
 
         local displayPrecision = math.max (stepPrecision, valuePrecision)
 
-        local formatStr = '%.' .. displayPrecision .. 'f'
+        local formatStr = "%." .. displayPrecision .. "f"
         return string.format (formatStr, value)
     end
 
@@ -58,13 +58,13 @@ return function (self, properties: types.StepperProperties): types.Stepper
 
     structures.Body = binder.Apply (
         properties,
-        create ('ImageLabel') ({
-            Name = 'Stepper',
+        create ("ImageLabel") ({
+            Name = "Stepper",
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BackgroundTransparency = 1,
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
-            Image = 'rbxassetid://85888499115674',
+            Image = "rbxassetid://85888499115674",
             Size = UDim2.fromOffset (13, 20),
             Parent = parent,
 
@@ -73,13 +73,13 @@ return function (self, properties: types.StepperProperties): types.Stepper
                 ImageTransparency = theme.Background[2],
             },
 
-            create ('ImageLabel') ({
-                Name = 'Shadow',
+            create ("ImageLabel") ({
+                Name = "Shadow",
                 BackgroundTransparency = 1,
                 AnchorPoint = Vector2.new (0.5, 0.5),
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                Image = 'rbxassetid://105571270097608',
+                Image = "rbxassetid://105571270097608",
                 LayoutOrder = 1,
                 Position = UDim2.fromScale (0.5, 0.5),
                 Size = UDim2.fromOffset (19, 27),
@@ -90,14 +90,14 @@ return function (self, properties: types.StepperProperties): types.Stepper
                 },
             }),
 
-            create ('ImageButton') ({
-                Name = 'Up',
+            create ("ImageButton") ({
+                Name = "Up",
                 AutoButtonColor = false,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                Image = 'rbxassetid://133515997946294',
+                Image = "rbxassetid://133515997946294",
                 Size = UDim2.new (1, 0, 0, 9),
                 Position = UDim2.fromOffset (0, 1),
 
@@ -124,15 +124,15 @@ return function (self, properties: types.StepperProperties): types.Stepper
                 },
             }),
 
-            create ('ImageButton') ({
-                Name = 'Down',
+            create ("ImageButton") ({
+                Name = "Down",
                 AnchorPoint = Vector2.new (0, 1),
                 AutoButtonColor = false,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                Image = 'rbxassetid://83836660987173',
+                Image = "rbxassetid://83836660987173",
                 Position = UDim2.fromScale (0, 1),
                 Size = UDim2.new (1, 0, 0, 9),
 
@@ -159,8 +159,8 @@ return function (self, properties: types.StepperProperties): types.Stepper
                 },
             }),
 
-            create ('Frame') ({
-                Name = 'Top',
+            create ("Frame") ({
+                Name = "Top",
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
@@ -168,8 +168,8 @@ return function (self, properties: types.StepperProperties): types.Stepper
                 Size = UDim2.new (1, 0, 0, 4),
                 ZIndex = 0,
 
-                create ('UIGradient') ({
-                    Name = 'UIGradient',
+                create ("UIGradient") ({
+                    Name = "UIGradient",
                     Rotation = 90,
                     Transparency = NumberSequence.new ({
                         NumberSequenceKeypoint.new (0, 0.949),
@@ -182,8 +182,8 @@ return function (self, properties: types.StepperProperties): types.Stepper
                 }),
             }),
 
-            create ('Frame') ({
-                Name = 'Separator',
+            create ("Frame") ({
+                Name = "Separator",
                 AnchorPoint = Vector2.new (0, 0.5),
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
@@ -197,8 +197,8 @@ return function (self, properties: types.StepperProperties): types.Stepper
                 },
             }),
 
-            create ('Frame') ({
-                Name = 'Bottom',
+            create ("Frame") ({
+                Name = "Bottom",
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
@@ -206,8 +206,8 @@ return function (self, properties: types.StepperProperties): types.Stepper
                 Size = UDim2.new (1, 0, 0, 4),
                 ZIndex = 0,
 
-                create ('UIGradient') ({
-                    Name = 'UIGradient',
+                create ("UIGradient") ({
+                    Name = "UIGradient",
                     Rotation = -90,
                     Transparency = NumberSequence.new ({
                         NumberSequenceKeypoint.new (0, 0.949),
@@ -220,8 +220,8 @@ return function (self, properties: types.StepperProperties): types.Stepper
                 }),
             }),
 
-            create ('Frame') ({
-                Name = 'Filler',
+            create ("Frame") ({
+                Name = "Filler",
                 AnchorPoint = Vector2.new (0, 0.5),
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
@@ -238,8 +238,8 @@ return function (self, properties: types.StepperProperties): types.Stepper
     ) :: ImageLabel
 
     --// Initialize
-    structures.IPlus = structures.Body:FindFirstChild ('Up') :: ImageButton
-    structures.IMinus = structures.Body:FindFirstChild ('Down') :: ImageButton
+    structures.IPlus = structures.Body:FindFirstChild ("Up") :: ImageButton
+    structures.IMinus = structures.Body:FindFirstChild ("Down") :: ImageButton
 
     structures.Field = textField (self)
     structures.Field.Padding.PaddingBottom = UDim.new (0, 2)
@@ -303,7 +303,7 @@ return function (self, properties: types.StepperProperties): types.Stepper
 
     object = binder.Wrap (properties, bindings, structures.Body)
 
-    object.Type = 'Stepper'
+    object.Type = "Stepper"
     object.Theme = self.Theme
     object.Structures = structures
     object.Increment = function ()
@@ -339,7 +339,7 @@ return function (self, properties: types.StepperProperties): types.Stepper
     local function stepStart (direction: string)
         holding = true
 
-        local action = (direction == 'Up') and object.Increment
+        local action = (direction == "Up") and object.Increment
             or object.Decrement
 
         stepConnections[direction] = task.spawn (function ()
@@ -372,32 +372,32 @@ return function (self, properties: types.StepperProperties): types.Stepper
 
     structures.IPlus.MouseButton1Down:Connect (function ()
         object.Increment ()
-        stepStart ('Up')
+        stepStart ("Up")
     end)
     structures.IPlus.MouseButton1Up:Connect (function ()
-        stepStop ('Up')
+        stepStop ("Up")
     end)
     structures.IPlus.MouseLeave:Connect (function ()
-        stepStop ('Up')
+        stepStop ("Up")
     end)
 
     structures.IMinus.MouseButton1Down:Connect (function ()
         object.Decrement () -- Execute once on click/down
-        stepStart ('Down')
+        stepStart ("Down")
     end)
     structures.IMinus.MouseButton1Up:Connect (function ()
-        stepStop ('Down')
+        stepStop ("Down")
     end)
     structures.IMinus.MouseLeave:Connect (function ()
-        stepStop ('Down')
+        stepStop ("Down")
     end)
 
     structures.Body.AncestryChanged:Connect (function (_, parent)
         if not parent then
-            stepStop ('Up')
-            stepStop ('Down')
+            stepStop ("Up")
+            stepStop ("Down")
             for _, conn in pairs (stepConnections) do
-                if typeof (conn) == 'RBXScriptConnection' then
+                if typeof (conn) == "RBXScriptConnection" then
                     conn:Disconnect ()
                 end
             end

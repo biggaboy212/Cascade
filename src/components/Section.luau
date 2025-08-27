@@ -1,10 +1,10 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.SectionProperties): types.Section
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
-    local services = require ('@modules/services')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
+    local services = require ("@modules/services")
 
     --// References
     local create = creator.Create
@@ -12,7 +12,7 @@ return function (self, properties: types.SectionProperties): types.Section
     local tweenService = services.TweenService
 
     --// Variables
-    local parent = self.Type == 'Window' and self.Structures.SidebarList
+    local parent = self.Type == "Window" and self.Structures.SidebarList
         or self.__instance
         or self
     local structures = {}
@@ -27,11 +27,11 @@ return function (self, properties: types.SectionProperties): types.Section
         local args = table.pack (...)
 
         for _, child in ipairs (structure:GetChildren ()) do
-            if child:IsA ('GuiObject') then
+            if child:IsA ("GuiObject") then
                 table.insert (
                     connections,
                     child
-                        :GetPropertyChangedSignal ('AbsoluteSize')
+                        :GetPropertyChangedSignal ("AbsoluteSize")
                         :Connect (function (...)
                             update (table.unpack (args, 1, args.n))
                         end)
@@ -39,7 +39,7 @@ return function (self, properties: types.SectionProperties): types.Section
                 table.insert (
                     connections,
                     child
-                        :GetPropertyChangedSignal ('Visible')
+                        :GetPropertyChangedSignal ("Visible")
                         :Connect (function (...)
                             update (table.unpack (args, 1, args.n))
                         end)
@@ -50,11 +50,11 @@ return function (self, properties: types.SectionProperties): types.Section
         table.insert (
             connections,
             structure.ChildAdded:Connect (function (child)
-                if child:IsA ('GuiObject') then
+                if child:IsA ("GuiObject") then
                     table.insert (
                         connections,
                         child
-                            :GetPropertyChangedSignal ('AbsoluteSize')
+                            :GetPropertyChangedSignal ("AbsoluteSize")
                             :Connect (function (...)
                                 update (table.unpack (args, 1, args.n))
                             end)
@@ -62,7 +62,7 @@ return function (self, properties: types.SectionProperties): types.Section
                     table.insert (
                         connections,
                         child
-                            :GetPropertyChangedSignal ('Visible')
+                            :GetPropertyChangedSignal ("Visible")
                             :Connect (function (...)
                                 update (table.unpack (args, 1, args.n))
                             end)
@@ -83,13 +83,13 @@ return function (self, properties: types.SectionProperties): types.Section
     --// UI
     properties = properties or {}
 
-    properties.Title = properties.Title or 'Section Title'
+    properties.Title = properties.Title or "Section Title"
     properties.Disclosure = properties.Disclosure ~= false
     properties.Expanded = properties.Expanded ~= false
 
     structures.SidebarGroup = binder.Apply (
         properties,
-        create ('TextButton') ({
+        create ("TextButton") ({
             AutomaticSize = Enum.AutomaticSize.Y,
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BackgroundTransparency = 1,
@@ -97,17 +97,17 @@ return function (self, properties: types.SectionProperties): types.Section
             BorderSizePixel = 0,
             ClipsDescendants = true,
             Size = UDim2.new (1, 0, 0, 23),
-            Text = '',
+            Text = "",
             AutoButtonColor = false,
             Parent = parent,
 
-            create ('UIListLayout') ({
+            create ("UIListLayout") ({
                 SortOrder = Enum.SortOrder.LayoutOrder,
                 HorizontalAlignment = Enum.HorizontalAlignment.Right,
             }),
 
-            create ('Frame') ({
-                Name = 'SectionHeader',
+            create ("Frame") ({
+                Name = "SectionHeader",
                 AutomaticSize = Enum.AutomaticSize.Y,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
@@ -115,28 +115,28 @@ return function (self, properties: types.SectionProperties): types.Section
                 BorderSizePixel = 0,
                 Size = UDim2.fromScale (1, 0),
 
-                create ('Frame') ({
-                    Name = 'Disclosure',
+                create ("Frame") ({
+                    Name = "Disclosure",
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
                     FontFace = Font.new (
-                        'rbxasset://fonts/families/SourceSansPro.json'
+                        "rbxasset://fonts/families/SourceSansPro.json"
                     ),
                     LayoutOrder = 1,
                     Size = UDim2.fromOffset (13, 14),
                     TextColor3 = Color3.fromRGB (0, 0, 0),
                     TextSize = 14,
 
-                    create ('ImageLabel') ({
-                        Name = 'DisclosureImage',
+                    create ("ImageLabel") ({
+                        Name = "DisclosureImage",
                         AnchorPoint = Vector2.new (0.5, 0.5),
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
-                        Image = 'rbxassetid://115960806571685',
+                        Image = "rbxassetid://115960806571685",
                         Position = UDim2.fromScale (0.5, 0.5),
                         Size = UDim2.fromOffset (11, 7),
                         __dynamicKeys = {
@@ -146,36 +146,36 @@ return function (self, properties: types.SectionProperties): types.Section
                     }),
                 }),
 
-                create ('UIListLayout') ({
+                create ("UIListLayout") ({
                     FillDirection = Enum.FillDirection.Horizontal,
                     HorizontalFlex = Enum.UIFlexAlignment.SpaceBetween,
                     Padding = UDim.new (0, 10),
                     SortOrder = Enum.SortOrder.LayoutOrder,
                 }),
 
-                create ('UIPadding') ({
+                create ("UIPadding") ({
                     PaddingBottom = UDim.new (0, 6),
                     PaddingLeft = UDim.new (0, 8),
                     PaddingRight = UDim.new (0, 12),
                     PaddingTop = UDim.new (0, 3),
                 }),
 
-                create ('TextLabel') ({
-                    Name = 'Title',
+                create ("TextLabel") ({
+                    Name = "Title",
                     AutomaticSize = Enum.AutomaticSize.X,
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
                     FontFace = Font.new (
-                        'rbxassetid://12187365364',
+                        "rbxassetid://12187365364",
                         Enum.FontWeight.Bold,
                         Enum.FontStyle.Normal
                     ),
                     LineHeight = 0,
                     RichText = true,
                     Size = UDim2.fromOffset (0, 14),
-                    Text = 'Section Title',
+                    Text = "Section Title",
                     TextSize = 12,
                     TextTruncate = Enum.TextTruncate.AtEnd,
                     TextXAlignment = Enum.TextXAlignment.Left,
@@ -190,15 +190,15 @@ return function (self, properties: types.SectionProperties): types.Section
 
     --// Initialize
     structures.Layout =
-        structures.SidebarGroup:FindFirstChild ('UIListLayout') :: UIListLayout
+        structures.SidebarGroup:FindFirstChild ("UIListLayout") :: UIListLayout
     structures.SectionHeader =
-        structures.SidebarGroup:FindFirstChild ('SectionHeader') :: Frame
+        structures.SidebarGroup:FindFirstChild ("SectionHeader") :: Frame
     structures.Title =
-        structures.SectionHeader:FindFirstChild ('Title') :: TextLabel
+        structures.SectionHeader:FindFirstChild ("Title") :: TextLabel
     structures.Disclosure =
-        structures.SectionHeader:FindFirstChild ('Disclosure') :: TextButton
+        structures.SectionHeader:FindFirstChild ("Disclosure") :: TextButton
     structures.DisclosureImage =
-        structures.Disclosure:FindFirstChild ('DisclosureImage') :: ImageLabel
+        structures.Disclosure:FindFirstChild ("DisclosureImage") :: ImageLabel
 
     local connections = {}
     local bindings = {
@@ -262,7 +262,7 @@ return function (self, properties: types.SectionProperties): types.Section
     }
     local object = binder.Wrap (properties, bindings, structures.SidebarGroup)
 
-    object.Type = 'Section'
+    object.Type = "Section"
     object.Theme = self.Theme
     object.Structures = structures
     object.__window = self

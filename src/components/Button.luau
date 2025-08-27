@@ -1,10 +1,10 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.ButtonProperties): types.Button
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
-    local services = require ('@modules/services')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
+    local services = require ("@modules/services")
 
     --// References
     local create = creator.Create
@@ -18,31 +18,31 @@ return function (self, properties: types.ButtonProperties): types.Button
 
     --// UI
     properties = properties or {}
-    properties.State = properties.State or 'Primary'
-    properties.Label = properties.Label or 'Label'
+    properties.State = properties.State or "Primary"
+    properties.Label = properties.Label or "Label"
 
     structures.Body = binder.Apply (
         properties,
-        create ('TextButton') ({
-            Name = 'Button',
+        create ("TextButton") ({
+            Name = "Button",
             AutoButtonColor = false,
             AutomaticSize = Enum.AutomaticSize.XY,
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
-            Text = '',
+            Text = "",
             Parent = parent,
 
-            create ('UICorner') ({
-                Name = 'UICorner',
+            create ("UICorner") ({
+                Name = "UICorner",
                 CornerRadius = UDim.new (0, 5),
             }),
 
-            create ('Folder') ({
-                Name = 'ShadowLayers',
+            create ("Folder") ({
+                Name = "ShadowLayers",
 
-                create ('Frame') ({
-                    Name = 'Layer1',
+                create ("Frame") ({
+                    Name = "Layer1",
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
@@ -50,13 +50,13 @@ return function (self, properties: types.ButtonProperties): types.Button
                     Size = UDim2.fromScale (1, 1),
                     ZIndex = 0,
 
-                    create ('UICorner') ({
-                        Name = 'UICorner',
+                    create ("UICorner") ({
+                        Name = "UICorner",
                         CornerRadius = UDim.new (0, 5),
                     }),
 
-                    create ('UIStroke') ({
-                        Name = 'UIStroke',
+                    create ("UIStroke") ({
+                        Name = "UIStroke",
                         ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
                         Transparency = 0.95,
 
@@ -66,8 +66,8 @@ return function (self, properties: types.ButtonProperties): types.Button
                     }),
                 }),
 
-                create ('Frame') ({
-                    Name = 'Layer2',
+                create ("Frame") ({
+                    Name = "Layer2",
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
@@ -75,13 +75,13 @@ return function (self, properties: types.ButtonProperties): types.Button
                     Size = UDim2.fromScale (1, 1),
                     ZIndex = -1,
 
-                    create ('UICorner') ({
-                        Name = 'UICorner',
+                    create ("UICorner") ({
+                        Name = "UICorner",
                         CornerRadius = UDim.new (0, 5),
                     }),
 
-                    create ('UIStroke') ({
-                        Name = 'UIStroke',
+                    create ("UIStroke") ({
+                        Name = "UIStroke",
                         ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
                         Thickness = 2,
                         Transparency = 0.98,
@@ -96,29 +96,29 @@ return function (self, properties: types.ButtonProperties): types.Button
     ) :: TextButton
 
     --// Initialize
-    structures.Shadows = structures.Body:FindFirstChild ('ShadowLayers')
+    structures.Shadows = structures.Body:FindFirstChild ("ShadowLayers")
     structures.Shadow1 =
-        structures.Shadows:FindFirstChild ('Layer1'):FindFirstChild ('UIStroke')
+        structures.Shadows:FindFirstChild ("Layer1"):FindFirstChild ("UIStroke")
     structures.Shadow2 =
-        structures.Shadows:FindFirstChild ('Layer2'):FindFirstChild ('UIStroke')
+        structures.Shadows:FindFirstChild ("Layer2"):FindFirstChild ("UIStroke")
 
     local labelContext = {
         TextColor3 = function ()
             local state = properties.State
 
-            return state == 'Primary'
+            return state == "Primary"
                     and self.Theme.Text.SelectionPrimary[1].Value
-                or state == 'Secondary' and self.Theme.Text.Primary[1].Value
-                or state == 'Destructive'
+                or state == "Secondary" and self.Theme.Text.Primary[1].Value
+                or state == "Destructive"
                     and self.Theme.Accents.Red[1].Value
         end,
         TextTransparency = function ()
             local state = properties.State
 
-            return state == 'Primary'
+            return state == "Primary"
                     and self.Theme.Text.SelectionPrimary[2].Value
-                or state == 'Secondary' and self.Theme.Text.Primary[2].Value
-                or state == 'Destructive'
+                or state == "Secondary" and self.Theme.Text.Primary[2].Value
+                or state == "Destructive"
                     and self.Theme.Accents.Red[2].Value
         end,
     }
@@ -126,21 +126,21 @@ return function (self, properties: types.ButtonProperties): types.Button
         Color = function ()
             local state = properties.State
 
-            return state == 'Primary' and theme.FillPrimary.Value
-                or (state == 'Secondary' or state == 'Destructive')
+            return state == "Primary" and theme.FillPrimary.Value
+                or (state == "Secondary" or state == "Destructive")
                     and theme.FillSecondary.Value
         end,
     }
 
-    structures.Label = create ('TextLabel') ({
+    structures.Label = create ("TextLabel") ({
         Size = UDim2.fromScale (1, 1),
-        Name = 'Label',
+        Name = "Label",
         AutomaticSize = Enum.AutomaticSize.XY,
         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
         BackgroundTransparency = 1,
         BorderColor3 = Color3.fromRGB (0, 0, 0),
         BorderSizePixel = 0,
-        FontFace = Font.new ('rbxassetid://12187365364'),
+        FontFace = Font.new ("rbxassetid://12187365364"),
         RichText = true,
         TextSize = 14,
         TextWrapped = true,
@@ -154,16 +154,16 @@ return function (self, properties: types.ButtonProperties): types.Button
         },
         __contextKeys = labelContext,
 
-        create ('UIPadding') ({
-            Name = 'UIPadding',
+        create ("UIPadding") ({
+            Name = "UIPadding",
             PaddingBottom = UDim.new (0, 3),
             PaddingLeft = UDim.new (0, 7),
             PaddingRight = UDim.new (0, 7),
             PaddingTop = UDim.new (0, 3),
         }),
     }) :: TextLabel
-    structures.Fill = create ('UIGradient') ({
-        Name = 'UIGradient',
+    structures.Fill = create ("UIGradient") ({
+        Name = "UIGradient",
         Rotation = 90,
         Parent = structures.Body.__instance,
 
@@ -190,7 +190,7 @@ return function (self, properties: types.ButtonProperties): types.Button
 
     object = binder.Wrap (properties, bindings, structures.Body)
 
-    object.Type = 'Button'
+    object.Type = "Button"
     object.Theme = self.Theme
     object.Structures = structures
 

@@ -1,10 +1,10 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.ToggleProperties): types.Row
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
-    local services = require ('@modules/services')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
+    local services = require ("@modules/services")
 
     --// References
     local create = creator.Create
@@ -22,8 +22,8 @@ return function (self, properties: types.ToggleProperties): types.Row
 
     structures.Body = binder.Apply (
         properties,
-        create ('Frame') ({
-            Name = 'Toggle',
+        create ("Frame") ({
+            Name = "Toggle",
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BackgroundTransparency = 1,
             BorderColor3 = Color3.fromRGB (0, 0, 0),
@@ -31,14 +31,14 @@ return function (self, properties: types.ToggleProperties): types.Row
             Size = UDim2.fromOffset (28, 16),
             Parent = parent,
 
-            create ('ImageButton') ({
-                Name = 'Switch',
+            create ("ImageButton") ({
+                Name = "Switch",
                 AutoButtonColor = false,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                Image = 'rbxassetid://104426531889908',
+                Image = "rbxassetid://104426531889908",
                 ImageColor3 = Color3.fromRGB (0, 0, 0),
                 ImageTransparency = 0.91,
                 Size = UDim2.fromOffset (28, 16),
@@ -58,14 +58,14 @@ return function (self, properties: types.ToggleProperties): types.Row
                     end,
                 },
 
-                create ('ImageLabel') ({
-                    Name = 'Knob',
+                create ("ImageLabel") ({
+                    Name = "Knob",
                     AnchorPoint = Vector2.new (0, 0.5),
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://99107881432922',
+                    Image = "rbxassetid://99107881432922",
                     Position = UDim2.new (0, 1, 0.5, 0),
                     Size = UDim2.fromOffset (14, 14),
 
@@ -74,14 +74,14 @@ return function (self, properties: types.ToggleProperties): types.Row
                         ImageTransparency = theme.Knob[2],
                     },
 
-                    create ('ImageLabel') ({
-                        Name = 'Effects',
+                    create ("ImageLabel") ({
+                        Name = "Effects",
                         AnchorPoint = Vector2.new (0.5, 0.5),
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
-                        Image = 'rbxassetid://138042641797315',
+                        Image = "rbxassetid://138042641797315",
                         Position = UDim2.fromScale (0.5, 0.5),
                         Size = UDim2.fromOffset (16, 16),
 
@@ -92,8 +92,8 @@ return function (self, properties: types.ToggleProperties): types.Row
                     }),
                 }),
 
-                create ('UIGradient') ({
-                    Name = 'UIGradient',
+                create ("UIGradient") ({
+                    Name = "UIGradient",
                     Rotation = 90,
 
                     __dynamicKeys = {
@@ -105,8 +105,8 @@ return function (self, properties: types.ToggleProperties): types.Row
     ) :: Frame
 
     --// Initialize
-    structures.Switch = structures.Body:FindFirstChild ('Switch') :: ImageButton
-    structures.Knob = structures.Switch:FindFirstChild ('Knob') :: ImageLabel
+    structures.Switch = structures.Body:FindFirstChild ("Switch") :: ImageButton
+    structures.Knob = structures.Switch:FindFirstChild ("Knob") :: ImageLabel
 
     local object
     local bindings = {
@@ -152,7 +152,7 @@ return function (self, properties: types.ToggleProperties): types.Row
 
     object = binder.Wrap (properties, bindings, structures.Body)
 
-    object.Type = 'Toggle'
+    object.Type = "Toggle"
     object.Theme = self.Theme
     object.Structures = structures
 

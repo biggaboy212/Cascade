@@ -369,7 +369,7 @@ export type Label = BaseComponent & Components & LabelProperties
 
 -- Symbol
 export type SymbolProperties = ImageLabel & {
-    Style: ('Primary' | 'Secondary')?,
+    Style: ("Primary" | "Secondary")?,
 }
 
 export type Symbol = BaseComponent & Components & SymbolProperties
@@ -419,7 +419,7 @@ export type Slider = BaseComponent & Components & SliderProperties
 
 -- Button
 export type ButtonProperties = TextButton & {
-    State: ('Primary' | 'Secondary' | 'Destructive')?,
+    State: ("Primary" | "Secondary" | "Destructive")?,
     Label: string?,
     Pushed: ((self: Button) -> unknown)?,
 }

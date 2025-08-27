@@ -1,9 +1,9 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.SliderProperties): types.Slider
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
 
     --// References
     local create = creator.Create
@@ -22,15 +22,15 @@ return function (self, properties: types.SliderProperties): types.Slider
 
     structures.Body = binder.Apply (
         properties,
-        create ('ImageLabel') ({
-            Name = 'Slider',
+        create ("ImageLabel") ({
+            Name = "Slider",
             Active = true,
             AnchorPoint = Vector2.new (0, 0.5),
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BackgroundTransparency = 1,
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
-            Image = 'rbxassetid://92966982499851',
+            Image = "rbxassetid://92966982499851",
             Position = UDim2.fromScale (0, 0.5),
             Selectable = true,
             Size = UDim2.fromOffset (150, 4),
@@ -41,13 +41,13 @@ return function (self, properties: types.SliderProperties): types.Slider
                 ImageTransparency = theme.Track[2],
             },
 
-            create ('ImageLabel') ({
-                Name = 'TrackClip',
+            create ("ImageLabel") ({
+                Name = "TrackClip",
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                Image = 'rbxassetid://113661976068590',
+                Image = "rbxassetid://113661976068590",
                 ImageColor3 = Color3.fromRGB (252, 252, 252),
                 ResampleMode = Enum.ResamplerMode.Pixelated,
                 Size = UDim2.new (0, 2, 1, 0),
@@ -59,8 +59,8 @@ return function (self, properties: types.SliderProperties): types.Slider
                 },
             }),
 
-            create ('Frame') ({
-                Name = 'Fill',
+            create ("Frame") ({
+                Name = "Fill",
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
                 Size = UDim2.fromScale (0, 1),
@@ -70,13 +70,13 @@ return function (self, properties: types.SliderProperties): types.Slider
                     BackgroundTransparency = self.Theme.Controls.Selection[2],
                 },
 
-                create ('ImageLabel') ({
-                    Name = 'Effects',
+                create ("ImageLabel") ({
+                    Name = "Effects",
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://82410105327406',
+                    Image = "rbxassetid://82410105327406",
                     ImageColor3 = Color3.fromRGB (0, 0, 0),
                     Size = UDim2.new (0, 150, 1, 0),
                     ZIndex = 0,
@@ -87,8 +87,8 @@ return function (self, properties: types.SliderProperties): types.Slider
                     },
                 }),
 
-                create ('Frame') ({
-                    Name = 'Thumb',
+                create ("Frame") ({
+                    Name = "Thumb",
                     Active = true,
                     AnchorPoint = Vector2.new (0.5, 0.5),
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
@@ -100,13 +100,13 @@ return function (self, properties: types.SliderProperties): types.Slider
                     Size = UDim2.fromOffset (20, 20),
                     ZIndex = 2,
 
-                    create ('ImageLabel') ({
-                        Name = 'Background',
+                    create ("ImageLabel") ({
+                        Name = "Background",
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
-                        Image = 'rbxassetid://125496304036680',
+                        Image = "rbxassetid://125496304036680",
                         Selectable = true,
                         Size = UDim2.fromOffset (20, 20),
 
@@ -115,8 +115,8 @@ return function (self, properties: types.SliderProperties): types.Slider
                             ImageTransparency = theme.Thumb[2],
                         },
 
-                        create ('UIStroke') ({
-                            Name = 'UIStroke',
+                        create ("UIStroke") ({
+                            Name = "UIStroke",
                             ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 
                             __dynamicKeys = {
@@ -125,20 +125,20 @@ return function (self, properties: types.SliderProperties): types.Slider
                             },
                         }),
 
-                        create ('UICorner') ({
-                            Name = 'UICorner',
+                        create ("UICorner") ({
+                            Name = "UICorner",
                             CornerRadius = UDim.new (1, 0),
                         }),
                     }),
 
-                    create ('ImageLabel') ({
-                        Name = 'ThumbEffects',
+                    create ("ImageLabel") ({
+                        Name = "ThumbEffects",
                         AnchorPoint = Vector2.new (0.5, 0),
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
-                        Image = 'rbxassetid://85926626300527',
+                        Image = "rbxassetid://85926626300527",
                         Position = UDim2.fromScale (0.5, 0),
                         Size = UDim2.fromOffset (22, 22),
                         ZIndex = 0,
@@ -148,8 +148,8 @@ return function (self, properties: types.SliderProperties): types.Slider
                             ImageTransparency = theme.ThumbEffects[2],
                         },
 
-                        create ('UICorner') ({
-                            Name = 'UICorner',
+                        create ("UICorner") ({
+                            Name = "UICorner",
                             CornerRadius = UDim.new (1, 0),
                         }),
                     }),
@@ -159,15 +159,15 @@ return function (self, properties: types.SliderProperties): types.Slider
     ) :: ImageLabel
 
     --// Initialize
-    structures.Fill = structures.Body:FindFirstChild ('Fill') :: Frame
-    structures.Thumb = structures.Fill:FindFirstChild ('Thumb') :: Frame
-    structures.Dragger = create ('UIDragDetector') ({
-        Name = 'UIDragDetector',
+    structures.Fill = structures.Body:FindFirstChild ("Fill") :: Frame
+    structures.Thumb = structures.Fill:FindFirstChild ("Thumb") :: Frame
+    structures.Dragger = create ("UIDragDetector") ({
+        Name = "UIDragDetector",
         ResponseStyle = Enum.UIDragDetectorResponseStyle.CustomOffset,
         SelectionModeDragSpeed = UDim2.new (),
         SelectionModeRotateSpeed = 0,
-        ActivatedCursorIcon = 'rbxassetid://0',
-        CursorIcon = 'rbxassetid://0',
+        ActivatedCursorIcon = "rbxassetid://0",
+        CursorIcon = "rbxassetid://0",
         Parent = structures.Thumb,
     }) :: UIDragDetector
 
@@ -196,7 +196,7 @@ return function (self, properties: types.SliderProperties): types.Slider
 
     object = binder.Wrap (properties, bindings, structures.Body)
 
-    object.Type = 'Slider'
+    object.Type = "Slider"
     object.Theme = self.Theme
     object.Structures = structures
 

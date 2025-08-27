@@ -1,17 +1,17 @@
 -- We uh
 -- We dont talk about this..
 
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.WindowProperties): types.Window
     --// Imports
-    local effects = require ('@effects')
-    local services = require ('@modules/services')
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
+    local effects = require ("@effects")
+    local services = require ("@modules/services")
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
 
-    local titleBar, addToHistory = require ('@structures/Titlebar') (self)
-    local resizeHandler = require ('@modules/resizeHandler')
+    local titleBar, addToHistory = require ("@structures/Titlebar") (self)
+    local resizeHandler = require ("@modules/resizeHandler")
 
     --// References
     local create = creator.Create
@@ -21,8 +21,8 @@ return function (self, properties: types.WindowProperties): types.Window
 
     --// Variables
     local parent = self.__container or self.__instance or self
-    local window = create ('Frame') ({
-        Name = 'Window',
+    local window = create ("Frame") ({
+        Name = "Window",
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
         Size = UDim2.fromScale (1, 1),
@@ -50,12 +50,12 @@ return function (self, properties: types.WindowProperties): types.Window
     properties.Resizable = properties.Resizable ~= false
     properties.Dropshadow = properties.Dropshadow ~= false
     properties.UIBlur = properties.UIBlur ~= false
-    properties.Title = properties.Title or 'Title'
+    properties.Title = properties.Title or "Title"
 
     structures.Body = binder.Apply (
         properties,
-        create ('Frame') ({
-            Name = 'Body',
+        create ("Frame") ({
+            Name = "Body",
             BorderSizePixel = 0,
             AnchorPoint = Vector2.new (0.5, 0.5),
             Position = UDim2.fromScale (0.5, 0.5),
@@ -74,20 +74,20 @@ return function (self, properties: types.WindowProperties): types.Window
                 end,
             },
 
-            create ('UICorner') ({
-                Name = 'UICorner',
+            create ("UICorner") ({
+                Name = "UICorner",
                 CornerRadius = UDim.new (0, 10),
             }),
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 Padding = UDim.new (0, 0),
                 SortOrder = Enum.SortOrder.LayoutOrder,
             }),
 
-            create ('Frame') ({
-                Name = 'Sidebar',
+            create ("Frame") ({
+                Name = "Sidebar",
                 BackgroundColor3 = Color3.fromRGB (234, 234, 234),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
@@ -95,22 +95,22 @@ return function (self, properties: types.WindowProperties): types.Window
                 Size = UDim2.new (0, 200, 1, 0),
                 ClipsDescendants = true,
 
-                create ('UIPadding') ({
-                    Name = 'UIPadding',
+                create ("UIPadding") ({
+                    Name = "UIPadding",
                 }),
 
-                create ('Frame') ({
-                    Name = 'Margins',
+                create ("Frame") ({
+                    Name = "Margins",
                     BackgroundColor3 = Color3.fromRGB (234, 234, 234),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
                     Size = UDim2.new (0, 200, 1, 0),
-                    create ('Folder') ({
-                        Name = 'LayoutIgnore',
+                    create ("Folder") ({
+                        Name = "LayoutIgnore",
 
-                        create ('Frame') ({
-                            Name = 'Shadow',
+                        create ("Frame") ({
+                            Name = "Shadow",
                             AnchorPoint = Vector2.new (1, 0),
                             BorderColor3 = Color3.fromRGB (0, 0, 0),
                             BorderSizePixel = 0,
@@ -122,8 +122,8 @@ return function (self, properties: types.WindowProperties): types.Window
                                 BackgroundTransparency = self.Theme.Controls.Separator.Shadow[2],
                             },
 
-                            create ('UIGradient') ({
-                                Name = 'UIGradient',
+                            create ("UIGradient") ({
+                                Name = "UIGradient",
                                 Transparency = NumberSequence.new ({
                                     NumberSequenceKeypoint.new (0, 1),
                                     NumberSequenceKeypoint.new (1, 0),
@@ -132,21 +132,21 @@ return function (self, properties: types.WindowProperties): types.Window
                         }),
                     }),
 
-                    create ('UIPadding') ({
-                        Name = 'UIPadding',
+                    create ("UIPadding") ({
+                        Name = "UIPadding",
                         PaddingRight = UDim.new (0, 2),
                     }),
 
-                    create ('Frame') ({
-                        Name = 'Toolbar',
+                    create ("Frame") ({
+                        Name = "Toolbar",
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
                         BorderColor3 = Color3.fromRGB (0, 0, 0),
                         BorderSizePixel = 0,
                         Size = UDim2.new (1, 0, 0, 52),
 
-                        create ('Frame') ({
-                            Name = 'WindowControls',
+                        create ("Frame") ({
+                            Name = "WindowControls",
                             AnchorPoint = Vector2.new (0, 0.5),
                             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                             BackgroundTransparency = 1,
@@ -155,22 +155,22 @@ return function (self, properties: types.WindowProperties): types.Window
                             Position = UDim2.fromScale (0, 0.5),
                             Size = UDim2.fromOffset (92, 38),
 
-                            create ('UIListLayout') ({
-                                Name = 'UIListLayout',
+                            create ("UIListLayout") ({
+                                Name = "UIListLayout",
                                 FillDirection = Enum.FillDirection.Horizontal,
                                 Padding = UDim.new (0, 8),
                                 SortOrder = Enum.SortOrder.LayoutOrder,
                                 VerticalAlignment = Enum.VerticalAlignment.Center,
                             }),
 
-                            create ('UIPadding') ({
-                                Name = 'UIPadding',
+                            create ("UIPadding") ({
+                                Name = "UIPadding",
                                 PaddingLeft = UDim.new (0, 20),
                                 PaddingRight = UDim.new (0, 20),
                             }),
 
-                            create ('ImageButton') ({
-                                Name = 'Exit',
+                            create ("ImageButton") ({
+                                Name = "Exit",
                                 AutoButtonColor = false,
                                 BackgroundColor3 = Color3.fromRGB (
                                     255,
@@ -180,7 +180,7 @@ return function (self, properties: types.WindowProperties): types.Window
                                 BackgroundTransparency = 1,
                                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                                 BorderSizePixel = 0,
-                                Image = 'rbxassetid://132228700346004',
+                                Image = "rbxassetid://132228700346004",
                                 Size = UDim2.fromOffset (12, 12),
 
                                 __dynamicKeys = {
@@ -188,8 +188,8 @@ return function (self, properties: types.WindowProperties): types.Window
                                     ImageTransparency = self.Theme.Controls.Exit[2],
                                 },
 
-                                create ('ImageLabel') ({
-                                    Name = 'Stroke',
+                                create ("ImageLabel") ({
+                                    Name = "Stroke",
                                     BackgroundColor3 = Color3.fromRGB (
                                         255,
                                         255,
@@ -198,7 +198,7 @@ return function (self, properties: types.WindowProperties): types.Window
                                     BackgroundTransparency = 1,
                                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                                     BorderSizePixel = 0,
-                                    Image = 'rbxassetid://94763505860483',
+                                    Image = "rbxassetid://94763505860483",
                                     Size = UDim2.fromScale (1, 1),
 
                                     __dynamicKeys = {
@@ -207,8 +207,8 @@ return function (self, properties: types.WindowProperties): types.Window
                                     },
                                 }),
 
-                                create ('ImageLabel') ({
-                                    Name = 'Icon',
+                                create ("ImageLabel") ({
+                                    Name = "Icon",
                                     AnchorPoint = Vector2.new (0.5, 0.5),
                                     BackgroundColor3 = Color3.fromRGB (
                                         255,
@@ -218,7 +218,7 @@ return function (self, properties: types.WindowProperties): types.Window
                                     BackgroundTransparency = 1,
                                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                                     BorderSizePixel = 0,
-                                    Image = 'rbxassetid://94781753558308',
+                                    Image = "rbxassetid://94781753558308",
                                     Position = UDim2.fromScale (0.5, 0.5),
                                     Size = UDim2.fromScale (1, 1),
                                     Visible = false,
@@ -230,8 +230,8 @@ return function (self, properties: types.WindowProperties): types.Window
                                 }),
                             }),
 
-                            create ('ImageButton') ({
-                                Name = 'Minimize',
+                            create ("ImageButton") ({
+                                Name = "Minimize",
                                 AutoButtonColor = false,
                                 BackgroundColor3 = Color3.fromRGB (
                                     255,
@@ -241,7 +241,7 @@ return function (self, properties: types.WindowProperties): types.Window
                                 BackgroundTransparency = 1,
                                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                                 BorderSizePixel = 0,
-                                Image = 'rbxassetid://132228700346004',
+                                Image = "rbxassetid://132228700346004",
                                 LayoutOrder = 1,
                                 Size = UDim2.fromOffset (12, 12),
 
@@ -250,8 +250,8 @@ return function (self, properties: types.WindowProperties): types.Window
                                     ImageTransparency = self.Theme.Controls.Minimize[2],
                                 },
 
-                                create ('ImageLabel') ({
-                                    Name = 'Stroke',
+                                create ("ImageLabel") ({
+                                    Name = "Stroke",
                                     BackgroundColor3 = Color3.fromRGB (
                                         255,
                                         255,
@@ -260,7 +260,7 @@ return function (self, properties: types.WindowProperties): types.Window
                                     BackgroundTransparency = 1,
                                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                                     BorderSizePixel = 0,
-                                    Image = 'rbxassetid://94763505860483',
+                                    Image = "rbxassetid://94763505860483",
                                     Size = UDim2.fromScale (1, 1),
 
                                     __dynamicKeys = {
@@ -269,8 +269,8 @@ return function (self, properties: types.WindowProperties): types.Window
                                     },
                                 }),
 
-                                create ('ImageLabel') ({
-                                    Name = 'Icon',
+                                create ("ImageLabel") ({
+                                    Name = "Icon",
                                     AnchorPoint = Vector2.new (0.5, 0.5),
                                     BackgroundColor3 = Color3.fromRGB (
                                         255,
@@ -280,7 +280,7 @@ return function (self, properties: types.WindowProperties): types.Window
                                     BackgroundTransparency = 1,
                                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                                     BorderSizePixel = 0,
-                                    Image = 'rbxassetid://118368309445367',
+                                    Image = "rbxassetid://118368309445367",
                                     Position = UDim2.fromScale (0.5, 0.5),
                                     Size = UDim2.fromScale (1, 1),
                                     Visible = false,
@@ -292,8 +292,8 @@ return function (self, properties: types.WindowProperties): types.Window
                                 }),
                             }),
 
-                            create ('ImageButton') ({
-                                Name = 'Zoom',
+                            create ("ImageButton") ({
+                                Name = "Zoom",
                                 AutoButtonColor = false,
                                 BackgroundColor3 = Color3.fromRGB (
                                     255,
@@ -303,7 +303,7 @@ return function (self, properties: types.WindowProperties): types.Window
                                 BackgroundTransparency = 1,
                                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                                 BorderSizePixel = 0,
-                                Image = 'rbxassetid://132228700346004',
+                                Image = "rbxassetid://132228700346004",
                                 LayoutOrder = 2,
                                 Size = UDim2.fromOffset (12, 12),
 
@@ -312,8 +312,8 @@ return function (self, properties: types.WindowProperties): types.Window
                                     ImageTransparency = self.Theme.Controls.Zoom[2],
                                 },
 
-                                create ('ImageLabel') ({
-                                    Name = 'Stroke',
+                                create ("ImageLabel") ({
+                                    Name = "Stroke",
                                     BackgroundColor3 = Color3.fromRGB (
                                         255,
                                         255,
@@ -322,7 +322,7 @@ return function (self, properties: types.WindowProperties): types.Window
                                     BackgroundTransparency = 1,
                                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                                     BorderSizePixel = 0,
-                                    Image = 'rbxassetid://94763505860483',
+                                    Image = "rbxassetid://94763505860483",
                                     Size = UDim2.fromScale (1, 1),
 
                                     __dynamicKeys = {
@@ -331,8 +331,8 @@ return function (self, properties: types.WindowProperties): types.Window
                                     },
                                 }),
 
-                                create ('ImageLabel') ({
-                                    Name = 'Icon',
+                                create ("ImageLabel") ({
+                                    Name = "Icon",
                                     AnchorPoint = Vector2.new (0.5, 0.5),
                                     BackgroundColor3 = Color3.fromRGB (
                                         255,
@@ -342,7 +342,7 @@ return function (self, properties: types.WindowProperties): types.Window
                                     BackgroundTransparency = 1,
                                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                                     BorderSizePixel = 0,
-                                    Image = 'rbxassetid://114376524082699',
+                                    Image = "rbxassetid://114376524082699",
                                     Position = UDim2.fromScale (0.5, 0.5),
                                     Size = UDim2.fromScale (1, 1),
                                     Visible = false,
@@ -356,8 +356,8 @@ return function (self, properties: types.WindowProperties): types.Window
                         }),
                     }),
 
-                    create ('ScrollingFrame') ({
-                        Name = 'SidebarList',
+                    create ("ScrollingFrame") ({
+                        Name = "SidebarList",
                         AutomaticCanvasSize = Enum.AutomaticSize.Y,
                         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                         BackgroundTransparency = 1,
@@ -370,15 +370,15 @@ return function (self, properties: types.WindowProperties): types.Window
                         ScrollBarThickness = 6,
                         Size = UDim2.new (1, 0, 1, -52),
 
-                        create ('UIListLayout') ({
-                            Name = 'UIListLayout',
+                        create ("UIListLayout") ({
+                            Name = "UIListLayout",
                             Padding = UDim.new (0, 9),
                             SortOrder = Enum.SortOrder.LayoutOrder,
                             HorizontalAlignment = Enum.HorizontalAlignment.Right,
                         }),
 
-                        create ('UIPadding') ({
-                            Name = 'UIPadding',
+                        create ("UIPadding") ({
+                            Name = "UIPadding",
                             PaddingLeft = UDim.new (0, 10),
                             PaddingRight = UDim.new (0, 10),
                             PaddingBottom = UDim.new (0, 10),
@@ -387,8 +387,8 @@ return function (self, properties: types.WindowProperties): types.Window
                 }),
             }),
 
-            create ('Frame') ({
-                Name = 'Separator',
+            create ("Frame") ({
+                Name = "Separator",
                 AnchorPoint = Vector2.new (1, 0),
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
@@ -401,8 +401,8 @@ return function (self, properties: types.WindowProperties): types.Window
                 },
             }),
 
-            create ('Frame') ({
-                Name = 'ContentBody',
+            create ("Frame") ({
+                Name = "ContentBody",
                 AnchorPoint = Vector2.new (1, 0),
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
@@ -416,13 +416,13 @@ return function (self, properties: types.WindowProperties): types.Window
                     BackgroundTransparency = self.Theme.Controls.Background[2],
                 },
 
-                create ('UICorner') ({
-                    Name = 'UICorner',
+                create ("UICorner") ({
+                    Name = "UICorner",
                     CornerRadius = UDim.new (0, 10),
                 }),
 
-                create ('Frame') ({
-                    Name = 'Content',
+                create ("Frame") ({
+                    Name = "Content",
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (255, 199, 199),
@@ -432,8 +432,8 @@ return function (self, properties: types.WindowProperties): types.Window
                     Position = UDim2.fromOffset (0, 52),
                     Size = UDim2.new (1, 0, 1, -52),
 
-                    create ('UIPadding') ({
-                        Name = 'Margins',
+                    create ("UIPadding") ({
+                        Name = "Margins",
                         PaddingBottom = UDim.new (0, 3),
                         PaddingLeft = UDim.new (0, 3),
                         PaddingRight = UDim.new (0, 3),
@@ -441,8 +441,8 @@ return function (self, properties: types.WindowProperties): types.Window
                     }),
                 }),
 
-                create ('Frame') ({
-                    Name = 'CornerClip',
+                create ("Frame") ({
+                    Name = "CornerClip",
                     AnchorPoint = Vector2.new (0, 1),
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
@@ -456,11 +456,11 @@ return function (self, properties: types.WindowProperties): types.Window
                 }),
             }),
 
-            create ('Folder') ({
-                Name = 'LayoutIgnore',
+            create ("Folder") ({
+                Name = "LayoutIgnore",
 
-                create ('TextButton') ({
-                    Name = 'TopArea',
+                create ("TextButton") ({
+                    Name = "TopArea",
                     AutoButtonColor = false,
                     Active = false,
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
@@ -469,18 +469,18 @@ return function (self, properties: types.WindowProperties): types.Window
                     BorderSizePixel = 0,
                     Size = UDim2.new (1, 0, 0, 52),
                     ZIndex = 0,
-                    Text = '',
+                    Text = "",
                     Modal = false,
                 }),
 
-                create ('ImageLabel') ({
-                    Name = 'Dropshadow',
+                create ("ImageLabel") ({
+                    Name = "Dropshadow",
                     AnchorPoint = Vector2.new (0.5, 0.5),
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://138260268144845',
+                    Image = "rbxassetid://138260268144845",
                     ImageTransparency = 0.65,
                     Interactable = false,
                     Position = UDim2.new (0.5, 0, 0.5, 3),
@@ -494,30 +494,30 @@ return function (self, properties: types.WindowProperties): types.Window
     ) :: Frame
 
     --// Initialize
-    structures.Scale = create ('UIScale') ({
+    structures.Scale = create ("UIScale") ({
         Parent = window,
     })
     structures.Cornering =
-        structures.Body:FindFirstChild ('UICorner') :: UICorner
+        structures.Body:FindFirstChild ("UICorner") :: UICorner
     structures.LayoutIgnore =
-        structures.Body:FindFirstChild ('LayoutIgnore') :: Folder
+        structures.Body:FindFirstChild ("LayoutIgnore") :: Folder
     structures.Dropshadow =
-        structures.LayoutIgnore:FindFirstChild ('Dropshadow') :: ImageLabel
-    structures.Separator = structures.Body:FindFirstChild ('Separator') :: Frame
-    structures.SidebarMargins = structures.Body:FindFirstChild ('Sidebar')
+        structures.LayoutIgnore:FindFirstChild ("Dropshadow") :: ImageLabel
+    structures.Separator = structures.Body:FindFirstChild ("Separator") :: Frame
+    structures.SidebarMargins = structures.Body:FindFirstChild ("Sidebar")
     structures.Sidebar =
-        structures.SidebarMargins:FindFirstChild ('Margins') :: Frame
+        structures.SidebarMargins:FindFirstChild ("Margins") :: Frame
     structures.SidebarList =
-        structures.Sidebar:FindFirstChild ('SidebarList') :: Frame
-    structures.Toolbar = structures.Sidebar:FindFirstChild ('Toolbar') :: Frame
+        structures.Sidebar:FindFirstChild ("SidebarList") :: Frame
+    structures.Toolbar = structures.Sidebar:FindFirstChild ("Toolbar") :: Frame
     structures.WindowControls =
-        structures.Toolbar:FindFirstChild ('WindowControls') :: Frame
+        structures.Toolbar:FindFirstChild ("WindowControls") :: Frame
     structures.ContentBody =
-        structures.Body:FindFirstChild ('ContentBody') :: Frame
+        structures.Body:FindFirstChild ("ContentBody") :: Frame
     structures.Content =
-        structures.ContentBody:FindFirstChild ('Content') :: Frame
+        structures.ContentBody:FindFirstChild ("Content") :: Frame
     structures.CornerClip =
-        structures.ContentBody:FindFirstChild ('CornerClip') :: Frame
+        structures.ContentBody:FindFirstChild ("CornerClip") :: Frame
 
     structures.Titlebar = titleBar
     structures.Titlebar.Body.Parent = structures.ContentBody
@@ -560,8 +560,8 @@ return function (self, properties: types.WindowProperties): types.Window
             if value and not minimizing then
                 originalPosition2 = structures.Body.Position
 
-                if structures['BlurModel'] then
-                    structures['BlurModel'].SetVisibility (false)
+                if structures["BlurModel"] then
+                    structures["BlurModel"].SetVisibility (false)
                 end
             end
 
@@ -596,16 +596,16 @@ return function (self, properties: types.WindowProperties): types.Window
                 scaleTween.Completed:Once (function ()
                     minimizing = false
 
-                    if structures['BlurModel'] and not properties.Minimized then
-                        structures['BlurModel'].SetVisibility (true)
+                    if structures["BlurModel"] and not properties.Minimized then
+                        structures["BlurModel"].SetVisibility (true)
                     end
                 end)
             else
                 structures.Body.Position = bodyTarget.Position
                 structures.Scale.Scale = scaleTarget.Scale
 
-                if value and structures['BlurModel'] then
-                    structures['BlurModel'].SetVisibility (false)
+                if value and structures["BlurModel"] then
+                    structures["BlurModel"].SetVisibility (false)
                 end
             end
         end,
@@ -654,9 +654,9 @@ return function (self, properties: types.WindowProperties): types.Window
             structures.Dropshadow.Visible = value
         end,
         UIBlur = function (value: boolean)
-            if structures['BlurModel'] then
-                structures['BlurModel'].Model:Destroy ()
-                structures['BlurModel'] = nil
+            if structures["BlurModel"] then
+                structures["BlurModel"].Model:Destroy ()
+                structures["BlurModel"] = nil
             end
 
             structures.Body.BackgroundTransparency = value
@@ -670,7 +670,7 @@ return function (self, properties: types.WindowProperties): types.Window
     }
     local object = binder.Wrap (properties, bindings, structures.Body)
 
-    object.Type = 'Window'
+    object.Type = "Window"
     object.Theme = self.Theme
     object.Structures = structures
     object.Tabs = {}
@@ -716,7 +716,7 @@ return function (self, properties: types.WindowProperties): types.Window
 
             tweenService
                 :Create (
-                    structures.SidebarMargins:FindFirstChild ('UIPadding'),
+                    structures.SidebarMargins:FindFirstChild ("UIPadding"),
                     tweenInfo,
                     {
                         PaddingLeft = marginsTargetSize,
@@ -754,7 +754,7 @@ return function (self, properties: types.WindowProperties): types.Window
         local function toCache (page, descendants)
             local cache = {}
             for _, child in ipairs (descendants) do
-                if child:IsA ('GuiObject') then
+                if child:IsA ("GuiObject") then
                     cache[child] = child.Visible
                 end
             end
@@ -768,15 +768,15 @@ return function (self, properties: types.WindowProperties): types.Window
             end
 
             for _, child in ipairs (descendants) do
-                if child:IsA ('GuiObject') then
+                if child:IsA ("GuiObject") then
                     child.Visible = cache[child] ~= false
                 end
             end
         end
 
-        field:GetPropertyChangedSignal ('Text'):Connect (function ()
+        field:GetPropertyChangedSignal ("Text"):Connect (function ()
             local page =
-                structures.Content:FindFirstChildOfClass ('ScrollingFrame')
+                structures.Content:FindFirstChildOfClass ("ScrollingFrame")
             if not page then
                 return
             end
@@ -789,7 +789,7 @@ return function (self, properties: types.WindowProperties): types.Window
 
             local query = field.Text:lower ()
 
-            if query == '' then
+            if query == "" then
                 fromCache (page, descendants)
                 return
             end
@@ -798,11 +798,11 @@ return function (self, properties: types.WindowProperties): types.Window
             local items = {}
 
             for _, child in ipairs (descendants) do
-                if child:IsA ('GuiObject') then
-                    local searchIndex = child:GetAttribute ('SearchIndex')
+                if child:IsA ("GuiObject") then
+                    local searchIndex = child:GetAttribute ("SearchIndex")
 
                     if
-                        typeof (searchIndex) == 'string'
+                        typeof (searchIndex) == "string"
                         and searchIndex:lower ():find (query)
                     then
                         table.insert (matches, child)
@@ -816,7 +816,7 @@ return function (self, properties: types.WindowProperties): types.Window
                 local parent = match.Parent
 
                 while parent and parent ~= page do
-                    if parent:IsA ('GuiObject') then
+                    if parent:IsA ("GuiObject") then
                         items[parent] = true
                     end
 
@@ -825,7 +825,7 @@ return function (self, properties: types.WindowProperties): types.Window
             end
 
             for _, child in ipairs (descendants) do
-                if child:IsA ('GuiObject') then
+                if child:IsA ("GuiObject") then
                     child.Visible = false
                 end
             end
@@ -836,7 +836,7 @@ return function (self, properties: types.WindowProperties): types.Window
                 local parent = match.Parent
 
                 while parent and parent ~= page do
-                    if parent:IsA ('GuiObject') then
+                    if parent:IsA ("GuiObject") then
                         parent.Visible = true
                     end
 
@@ -846,7 +846,7 @@ return function (self, properties: types.WindowProperties): types.Window
                 local cache = pageCaches[page]
 
                 for _, descendant in ipairs (match:GetDescendants ()) do
-                    if descendant:IsA ('GuiObject') then
+                    if descendant:IsA ("GuiObject") then
                         local wasVisible = cache and cache[descendant]
                         if wasVisible then
                             descendant.Visible = true
@@ -859,18 +859,18 @@ return function (self, properties: types.WindowProperties): types.Window
 
     do -- Window controls
         local exit =
-            structures.WindowControls:FindFirstChild ('Exit') :: ImageButton
+            structures.WindowControls:FindFirstChild ("Exit") :: ImageButton
         local minimize =
-            structures.WindowControls:FindFirstChild ('Minimize') :: ImageButton
+            structures.WindowControls:FindFirstChild ("Minimize") :: ImageButton
         local zoom =
-            structures.WindowControls:FindFirstChild ('Zoom') :: ImageButton
+            structures.WindowControls:FindFirstChild ("Zoom") :: ImageButton
 
         local function rollOver ()
-            exit:FindFirstChild ('Icon').Visible = structures.WindowControls.GuiState
+            exit:FindFirstChild ("Icon").Visible = structures.WindowControls.GuiState
                 ~= Enum.GuiState.Hover
-            minimize:FindFirstChild ('Icon').Visible = structures.WindowControls.GuiState
+            minimize:FindFirstChild ("Icon").Visible = structures.WindowControls.GuiState
                 ~= Enum.GuiState.Hover
-            zoom:FindFirstChild ('Icon').Visible = structures.WindowControls.GuiState
+            zoom:FindFirstChild ("Icon").Visible = structures.WindowControls.GuiState
                 ~= Enum.GuiState.Hover
         end
 
@@ -884,8 +884,8 @@ return function (self, properties: types.WindowProperties): types.Window
             bindings.Minimized (properties.Minimized, true)
         end)
 
-        if self.Structures and self.Structures['WindowPill'] then
-            local pill: ImageButton = self.Structures['WindowPill']
+        if self.Structures and self.Structures["WindowPill"] then
+            local pill: ImageButton = self.Structures["WindowPill"]
 
             pill.MouseButton1Click:Connect (function ()
                 properties.Minimized = not properties.Minimized
@@ -906,7 +906,7 @@ return function (self, properties: types.WindowProperties): types.Window
         local inputPos = nil
         local startPos = nil
         local connection = nil
-        local boundingUi = structures.LayoutIgnore:FindFirstChild ('TopArea')
+        local boundingUi = structures.LayoutIgnore:FindFirstChild ("TopArea")
 
         boundingUi.InputBegan:Connect (function (input)
             if

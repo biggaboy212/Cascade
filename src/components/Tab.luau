@@ -1,17 +1,17 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.TabProperties): types.Tab
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
 
     --// References
     local create = creator.Create
-    local window = self.Type == 'Window' and self or self.__window
+    local window = self.Type == "Window" and self or self.__window
 
     --// Variables
-    local parent = self.Type == 'Window' and self.Structures.SidebarList
-        or self.Type == 'Tab' and self.__instance.Parent
+    local parent = self.Type == "Window" and self.Structures.SidebarList
+        or self.Type == "Tab" and self.__instance.Parent
         or self.__instance
         or self
     local structures = {}
@@ -19,21 +19,21 @@ return function (self, properties: types.TabProperties): types.Tab
     --// UI
     properties = properties or {}
 
-    properties.Title = properties.Title or 'Label'
+    properties.Title = properties.Title or "Label"
     properties.Indentation = properties.Indentation or 0
     properties.Selected = properties.Selected == true
 
     structures.Body = binder.Apply (
         properties,
-        create ('TextButton') ({
-            Name = 'SidebarItem',
+        create ("TextButton") ({
+            Name = "SidebarItem",
             AutoButtonColor = false,
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
-            FontFace = Font.new ('rbxasset://fonts/families/SourceSansPro.json'),
+            FontFace = Font.new ("rbxasset://fonts/families/SourceSansPro.json"),
             LayoutOrder = window.Tabs and #window.Tabs or 1,
             Size = UDim2.new (1, 0, 0, 28),
-            Text = '',
+            Text = "",
             TextColor3 = Color3.fromRGB (0, 0, 0),
             TextSize = 14,
             Parent = parent,
@@ -55,13 +55,13 @@ return function (self, properties: types.TabProperties): types.Tab
                 end,
             },
 
-            create ('UICorner') ({
-                Name = 'UICorner',
+            create ("UICorner") ({
+                Name = "UICorner",
                 CornerRadius = UDim.new (0, 5),
             }),
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 HorizontalFlex = Enum.UIFlexAlignment.SpaceBetween,
                 Padding = UDim.new (0, 14),
@@ -69,14 +69,14 @@ return function (self, properties: types.TabProperties): types.Tab
                 VerticalAlignment = Enum.VerticalAlignment.Center,
             }),
 
-            create ('UIPadding') ({
-                Name = 'UIPadding',
+            create ("UIPadding") ({
+                Name = "UIPadding",
                 PaddingLeft = UDim.new (0, 10),
                 PaddingRight = UDim.new (0, 8),
             }),
 
-            create ('Frame') ({
-                Name = 'Leading',
+            create ("Frame") ({
+                Name = "Leading",
                 AutomaticSize = Enum.AutomaticSize.Y,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
@@ -84,13 +84,13 @@ return function (self, properties: types.TabProperties): types.Tab
                 BorderSizePixel = 0,
                 Size = UDim2.new (1, -34, 0, 0),
 
-                create ('TextLabel') ({
-                    Name = 'Title',
+                create ("TextLabel") ({
+                    Name = "Title",
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    FontFace = Font.new ('rbxassetid://12187365364'),
+                    FontFace = Font.new ("rbxassetid://12187365364"),
                     LayoutOrder = 2,
                     LineHeight = 0,
                     RichText = true,
@@ -117,22 +117,22 @@ return function (self, properties: types.TabProperties): types.Tab
                     },
                 }),
 
-                create ('UIListLayout') ({
-                    Name = 'UIListLayout',
+                create ("UIListLayout") ({
+                    Name = "UIListLayout",
                     FillDirection = Enum.FillDirection.Horizontal,
                     Padding = UDim.new (0, 2),
                     SortOrder = Enum.SortOrder.LayoutOrder,
                 }),
 
-                create ('ImageLabel') ({
-                    Name = 'Symbol',
+                create ("ImageLabel") ({
+                    Name = "Symbol",
                     Visible = false,
                     AnchorPoint = Vector2.new (0.5, 0.5),
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://127049167227557',
+                    Image = "rbxassetid://127049167227557",
                     LayoutOrder = 1,
                     Position = UDim2.fromScale (0.5, 0.5),
                     Size = UDim2.fromOffset (20, 20),
@@ -156,8 +156,8 @@ return function (self, properties: types.TabProperties): types.Tab
                 }),
             }),
 
-            create ('Frame') ({
-                Name = 'Trailing',
+            create ("Frame") ({
+                Name = "Trailing",
                 AutomaticSize = Enum.AutomaticSize.XY,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
@@ -170,15 +170,15 @@ return function (self, properties: types.TabProperties): types.Tab
     ) :: TextButton
 
     --// Initialize
-    structures.Trailing = structures.Body:FindFirstChild ('Trailing') :: Frame
-    structures.Leading = structures.Body:FindFirstChild ('Leading') :: Frame
-    structures.Title = structures.Leading:FindFirstChild ('Title') :: TextLabel
+    structures.Trailing = structures.Body:FindFirstChild ("Trailing") :: Frame
+    structures.Leading = structures.Body:FindFirstChild ("Leading") :: Frame
+    structures.Title = structures.Leading:FindFirstChild ("Title") :: TextLabel
     structures.Symbol =
-        structures.Leading:FindFirstChild ('Symbol') :: ImageLabel
+        structures.Leading:FindFirstChild ("Symbol") :: ImageLabel
     structures.Padding =
-        structures.Body:FindFirstChild ('UIPadding') :: UIPadding
-    structures.Page = create ('ScrollingFrame') ({
-        Name = 'ContentList',
+        structures.Body:FindFirstChild ("UIPadding") :: UIPadding
+    structures.Page = create ("ScrollingFrame") ({
+        Name = "ContentList",
         AutomaticCanvasSize = Enum.AutomaticSize.Y,
         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
         BackgroundTransparency = 1,
@@ -191,14 +191,14 @@ return function (self, properties: types.TabProperties): types.Tab
         ScrollBarThickness = 7,
         Size = UDim2.fromScale (1, 1),
 
-        create ('UIListLayout') ({
-            Name = 'UIListLayout',
+        create ("UIListLayout") ({
+            Name = "UIListLayout",
             Padding = UDim.new (0, 9),
             SortOrder = Enum.SortOrder.LayoutOrder,
         }),
 
-        create ('UIPadding') ({
-            Name = 'Margins',
+        create ("UIPadding") ({
+            Name = "Margins",
             PaddingBottom = UDim.new (0, 17),
             PaddingLeft = UDim.new (0, 17),
             PaddingRight = UDim.new (0, 17),
@@ -244,7 +244,7 @@ return function (self, properties: types.TabProperties): types.Tab
         end,
     }, structures.Body)
 
-    object.Type = 'Tab'
+    object.Type = "Tab"
     object.Theme = self.Theme
     object.Structures = structures
     object.__container = structures.Page.__instance
@@ -274,7 +274,7 @@ return function (self, properties: types.TabProperties): types.Tab
         end)
     end
 
-    if self.Type == 'Tab' then
+    if self.Type == "Tab" then
         object.Indentation = self.Indentation + 1
     end
 

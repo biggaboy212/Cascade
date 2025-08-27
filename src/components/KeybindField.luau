@@ -1,22 +1,22 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (
     self,
     properties: types.KeybindFieldProperties
 ): types.KeybindFieldProperties
     --// Imports
-    local binder = require ('@modules/binder')
-    local services = require ('@modules/services')
+    local binder = require ("@modules/binder")
+    local services = require ("@modules/services")
 
     --// References
     local userInputService = services.UserInputService
 
     --// Variables
-    local structures = require ('@structures/TextField') (self)
+    local structures = require ("@structures/TextField") (self)
 
     --// UI
     properties = properties or {}
-    properties.Placeholder = properties.Placeholder or 'Press a key'
+    properties.Placeholder = properties.Placeholder or "Press a key"
 
     --// Initialize
     structures.Field.TextXAlignment = Enum.TextXAlignment.Right
@@ -75,7 +75,7 @@ return function (
         end
     end)
 
-    object.Type = 'KeybindField'
+    object.Type = "KeybindField"
     object.Theme = self.Theme
     object.Structures = structures
 

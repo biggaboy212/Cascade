@@ -1,9 +1,9 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.StackProperties): types.Stack
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
 
     --// References
     local create = creator.Create
@@ -22,14 +22,14 @@ return function (self, properties: types.StackProperties): types.Stack
 
     structures.Body = binder.Apply (
         properties,
-        create ('Frame') ({
-            Name = 'HStack',
+        create ("Frame") ({
+            Name = "HStack",
             BackgroundTransparency = 1,
             AutomaticSize = Enum.AutomaticSize.XY,
             Parent = parent,
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 SortOrder = Enum.SortOrder.LayoutOrder,
                 Wraps = true,
@@ -39,7 +39,7 @@ return function (self, properties: types.StackProperties): types.Stack
 
     --// Initialize
     structures.Layout =
-        structures.Body:FindFirstChild ('UIListLayout') :: UIListLayout
+        structures.Body:FindFirstChild ("UIListLayout") :: UIListLayout
 
     local object = binder.Wrap (properties, {
         Padding = function (value: UDim)
@@ -53,7 +53,7 @@ return function (self, properties: types.StackProperties): types.Stack
         end,
     }, structures.Body)
 
-    object.Type = 'HStack'
+    object.Type = "HStack"
     object.Theme = self.Theme
     object.Structures = structures
 

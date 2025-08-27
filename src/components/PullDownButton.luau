@@ -1,13 +1,13 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (
     self,
     properties: types.PullDownButtonProperties
 ): types.PullDownButton
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
-    local services = require ('@modules/services')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
+    local services = require ("@modules/services")
 
     --// References
     local create = creator.Create
@@ -60,8 +60,8 @@ return function (
     end
 
     local function option (object, name, index)
-        local option = create ('TextButton') ({
-            Name = 'Item',
+        local option = create ("TextButton") ({
+            Name = "Item",
             Size = UDim2.fromScale (1, 0),
             AutoButtonColor = false,
             AutomaticSize = Enum.AutomaticSize.XY,
@@ -70,34 +70,34 @@ return function (
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
             Selectable = false,
-            Text = '',
+            Text = "",
             LayoutOrder = index,
             Parent = structures.Menu,
 
-            create ('UIPadding') ({
-                Name = 'UIPadding',
+            create ("UIPadding") ({
+                Name = "UIPadding",
                 PaddingBottom = UDim.new (0, 3),
                 PaddingLeft = UDim.new (0, 7),
                 PaddingRight = UDim.new (0, 12),
                 PaddingTop = UDim.new (0, 3),
             }),
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 Padding = UDim.new (0, 2),
                 SortOrder = Enum.SortOrder.LayoutOrder,
                 VerticalAlignment = Enum.VerticalAlignment.Center,
             }),
 
-            create ('TextLabel') ({
-                Name = 'Label',
+            create ("TextLabel") ({
+                Name = "Label",
                 AutomaticSize = Enum.AutomaticSize.XY,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                FontFace = Font.new ('rbxassetid://12187365364'),
+                FontFace = Font.new ("rbxassetid://12187365364"),
                 LayoutOrder = 1,
                 RichText = true,
                 Text = name,
@@ -112,16 +112,16 @@ return function (
                 },
             }),
 
-            create ('UICorner') ({
-                Name = 'UICorner',
+            create ("UICorner") ({
+                Name = "UICorner",
                 CornerRadius = UDim.new (0, 5),
             }),
         }) :: TextButton
-        local label = option:FindFirstChild ('Label')
+        local label = option:FindFirstChild ("Label")
 
         structures.Options[index] = option.__instance
 
-        option:GetPropertyChangedSignal ('GuiState'):Connect (function ()
+        option:GetPropertyChangedSignal ("GuiState"):Connect (function ()
             if not object.Expanded then
                 return
             end
@@ -156,35 +156,35 @@ return function (
 
     structures.Body = binder.Apply (
         properties,
-        create ('TextButton') ({
-            Name = 'PullDownButton',
+        create ("TextButton") ({
+            Name = "PullDownButton",
             AutomaticSize = Enum.AutomaticSize.XY,
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BackgroundTransparency = 1,
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
             Selectable = false,
-            Text = '',
+            Text = "",
             Parent = parent,
 
-            create ('UIPadding') ({
-                Name = 'UIPadding',
+            create ("UIPadding") ({
+                Name = "UIPadding",
                 PaddingBottom = UDim.new (0, 3),
                 PaddingLeft = UDim.new (0, 7),
                 PaddingRight = UDim.new (0, 3),
                 PaddingTop = UDim.new (0, 3),
             }),
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 Padding = UDim.new (0, 7),
                 SortOrder = Enum.SortOrder.LayoutOrder,
                 VerticalAlignment = Enum.VerticalAlignment.Center,
             }),
 
-            create ('Frame') ({
-                Name = 'PullDownIndicator',
+            create ("Frame") ({
+                Name = "PullDownIndicator",
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
                 LayoutOrder = 1,
@@ -196,18 +196,18 @@ return function (
                     BackgroundTransparency = theme.IndicatorBackground[2],
                 },
 
-                create ('UICorner') ({
-                    Name = 'UICorner',
+                create ("UICorner") ({
+                    Name = "UICorner",
                     CornerRadius = UDim.new (0, 4),
                 }),
 
-                create ('ImageLabel') ({
-                    Name = 'Indicators',
+                create ("ImageLabel") ({
+                    Name = "Indicators",
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://86693411280110',
+                    Image = "rbxassetid://86693411280110",
                     Size = UDim2.fromScale (1, 1),
 
                     __dynamicKeys = {
@@ -217,14 +217,14 @@ return function (
                 }),
             }),
 
-            create ('TextLabel') ({
-                Name = 'Label',
+            create ("TextLabel") ({
+                Name = "Label",
                 AutomaticSize = Enum.AutomaticSize.XY,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                FontFace = Font.new ('rbxassetid://12187365364'),
+                FontFace = Font.new ("rbxassetid://12187365364"),
                 RichText = true,
                 TextSize = 15,
                 TextTransparency = 0.15,
@@ -241,27 +241,27 @@ return function (
 
     --// Initialize
     structures.PullDownIndicator =
-        structures.Body:FindFirstChild ('PullDownIndicator') :: Frame
+        structures.Body:FindFirstChild ("PullDownIndicator") :: Frame
     structures.CurrentTab =
-        structures.Body:FindFirstChild ('Label') :: TextLabel
+        structures.Body:FindFirstChild ("Label") :: TextLabel
 
-    structures.MenuContainer = create ('ScreenGui') ({
-        Name = 'Container',
+    structures.MenuContainer = create ("ScreenGui") ({
+        Name = "Container",
         IgnoreGuiInset = true,
         ScreenInsets = Enum.ScreenInsets.None,
         ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
         DisplayOrder = 201,
         OnTopOfCoreBlur = true,
 
-        create ('CanvasGroup') ({
-            Name = 'MenuBody',
+        create ("CanvasGroup") ({
+            Name = "MenuBody",
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
             BackgroundTransparency = 1,
             Size = UDim2.fromScale (1, 1),
 
-            create ('ScrollingFrame') ({
-                Name = 'PullDownMenu',
+            create ("ScrollingFrame") ({
+                Name = "PullDownMenu",
                 AutomaticSize = Enum.AutomaticSize.XY,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
@@ -276,27 +276,27 @@ return function (
                     BackgroundTransparency = theme.MenuBackground[2],
                 },
 
-                create ('UICorner') ({
-                    Name = 'UICorner',
+                create ("UICorner") ({
+                    Name = "UICorner",
                     CornerRadius = UDim.new (0, 6),
                 }),
 
-                create ('UIStroke') ({
-                    Name = 'UIStroke',
+                create ("UIStroke") ({
+                    Name = "UIStroke",
                     ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
                     Transparency = 0.9,
                 }),
 
-                create ('UIPadding') ({
-                    Name = 'UIPadding',
+                create ("UIPadding") ({
+                    Name = "UIPadding",
                     PaddingBottom = UDim.new (0, 5),
                     PaddingLeft = UDim.new (0, 5),
                     PaddingRight = UDim.new (0, 5),
                     PaddingTop = UDim.new (0, 5),
                 }),
 
-                create ('UIListLayout') ({
-                    Name = 'UIListLayout',
+                create ("UIListLayout") ({
+                    Name = "UIListLayout",
                     SortOrder = Enum.SortOrder.LayoutOrder,
                     Padding = UDim.new (0, 1),
                 }),
@@ -305,9 +305,9 @@ return function (
     }) :: ScreenGui
 
     structures.MenuBody =
-        structures.MenuContainer:FindFirstChild ('MenuBody') :: CanvasGroup
+        structures.MenuContainer:FindFirstChild ("MenuBody") :: CanvasGroup
     structures.Menu =
-        structures.MenuBody:FindFirstChild ('PullDownMenu') :: ScrollingFrame
+        structures.MenuBody:FindFirstChild ("PullDownMenu") :: ScrollingFrame
 
     local object
     local bindings = {
@@ -347,7 +347,7 @@ return function (
         end,
 
         Label = function (value: string)
-            if type (value) == 'string' then
+            if type (value) == "string" then
                 structures.CurrentTab.Visible = true
                 structures.CurrentTab.Text = value
             end
@@ -363,7 +363,7 @@ return function (
 
     object = binder.Wrap (properties, bindings, structures.Body)
 
-    object.Type = 'PullDownButton'
+    object.Type = "PullDownButton"
     object.Theme = self.Theme
     object.Structures = structures
     object.Option = function (self, name: string?)
@@ -385,10 +385,10 @@ return function (
     binder.Apply (properties, object)
 
     structures.Body
-        :GetPropertyChangedSignal ('AbsolutePosition')
+        :GetPropertyChangedSignal ("AbsolutePosition")
         :Connect (anchor)
-    structures.Body:GetPropertyChangedSignal ('AbsoluteSize'):Connect (anchor)
-    structures.Menu:GetPropertyChangedSignal ('AbsoluteSize'):Connect (anchor)
+    structures.Body:GetPropertyChangedSignal ("AbsoluteSize"):Connect (anchor)
+    structures.Menu:GetPropertyChangedSignal ("AbsoluteSize"):Connect (anchor)
 
     userInputService.InputBegan:Connect (function (input)
         if

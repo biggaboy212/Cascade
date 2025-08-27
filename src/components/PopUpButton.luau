@@ -1,13 +1,13 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (
     self,
     properties: types.PopUpButtonProperties
 ): types.PopUpButton
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
-    local services = require ('@modules/services')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
+    local services = require ("@modules/services")
 
     --// References
     local create = creator.Create
@@ -77,8 +77,8 @@ return function (
     end
 
     local function option (object, name, index)
-        local option = create ('TextButton') ({
-            Name = 'Item',
+        local option = create ("TextButton") ({
+            Name = "Item",
             Size = UDim2.fromScale (1, 0),
             AutoButtonColor = false,
             AutomaticSize = Enum.AutomaticSize.XY,
@@ -87,33 +87,33 @@ return function (
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
             Selectable = false,
-            Text = '',
+            Text = "",
             LayoutOrder = index,
             Parent = structures.Menu,
 
-            create ('UIPadding') ({
-                Name = 'UIPadding',
+            create ("UIPadding") ({
+                Name = "UIPadding",
                 PaddingBottom = UDim.new (0, 3),
                 PaddingLeft = UDim.new (0, 7),
                 PaddingRight = UDim.new (0, 12),
                 PaddingTop = UDim.new (0, 3),
             }),
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 Padding = UDim.new (0, 2),
                 SortOrder = Enum.SortOrder.LayoutOrder,
                 VerticalAlignment = Enum.VerticalAlignment.Center,
             }),
 
-            create ('ImageLabel') ({
-                Name = 'Checkmark',
+            create ("ImageLabel") ({
+                Name = "Checkmark",
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                Image = 'rbxassetid://127464789357538',
+                Image = "rbxassetid://127464789357538",
                 ImageColor3 = Color3.fromRGB (0, 0, 0),
                 ImageTransparency = 1,
                 Size = UDim2.fromOffset (16, 16),
@@ -125,8 +125,8 @@ return function (
                 },
             }),
 
-            create ('Frame') ({
-                Name = 'CheckmarkRepl',
+            create ("Frame") ({
+                Name = "CheckmarkRepl",
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
@@ -135,14 +135,14 @@ return function (
                 Visible = true,
             }),
 
-            create ('TextLabel') ({
-                Name = 'Label',
+            create ("TextLabel") ({
+                Name = "Label",
                 AutomaticSize = Enum.AutomaticSize.XY,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                FontFace = Font.new ('rbxassetid://12187365364'),
+                FontFace = Font.new ("rbxassetid://12187365364"),
                 LayoutOrder = 1,
                 RichText = true,
                 Text = name,
@@ -157,17 +157,17 @@ return function (
                 },
             }),
 
-            create ('UICorner') ({
-                Name = 'UICorner',
+            create ("UICorner") ({
+                Name = "UICorner",
                 CornerRadius = UDim.new (0, 5),
             }),
         }) :: TextButton
-        local label = option:FindFirstChild ('Label')
-        local checkmark = option:FindFirstChild ('Checkmark')
+        local label = option:FindFirstChild ("Label")
+        local checkmark = option:FindFirstChild ("Checkmark")
 
         structures.Options[index] = option.__instance
 
-        option:GetPropertyChangedSignal ('GuiState'):Connect (function ()
+        option:GetPropertyChangedSignal ("GuiState"):Connect (function ()
             if not object.Expanded then
                 return
             end
@@ -211,35 +211,35 @@ return function (
 
     structures.Body = binder.Apply (
         properties,
-        create ('TextButton') ({
-            Name = 'PopUpButton',
+        create ("TextButton") ({
+            Name = "PopUpButton",
             AutomaticSize = Enum.AutomaticSize.XY,
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BackgroundTransparency = 1,
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
             Selectable = false,
-            Text = '',
+            Text = "",
             Parent = parent,
 
-            create ('UIPadding') ({
-                Name = 'UIPadding',
+            create ("UIPadding") ({
+                Name = "UIPadding",
                 PaddingBottom = UDim.new (0, 3),
                 PaddingLeft = UDim.new (0, 3),
                 PaddingRight = UDim.new (0, 3),
                 PaddingTop = UDim.new (0, 3),
             }),
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 Padding = UDim.new (0, 7),
                 SortOrder = Enum.SortOrder.LayoutOrder,
                 VerticalAlignment = Enum.VerticalAlignment.Center,
             }),
 
-            create ('Frame') ({
-                Name = 'PopUpIndicator',
+            create ("Frame") ({
+                Name = "PopUpIndicator",
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
                 LayoutOrder = 1,
@@ -251,18 +251,18 @@ return function (
                     BackgroundTransparency = theme.IndicatorBackground[2],
                 },
 
-                create ('UICorner') ({
-                    Name = 'UICorner',
+                create ("UICorner") ({
+                    Name = "UICorner",
                     CornerRadius = UDim.new (0, 4),
                 }),
 
-                create ('ImageLabel') ({
-                    Name = 'Indicators',
+                create ("ImageLabel") ({
+                    Name = "Indicators",
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://89151647333378',
+                    Image = "rbxassetid://89151647333378",
                     Size = UDim2.fromScale (1, 1),
 
                     __dynamicKeys = {
@@ -272,16 +272,16 @@ return function (
                 }),
             }),
 
-            create ('TextLabel') ({
-                Name = 'Label',
+            create ("TextLabel") ({
+                Name = "Label",
                 AutomaticSize = Enum.AutomaticSize.XY,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                FontFace = Font.new ('rbxassetid://12187365364'),
+                FontFace = Font.new ("rbxassetid://12187365364"),
                 RichText = true,
-                Text = 'None',
+                Text = "None",
                 TextSize = 15,
                 TextTransparency = 0.15,
                 TextTruncate = Enum.TextTruncate.AtEnd,
@@ -296,27 +296,27 @@ return function (
 
     --// Initialize
     structures.PopUpIndicator =
-        structures.Body:FindFirstChild ('PopUpIndicator') :: Frame
+        structures.Body:FindFirstChild ("PopUpIndicator") :: Frame
     structures.CurrentTab =
-        structures.Body:FindFirstChild ('Label') :: TextLabel
+        structures.Body:FindFirstChild ("Label") :: TextLabel
 
-    structures.MenuContainer = create ('ScreenGui') ({
-        Name = 'Container',
+    structures.MenuContainer = create ("ScreenGui") ({
+        Name = "Container",
         IgnoreGuiInset = true,
         ScreenInsets = Enum.ScreenInsets.None,
         ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
         DisplayOrder = 201,
         OnTopOfCoreBlur = true,
 
-        create ('CanvasGroup') ({
-            Name = 'MenuBody',
+        create ("CanvasGroup") ({
+            Name = "MenuBody",
             BorderColor3 = Color3.fromRGB (0, 0, 0),
             BorderSizePixel = 0,
             BackgroundTransparency = 1,
             Size = UDim2.fromScale (1, 1),
 
-            create ('ScrollingFrame') ({
-                Name = 'PopUpMenu',
+            create ("ScrollingFrame") ({
+                Name = "PopUpMenu",
                 AutomaticSize = Enum.AutomaticSize.X,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
@@ -331,27 +331,27 @@ return function (
                     BackgroundTransparency = theme.MenuBackground[2],
                 },
 
-                create ('UICorner') ({
-                    Name = 'UICorner',
+                create ("UICorner") ({
+                    Name = "UICorner",
                     CornerRadius = UDim.new (0, 6),
                 }),
 
-                create ('UIStroke') ({
-                    Name = 'UIStroke',
+                create ("UIStroke") ({
+                    Name = "UIStroke",
                     ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
                     Transparency = 0.9,
                 }),
 
-                create ('UIPadding') ({
-                    Name = 'UIPadding',
+                create ("UIPadding") ({
+                    Name = "UIPadding",
                     PaddingBottom = UDim.new (0, 5),
                     PaddingLeft = UDim.new (0, 5),
                     PaddingRight = UDim.new (0, 5),
                     PaddingTop = UDim.new (0, 5),
                 }),
 
-                create ('UIListLayout') ({
-                    Name = 'UIListLayout',
+                create ("UIListLayout") ({
+                    Name = "UIListLayout",
                     SortOrder = Enum.SortOrder.LayoutOrder,
                     Padding = UDim.new (0, 1),
                 }),
@@ -360,9 +360,9 @@ return function (
     }) :: ScreenGui
 
     structures.MenuBody =
-        structures.MenuContainer:FindFirstChild ('MenuBody') :: CanvasGroup
+        structures.MenuContainer:FindFirstChild ("MenuBody") :: CanvasGroup
     structures.Menu =
-        structures.MenuBody:FindFirstChild ('PopUpMenu') :: ScrollingFrame
+        structures.MenuBody:FindFirstChild ("PopUpMenu") :: ScrollingFrame
 
     local object
     local bindings = {
@@ -404,24 +404,24 @@ return function (
 
         Value = function (value: number)
             structures.CurrentTab.Text =
-                structures.Options[value]:FindFirstChild ('Label').Text
+                structures.Options[value]:FindFirstChild ("Label").Text
 
             for index, option in ipairs (structures.Options) do
                 local currentIndex = index == value
 
-                if not option or not option:FindFirstChild ('Checkmark') then
+                if not option or not option:FindFirstChild ("Checkmark") then
                     continue
                 end
 
                 if not currentIndex then
-                    option:FindFirstChild ('Checkmark').Visible = false
-                    option:FindFirstChild ('CheckmarkRepl').Visible = true -- Scuffed way to do this but 🤷‍♂️
+                    option:FindFirstChild ("Checkmark").Visible = false
+                    option:FindFirstChild ("CheckmarkRepl").Visible = true -- Scuffed way to do this but 🤷‍♂️
                 else
-                    option:FindFirstChild ('CheckmarkRepl').Visible = false
+                    option:FindFirstChild ("CheckmarkRepl").Visible = false
                     if not value then
-                        option:FindFirstChild ('Checkmark').Visible = false
+                        option:FindFirstChild ("Checkmark").Visible = false
                     else
-                        option:FindFirstChild ('Checkmark').Visible = true
+                        option:FindFirstChild ("Checkmark").Visible = true
                     end
                 end
             end
@@ -435,7 +435,7 @@ return function (
 
     object = binder.Wrap (properties, bindings, structures.Body)
 
-    object.Type = 'PopUpButton'
+    object.Type = "PopUpButton"
     object.Theme = self.Theme
     object.Structures = structures
     object.Option = function (self, name: string?)
@@ -458,10 +458,10 @@ return function (
     binder.Apply (properties, object)
 
     structures.Body
-        :GetPropertyChangedSignal ('AbsolutePosition')
+        :GetPropertyChangedSignal ("AbsolutePosition")
         :Connect (anchor)
-    structures.Body:GetPropertyChangedSignal ('AbsoluteSize'):Connect (anchor)
-    structures.Menu:GetPropertyChangedSignal ('AbsoluteSize'):Connect (anchor)
+    structures.Body:GetPropertyChangedSignal ("AbsoluteSize"):Connect (anchor)
+    structures.Menu:GetPropertyChangedSignal ("AbsoluteSize"):Connect (anchor)
 
     userInputService.InputBegan:Connect (function (input)
         if

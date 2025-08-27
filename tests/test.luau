@@ -1,6 +1,6 @@
 --// Imports
-local cascade = require ('@src/init')
-local services = require ('@modules/services')
+local cascade = require ("@src/init")
+local services = require ("@modules/services")
 
 --// References
 local userInputService = services.UserInputService
@@ -30,8 +30,8 @@ local app = cascade.New ({
 
 do -- Main window
     local window = app:Window ({
-        Title = 'Cascade',
-        Subtitle = 'Cascade demo app',
+        Title = "Cascade",
+        Subtitle = "Cascade demo app",
         Size = userInputService.TouchEnabled and UDim2.fromOffset (550, 325)
             or UDim2.fromOffset (850, 530),
     })
@@ -43,20 +43,20 @@ do -- Main window
     end)
 
     window.Destroying:Connect (function ()
-        print ('Closed window')
+        print ("Closed window")
     end)
 
     -- API demo
     do
         local section = window:Section ({
             Disclosure = false,
-            Title = 'API Demo',
+            Title = "API Demo",
         })
 
         do -- Components
             local tab = section:Tab ({
                 Selected = true,
-                Title = 'Components',
+                Title = "Components",
                 Icon = cascade.Symbols.switch2,
             })
 
@@ -66,14 +66,14 @@ do -- Main window
                 do -- Toggle off
                     local row = titledRow (
                         form,
-                        'Toggle (Off)',
-                        'Lets people choose between a pair of opposing states, like on and off, using a different appearance to indicate each state.'
+                        "Toggle (Off)",
+                        "Lets people choose between a pair of opposing states, like on and off, using a different appearance to indicate each state."
                     )
 
                     row:Right ():Toggle ({
                         Value = false,
                         ValueChanged = function (self, value: boolean)
-                            print ('Value changed:', value)
+                            print ("Value changed:", value)
                         end,
                     })
                 end
@@ -81,14 +81,14 @@ do -- Main window
                 do -- Toggle on
                     local row = titledRow (
                         form,
-                        'Toggle (On)',
-                        'Toggle with a truthy value'
+                        "Toggle (On)",
+                        "Toggle with a truthy value"
                     )
 
                     row:Right ():Toggle ({
                         Value = true,
                         ValueChanged = function (self, value: boolean)
-                            print ('Value changed:', value)
+                            print ("Value changed:", value)
                         end,
                     })
                 end
@@ -96,17 +96,17 @@ do -- Main window
                 do -- Text Field
                     local row = titledRow (
                         form,
-                        'Text Field',
-                        'A rectangular area in which people enter or edit small, specific pieces of text.'
+                        "Text Field",
+                        "A rectangular area in which people enter or edit small, specific pieces of text."
                     )
 
                     row:Right ():TextField ({
-                        Value = 'Label',
+                        Value = "Label",
                         ValueChanged = function (self, value: string)
-                            print ('Value changed:', value)
+                            print ("Value changed:", value)
                         end,
                         TextChanged = function (self, value: string)
-                            print ('Text changed:', value)
+                            print ("Text changed:", value)
                         end,
                     })
                 end
@@ -114,13 +114,13 @@ do -- Main window
                 do -- Keybind Field
                     local row = titledRow (
                         form,
-                        'Keybind Field',
-                        'A rectangular area in which people can enter and store keyboard input.'
+                        "Keybind Field",
+                        "A rectangular area in which people can enter and store keyboard input."
                     )
 
                     row:Right ():KeybindField ({
                         ValueChanged = function (self, value: Enum.KeyCode)
-                            print ('Value changed:', value)
+                            print ("Value changed:", value)
                         end,
                         BindPressed = function (
                             self,
@@ -132,7 +132,7 @@ do -- Main window
                                 return
                             end
 
-                            print ('Pressed bind:', value)
+                            print ("Pressed bind:", value)
                         end,
                     })
                 end
@@ -140,29 +140,29 @@ do -- Main window
                 do -- Buttons
                     local row = titledRow (
                         form,
-                        'Push Buttons',
-                        'Static buttons, these hold no value.'
+                        "Push Buttons",
+                        "Static buttons, these hold no value."
                     )
 
                     row:Right ():Button ({
-                        Label = 'Primary',
-                        State = 'Primary',
+                        Label = "Primary",
+                        State = "Primary",
                         Pushed = function (self)
-                            print ('Pushed')
+                            print ("Pushed")
                         end,
                     })
                     row:Right ():Button ({
-                        Label = 'Secondary',
-                        State = 'Secondary',
+                        Label = "Secondary",
+                        State = "Secondary",
                         Pushed = function (self)
-                            print ('Pushed')
+                            print ("Pushed")
                         end,
                     })
                     row:Right ():Button ({
-                        Label = 'Destructive',
-                        State = 'Destructive',
+                        Label = "Destructive",
+                        State = "Destructive",
                         Pushed = function (self)
-                            print ('Pushed')
+                            print ("Pushed")
                         end,
                     })
                 end
@@ -170,8 +170,8 @@ do -- Main window
                 do -- Slider
                     local row = titledRow (
                         form,
-                        'Slider',
-                        'A horizontal track with a control, called a thumb, that people can adjust between a minimum and maximum value.'
+                        "Slider",
+                        "A horizontal track with a control, called a thumb, that people can adjust between a minimum and maximum value."
                     )
 
                     row:Right ():Symbol ({
@@ -180,7 +180,7 @@ do -- Main window
                     row:Right ():Slider ({
                         Value = 0.5,
                         ValueChanged = function (self, value: number)
-                            print ('Value changed:', value)
+                            print ("Value changed:", value)
                         end,
                     })
                     row:Right ():Symbol ({
@@ -191,14 +191,14 @@ do -- Main window
                 do -- Stepper
                     local row = titledRow (
                         form,
-                        'Stepper',
-                        'A two-segment control that people use to increase or decrease an incremental value.'
+                        "Stepper",
+                        "A two-segment control that people use to increase or decrease an incremental value."
                     )
                     local label = row:Right ():Label ()
 
                     row:Right ():Stepper ({
                         ValueChanged = function (self, value: number)
-                            print ('Value changed:', value)
+                            print ("Value changed:", value)
                             label.Text = tostring (value)
                         end,
                     })
@@ -207,14 +207,14 @@ do -- Main window
                 do -- Fielded Stepper
                     local row = titledRow (
                         form,
-                        'Stepper (Fielded)',
-                        'Stepper with a editable field'
+                        "Stepper (Fielded)",
+                        "Stepper with a editable field"
                     )
 
                     row:Right ():Stepper ({
                         Fielded = true,
                         ValueChanged = function (self, value: number)
-                            print ('Value changed:', value)
+                            print ("Value changed:", value)
                         end,
                     })
                 end
@@ -222,73 +222,73 @@ do -- Main window
                 do -- Radio Button Group
                     local row = titledRow (
                         form,
-                        'Radio Buttons',
-                        'Lets people choose an option from a set of mutually exclusive choices, using a circular indicator to show the selected option.'
+                        "Radio Buttons",
+                        "Lets people choose an option from a set of mutually exclusive choices, using a circular indicator to show the selected option."
                     )
                     local radioButtonGroup = row:Right ():RadioButtonGroup ({
                         Options = {
-                            'Option 1',
-                            'Option 2',
+                            "Option 1",
+                            "Option 2",
                         },
                         Value = 1,
                         ValueChanged = function (self, value: number)
-                            print ('Value changed:', self.Options[value])
+                            print ("Value changed:", self.Options[value])
                         end,
                     })
 
-                    radioButtonGroup:Option ('Option 3')
+                    radioButtonGroup:Option ("Option 3")
                 end
 
                 do -- Pop Up Button
                     local row = titledRow (
                         form,
-                        'Pop Up Button',
-                        'Displays a menu of mutually exclusive options.'
+                        "Pop Up Button",
+                        "Displays a menu of mutually exclusive options."
                     )
                     local popUpButton = row:Right ():PopUpButton ({
                         Options = {
-                            'Item One',
-                            'Item Two',
-                            'Item Three',
-                            'Item Four',
-                            'Item Five',
-                            'Item Six',
-                            'Item Seven',
-                            'Item Eight',
-                            'Item Nine',
-                            'Item Ten',
-                            'Item Eleven',
+                            "Item One",
+                            "Item Two",
+                            "Item Three",
+                            "Item Four",
+                            "Item Five",
+                            "Item Six",
+                            "Item Seven",
+                            "Item Eight",
+                            "Item Nine",
+                            "Item Ten",
+                            "Item Eleven",
                         },
                         Value = 2,
                         ValueChanged = function (self, value: number)
-                            print ('Value changed:', self.Options[value])
+                            print ("Value changed:", self.Options[value])
                         end,
                     })
 
-                    popUpButton:Option ('Item Twelve')
-                    popUpButton:Option ('Item Thirteen')
+                    popUpButton:Option ("Item Twelve")
+                    popUpButton:Option ("Item Thirteen")
                     popUpButton:Remove (13)
                 end
 
                 do -- Pull Down Button
                     local row = titledRow (
                         form,
-                        'Pull Down Button',
-                        'Displays a menu of items or actions that directly relate to the button’s purpose.'
+                        "Pull Down Button",
+                        "Displays a menu of items or actions that directly relate to the button’s purpose."
                     )
                     local pullDownButton = row:Right ():PullDownButton ({
                         Options = {
-                            'Action One',
-                            'Action Two',
+                            "Action One",
+                            "Action Two",
                         },
-                        Label = 'Options',
+                        Label = "Options",
                         ValueChanged = function (self, value: number)
-                            print ('Selected:', self.Options[value])
+                            print ("Selected:", self.Options[value])
                         end,
                     })
 
-                    pullDownButton:Option ('Action Three')
-                    pullDownButton:Option ('Action Four')
+                    pullDownButton:Option ("Action Three")
+                    pullDownButton:Option ("Action Four")
                     pullDownButton:Remove (4)
                 end
             end
@@ -296,18 +296,18 @@ do -- Main window
 
         do -- Window
             local tab = section:Tab ({
-                Title = 'Window',
+                Title = "Window",
                 Icon = cascade.Symbols.sidebarLeft,
             })
 
             do -- Appearance
-                local form = tab:PageSection ({ Title = 'Appearance' }):Form ()
+                local form = tab:PageSection ({ Title = "Appearance" }):Form ()
 
                 do -- Dark mode
                     local row = titledRow (
                         form,
-                        'Dark mode',
-                        'An application appearance setting that uses a dark color palette to provide a comfortable viewing experience tailored for low-light environments.'
+                        "Dark mode",
+                        "An application appearance setting that uses a dark color palette to provide a comfortable viewing experience tailored for low-light environments."
                     )
 
                     row:Right ():Toggle ({
@@ -321,10 +321,10 @@ do -- Main window
             end
 
             do -- Input
-                local form = tab:PageSection ({ Title = 'Input' }):Form ()
+                local form = tab:PageSection ({ Title = "Input" }):Form ()
 
                 do -- Minimize shortcut
-                    local row = titledRow (form, 'Minimize shortcut')
+                    local row = titledRow (form, "Minimize shortcut")
 
                     row:Right ():KeybindField ({
                         Value = minimizeKeybind,
@@ -337,8 +337,8 @@ do -- Main window
                 do -- Searching
                     local row = titledRow (
                         form,
-                        'Searchable',
-                        'Allows users to search for content in a page with a search-field in the titlebar.'
+                        "Searchable",
+                        "Allows users to search for content in a page with a search-field in the titlebar."
                     )
 
                     row:Right ():Toggle ({
@@ -352,8 +352,8 @@ do -- Main window
                 do -- Draggable
                     local row = titledRow (
                         form,
-                        'Draggable',
-                        'Allows users to move the window with a mouse or touch device.'
+                        "Draggable",
+                        "Allows users to move the window with a mouse or touch device."
                     )
 
                     row:Right ():Toggle ({
@@ -367,8 +367,8 @@ do -- Main window
                 do -- Resizable
                     local row = titledRow (
                         form,
-                        'Resizable',
-                        'Allows users to resize the window with a mouse or touch device.'
+                        "Resizable",
+                        "Allows users to resize the window with a mouse or touch device."
                     )
 
                     row:Right ():Toggle ({
@@ -383,16 +383,16 @@ do -- Main window
             do -- Effects
                 local form = tab
                     :PageSection ({
-                        Title = 'Effects',
-                        Subtitle = 'These effects may be resource intensive across different systems.',
+                        Title = "Effects",
+                        Subtitle = "These effects may be resource intensive across different systems.",
                     })
                     :Form ()
 
                 do -- Dropshadow
                     local row = titledRow (
                         form,
-                        'Dropshadow',
-                        'Enables a dropshadow effect on the window.'
+                        "Dropshadow",
+                        "Enables a dropshadow effect on the window."
                     )
 
                     row:Right ():Toggle ({
@@ -406,8 +406,8 @@ do -- Main window
                 do -- UI Blur
                     local row = titledRow (
                         form,
-                        'Background blur',
-                        'Enables a UI background blur effect on the window. This can be detectable in some games.'
+                        "Background blur",
+                        "Enables a UI background blur effect on the window. This can be detectable in some games."
                     )
 
                     row:Right ():Toggle ({

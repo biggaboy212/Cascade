@@ -1,12 +1,12 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (
     self,
     properties: types.RadioButtonGroupProperties
 ): types.RadioButtonGroup
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
 
     --// References
     local create = creator.Create
@@ -20,8 +20,8 @@ return function (
 
     --// Functions
     local function radioButton (object, name, index)
-        structures.RadioButtons[index] = create ('Frame') ({
-            Name = 'RadioButton',
+        structures.RadioButtons[index] = create ("Frame") ({
+            Name = "RadioButton",
             AutomaticSize = Enum.AutomaticSize.XY,
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BackgroundTransparency = 1,
@@ -30,8 +30,8 @@ return function (
             LayoutOrder = index,
             Parent = structures.Body.__instance,
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 HorizontalAlignment = Enum.HorizontalAlignment.Right,
                 Padding = UDim.new (0, 6),
@@ -39,13 +39,13 @@ return function (
                 VerticalAlignment = Enum.VerticalAlignment.Center,
             }),
 
-            create ('ImageButton') ({
-                Name = 'Button',
+            create ("ImageButton") ({
+                Name = "Button",
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                Image = 'rbxassetid://118333468121914',
+                Image = "rbxassetid://118333468121914",
                 Size = UDim2.fromOffset (14, 14),
 
                 __dynamicKeys = {
@@ -66,13 +66,13 @@ return function (
                     end,
                 },
 
-                create ('ImageLabel') ({
-                    Name = 'Overlay',
+                create ("ImageLabel") ({
+                    Name = "Overlay",
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://118333468121914',
+                    Image = "rbxassetid://118333468121914",
                     Size = UDim2.fromOffset (14, 14),
 
                     __dynamicKeys = {
@@ -80,8 +80,8 @@ return function (
                         ImageTransparency = theme.Overlay[2],
                     },
 
-                    create ('UIGradient') ({
-                        Name = 'UIGradient',
+                    create ("UIGradient") ({
+                        Name = "UIGradient",
                         Rotation = 90,
                         Transparency = NumberSequence.new ({
                             NumberSequenceKeypoint.new (0, 0),
@@ -90,14 +90,14 @@ return function (
                     }),
                 }),
 
-                create ('ImageLabel') ({
-                    Name = 'Dot',
+                create ("ImageLabel") ({
+                    Name = "Dot",
                     AnchorPoint = Vector2.new (0.5, 0.5),
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://118333468121914',
+                    Image = "rbxassetid://118333468121914",
                     Position = UDim2.fromScale (0.5, 0.5),
                     ScaleType = Enum.ScaleType.Fit,
                     Size = UDim2.fromOffset (6, 6),
@@ -117,14 +117,14 @@ return function (
                     },
                 }),
 
-                create ('ImageLabel') ({
-                    Name = 'Stroke',
+                create ("ImageLabel") ({
+                    Name = "Stroke",
                     AnchorPoint = Vector2.new (0.5, 0.5),
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://132968326823931',
+                    Image = "rbxassetid://132968326823931",
                     Position = UDim2.fromScale (0.5, 0.5),
                     Size = UDim2.fromScale (1, 1),
 
@@ -141,14 +141,14 @@ return function (
                     },
                 }),
 
-                create ('ImageLabel') ({
-                    Name = 'InnerShadow',
+                create ("ImageLabel") ({
+                    Name = "InnerShadow",
                     AnchorPoint = Vector2.new (0.5, 0.5),
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://95115717327743',
+                    Image = "rbxassetid://95115717327743",
                     Position = UDim2.fromScale (0.5, 0.5),
                     Size = UDim2.fromScale (1, 1),
 
@@ -165,14 +165,14 @@ return function (
                     },
                 }),
 
-                create ('ImageLabel') ({
-                    Name = 'DropShadow',
+                create ("ImageLabel") ({
+                    Name = "DropShadow",
                     AnchorPoint = Vector2.new (0.5, 0.5),
                     BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                     BackgroundTransparency = 1,
                     BorderColor3 = Color3.fromRGB (0, 0, 0),
                     BorderSizePixel = 0,
-                    Image = 'rbxassetid://110994967430153',
+                    Image = "rbxassetid://110994967430153",
                     Position = UDim2.new (0.5, 0, 0.5, 1),
                     ScaleType = Enum.ScaleType.Fit,
                     Size = UDim2.fromOffset (20, 20),
@@ -190,14 +190,14 @@ return function (
                 }),
             }),
 
-            create ('TextLabel') ({
-                Name = 'Label',
+            create ("TextLabel") ({
+                Name = "Label",
                 AutomaticSize = Enum.AutomaticSize.XY,
                 BackgroundColor3 = Color3.fromRGB (255, 255, 255),
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB (0, 0, 0),
                 BorderSizePixel = 0,
-                FontFace = Font.new ('rbxassetid://12187365364'),
+                FontFace = Font.new ("rbxassetid://12187365364"),
                 LayoutOrder = 1,
                 RichText = true,
                 Text = name,
@@ -213,8 +213,8 @@ return function (
         }) :: Frame
 
         local button =
-            structures.RadioButtons[index]:FindFirstChild ('Button') :: ImageButton
-        if button and button:IsA ('ImageButton') then
+            structures.RadioButtons[index]:FindFirstChild ("Button") :: ImageButton
+        if button and button:IsA ("ImageButton") then
             button.MouseButton1Click:Connect (function ()
                 if object then
                     object.Value = index
@@ -229,8 +229,8 @@ return function (
 
     structures.Body = binder.Apply (
         properties,
-        create ('Frame') ({
-            Name = 'RadioButtons',
+        create ("Frame") ({
+            Name = "RadioButtons",
             AutomaticSize = Enum.AutomaticSize.XY,
             BackgroundColor3 = Color3.fromRGB (255, 255, 255),
             BackgroundTransparency = 1,
@@ -238,8 +238,8 @@ return function (
             BorderSizePixel = 0,
             Parent = parent,
 
-            create ('UIListLayout') ({
-                Name = 'UIListLayout',
+            create ("UIListLayout") ({
+                Name = "UIListLayout",
                 FillDirection = Enum.FillDirection.Horizontal,
                 HorizontalAlignment = Enum.HorizontalAlignment.Right,
                 Padding = UDim.new (0, 16),
@@ -267,7 +267,7 @@ return function (
                 local currentIndex = index == value
 
                 if radioButton then
-                    local button = radioButton:FindFirstChild ('Button')
+                    local button = radioButton:FindFirstChild ("Button")
 
                     button.ImageColor3 = currentIndex
                             and self.Theme.Controls.Selection[1].Value
@@ -276,17 +276,17 @@ return function (
                             and self.Theme.Controls.Selection[2].Value
                         or theme.Background[2].Value
 
-                    button:FindFirstChild ('Dot').ImageTransparency = currentIndex
+                    button:FindFirstChild ("Dot").ImageTransparency = currentIndex
                             and theme.Dot[2].Value
                         or 1
 
-                    button:FindFirstChild ('Stroke').ImageTransparency = currentIndex
+                    button:FindFirstChild ("Stroke").ImageTransparency = currentIndex
                             and 1
                         or theme.Stroke[2].Value
-                    button:FindFirstChild ('InnerShadow').ImageTransparency = currentIndex
+                    button:FindFirstChild ("InnerShadow").ImageTransparency = currentIndex
                             and 1
                         or theme.InnerShadow[2].Value
-                    button:FindFirstChild ('DropShadow').ImageTransparency = currentIndex
+                    button:FindFirstChild ("DropShadow").ImageTransparency = currentIndex
                             and 0.76
                         or 1
                 end
@@ -301,7 +301,7 @@ return function (
 
     object = binder.Wrap (properties, bindings, structures.Body)
 
-    object.Type = 'RadioButtonGroup'
+    object.Type = "RadioButtonGroup"
     object.Theme = self.Theme
     object.Structures = structures
     object.Option = function (self, name: string?)

@@ -1,13 +1,13 @@
 --// Imports
-local binder = require ('@modules/binder')
-local creator = require ('@modules/creator')
-local services = require ('@modules/services')
-local types = require ('@types')
-local utility = require ('@modules/utility')
+local binder = require ("@modules/binder")
+local creator = require ("@modules/creator")
+local services = require ("@modules/services")
+local types = require ("@types")
+local utility = require ("@modules/utility")
 
-local components = require ('@components/init')
-local symbols = require ('@modules/symbols')
-local themes = require ('@themes/init')
+local components = require ("@components/init")
+local symbols = require ("@modules/symbols")
+local themes = require ("@themes/init")
 
 --// References
 local create = creator.Create
@@ -26,11 +26,11 @@ local function deepCopy (original)
     local copy = {}
     for key, value in pairs (original) do
         local vType = typeof (value)
-        if vType == 'table' then
+        if vType == "table" then
             if
                 value.Value ~= nil
                 and value.Connect
-                and typeof (value.Connect) == 'function'
+                and typeof (value.Connect) == "function"
             then
                 copy[key] = creator.Value (value.Value)
             else
@@ -54,8 +54,8 @@ cascade.New = function (properties: types.AppProperties): types.App
     local initialTheme = properties.Theme or themes.Light
     properties.Theme = deepCopy (initialTheme)
 
-    local container = utility.ProtectUI (create ('ScreenGui') ({
-        Name = 'Cascade',
+    local container = utility.ProtectUI (create ("ScreenGui") ({
+        Name = "Cascade",
         IgnoreGuiInset = true,
         ResetOnSpawn = false,
         ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
@@ -64,22 +64,22 @@ cascade.New = function (properties: types.AppProperties): types.App
         OnTopOfCoreBlur = true,
     })) :: ScreenGui
 
-    local pill = create ('ImageButton') ({
-        Name = 'WindowPill',
+    local pill = create ("ImageButton") ({
+        Name = "WindowPill",
         AnchorPoint = Vector2.new (0.5, 0),
         AutoButtonColor = false,
         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
         BackgroundTransparency = 1,
         BorderColor3 = Color3.fromRGB (0, 0, 0),
         BorderSizePixel = 0,
-        Image = 'rbxassetid://93520763686656',
+        Image = "rbxassetid://93520763686656",
         ImageTransparency = 0.5,
         Position = UDim2.new (0.5, 0, 0, 10),
         Size = UDim2.fromOffset (180, 5),
         Parent = container.__instance,
 
-        create ('UICorner') ({
-            Name = 'UICorner',
+        create ("UICorner") ({
+            Name = "UICorner",
             CornerRadius = UDim.new (1, 0),
         }),
     }) :: ImageButton
@@ -120,8 +120,8 @@ cascade.New = function (properties: types.AppProperties): types.App
             local function deepUpdate (target, new)
                 for key, value in pairs (new) do
                     if
-                        typeof (value) == 'table'
-                        and typeof (target[key]) == 'table'
+                        typeof (value) == "table"
+                        and typeof (target[key]) == "table"
                         and not value.Value
                     then
                         deepUpdate (target[key], value)
@@ -133,7 +133,7 @@ cascade.New = function (properties: types.AppProperties): types.App
 
             deepUpdate (properties.Theme, theme)
         end,
-    }, container, { 'Theme' })
+    }, container, { "Theme" })
 
     object.Structures = {
         WindowPill = pill,

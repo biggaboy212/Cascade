@@ -3,8 +3,8 @@
 ]]
 
 --// Imports
-local creator = require ('@modules/creator')
-local services = require ('@modules/services')
+local creator = require ("@modules/creator")
+local services = require ("@modules/services")
 
 --// References
 local workspace = services.Workspace
@@ -30,7 +30,7 @@ end
 
 --// Initialize
 local function createBlur (distance: number?)
-    local blurEffects = Instance.new ('Folder', workspace.CurrentCamera)
+    local blurEffects = Instance.new ("Folder", workspace.CurrentCamera)
     local connections = {}
 
     local triPositions = {
@@ -38,7 +38,7 @@ local function createBlur (distance: number?)
         topRight = Vector2.new (),
         bottomRight = Vector2.new (),
     }
-    local model = create ('Part') ({
+    local model = create ("Part") ({
         Color = Color3.new (0, 0, 0),
         Material = Enum.Material.Glass,
         Size = Vector3.new (1, 1, 0),
@@ -50,18 +50,18 @@ local function createBlur (distance: number?)
         CastShadow = false,
         Transparency = 0.98,
 
-        create ('SpecialMesh') ({
+        create ("SpecialMesh") ({
             MeshType = Enum.MeshType.Brick,
             Offset = Vector3.new (0, 0, -0.000001),
         }),
     }) :: Part
-    local effect = create ('DepthOfFieldEffect') ({
+    local effect = create ("DepthOfFieldEffect") ({
         FarIntensity = 0,
         NearIntensity = 1,
         InFocusRadius = 0.1,
         Parent = lighting,
     })
-    local mesh = model:FindFirstChildWhichIsA ('SpecialMesh')
+    local mesh = model:FindFirstChildWhichIsA ("SpecialMesh")
 
     distance = distance or 0.001
 
@@ -118,11 +118,11 @@ local function createBlur (distance: number?)
         end
 
         connections[#connections + 1] =
-            camera:GetPropertyChangedSignal ('CFrame'):Connect (render)
+            camera:GetPropertyChangedSignal ("CFrame"):Connect (render)
         connections[#connections + 1] =
-            camera:GetPropertyChangedSignal ('ViewportSize'):Connect (render)
+            camera:GetPropertyChangedSignal ("ViewportSize"):Connect (render)
         connections[#connections + 1] =
-            camera:GetPropertyChangedSignal ('FieldOfView'):Connect (render)
+            camera:GetPropertyChangedSignal ("FieldOfView"):Connect (render)
 
         task.spawn (render)
     end
@@ -152,15 +152,15 @@ return function (frame: GuiObject, distance: number?)
         model.Transparency = Value and 0.98 or 1
     end
 
-    frame:GetPropertyChangedSignal ('AbsolutePosition'):Connect (function ()
+    frame:GetPropertyChangedSignal ("AbsolutePosition"):Connect (function ()
         onChange (frame)
     end)
 
-    frame:GetPropertyChangedSignal ('AbsoluteSize'):Connect (function ()
+    frame:GetPropertyChangedSignal ("AbsoluteSize"):Connect (function ()
         onChange (frame)
     end)
 
-    frame:GetPropertyChangedSignal ('Visible'):Connect (function ()
+    frame:GetPropertyChangedSignal ("Visible"):Connect (function ()
         blur.SetVisibility (frame.Visible)
     end)
 

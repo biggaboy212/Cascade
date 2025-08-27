@@ -1,5 +1,5 @@
-local binder = require ('./binder')
-local types = require ('@types')
+local binder = require ("./binder")
+local types = require ("@types")
 
 local creator = {}
 
@@ -28,7 +28,7 @@ function creator.Create (className: string)
         local instance = Instance.new (className)
 
         for key, value in pairs (properties) do
-            if key == '__dynamicKeys' and type (value) == 'table' then
+            if key == "__dynamicKeys" and type (value) == "table" then
                 for property, valueObject: types.ValueState in pairs (value) do
                     pcall (function ()
                         instance[property] = valueObject.Value
@@ -37,15 +37,15 @@ function creator.Create (className: string)
                     valueObject:Connect (function (newValue)
                         task.defer (pcall, function ()
                             if
-                                properties['__contextKeys']
-                                and properties['__contextKeys']['_general']
+                                properties["__contextKeys"]
+                                and properties["__contextKeys"]["_general"]
                             then
-                                properties['__contextKeys']['_general'] ()
+                                properties["__contextKeys"]["_general"] ()
                             end
 
-                            instance[property] = properties['__contextKeys']
-                                    and properties['__contextKeys'][property]
-                                    and properties['__contextKeys'][property] ()
+                            instance[property] = properties["__contextKeys"]
+                                    and properties["__contextKeys"][property]
+                                    and properties["__contextKeys"][property] ()
                                 or newValue
                         end)
                     end)
@@ -54,7 +54,7 @@ function creator.Create (className: string)
                 continue
             end
 
-            if typeof (value) == 'table' and value.__unique then
+            if typeof (value) == "table" and value.__unique then
                 value.Parent = instance
             end
 
@@ -66,13 +66,13 @@ function creator.Create (className: string)
         return setmetatable ({ __unique = true }, {
             __metatable = instance,
             __index = function (_, key)
-                if key == '__instance' then
+                if key == "__instance" then
                     return instance
                 end
 
                 local value = instance[key]
 
-                if typeof (value) == 'function' then
+                if typeof (value) == "function" then
                     return function (_, ...)
                         return value (instance, ...)
                     end

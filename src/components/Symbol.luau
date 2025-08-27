@@ -1,9 +1,9 @@
-local types = require ('@types')
+local types = require ("@types")
 
 return function (self, properties: types.SymbolProperties): types.Symbol
     --// Imports
-    local creator = require ('@modules/creator')
-    local binder = require ('@modules/binder')
+    local creator = require ("@modules/creator")
+    local binder = require ("@modules/binder")
 
     --// References
     local create = creator.Create
@@ -14,11 +14,11 @@ return function (self, properties: types.SymbolProperties): types.Symbol
 
     --// UI
     properties = properties or {}
-    properties.Style = properties.Style or 'Primary'
+    properties.Style = properties.Style or "Primary"
     properties.Size = properties.Size or UDim2.fromOffset (20, 20)
 
-    structures.Body = create ('ImageLabel') ({
-        Name = 'Image',
+    structures.Body = create ("ImageLabel") ({
+        Name = "Image",
         AutomaticSize = Enum.AutomaticSize.XY,
         BackgroundColor3 = Color3.fromRGB (255, 255, 255),
         BackgroundTransparency = 1,
@@ -33,12 +33,12 @@ return function (self, properties: types.SymbolProperties): types.Symbol
 
         __contextKeys = {
             ImageColor3 = function ()
-                return properties.Style == 'Primary'
+                return properties.Style == "Primary"
                         and self.Theme.Text.Primary[1].Value
                     or self.Theme.Text.Secondary[1].Value
             end,
             ImageTransparency = function ()
-                return properties.Style == 'Primary'
+                return properties.Style == "Primary"
                         and self.Theme.Text.Primary[2].Value
                     or self.Theme.Text.Secondary[2].Value
             end,
@@ -47,8 +47,8 @@ return function (self, properties: types.SymbolProperties): types.Symbol
 
     --// Initialize
     local object = binder.Wrap (properties, {
-        Style = function (value: 'Primary' | 'Secondary')
-            if value == 'Primary' then
+        Style = function (value: "Primary" | "Secondary")
+            if value == "Primary" then
                 structures.Body.ImageColor3 =
                     self.Theme.Text.Primary[1].Value.Value
                 structures.Body.ImageTransparency =
@@ -61,7 +61,7 @@ return function (self, properties: types.SymbolProperties): types.Symbol
         end,
     }, structures.Body)
 
-    object.Type = 'Symbol'
+    object.Type = "Symbol"
     object.Theme = self.Theme
     object.Structures = structures
 
