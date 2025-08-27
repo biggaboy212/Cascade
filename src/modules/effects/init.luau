@@ -1,3 +1,3 @@
 return {
-	UIBlur = require("@effects/blur"),
+    UIBlur = require ('@effects/blur'),
 }

@@ -1,22 +1,32 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "Build source",
-        "type": "shell",
-        "command": "lune",
-        "args": [
-          "run",
-          "build/build",
-          "build/.pcmp.json"
-        ],
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        },
-        "problemMatcher": [],
-        "detail": "Builds and composes source with ProCMP"
-      }
-    ]
-  }
-  
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build source",
+      "type": "shell",
+      "command": "lune",
+      "args": [
+        "run",
+        "build/build",
+        "build/.pcmp.json"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "problemMatcher": [],
+      "detail": "Builds and composes source with ProCMP"
+    },
+    {
+      "label": "Format all",
+      "type": "shell",
+      "command": "stylua",
+      "args": [
+        "."
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Formats all Lua and Luau files in the project using stylua"
+    }
+  ]
+}
