@@ -1,4 +1,8 @@
 {
+    "languageMode": "nonstrict",
+    "lint": {
+        "*": true
+    },
     "aliases": {
         "src": "./src",
         "effects": "./src/modules/effects",
@@ -6,7 +10,6 @@
         "components": "./src/components",
         "structures": "./src/structures",
         "themes": "./src/themes",
-        
         "types": "./src/types"
     }
 }
