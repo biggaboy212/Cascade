@@ -1,0 +1,35 @@
+{
+    "openComposedOutput": true,
+    "buildConfigs": [
+        {
+            "name": "Debug",
+            "promptVersion": false,
+            "promptDeploy": false,
+            "prerelease": true,
+            "frame": "build/frame.luau",
+            "darkluaConfig": "build/.darklua_debug.json",
+            "input": "src/init.luau",
+            "output": "dist/debug.luau"
+        },
+        {
+            "name": "Beta",
+            "promptVersion": true,
+            "promptDeploy": true,
+            "prerelease": true,
+            "frame": "build/frame.luau",
+            "darkluaConfig": "build/.darklua.json",
+            "input": "src/init.luau",
+            "output": "dist/beta.luau"
+        },
+        {
+            "name": "Release",
+            "promptVersion": true,
+            "promptDeploy": true,
+            "prerelease": false,
+            "frame": "build/frame.luau",
+            "darkluaConfig": "build/.darklua.json",
+            "input": "src/init.luau",
+            "output": "dist/release.luau"
+        }
+    ]
+}

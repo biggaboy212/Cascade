@@ -5,4 +5,5 @@
     ],
     "luau-lsp.sourcemap.enabled": false,
     "luau-lsp.completion.autocompleteEnd": true,
+    "editor.formatOnSave": true
 }
