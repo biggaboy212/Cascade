@@ -7,8 +7,9 @@
       "command": "lune",
       "args": [
         "run",
-        "build/build",
-        "build/.pcmp.json"
+        "build/composer",
+        "build/.build.json",
+        "build/.deployment.json"
       ],
       "group": {
         "kind": "build",
