@@ -1,0 +1,4 @@
+[tools]
+darklua = "seaofvoices/darklua@0.16.0"
+lune = "lune-org/lune@0.9.3"
+rojo = "rojo-rbx/rojo@7.5.1"
