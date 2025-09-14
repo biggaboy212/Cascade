@@ -6,7 +6,7 @@
     "StarterPlayer": {
       "StarterPlayerScripts": {
         "Client": {
-          "$path": "dist/test.client.luau"
+          "$path": "generated/test.client.luau"
         }
       }
     }

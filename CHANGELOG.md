@@ -1,10 +1,26 @@
 # Change Log
 
-## Release
+## v1.0.0 (9/13/2025)
 
-## Beta
+🥳 Officially released!
 
-### `v1.0.0-beta.6`
+Thanks to those who used beta and reported bugs, everything is pretty bug-free.
+
+```diff
++ Included .pcmp configuration in /pipeline, distribution key uses dotenv now
+
+! Backend changes
+! Changes and clarifications in installation docs
+```
+
+## v1.0.0-beta.7 (8/30/2025)
+
+```diff
+! Removed the `_P` PCMP build metadata global which was interfering with other builds that use PCMP. (It is now instead preserved in metadata tags.)
+! Minor PR merge fixing spelling of "Luau"
+```
+
+## v1.0.0-beta.6 (7/19/2025)
 
 ```diff
 ! Fixed an issue where some first person games wouldn't let you move your camera around with a cascade window open. This was due to a modal frame.
@@ -12,7 +28,7 @@
 ! Fixed an issue where the search field would not be visible at first.
 ```
 
-### `v1.0.0-beta.5`
+## v1.0.0-beta.5 (7/17/2025)
 
 ```diff
 + Added pull-down buttons
@@ -22,7 +38,7 @@
 ? Possibly fixed an issue with the toggle's theme not using the correct theme on startup
 ```
 
-### `v1.0.0-beta.4`
+## v1.0.0-beta.4 (7/15/2025)
 
 ```diff
 + Added pop-up buttons
@@ -36,7 +52,7 @@
 ! Fixed accessory sizing behavior in rows (particularly the issue was for text fields, but this extends to all components.)
 ```
 
-### `v1.0.0-beta.3`
+## v1.0.0-beta.3 (7/13/2025)
 
 ```diff
 ! Fixed errors on minimize if blur was disabled on startup.
@@ -46,5 +62,3 @@
 
 ? Possibly fixed an issue with the toggle's theme not using the correct theme on startup
 ```
-
-### (Previous releases were untracked)

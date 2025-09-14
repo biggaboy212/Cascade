@@ -17,10 +17,10 @@
             "promptVersion": false,
             "promptDeploy": false,
 
-            "frame": "build/frame.luau",
-            "darkluaConfig": "build/.darklua_debug.json",
+            "frame": "pipeline/frame.luau",
+            "darkluaConfig": "pipeline/.darklua_debug.json",
             "input": "tests/test.luau",
-            "output": "dist/test.client.luau"
+            "output": "generated/test.client.luau"
         },
 
         {
@@ -29,10 +29,10 @@
             "promptVersion": false,
             "promptDeploy": false,
 
-            "frame": "build/frame.luau",
-            "darkluaConfig": "build/.darklua_debug.json",
+            "frame": "pipeline/frame.luau",
+            "darkluaConfig": "pipeline/.darklua_debug.json",
             "input": "src/init.luau",
-            "output": "dist/debug.luau"
+            "output": "generated/debug.luau"
         },
 
         {
@@ -42,10 +42,10 @@
             "promptDeploy": true,
             "prerelease": true,
 
-            "frame": "build/frame.luau",
-            "darkluaConfig": "build/.darklua.json",
+            "frame": "pipeline/frame.luau",
+            "darkluaConfig": "pipeline/.darklua.json",
             "input": "src/init.luau",
-            "output": "dist/dist.luau"
+            "output": "generated/dist.luau"
         },
 
         {
@@ -54,10 +54,10 @@
             "promptVersion": true,
             "promptDeploy": true,
 
-            "frame": "build/frame.luau",
-            "darkluaConfig": "build/.darklua.json",
+            "frame": "pipeline/frame.luau",
+            "darkluaConfig": "pipeline/.darklua.json",
             "input": "src/init.luau",
-            "output": "dist/dist.luau"
+            "output": "generated/dist.luau"
         }
     ]
 }

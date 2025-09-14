@@ -663,16 +663,19 @@ return function(self, properties: types.WindowProperties): types.Window
 
 		local function toCache(page, descendants)
 			local cache = {}
+
 			for _, child in ipairs(descendants) do
 				if child:IsA("GuiObject") then
 					cache[child] = child.Visible
 				end
 			end
+			
 			pageCaches[page] = cache
 		end
 
 		local function fromCache(page, descendants)
 			local cache = pageCaches[page]
+
 			if not cache then
 				return
 			end
@@ -685,7 +688,10 @@ return function(self, properties: types.WindowProperties): types.Window
 		end
 
 		field:GetPropertyChangedSignal("Text"):Connect(function()
+			local matches = {}
+			local items = {}
 			local page = structures.Content:FindFirstChildOfClass("ScrollingFrame")
+			
 			if not page then
 				return
 			end
@@ -702,9 +708,6 @@ return function(self, properties: types.WindowProperties): types.Window
 				fromCache(page, descendants)
 				return
 			end
-
-			local matches = {}
-			local items = {}
 
 			for _, child in ipairs(descendants) do
 				if child:IsA("GuiObject") then
@@ -840,7 +843,6 @@ return function(self, properties: types.WindowProperties): types.Window
 			then
 				if dragging then
 					local delta = input.Position - inputPos
-
 					local newPosition = UDim2.new(
 						startPos.X.Scale,
 						startPos.X.Offset + delta.X,
@@ -866,6 +868,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			end
 
 			local original = v.Size
+
 			v.Size = UDim2.fromOffset(0, 0)
 			v.Size = original
 		end
