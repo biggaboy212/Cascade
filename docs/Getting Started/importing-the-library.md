@@ -11,10 +11,10 @@ Cascade also has pre-built `luau` modules.
 This method will download the release dynamically using HttpGet.
 
 ```luau
-local function import(owner, release, version, file)
-    local tag = (version == "latest" and "latest" or "download/"..version)
+local function import(owner, repo, version, file)
+    local tag = (version == "latest" and "latest/download" or "download/"..version)
 
-    return loadstring(game:HttpGet(("https://github.com/%s/%s/releases/%s/%s"):format(owner, release, tag, file)), file)()
+    return loadstring(game:HttpGetAsync(("https://github.com/%s/%s/releases/%s/%s"):format(owner, repo, tag, file)), file)()
 end
 
 local cascade = import("biggaboy212", "Cascade", "latest", "dist.luau")
