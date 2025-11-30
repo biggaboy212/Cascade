@@ -1,6 +1,7 @@
 # Importing the Library
 
-> Note that you can clone the entire Cascade repo into your project using something similar to wally, but this can be unstable.
+!!! note
+    You can clone the entire Cascade repo into your project with something *similar* to wally, but there isn't currently a package manager that I know of which smoothly works with non roblox-dependent projects.
 
 ## Pre-built releases
 
@@ -23,8 +24,5 @@ local cascade = import("biggaboy212", "Cascade", "latest", "dist.luau")
 
 ### Local Build
 
-1. Download a valid release:
-
-    [Cascade Releases](https://github.com/biggaboy212/Cascade/releases)
-
+1. Download a valid release: [Cascade Releases](https://github.com/biggaboy212/Cascade/releases)
 2. Place the `luau` module into your project (e.g., under `packages/`).

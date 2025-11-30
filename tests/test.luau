@@ -28,6 +28,8 @@ local app = cascade.New({
 	Theme = cascade.Themes.Light,
 })
 
+cascade:Window()
+
 do -- Main window
 	local window = app:Window({
 		Title = "Cascade",

@@ -35,7 +35,6 @@ Reference the [Cascade documentation](https://biggaboy212.github.io/Cascade/) fo
 
 - [Importing the Library](https://biggaboy212.github.io/Cascade/Getting%20Started/importing-the-library/)
 - [The API](https://biggaboy212.github.io/Cascade/Getting%20Started/the-api/)
-- [Creating an Application](https://biggaboy212.github.io/Cascade/Getting%20Started/creating-an-application/)
 - [Components](https://biggaboy212.github.io/Cascade/Components/)
 
 ## Supporting the project

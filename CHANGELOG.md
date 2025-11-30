@@ -1,5 +1,13 @@
 # Change Log
 
+## v1.0.1 (x/xx/xxxx)
+
+```diff
++ Added warning when calling :Window on cascade module instead of an application object.
+
+! Fixed sections returning type `Tab` instead of `Section`
+```
+
 ## v1.0.0 (9/13/2025)
 
 🥳 Officially released!

@@ -85,9 +85,9 @@ cascade.New = function(properties: types.AppProperties): types.App
 		end
 
 		currentTween = tweenService:Create(pill.__instance, tweenInfo, {
-			ImageTransparency = 0.15
+			ImageTransparency = 0.15,
 		})
-		
+
 		if currentTween then
 			currentTween:Play()
 		end
@@ -99,7 +99,7 @@ cascade.New = function(properties: types.AppProperties): types.App
 		end
 
 		currentTween = tweenService:Create(pill.__instance, tweenInfo, {
-			ImageTransparency = 0.5
+			ImageTransparency = 0.5,
 		})
 
 		if currentTween then
@@ -138,6 +138,17 @@ cascade.New = function(properties: types.AppProperties): types.App
 	task.defer(binder.Apply, properties, object)
 
 	return object
+end
+
+cascade.Window = function(self)
+	warn(
+		"[Cascade] You cannot call `cascade.Window` directly.\n"
+			.. "Windows are created *on the app object*, not on the module.\n\n"
+			.. "Example:\n"
+			.. "    local app = cascade.New()\n"
+			.. "    local window = app:Window({ ... })\n\n"
+			.. "Make sure you call `:Window` on the app returned by `cascade.New`."
+	)
 end
 
 return cascade

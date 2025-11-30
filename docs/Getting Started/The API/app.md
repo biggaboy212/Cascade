@@ -1,8 +1,8 @@
-# Creating an Application
+# App
 
 You can create a new app by calling the `New` method from the Cascade API. This returns a custom object merged with a `ScreenGui`.
 
-The returned object exposes all built-in components such as `Window`, `Tab`, and others for UI composition.
+The returned object exposes all built-in [Components](../../Components/index.md) such as [Window](../../Components/Window.md), [Tab](../../Components/Tab.md), and others for UI composition.
 
 ## Summary
 

@@ -416,7 +416,7 @@ export type PullDownButton = BaseComponent & Components & PullDownButtonProperti
 -- Export
 export type Components = {
 	Window: (self: any, properties: WindowProperties?) -> Window,
-	Section: (self: any, properties: SectionProperties?) -> Tab,
+	Section: (self: any, properties: SectionProperties?) -> Section,
 	Tab: (self: any, properties: TabProperties?) -> Tab,
 	Form: (self: any, properties: FormProperties?) -> Form,
 	Row: (self: any, properties: RowProperties?) -> Row,

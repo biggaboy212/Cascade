@@ -1,6 +1,5 @@
 nav:
   - interface-guidelines.md
   - importing-the-library.md
-  - the-api.md
-  - creating-an-application.md
+  - The API
   - example.md
