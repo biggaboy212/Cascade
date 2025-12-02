@@ -1,0 +1,9 @@
+.md-nav__title {
+  display: none !important;
+}
+
+.md-nav__item--section > .md-nav__link {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.068);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.1rem;
+}
