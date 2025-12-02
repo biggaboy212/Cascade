@@ -60,7 +60,15 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 		local menuSize = menu.AbsoluteSize
 		local viewportSize = camera.ViewportSize
 
-		local desiredX = bodyPos.X + HORIZONTAL_OFFSET
+		local desiredX
+		if properties.Maximum and properties.Maximum > 1 then
+			local anchorElement = structures.PopUpIndicator or body
+			local anchorPos = anchorElement.AbsolutePosition
+			desiredX = anchorPos.X + HORIZONTAL_OFFSET
+		else
+			desiredX = bodyPos.X + HORIZONTAL_OFFSET
+		end
+		
 		local desiredY = bodyPos.Y + bodySize.Y + VERTICAL_PADDING
 		local maxX = math.max(EDGE_BUFFER, viewportSize.X - EDGE_BUFFER - menuSize.X)
 		local maxY = math.max(EDGE_BUFFER, viewportSize.Y - EDGE_BUFFER - menuSize.Y)
@@ -188,15 +196,44 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 
 		option.MouseButton1Click:Connect(function()
 			if object then
-				object.Expanded = false
-				task.wait(0.2)
-				object.Value = index
+				if object.Maximum and object.Maximum > 1 then
+					local current = object.Value or {}
+					if typeof(current) ~= "table" then
+						current = current and { current } or {}
+					end
+
+					local foundIndex = nil
+					for i, v in ipairs(current) do
+						if v == index then
+							foundIndex = i
+							break
+						end
+					end
+
+					if foundIndex then
+						table.remove(current, foundIndex)
+					else
+						if #current < object.Maximum then
+							table.insert(current, index)
+						else
+							table.remove(current, 1)
+							table.insert(current, index)
+						end
+					end
+
+					object.Value = current
+				else
+					object.Expanded = false
+					task.wait(0.2)
+					object.Value = index
+				end
 			end
 		end)
 	end
 
 	--// UI
 	properties = properties or {}
+	properties.Maximum = properties.Maximum or 1
 	properties.Expanded = properties.Expanded or false
 
 	structures.Body = binder.Apply(
@@ -384,25 +421,69 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 			end)
 		end,
 
-		Value = function(value: number)
-			structures.CurrentTab.Text = structures.Options[value]:FindFirstChild("Label").Text
+		Value = function(value)
+			local isMulti = object and object.Maximum and object.Maximum > 1
 
-			for index, option in ipairs(structures.Options) do
-				local currentIndex = index == value
-
-				if not option or not option:FindFirstChild("Checkmark") then
-					continue
+			if isMulti then
+				local selMap = {}
+				if typeof(value) == "table" then
+					for _, v in ipairs(value) do
+						selMap[v] = true
+					end
+				elseif value then
+					selMap[value] = true
 				end
 
-				if not currentIndex then
-					option:FindFirstChild("Checkmark").Visible = false
-					option:FindFirstChild("CheckmarkRepl").Visible = true -- Scuffed way to do this but 🤷‍♂️
+				local labels = {}
+				for idx, opt in ipairs(structures.Options) do
+					if selMap[idx] and opt and opt:FindFirstChild("Label") then
+						table.insert(labels, opt:FindFirstChild("Label").Text)
+					end
+				end
+
+				if #labels == 0 then
+					structures.CurrentTab.Text = "None"
 				else
-					option:FindFirstChild("CheckmarkRepl").Visible = false
-					if not value then
-						option:FindFirstChild("Checkmark").Visible = false
-					else
+					structures.CurrentTab.Text = table.concat(labels, ", ")
+				end
+
+				for index, option in ipairs(structures.Options) do
+					if not option or not option:FindFirstChild("Checkmark") then
+						continue
+					end
+
+					if selMap[index] then
 						option:FindFirstChild("Checkmark").Visible = true
+						option:FindFirstChild("CheckmarkRepl").Visible = false
+					else
+						option:FindFirstChild("Checkmark").Visible = false
+						option:FindFirstChild("CheckmarkRepl").Visible = true
+					end
+				end
+			else
+				if not value or not structures.Options[value] then
+					structures.CurrentTab.Text = "None"
+				else
+					structures.CurrentTab.Text = structures.Options[value]:FindFirstChild("Label").Text
+				end
+
+				for index, option in ipairs(structures.Options) do
+					local currentIndex = index == value
+
+					if not option or not option:FindFirstChild("Checkmark") then
+						continue
+					end
+
+					if not currentIndex then
+						option:FindFirstChild("Checkmark").Visible = false
+						option:FindFirstChild("CheckmarkRepl").Visible = true -- Scuffed way to do this but 🤷‍♂️
+					else
+						option:FindFirstChild("CheckmarkRepl").Visible = false
+						if not value then
+							option:FindFirstChild("Checkmark").Visible = false
+						else
+							option:FindFirstChild("Checkmark").Visible = true
+						end
 					end
 				end
 			end

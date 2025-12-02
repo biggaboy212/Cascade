@@ -28,8 +28,6 @@ local app = cascade.New({
 	Theme = cascade.Themes.Light,
 })
 
-cascade:Window()
-
 do -- Main window
 	local window = app:Window({
 		Title = "Cascade",
@@ -253,6 +251,29 @@ do -- Main window
 					popUpButton:Option("Item Twelve")
 					popUpButton:Option("Item Thirteen")
 					popUpButton:Remove(13)
+				end
+
+				do -- Multi pop-up button
+					local row = titledRow(
+						form,
+						"Pop Up Button (Maximum=3)",
+						"Displays a menu of non-mutually exclusive options."
+					)
+
+					local multi = row:Right():PopUpButton({
+						Options = { "One", "Two", "Three", "Four" },
+						Maximum = 3,
+						ValueChanged = function(self, value)
+							print("Selections:")
+							for _, idx in ipairs(value or {}) do
+								print(self.Options[idx])
+							end
+						end,
+					})
+
+					multi:Option("Five")
+
+					multi.Value = { 1, 3 }
 				end
 
 				do -- Pull Down Button

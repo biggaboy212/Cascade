@@ -390,8 +390,9 @@ export type RadioButtonGroup = BaseComponent & Components & RadioButtonGroupProp
 export type PopUpButtonProperties = Frame & {
 	Options: { [number]: string }?,
 	Expanded: boolean?,
-	Value: number?,
-	ValueChanged: ((self: PopUpButton, value: number) -> unknown)?,
+	Maximum: number?,
+	Value: (number | { number })?,
+	ValueChanged: ((self: PopUpButton, value: number | { number }) -> unknown)?,
 }
 
 export type PopUpButton = BaseComponent & Components & PopUpButtonProperties & {

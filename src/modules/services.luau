@@ -8,6 +8,7 @@ end
 
 --// Initialize
 return {
+	HttpService = cast("HttpService") :: HttpService,
 	TweenService = cast("TweenService") :: TweenService,
 	RunService = cast("RunService") :: RunService,
 	UserInputService = cast("UserInputService") :: UserInputService,

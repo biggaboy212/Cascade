@@ -93,7 +93,7 @@ return {
 		},
 
 		Button = {
-			Shadow = value(Color3.fromRGB(50, 50, 50)),
+			Shadow = value(Color3.fromRGB(0, 0, 0)),
 			FillPrimary = value(ColorSequence.new({
 				ColorSequenceKeypoint.new(0, Color3.fromRGB(72, 148, 255)),
 				ColorSequenceKeypoint.new(1, Color3.fromRGB(10, 110, 255)),

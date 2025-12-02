@@ -1,11 +1,13 @@
 # Change Log
 
-## v1.0.1 (x/xx/xxxx)
+## v1.0.1-beta.1 (12/2/2025)
 
 ```diff
-+ Added warning when calling :Window on cascade module instead of an application object.
++ Added warning if you call ':Window()' on the Cascade module instead of an Application for API conversion help.
++ Added `Maximum` property to `PopUpButton` (multi-select)
 
-! Fixed sections returning type `Tab` instead of `Section`
+! Fixed section component returning type `Tab` instead of `Section`
+! Slight visual changes to the push button component
 ```
 
 ## v1.0.0 (9/13/2025)

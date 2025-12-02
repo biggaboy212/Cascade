@@ -11,7 +11,8 @@ A `PopUpbutton` displays a menu of mutually exclusive options.
 | Property       | Type       | Description |
 |----------------|------------|-------------|
 | `Options` | `#!luau {[number]: string}?` | You can use this table to pre-define options. Note that doing it this way will not give you access to the option instances themselves. |
-| `Value` | `#!luau number?` | The numeric index of the option to be selected. |
+| `Maximum` | `#!luau number?` | Maximum number of selectable options. Defaults to `1` (single-select). |
+| `Value` | `#!luau number? or {number}?` | The selected index (single) or a table of selected indices when `Maximum > 1`. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -30,7 +31,7 @@ A `PopUpbutton` displays a menu of mutually exclusive options.
 
 | Event          | Signature     | Description |
 |----------------|---------------|-------------|
-| `ValueChanged` | `#!luau ((self: PopUpButton, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
+| `ValueChanged` | `#!luau ((self: PopUpButton, value: number or {number}) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
 
@@ -40,8 +41,9 @@ A `PopUpbutton` displays a menu of mutually exclusive options.
 type PopUpButtonProperties = Frame & {
     Options: { [number]: string }?,
     Expanded: boolean?,
-    Value: number?,
-    ValueChanged: ((self: PopUpButton, value: number) -> unknown)?,
+    Maximum: number?,
+    Value: (number | {number})?,
+    ValueChanged: ((self: PopUpButton, value: number | {number}) -> unknown)?,
 }
 
 type PopUpButton = BaseComponent & Components & PopUpButtonProperties & {
@@ -79,4 +81,24 @@ local itemThree = popUpButton:Option("Item Three")
 
 print(itemThree.ClassName) --> Frame
 popUpButton:Remove(13)
+```
+
+## Multi-select Example
+
+```luau
+local multi = row:Right():PopUpButton({
+    Options = {"One","Two","Three","Four"},
+    Maximum = 3,
+    ValueChanged = function(self, value)
+        -- `value` is ALWAYS a table of indices when `Maximum > 1` even if only 1 value is selected.
+        print("Selections:")
+        for _, idx in ipairs(value or {}) do
+            print(self.Options[idx])
+        end
+    end,
+})
+
+local five = multi:Option("Five")
+
+multi.Value = {1, 3}
 ```
