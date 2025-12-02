@@ -21,7 +21,7 @@
 
 Cascade is a Luau UI library based on macOS Sequoia.
 
-![Cascade](assets/cascade_show.png)
+![Cascade](assets/cascade_show_sequoia.png)
 
 ## The Pitch
 
