@@ -23,6 +23,7 @@ local components = {
 	RadioButtonGroup = require("@components/RadioButtonGroup"),
 	PopUpButton = require("@components/PopUpButton"),
 	PullDownButton = require("@components/PullDownButton"),
+	Page = require("@components/Page"),
 }
 
 --// Intialize

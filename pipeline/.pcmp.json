@@ -27,7 +27,7 @@
 
             "frame": "pipeline/frames/stable.luau",
             "darkluaConfig": "pipeline/darklua/unminified.json",
-            "input": "src/main.luau",
+            "input": "src/init.luau",
             "output": "generated/debug/dist.luau"
         },
 
@@ -40,7 +40,7 @@
 
             "frame": "pipeline/frames/stable.luau",
             "darkluaConfig": "pipeline/darklua/stable.json",
-            "input": "src/main.luau",
+            "input": "src/init.luau",
             "output": "generated/beta/dist.luau",
             "variants": [
                 {
@@ -64,7 +64,7 @@
 
             "frame": "pipeline/frames/stable.luau",
             "darkluaConfig": "pipeline/darklua/stable.json",
-            "input": "src/main.luau",
+            "input": "src/init.luau",
             "output": "generated/release/dist.luau",
             "variants": [
                 {

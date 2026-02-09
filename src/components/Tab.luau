@@ -4,13 +4,17 @@ return function(self, properties: types.TabProperties): types.Tab
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
+	local Page = require("@components/Page")
 
 	--// References
 	local create = creator.Create
 	local window = self.Type == "Window" and self or self.__window
 
 	--// Variables
-	local parent = self.Type == "Window" and self.Structures.SidebarList or self.Type == "Tab" and self.__instance.Parent or self.__instance or self
+	local parent = self.Type == "Window" and self.Structures.SidebarList
+		or self.Type == "Tab" and self.__instance.Parent
+		or self.__instance
+		or self
 	local structures = {}
 
 	--// UI
@@ -164,34 +168,55 @@ return function(self, properties: types.TabProperties): types.Tab
 	structures.Title = structures.Leading:FindFirstChild("Title") :: TextLabel
 	structures.Symbol = structures.Leading:FindFirstChild("Symbol") :: ImageLabel
 	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
-	structures.Page = create("ScrollingFrame")({
-		Name = "ContentList",
-		AutomaticCanvasSize = Enum.AutomaticSize.Y,
-		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-		BackgroundTransparency = 1,
-		BorderColor3 = Color3.fromRGB(0, 0, 0),
-		BorderSizePixel = 0,
-		CanvasSize = UDim2.new(),
-		ClipsDescendants = false,
-		ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0),
-		ScrollBarImageTransparency = 0.6,
-		ScrollBarThickness = 7,
-		Size = UDim2.fromScale(1, 1),
 
-		create("UIListLayout")({
-			Name = "UIListLayout",
-			Padding = UDim.new(0, 9),
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
+	local pageComponent = nil
 
-		create("UIPadding")({
-			Name = "Margins",
-			PaddingBottom = UDim.new(0, 17),
-			PaddingLeft = UDim.new(0, 17),
-			PaddingRight = UDim.new(0, 17),
-			PaddingTop = UDim.new(0, 17),
-		}),
-	}) :: ScrollingFrame
+	if properties and properties.Page then
+		if type(properties.Page) == "table" and properties.Page.Type == "Page" then
+			pageComponent = properties.Page
+			structures.Page = pageComponent.Structures.Page
+		else
+			structures.Page = properties.Page
+		end
+	else
+		pageComponent = Page(self, properties and properties.PageProperties)
+		structures.Page = pageComponent.Structures.Page
+	end
+
+	structures.Page = structures.Page
+		or (function()
+			return binder.Apply(
+				properties,
+				create("ScrollingFrame")({
+					Name = "ContentList",
+					AutomaticCanvasSize = Enum.AutomaticSize.Y,
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					CanvasSize = UDim2.new(),
+					ClipsDescendants = false,
+					ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0),
+					ScrollBarImageTransparency = 0.6,
+					ScrollBarThickness = 7,
+					Size = UDim2.fromScale(1, 1),
+
+					create("UIListLayout")({
+						Name = "UIListLayout",
+						Padding = UDim.new(0, 9),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+
+					create("UIPadding")({
+						Name = "Margins",
+						PaddingBottom = UDim.new(0, 17),
+						PaddingLeft = UDim.new(0, 17),
+						PaddingRight = UDim.new(0, 17),
+						PaddingTop = UDim.new(0, 17),
+					}),
+				})
+			) :: ScrollingFrame
+		end)()
 
 	local object = binder.Wrap(properties, {
 		Title = function(name: string)
@@ -199,7 +224,6 @@ return function(self, properties: types.TabProperties): types.Tab
 		end,
 		Icon = function(icon: string?)
 			structures.Symbol.Visible = icon and true or false
-
 			if icon then
 				structures.Symbol.Image = icon
 			end
@@ -224,10 +248,30 @@ return function(self, properties: types.TabProperties): types.Tab
 		end,
 	}, structures.Body)
 
+	object.Navigate = function(self, targetPage: types.Page)
+		if not targetPage or type(targetPage) ~= "table" or targetPage.Type ~= "Page" then
+			warn("Tab:Navigate expects a Page component.")
+			return
+		end
+
+		local newPageStructure = targetPage.Structures.Page
+
+		if object.Selected and window and window.__container then
+			if structures.Page then
+				structures.Page.Parent = nil
+			end
+			newPageStructure.Parent = window.__container
+		end
+
+		structures.Page = newPageStructure
+
+		pageComponent = targetPage
+	end
+
 	object.Type = "Tab"
 	object.Theme = self.Theme
 	object.Structures = structures
-	object.__container = structures.Page.__instance
+	object.__container = structures.Page.__instance or structures.Page
 	object.__window = self.__window
 
 	binder.Apply(properties, object)

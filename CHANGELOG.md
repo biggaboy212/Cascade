@@ -1,5 +1,19 @@
 # Change Log
 
+## v1.0.1-beta.2 (2/9/2026)
+
+```diff
++ Added warning if you call ':Window()' on the Cascade module instead of an Application for API conversion help.
++ Added `Maximum` property to `PopUpButton` (multi-select)
++ Added `Page` component
++ Added `Page` property to tabs to link a custom page
++ Added `:Navigate` Method to tabs to navigate between pages easily
+
+! Internal & Pipeline changes
+! Fixed section component returning type `Tab` instead of `Section`
+! Slight visual changes to the push button component
+```
+
 ## v1.0.1-beta.1 (12/2/2025)
 
 ```diff

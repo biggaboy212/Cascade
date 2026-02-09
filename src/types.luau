@@ -250,13 +250,16 @@ export type Section = BaseComponent & Components & SectionProperties
 
 -- Tab
 export type TabProperties = Frame & {
-	Title: string?,
-	Icon: string?,
-	Indentation: number?,
-	Selected: boolean?,
+    Title: string?,
+    Icon: string?,
+    Indentation: number?,
+    Selected: boolean?,
+    Page: Page?,
 }
 
-export type Tab = BaseComponent & Components & TabProperties
+export type Tab = BaseComponent & Components & TabProperties & {
+    Navigate: (self: Tab, page: Page) -> nil,
+}
 
 -- Form
 export type FormProperties = Frame
@@ -296,6 +299,10 @@ export type PageSectionProperties = Frame & {
 }
 
 export type PageSection = BaseComponent & Components & PageSectionProperties
+
+-- Page
+export type PageProperties = Frame
+export type Page = BaseComponent & Components & PageProperties
 
 -- Label
 export type LabelProperties = TextLabel
@@ -419,6 +426,7 @@ export type Components = {
 	Window: (self: any, properties: WindowProperties?) -> Window,
 	Section: (self: any, properties: SectionProperties?) -> Section,
 	Tab: (self: any, properties: TabProperties?) -> Tab,
+	Page: (self: any, properties: PageProperties?) -> Page,
 	Form: (self: any, properties: FormProperties?) -> Form,
 	Row: (self: any, properties: RowProperties?) -> Row,
 	VStack: (self: any, properties: StackProperties?) -> Stack,

@@ -1,4 +1,10 @@
+--[[
+	This will not showcase every feature and property. Please reference the docs:
+	https://biggaboy212.github.io/Cascade/
+]]
+
 --// Imports
+-- Replace these imports with their relative paths in the github repository, or use the import function from docs.
 local cascade = require("@src/init")
 local services = require("@modules/services")
 
@@ -9,7 +15,8 @@ local userInputService = services.UserInputService
 local minimizeKeybind = Enum.KeyCode.RightControl
 
 --// Functions
-local function titledRow(parent: any, title: string, subtitle: string?) -- You can use this to automate the process of creating similar rows.
+-- You can use this to automate the process of creating similar rows.
+local function titledRow(parent: any, title: string, subtitle: string?)
 	local row = parent:Row({
 		SearchIndex = title,
 	})
@@ -24,7 +31,10 @@ end
 
 --// UI
 local app = cascade.New({
+	-- Window pill is helpful for mobile devices who cannot use keys to un-minimize a window.
 	WindowPill = true,
+
+	-- "Light" or "Dark", or pass your own custom theme.
 	Theme = cascade.Themes.Light,
 })
 
@@ -32,22 +42,26 @@ do -- Main window
 	local window = app:Window({
 		Title = "Cascade",
 		Subtitle = "Cascade demo app",
+
+		-- Size the UI properly per-device
 		Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
 	})
 
+	-- Cascade does not handle key-minimize, so this is an implementation.
 	userInputService.InputEnded:Connect(function(input, gameProcessedEvent)
 		if input.KeyCode == minimizeKeybind and not gameProcessedEvent then
 			window.Minimized = not window.Minimized
 		end
 	end)
 
+	-- Cascade lets you index instance-properties as you regularly would. eg :Destroy .Destroying .Name etc etc...
 	window.Destroying:Connect(function()
 		print("Closed window")
 	end)
 
 	-- API demo
 	do
-		local section = window:Section({
+		local section = window:Section({ -- Sections group tabs
 			Disclosure = false,
 			Title = "API Demo",
 		})
@@ -412,6 +426,45 @@ do -- Main window
 				end
 			end
 		end
+	end
+
+	-- Navigation Demo
+	do
+		local section = window:Section({ Title = "Navigation", Disclosure = false })
+		local tab = section:Tab({
+			Title = "Routing",
+			Icon = cascade.Symbols.switch2,
+			Selected = false,
+			-- Page = app:Page() -- You can also pass a page manually
+		})
+
+		local homePage = app:Page() -- You can pass a page to a tab manually, see above
+		local settingsPage = app:Page()
+
+		-- Home
+		do
+			local form = homePage:Form()
+			titledRow(form, "Home", "This is the main view."):Right():Button({
+				Label = "Go to Settings",
+				Pushed = function()
+					tab:Navigate(settingsPage)
+				end,
+			})
+		end
+
+		-- Settings
+		do
+			local form = settingsPage:Form()
+			titledRow(form, "Settings", "This is a sub-page."):Right():Button({
+				Label = "Back to Home",
+				State = "Secondary",
+				Pushed = function()
+					tab:Navigate(homePage)
+				end,
+			})
+		end
+
+		tab:Navigate(homePage)
 	end
 
 	-- Tab demo
