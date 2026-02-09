@@ -1,109 +1,334 @@
-declare class EnumItem
-    Name: string
-    Value: number
-    EnumType: Enum
-    function IsA(self, enumName: string): boolean
+--#region Helper types
+type GenericFunction<A..., R...> = (A...) -> R...
+type GenericScript = LocalScript | ModuleScript
+type AnyFunction = <A..., R...>(A...) -> R...
+type AnyTable = { [any]: any }
+type AnyArray = { any }
+type BuiltIn = nil | string | number | boolean
+type BooleanNumber = number 
+type Metamethods =
+    "__index" |
+    "__newindex" |
+    "__call" |
+    "__concat" |
+    "__unm" |
+    "__add" |
+    "__sub" |
+    "__mul" |
+    "__div" |
+    "__idiv" |
+    "__mod" |
+    "__pow" |
+    "__tostring" |
+    "__metatable" |
+    "__eq" |
+    "__lt" |
+    "__le" |
+    "__mode" |
+    "__len" |
+    "__iter" |
+    "__namecall"
+--#endregion
+    
+--#region Cache
+type cache = {
+    iscached: (object: Instance) -> boolean,
+    invalidate: (object: Instance) -> (),
+    replace: (object: Instance, newObject: Instance) -> (),
+}
+declare cache: cache
+--#endregion
+
+--#region Closures
+declare function checkcaller(): boolean
+declare function clonefunction<A..., R...>(function_to_clone: GenericFunction<A..., R...>): GenericFunction<A..., R...>
+declare function getfunctionhash(function_to_hash: AnyFunction): string
+declare function hookfunction<A..., R...>(function_to_hook: GenericFunction<A..., R...>, hook: GenericFunction<A..., R...>): GenericFunction<A..., R...>
+declare function hookmetamethod<A..., R...>(object: AnyTable | Instance, metamethod_name: string, hook: GenericFunction<A..., R...>): GenericFunction<A..., R...>
+declare function iscclosure(func: AnyFunction): boolean
+declare function isexecutorclosure(func: AnyFunction): boolean
+declare function islclosure(func: AnyFunction): boolean
+declare function newcclosure<A..., R...>(function_to_wrap: GenericFunction<A..., R...>): GenericFunction<A..., R...>
+declare function restorefunction(functionToRestore: AnyFunction): ()
+
+declare function getnamecallmethod(): string
+--#endregion
+
+--#region Console
+declare function rconsoleclear(): ()
+declare function rconsolecreate(): ()
+declare function rconsoledestroy(): ()
+declare function rconsoleinput(): string
+declare function rconsoleprint(text: string): ()
+declare function rconsolesettitle(title: string): ()
+--#endregion
+
+--#region Cryptography
+type CryptCipherMode = "CBC" | "ECB" | "CTR" | "CFB" | "OFB" | "GCM"
+type CryptHashAlgorithm = "shA" | "sha384" | "sha512" | "md5" | "sha256" | "sha3-224" | "sha3-256" | "sha3-512"
+type crypt = {
+    base64decode: (data: string) -> string,
+    base64encode: (data: string) -> string,
+
+    encrypt: (data: string, key: string, iv: string?, mode: CryptCipherMode?) -> (string, string),
+    decrypt: (data: string, key: string, iv: string, mode: CryptCipherMode) -> string,
+    generatebytes: (size: number) -> string,
+    generatekey: () -> string,
+    hash: (data: string, algorithm: CryptHashAlgorithm) -> string,
+}
+declare crypt: crypt
+--#endregion
+
+--#region Debug
+type DebugInfo = {
+    source: string,
+    short_src: string,
+    func: AnyFunction,
+    what: "Lua" | "C",
+    currentline: number,
+    name: string,
+    nups: number,
+    numparams: number,
+    is_vararg: BooleanNumber,
+}
+type debug = {
+    getconstant: (func_or_level: AnyFunction | number, index: number) -> BuiltIn,
+    getconstants: (func_or_level: AnyFunction | number) -> { BuiltIn },
+    getproto: ((func_or_level: AnyFunction | number, index: number, activated: true) -> { AnyFunction }) &
+              ((func_or_level: AnyFunction | number, index: number, activated: false?) -> AnyFunction),
+    getprotos: (func_or_level: AnyFunction | number) -> { AnyFunction },
+    getstack: (level: number, index: number?) -> any | AnyArray,
+    getupvalue: (func_or_level: AnyFunction | number, index: number) -> any,
+    getupvalues: (func_or_level: AnyFunction | number) -> AnyArray?,
+    setconstant: (func_or_level: AnyFunction | number, index: number, value: BuiltIn) -> (),
+    setstack: (level: number, index: number, value: any) -> (),
+    setupvalue: (func_or_level: AnyFunction | number, index: number, value: any) -> (),
+
+    getinfo: (func_or_level: AnyFunction | number) -> DebugInfo,
+}
+declare debug: debug & typeof(debug)
+--#endregion
+
+--#region Drawing
+declare class DrawingObject
+    Visible: boolean
+    ZIndex: number
+    Transparency: number
+    Color: Color3
+    __OBJECT_EXISTS: boolean
+    function Remove(self)
+    function Destroy(self)
 end
-
-declare class AccessoryDescription extends Instance
-	AccessoryType: EnumAccessoryType
-	AssetId: number
-	Instance: Instance
-	IsLayered: boolean
-	Order: number
-	Puffiness: number
+declare class DrawingLine extends DrawingObject
+    Thickness: number
+    From: Vector2
+    To: Vector2
 end
-
-declare class EnumAccessoryType extends EnumItem end
-declare class EnumCreatorType extends EnumItem end
-declare class EnumGenre extends EnumItem end
-declare class EnumHttpRequestType extends EnumItem end
-
-declare class SomeOtherService
-    [any]: any
+declare class DrawingText extends DrawingObject
+    Text: string
+    Size: number
+    Center: boolean
+    Outline: boolean
+    OutlineColor: Color3
+    Position: Vector2
+    TextBounds: Vector2 
 end
-
-declare class ServiceProvider extends Instance
-	Close: RBXScriptSignal<>
-	CloseLate: RBXScriptSignal<>
-	ServiceAdded: RBXScriptSignal<Instance>
-	ServiceRemoving: RBXScriptSignal<Instance>
-	function FindService(self, className: string): Instance
-	function GetService(self, classname: string): SomeOtherService
+declare class DrawingImage extends DrawingObject
+    Data: string 
+    Size: Vector2
+    Position: Vector2
+    Rounding: number
 end
-
-declare class DataModel extends ServiceProvider
-	CreatorId: number
-	CreatorType: EnumCreatorType
-	GameId: number
-	Genre: EnumGenre
-	GraphicsQualityChangeRequest: RBXScriptSignal<boolean>
-	IsSFFlagsLoaded: boolean
-	JobId: string
-	Loaded: RBXScriptSignal<>
-	PlaceId: number
-	PlaceVersion: number
-	PrivateServerId: string
-	PrivateServerOwnerId: number
-	ScreenshotReady: RBXScriptSignal<string>
-	ScreenshotSavedToAlbum: RBXScriptSignal<string, boolean, string>
-	UniverseMetadataLoaded: RBXScriptSignal<>
-	Workspace: Workspace
-	SoundService: SoundService
-	Players: {[any]: any}
-	[string]: any
-
-    function HttpGet(self, url: string, value: any): string
-
-	function BindToClose(self, func: ((...any) -> ...any)): nil
-	function DefineFastFlag(self, name: string, defaultValue: boolean): boolean
-	function DefineFastInt(self, name: string, defaultValue: number): number
-	function DefineFastString(self, name: string, defaultValue: string): string
-	function GetEngineFeature(self, name: string): boolean
-	function GetFastFlag(self, name: string): boolean
-	function GetFastInt(self, name: string): number
-	function GetFastString(self, name: string): string
-	function GetJobsInfo(self): { any }
-	function GetObjects(self, url: Content): { Instance }
-	function GetObjectsAllOrNone(self, url: Content, binaryFormatOnly: boolean?): { Instance }
-	function GetObjectsAsync(self, url: Content): { Instance }
-	function GetObjectsList(self, urls: { any }): { any }
-	function GetPlaySessionId(self): string
-	function HttpGetAsync(self, url: string, httpRequestType: EnumHttpRequestType?): string
-	function HttpPostAsync(self, url: string, data: string, contentType: string?, httpRequestType: EnumHttpRequestType?): string
-	function InsertObjectsAndJoinIfLegacyAsync(self, url: Content): { Instance }
-	function IsContentLoaded(self): boolean
-	function IsLoaded(self): boolean
-	function IsUniverseMetadataLoaded(self): boolean
-	function Load(self, url: Content): nil
-	function OpenScreenshotsFolder(self): nil
-	function OpenVideosFolder(self): nil
-	function ReportInGoogleAnalytics(self, category: string, action: string?, label: string?, value: number?): nil
-	function SetFastFlagForTesting(self, name: string, newValue: boolean): boolean
-	function SetFastIntForTesting(self, name: string, newValue: number): number
-	function SetFastStringForTesting(self, name: string, newValue: string): string
-	function SetFlagVersion(self, name: string, version: number): nil
-	function SetIsLoaded(self, value: boolean, placeSizeInBytes: number?): nil
-	function SetPlaceId(self, placeId: number): nil
-	function SetUniverseId(self, universeId: number): nil
-	function Shutdown(self): nil
+declare class DrawingCircle extends DrawingObject
+    Thickness: number
+    NumSides: number
+    Radius: number
+    Filled: boolean
+    Position: Vector2
 end
+declare class DrawingSquare extends DrawingObject
+    Thickness: number
+    Size: Vector2
+    Position: Vector2
+    Filled: boolean
+end
+declare class DrawingQuad extends DrawingObject
+    Thickness: number
+    PointA: Vector2
+    PointB: Vector2
+    PointC: Vector2
+    PointD: Vector2
+    Filled: boolean
+end
+declare class DrawingTriangle extends DrawingObject
+    Thickness: number
+    PointA: Vector2
+    PointB: Vector2
+    PointC: Vector2
+    Filled: boolean
+end
+type DrawingFonts = {
+    UI: number,
+    System: number,
+    Plex: number,
+    Monospace: number,
+}
+export type DrawingNewTypes = "Line" | "Text" | "Image" | "Circle" | "Square" | "Quad" | "Triangle"
+export type DrawingNewFunction =
+    (("Line") -> DrawingLine)
+    & (("Text") -> DrawingText)
+    & (("Image") -> DrawingImage)
+    & (("Circle") -> DrawingCircle)
+    & (("Square") -> DrawingSquare)
+    & (("Quad") -> DrawingQuad)
+    & (("Triangle") -> DrawingTriangle)
+export type Drawing = {
+    Fonts: DrawingFonts,
+    new: DrawingNewFunction
+}
+declare Drawing: Drawing
+declare function cleardrawcache(): ()
+declare function getrenderproperty(drawing: DrawingObject, property: string): any
+declare function isrenderobj(object: any): boolean
+declare function setrenderproperty(drawing: DrawingObject, property: string, value: any): ()
+--#endregion
 
-declare game: DataModel
+--#region Environment
+type FunctionFilterOptions = {
+    Name: string?,
+    IgnoreExecutor: boolean?,
+    Hash: string?,
+    Constants: AnyArray?,
+    Upvalues: AnyArray?,
+}
+type TableFilterOptions = {
+    Keys: AnyArray?,
+    Values: AnyArray?,
+    KeyValuePairs: AnyTable?,
+    Metatable: any?,
+}
+declare getgc:
+    ((include_tables: false?) -> AnyArray)
+    & ((include_tables: true) -> { any | AnyArray })
+declare function getgenv(): AnyTable
+declare function getreg(): AnyArray
+declare function getrenv(): AnyTable
+declare filtergc: (
+    (filter_type: "table", filter_options: TableFilterOptions, return_one: true) -> AnyTable?
+) & (
+    (filter_type: "table", filter_options: TableFilterOptions, return_one: false?) -> { AnyTable }
+) & (
+    (filter_type: "function", filter_options: FunctionFilterOptions, return_one: true) -> AnyFunction?
+) & (
+    (filter_type: "function", filter_options: FunctionFilterOptions, return_one: false?) -> { AnyFunction }
+)
+--#endregion
 
-export type userdata = {[any]: any}
-declare userdata: userdata & Instance
+--#region Filesystem
+declare function appendfile(path: string, contents: string): ()
+declare function delfile(path: string): ()
+declare function delfolder(path: string): ()
+declare function getcustomasset(path: string): string
+declare function isfile(path: string): boolean
+declare function isfolder(path: string): boolean
+declare function listfiles(path: string): { string }
+declare function loadfile(path: string): (AnyFunction?, string?)
+declare function makefolder(path: string): ()
+declare function readfile(path: string): string
+declare function writefile(path: string, data: string): ()
 
-export type _crypt = {[any]: any}
-declare crypt: _crypt
-export type _cache = {[any]: any}
-declare cache: _cache
+declare function dofile(path: string): ()
+--#endregion
 
+--#region Input
+declare function isrbxactive(): boolean
+declare function mouse1click(): ()
+declare function mouse1press(): ()
+declare function mouse1release(): ()
+declare function mouse2click(): ()
+declare function mouse2press(): ()
+declare function mouse2release(): ()
+declare function mousemoveabs(x: number, y: number): ()
+declare function mousemoverel(x: number, y: number): ()
+declare function mousescroll(pixels: number): ()
+declare function keypress(key: string): ()
+declare function keyrelease(key: string): ()
+--#endregion
+
+--#region Instances
+declare function cloneref<T>(object: T & Instance): T
+declare function compareinstances(object1: Instance, object2: Instance): boolean
+declare function fireclickdetector(object: ClickDetector, distance: number?, event: ("MouseClick" | "MouseHoverEnter" | "MouseHoverLeave" | "RightMouseClick")?): ()
+declare function fireproximityprompt(object: ProximityPrompt): ()
+declare function firetouchinterest(part: BasePart, part2: BasePart, toggle: boolean | BooleanNumber): ()
+declare function getcallbackvalue(object: Instance, property: string): AnyFunction
+declare function gethui(): Instance
+declare function getinstances(): { Instance }
+declare function getnilinstances(): { Instance }
+declare function isscriptable(object: Instance, property: string): boolean
+declare function setrbxclipboard(data: string): boolean
+--#endregion
+
+--#region Metatable
+declare function getrawmetatable(object: any): AnyTable?
+declare function isreadonly(table: AnyTable): boolean
+declare function setrawmetatable<T>(object: T, metatable: AnyTable): T
+declare function setreadonly(table: AnyTable, state: boolean): ()
+--#endregion
+
+--#region Miscellaneous
+type Request = {
+    Url: string,
+    Method: string,
+    Body: string?,
+    Headers: { [string]: any }?,
+    Cookies: { [string]: any }?,
+}
+type Response = {
+    Body: string,
+    StatusCode: number,
+    StatusMessage: string,
+    Success: boolean,
+    Headers: { [string]: any },
+}
+type ExtraDataModel = {
+    HttpGet: (self: typeof(game), url: string, synchronous: boolean?, httpRequestType: typeof(Enum.HttpRequestType)?, doNotAllowDiabolicalMode: boolean?) -> string,
+}
+declare function identifyexecutor(): (string, string)
+declare function request(options: Request): Response
+
+declare function setclipboard(text: string): ()
+declare function setfpscap(fps: number): ()
+declare function getfpscap(): number
+declare game: typeof(game) & ExtraDataModel
+--#endregion
+
+--#region Reflection
+declare function gethiddenproperty(instance: Instance, property_name: string): (any, boolean)
+declare function getthreadidentity(): number
+declare function sethiddenproperty(instance: Instance, property_name: string, property_value: any): boolean
+declare function setscriptable(object: Instance, property: string, state: boolean): boolean?
+declare function setthreadidentity(id: number): ()
+--#endregion
+
+--#region Scripts
+declare function getcallingscript(): GenericScript?
+declare function getloadedmodules(excludeCore: boolean?): { ModuleScript }
+declare function getrunningscripts(): { GenericScript }
+declare function getscriptbytecode(script: GenericScript): string?
+declare function getscriptclosure(script: GenericScript): AnyFunction?
+declare function getscripthash(script: GenericScript): string?
+declare function getscripts(): { GenericScript }
+declare function getsenv(script: GenericScript): { [any]: any }
+declare function loadstring<A...>(src: string, chunkname: string?): (((A...) -> any) | nil, string?)
+--#endregion
+
+--#region Signals
 declare class Connection
     Enabled: boolean
     ForeignState: boolean
     LuaConnection: boolean
-    Function: (...any) -> (...any)?
+    Function: AnyFunction?
     Thread: thread?
     function Fire(self, ...: any): ()
     function Defer(self, ...: any): ()
@@ -111,288 +336,24 @@ declare class Connection
     function Disable(self): ()
     function Enable(self): ()
 end
+declare function firesignal<T...>(signal: RBXScriptSignal<T...>, ...: T...): ()
+declare function getconnections<T...>(signal: RBXScriptSignal<T...>): { Connection }
+declare function lz4compress(data: string): string
+declare function lz4decompress(data: string, size: number): string
+declare function messagebox(text: string, caption: string, flags: number): number
+declare function queue_on_teleport(code: string): ()
+declare function replicatesignal<T...>(signal: RBXScriptSignal<T...>, ...: T...): ()
+--#endregion
 
-declare class WebSocketClass
-    function Send(self, message: string): ()
-    function Close(self): ()
-    OnMessage: RBXScriptSignal
-    OnClose: RBXScriptSignal
-end
-
-declare class DrawingClass
-    Visible: boolean
-    ZIndex: number
-    Transparency: number
-    Color: Color3
-    __OBJECT_EXISTS: boolean
-    function Destroy(self): ()
-end
-
-
-export type Request = {
-    Url: string,
-    Method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS",
-    Body: string?,
-    Headers: {[string]: string}?,
-    Cookies: {[string]: string}?,
+--#region WebSocket
+type WebSocketConnection = {
+    OnMessage: RBXScriptSignal<string>,
+    OnClose: RBXScriptSignal<()>,
+    Send: (self: WebSocketConnection, message: string) -> (),
+    Close: (self: WebSocketConnection) -> (),
 }
-
-export type Response = {
-    Body: string,
-    StatusCode: number,
-    StatusMessage: string,
-    Success: boolean,
-    Headers: {[string]: string}
+type WebSocket = {
+    connect: (url: string) -> WebSocketConnection
 }
-
-export type GetinfoReturnTypeFunc<A..., R...> = {
-    source: string,
-    short_src: string,
-    func: (A...) -> R...,
-    what: string,
-    currentline: number,
-    name: string,
-    nups: number,
-    numparams: number,
-    is_varargs: number
-}
-
-export type GetinfoReturnTypeLvl = {
-    source: string,
-    short_src: string,
-    func: (...any) -> (...any),
-    what: string,
-    currentline: number,
-    name: string,
-    nups: number,
-    numparams: number,
-    is_varargs: number
-}
-
-declare getinfo:
-    (<A..., R...>(func: (A...) -> R...) -> GetinfoReturnTypeFunc<A..., R...>) &
-    (level: number) -> GetinfoReturnTypeLvl
-
-export type _debug = { 
-    getconstants: (func: (...any) -> (...any) | number) -> { number | string | boolean | nil },
-    getconstant:  (func: (...any) -> (...any) | number, index: number) -> number | string | boolean | nil,
-    setconstant:  (func: (...any) -> (...any) | number, index: number, value: number | string | boolean | nil) -> (),
-    getupvalues:  (func: (...any) -> (...any) | number) -> { any },
-    getupvalue:   (func: (...any) -> (...any) | number, index: number) -> any,
-    setupvalue:   (func: (...any) -> (...any) | number, index: number, value: any) -> (),
-    getstack:     (level: number, index: number?) -> any | { any },
-    setstack:     (level: number, index: number, value: any) -> (),
-    getprotos:    (func: (...any) -> (...any) | number) -> { (...any) -> (...any) },
-    getinfo: typeof(getinfo),    
-    getproto:
-    ((func: (...any) -> (...any) | number, index: number, activated: true) -> { (...any) -> (...any) }) &
-    ((func: (...any) -> (...any) | number, index: number, activated: false?) -> (...any) -> (...any)),
-    info:         ((level: number, options: string) -> ...any) & (<A1..., R1...>(func: (A1...) -> R1..., options: string) -> ...any),
-    traceback: typeof(debug.traceback)
-}
-
-export type Circle = {
-    NumSides: number,
-    Radius: number,
-    Position: Vector2,
-    Thickness: number,
-    Filled: boolean
-} & DrawingClass
-
-export type Line = {
-    From: Vector2,
-    To: Vector2,
-    Thickness: number
-}
-
-export type Image = {
-    Data: string,
-    Size: Vector2,
-    Position: Vector2,
-    Rounding: Vector2
-}
-
-export type Square = {
-    Size: Vector2,
-    Position: Vector2,
-    Thickness: number,
-    Filled: boolean   
-}
-
-export type Quad = {
-    PointA: Vector2,
-    PointB: Vector2,
-    PointC: Vector2,
-    PointD: Vector2,
-    Thickness: number,
-    Filled: boolean
-}
-
-export type Triangle = {
-    PointA: Vector2,
-    PointB: Vector2,
-    PointC: Vector2,
-    Thickness: number,
-    Filled: boolean
-}
-
-export type Text = {
-    Text: string,
-    TextBounds: Vector2,
-    Font: string, -- idc
-    Size: number,
-    Position: Vector2,
-    Center: boolean,
-    Outline: boolean,
-    OutlineColor: Color3
-}
-
-export type _WebSocket = {
-    connect: (url: string) -> WebSocketClass
-} 
-
-export type Drawing = {
-    new:   ((type: "Circle") -> Circle) &
-           ((type: "Square") -> Square) &
-           ((type: "Quad") -> Quad) &
-           ((type: "Line") -> Line) &
-           ((type: "Triangle") -> Triangle) &
-           ((type: "Image") -> Image) &
-           ((type: "Text") -> Text),
-    Fonts: {[any]: any} -- nbgaf abt text or fonts or any of that shit
-}
-
-declare workspace: {[any]: any}
-declare Drawing: Drawing
-declare WebSocket: _WebSocket
-declare debug: _debug
-declare getconstants: typeof(debug.getconstants)
-declare getconstant: typeof(debug.getconstant)
-declare setconstant: typeof(debug.setconstant)
-declare getupvalues: typeof(debug.getupvalues)
-declare getupvalue: typeof(debug.getupvalue)
-declare setupvalue: typeof(debug.setupvalue)
-declare getstack: typeof(debug.getstack)
-declare setstack: typeof(debug.setstack)
-declare getprotos: typeof(debug.getprotos)
-declare getproto: typeof(debug.getproto)
-declare traceback: typeof(debug.traceback)
-
-export type FunctionFilterOptions = {
-    Name: string?,
-    IgnoreExecutor: boolean?,
-    Hash: string?,
-    Constants: { string }?,
-    Upvalues: { any }?
-}
-
-export type TableFilterOptions = {
-    Keys: { [any]: any }?,
-    Values: { [any]: any }?,
-    KeyValuePairs: { [any]: any }?,
-    Metatable: { [any]: any }?,
-}
-
-export type ReturnType = (...any) -> (...any) | { [any]: any }
-
-declare filtergc: 
-    ((filter_type: "function", filter_options: FunctionFilterOptions, return_one: boolean?) -> ReturnType? | { ReturnType }) & 
-    ((filter_type: "table", filter_options: TableFilterOptions, return_one: boolean?) -> ReturnType? | { ReturnType })
-
-declare getgc:
-    ((include_tables: true) -> { { any } | (...any) -> (...any) | userdata }) &
-    ((include_tables: false?) -> { (...any) -> (...any) | userdata })
-
-
-declare function rconsolehide(): ()
-declare function rconsoleclose(): ()
-declare function rconsoledestroy(): ()
-declare function rconsoleprint(text: string): ()
-declare function rconsoleclear(): ()
-declare function rconsoleinfo(text: string): ()
-declare function rconsolewarn(text: string): ()
-declare function rconsoleerr(text: string): ()
-
-declare function queue_on_teleport(file: string): ()
-declare function newlclosure<A..., R...>(func: (A...) -> R...): (A...) -> R...
-declare function setrenderproperty(object: Drawing, property: string, value: any): ()
-declare function cleardrawcache(): ()
-declare function getrenderproperty(object: Drawing, property: string): any
-declare function isrenderobj(obj: any): boolean
-declare function setclipboard(data: string | number): ()
-declare set_clipboard: typeof(setclipboard)
-declare toclipboard: typeof(setclipboard)
-declare to_clipboard: typeof(setclipboard)
-declare function request(options: Request): Response
-declare function isscriptable(inst: Instance, property: string): boolean
-declare function setscriptable(inst: Instance, property: string, state: boolean): boolean | nil
-declare function hookmetamethod(obj: { [any]: any } | Instance, metamethod_name: string, hook: (...any) -> (...any)): (...any) -> (...any)
-declare function restorefunction(func: (...any) -> (...any)): ()
-declare function decompile(src: BaseScript | ModuleScript | (...any) -> (...any)): string
-declare function getscriptname(script: BaseScript | ModuleScript): string
-declare function getreg(): { [any]: any }
-declare function identifyexecutor(): (string, string)
-declare function cloneref<T>(object: T & Instance): T
-declare function replicatesignal(signal: RBXScriptSignal, ...: any?)
-declare function firesignal(signal: RBXScriptSignal, ...: any?)
-declare function getgenv(): { [any]: any }
-declare function checkcaller(): boolean
-declare function getcallingscript(): BaseScript | ModuleScript
-declare function getnamecallmethod(): string
-declare function compareinstances(inst1: Instance, inst2: Instance): boolean
-declare function lz4compress(str: string): string
-declare function lz4decompress(str: string, am: number): string
-declare function getcallbackvalue(inst: Instance, callback: string): (...any) -> (...any)
-declare function clonefunction<A..., R...>(function_to_clone: (A...) -> R...): (A...) -> R...
-declare function newcclosure<A..., R...>(function_to_wrap: (A...) -> R...): (A...) -> R...
-declare function iscclosure(func: (...any) -> (...any)): boolean
-declare function islclosure(func: (...any) -> (...any)): boolean
-declare function hookfunction<A1..., R1..., A2..., R2...>(function_to_hook: (A1...) -> R1..., function_hook: (A2...) -> R2...): (A1...) -> R1...
-declare function isexecutorclosure(func: (...any) -> (...any)): boolean
-declare function getfunctionhash(function_to_hash: (...any) -> (...any)): string
-declare function LPH_NO_VIRTUALIZE(function_to_wrap: (...any) -> (...any)): (...any) -> (...any)
-declare function IB_NO_VIRTUALIZE(function_to_wrap: (...any) -> (...any)): (...any) -> (...any)
-declare function getrenv(): { [any]: any }
-declare function writefile(path: string, data: string): ()
-declare function readfile(path: string): string
-declare function listfiles(path: string): { string }
-declare function isfile(path: string): boolean
-declare function appendfile(path: string, contents: string): ()
-declare function delfile(path: string): ()
-declare function loadfile<A...>(path: string): ((A...) -> any | nil, string?)
-declare function makefolder(path: string): ()
-declare function mousemoverel(x: number, y: number)
-declare function isfolder(path: string): boolean
-declare function delfolder(path: string): ()
-declare function getcustomasset(path: string): string
-declare function getinstances(): { Instance }
-declare function getnilinstances(): { Instance }
-declare function gethui(): Instance
-declare function fireclickdetector(object: ClickDetector, distance: number?, event: string?): ()
-declare function fireproximityprompt(object: ProximityPrompt): ()
-declare function firetouchinterest(part: BasePart, part2: BasePart, toggle: boolean | number): ()
-declare function getrawmetatable(object: any): { [any]: any }
-declare function setrawmetatable<T>(object: T & any, metatable: { any } | nil): T
-declare function setreadonly(table: { any }, state: boolean): ()
-declare function isreadonly(table: { any }): boolean
-declare function gethiddenproperty(instance: Instance, property_name: string): (any, boolean)
-declare function sethiddenproperty(instance: Instance, property_name: string, property_value: any): boolean
-declare function setscriptable(object: Instance, property: string, state: boolean): boolean | nil
-declare function checkcaller(): boolean
-declare function setthreadidentity(id: number): ()
-declare function getthreadidentity(): number
-declare function getscriptbytecode(script: BaseScript | ModuleScript): string | nil
-declare function getscripthash(script: BaseScript | ModuleScript): string | nil
-declare function getscriptclosure(script: BaseScript | ModuleScript): ((...any) -> (...any))
-declare function getsenv(script: BaseScript | ModuleScript): { [any]: any }
-declare function getscripts(): { BaseScript | ModuleScript }
-declare function getrunningscripts(): { BaseScript | ModuleScript }
-declare function getloadedmodules(): { ModuleScript }
-declare function getcallingscript(): BaseScript | ModuleScript | nil
-declare function getthreadidentity(): number
-declare function setthreadidentity(input: number): ()
-declare function loadstring<A...>(src: string, chunkname: string?): ((A...) -> any | nil, string?)
-declare function getconnections(signal: RBXScriptSignal): { Connection }
-declare function base64decode(data: string): string
-declare function base64encode(data: string): string
-declare function httpget(url: string): string
+declare WebSocket: WebSocket
+--#endregion
