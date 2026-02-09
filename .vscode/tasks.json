@@ -2,12 +2,10 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "Build source",
+        "label": "Run ProCMP",
         "type": "shell",
-        "command": "lune",
+        "command": "pcmp",
         "args": [
-          "run",
-          "pipeline/build",
           "pipeline/.pcmp.json"
         ],
         "group": {

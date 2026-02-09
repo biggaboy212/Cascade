@@ -1,4 +1,4 @@
 [tools]
-darklua = "seaofvoices/darklua@0.16.0"
-lune = "lune-org/lune@0.9.3"
+darklua = "Stefanuk12/darklua@0.17.4"
+pcmp = "Proton-Utilities/ProCMP@2.1.0"
 rojo = "rojo-rbx/rojo@7.5.1"
