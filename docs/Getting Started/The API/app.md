@@ -8,10 +8,11 @@ The returned object exposes all built-in [Components](../../Components/index.md)
 
 ### Properties
 
-| Property | Type | Description |
-|--------|--------|--------|
+| Property   | Type       | Description                                                        |
+| ---------- | ---------- | ------------------------------------------------------------------ |
 | WindowPill | `boolean?` | Whether or not the window minimize/restore pill should be visible. |
-| Theme | `Theme?` | Defines the color pallete used by the overall application. |
+| Theme      | `Theme?`   | Light or Dark mode. See [Themes](./themes.md)                      |
+| Accent     | `Accent?`  | Accent color palette. See [Accents](./accents.md)                  |
 
 [View all inherited from ScreenGui](https://create.roblox.com/docs/reference/engine/classes/ScreenGui#summary-properties)
 
@@ -26,9 +27,11 @@ The returned object exposes all built-in [Components](../../Components/index.md)
 ## Types
 
 ```luau
+
 type AppProperties = ScreenGui & {
     WindowPill: boolean?,
     Theme: Theme?,
+    Accent: Accent?,
 }
 
 type App = AppProperties & Components
@@ -42,9 +45,10 @@ function(self, properties: AppProperties): App
 
 ## Example
 
-```luau linenums="1"
+```luau
 local app = cascade.New({
     WindowPill = true,
-    Theme = cascade.Themes.Light
+    Theme = cascade.Themes.Light,
+    Accent = cascade.Accents.Blue,
 })
 ```

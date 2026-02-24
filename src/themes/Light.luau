@@ -4,7 +4,7 @@ local creator = require("@modules/creator")
 --// References
 local value = creator.Value
 
---// Functions
+--// Private Methods
 local function color4(color: Color3 | string, alpha: number)
 	local parsedColor = (typeof(color) == "Color3" and color) or (typeof(color) == "string" and Color3.fromHex(color))
 
@@ -14,8 +14,10 @@ local function color4(color: Color3 | string, alpha: number)
 	}
 end
 
---// Initialize
+--// Publish
 return {
+	_id = "Light",
+
 	Text = {
 		Primary = color4("000000", 85),
 		Secondary = color4("000000", 50),
@@ -73,7 +75,7 @@ return {
 			KnobEffects = color4("FFFFFF", 100),
 
 			SwitchOff = color4("000000", 9),
-			SwitchOn = color4("478cf6", 100),
+			SwitchOn = color4("478CF6", 100),
 
 			DepthEffect = value(ColorSequence.new({
 				ColorSequenceKeypoint.new(0, Color3.fromRGB(225, 225, 225)),

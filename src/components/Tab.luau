@@ -44,9 +44,6 @@ return function(self, properties: types.TabProperties): types.Tab
 				BackgroundTransparency = self.Theme.Controls.SelectionFocused[2],
 			},
 			__contextKeys = {
-				BackgroundColor3 = function()
-					return properties.Selected and self.Theme.Controls.SelectionFocused[1].Value or 1
-				end,
 				BackgroundTransparency = function()
 					return properties.Selected and self.Theme.Controls.SelectionFocused[2].Value or 1
 				end,

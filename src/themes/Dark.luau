@@ -4,7 +4,7 @@ local creator = require("@modules/creator")
 --// References
 local value = creator.Value
 
---// Functions
+--// Private Methods
 local function color4(color: Color3 | string, alpha: number)
 	local parsedColor = (typeof(color) == "Color3" and color) or (typeof(color) == "string" and Color3.fromHex(color))
 
@@ -14,8 +14,10 @@ local function color4(color: Color3 | string, alpha: number)
 	}
 end
 
---// Initialize
+--// Publish
 return {
+	_id = "Dark",
+
 	Text = {
 		Primary = color4("FFFFFF", 85),
 		Secondary = color4("FFFFFF", 55),
@@ -85,7 +87,6 @@ return {
 		Slider = {
 			Track = color4("2C2C2E", 100),
 			TrackEffects = color4("000000", 10),
-			TrackFill = color4("478CF6", 100),
 
 			Thumb = color4("FFFFFF", 100),
 			ThumbStroke = color4("000000", 20),

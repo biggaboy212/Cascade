@@ -4,7 +4,7 @@
 ]]
 
 --// Imports
--- Replace these imports with their relative paths in the github repository, or use the import function from docs.
+-- ! Replace these imports if copying this example. ! --
 local cascade = require("@src/init")
 local services = require("@modules/services")
 
@@ -14,9 +14,8 @@ local userInputService = services.UserInputService
 --// Variables
 local minimizeKeybind = Enum.KeyCode.RightControl
 
---// Functions
--- You can use this to automate the process of creating similar rows.
-local function titledRow(parent: any, title: string, subtitle: string?)
+--// Privates
+local function titledRow(parent: any, title: string, subtitle: string?) -- You can use this to automate the process of creating similar rows.
 	local row = parent:Row({
 		SearchIndex = title,
 	})
@@ -34,8 +33,11 @@ local app = cascade.New({
 	-- Window pill is helpful for mobile devices who cannot use keys to un-minimize a window.
 	WindowPill = true,
 
-	-- "Light" or "Dark", or pass your own custom theme.
-	Theme = cascade.Themes.Light,
+	-- You can also pass a custom theme / shallow edit parts of a theme.
+	Theme = cascade.Themes.Dark,
+
+	-- Check the docs for the full list of accents
+	Accent = cascade.Accents.Blue,
 })
 
 do -- Main window
@@ -311,6 +313,49 @@ do -- Main window
 					pullDownButton:Option("Action Four")
 					pullDownButton:Remove(4)
 				end
+
+				do -- Notification
+					local row = titledRow(
+						form,
+						"Notification",
+						"A non-disruptive, transient message that appears on screen to alert the user of important information, events, or state changes within an application."
+					)
+
+					row:Right():Button({
+						Label = "Show (Chat)",
+						State = "Primary",
+						Pushed = function(self)
+							app:Notification({
+								Title = "New Message",
+								Subtitle = "You received a new message from a friend.",
+								App = "Chat",
+								AppIcon = cascade.Symbols.bell,
+								Duration = 8,
+								Closed = function(self)
+									print("Notification was dismissed!")
+								end,
+							})
+						end,
+					})
+
+					row:Right():Button({
+						Label = "Show (App)",
+						State = "Primary",
+						Pushed = function(self)
+							app:Notification({
+								Title = "Success",
+								Subtitle = "Your changes have been saved.",
+								App = "Vanta",
+								AppIcon = "rbxassetid://104057131451858",
+								Icon = cascade.Symbols.checkmark,
+								Duration = 8,
+								Closed = function(self)
+									print("Notification was dismissed!")
+								end,
+							})
+						end,
+					})
+				end
 			end
 		end
 
@@ -331,9 +376,30 @@ do -- Main window
 					)
 
 					row:Right():Toggle({
-						Value = app.Theme == cascade.Themes.Dark,
+						Value = app.Theme._id == "Dark",
 						ValueChanged = function(self, value: boolean)
 							app.Theme = value and cascade.Themes.Dark or cascade.Themes.Light
+						end,
+					})
+				end
+
+				do -- Application accent
+					local row = titledRow(
+						form,
+						"Application accent",
+						"An application appearance setting that allows you to change the overall accent of the application."
+					)
+
+					local flattenedAccents = {}
+					for accent, _ in pairs(cascade.Accents) do
+						table.insert(flattenedAccents, accent)
+					end
+
+					row:Right():PopUpButton({
+						Value = table.find(flattenedAccents, (app.Accent and app.Accent._id) or "Blue"),
+						Options = flattenedAccents,
+						ValueChanged = function(self, value: number)
+							app.Accent = cascade.Accents[self.Options[value]]
 						end,
 					})
 				end

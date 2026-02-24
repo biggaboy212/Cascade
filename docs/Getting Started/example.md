@@ -13,7 +13,10 @@ View a example application that can be made with Cascade.
 -- (1)
 
 -- Create our main application.
-local app = cascade.New({ Theme = cascade.Themes.Light })
+local app = cascade.New({
+    Theme = cascade.Themes.Light,
+    Accent = cascade.Accents.Blue, -- Optional, defaults to Blue
+})
 
 do -- Make the main window
     local window = app:Window({

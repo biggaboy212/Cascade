@@ -365,7 +365,7 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	end)
 
 	structures.IMinus.MouseButton1Down:Connect(function()
-		object.Decrement() -- Execute once on click/down
+		object.Decrement()
 		stepStart("Down")
 	end)
 	structures.IMinus.MouseButton1Up:Connect(function()
@@ -387,12 +387,6 @@ return function(self, properties: types.StepperProperties): types.Stepper
 			stepConnections = {}
 		end
 	end)
-
-	-- Change end
-
-	-- Removed MouseButton1Click connections as MouseButton1Down now handles the initial click
-	-- structures.IPlus.MouseButton1Click:Connect(object.Increment)
-	-- structures.IMinus.MouseButton1Click:Connect(object.Decrement)
 
 	structures.Field.Field.FocusLost:Connect(function(fromEnter)
 		if fromEnter then

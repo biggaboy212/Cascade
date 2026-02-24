@@ -6,8 +6,10 @@ local binder = require("@modules/binder")
 local services = require("@modules/services")
 
 local symbols = require("@modules/symbols")
-local themes = require("@themes/init")
 local components = require("@components/init")
+
+local themes = require("@themes/init")
+local accents = require("@themes/accents")
 
 --// References
 local create = creator.Create
@@ -15,13 +17,17 @@ local create = creator.Create
 local tweenService = services.TweenService
 
 --// Variables
-local cascade = { Themes = themes, Symbols = symbols }
+local cascade = {
+	Themes = themes,
+	Accents = accents,
+	Symbols = symbols,
+}
 
 local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
 local currentTween: Tween? = nil
 
 --// Functions
-local function deepCopy(original)
+local function deepCopy(original, identifier: string?)
 	local copy = {}
 	for key, value in pairs(original) do
 		local vType = typeof(value)
@@ -35,7 +41,56 @@ local function deepCopy(original)
 			copy[key] = value
 		end
 	end
+
+	if identifier and not original._id then
+		original._id = identifier
+	end
+
 	return copy
+end
+
+local function parseAccent(theme, overrides)
+	for key, override in pairs(overrides) do
+		local themeObj = theme[key]
+
+		if not themeObj and type(theme) == "table" and type(theme.Controls) == "table" then
+			themeObj = theme.Controls[key]
+		end
+
+		if not themeObj then
+			continue
+		end
+
+		if type(themeObj) == "table" and themeObj.Connect then
+			themeObj.Value = override
+		elseif
+			type(themeObj) == "table"
+			and themeObj[1]
+			and themeObj[1].Connect
+			and typeof(override) == "Color3"
+		then
+			themeObj[1].Value = override
+		elseif type(themeObj) == "table" and type(override) == "table" then
+			parseAccent(themeObj, override)
+		end
+	end
+end
+
+local function updateThemes(target, theme, accent)
+	local function deepUpdate(target, new)
+		for key, value in pairs(new) do
+			if type(value) == "table" and type(target[key]) == "table" and not value.Value then
+				deepUpdate(target[key], value)
+			elseif target[key] and value and value.Value ~= nil then
+				target[key].Value = value.Value
+			end
+		end
+	end
+	deepUpdate(target, theme)
+
+	if accent and accent[theme._id] then
+		parseAccent(target, accent[theme._id])
+	end
 end
 
 --// Initialize
@@ -47,7 +102,14 @@ cascade.New = function(properties: types.AppProperties): types.App
 	properties = properties or {}
 
 	local initialTheme = properties.Theme or themes.Light
+	local initialAccent = properties.Accent or accents.Blue
+
+	local currentBaseTheme = initialTheme
+
 	properties.Theme = deepCopy(initialTheme)
+	properties.Accent = deepCopy(initialAccent)
+
+	updateThemes(properties.Theme, initialTheme, initialAccent)
 
 	local container = utility.ProtectUI(create("ScreenGui")({
 		Name = "Cascade",
@@ -111,20 +173,15 @@ cascade.New = function(properties: types.AppProperties): types.App
 		WindowPill = function(value: boolean)
 			pill.Visible = value
 		end,
-		Theme = function(theme)
-			local function deepUpdate(target, new)
-				for key, value in pairs(new) do
-					if typeof(value) == "table" and typeof(target[key]) == "table" and not value.Value then
-						deepUpdate(target[key], value)
-					elseif target[key] and value and value.Value ~= nil then
-						target[key].Value = value.Value
-					end
-				end
-			end
-
-			deepUpdate(properties.Theme, theme)
+		Theme = function(newTheme)
+			currentBaseTheme = newTheme
+			updateThemes(properties.Theme, newTheme, properties.Accent)
 		end,
-	}, container, { "Theme" })
+		Accent = function(newAccent)
+			properties.Accent = deepCopy(newAccent, newAccent._id)
+			updateThemes(properties.Theme, currentBaseTheme, newAccent)
+		end,
+	}, container, { "Theme", "Accent" })
 
 	object.Structures = {
 		WindowPill = pill,
@@ -138,17 +195,6 @@ cascade.New = function(properties: types.AppProperties): types.App
 	task.defer(binder.Apply, properties, object)
 
 	return object
-end
-
-cascade.Window = function(self)
-	warn(
-		"[Cascade] You cannot call `cascade.Window` directly.\n"
-			.. "Windows are created *on the app object*, not on the module.\n\n"
-			.. "Example:\n"
-			.. "    local app = cascade.New()\n"
-			.. "    local window = app:Window({ ... })\n\n"
-			.. "Make sure you call `:Window` on the app returned by `cascade.New`."
-	)
 end
 
 return cascade
