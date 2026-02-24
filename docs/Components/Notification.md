@@ -33,7 +33,7 @@ A `Notification` is a non-disruptive, transient message that appears on screen t
 
 | Name | Parameters | Description |
 | --- | --- | --- |
-| `Closed` | `(self: Notification)` | Fired when the notification is closed either via timeout or by the user. |
+| `Closed` | `(self: Notification, fromUser: boolean)` | Fired when the notification is closed either via timeout or by the user. |
 
 ## Types
 
@@ -45,7 +45,7 @@ type NotificationProperties = Frame & {
     Icon: string?,
     AppIcon: string?,
     Duration: number?,
-    Closed: ((self: Notification) -> unknown)?,
+    Closed: ((self: Notification, fromUser: boolean) -> unknown)?,
 }
 
 type Notification = BaseComponent & Components & NotificationProperties & {
@@ -62,15 +62,15 @@ function(self, properties: NotificationProperties): Notification
 ## Example
 
 ```luau
-local notification = app.Notification({
+local notification = app:Notification({
     Title = "New Message",
     Subtitle = "You received a new message from a friend.",
     App = "CHAT",
     Icon = cascade.Symbols.bell,
     AppIcon = "rbxassetid://132228700346004",
     Duration = 5,
-    Closed = function(self)
-        print("Notification was dismissed!")
+    Closed = function(self, fromUser)
+        print("Notification was dismissed! (from user: " .. tostring(fromUser) .. ")")
     end
 })
 
