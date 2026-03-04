@@ -1,5 +1,22 @@
 # Change Log
 
+## v1.1.0 (3/4/2026)
+
+```diff
++ Add theme accents: Blue, Graphite, Green, Orange, Pink, Purple, Red, Yellow
++ Add `Accent` property to `App` for setting and switching accent colors at runtime
++ Add `Notification` component with `Title`, `Subtitle`, `App`, `AppIcon`, `Icon`, `Duration`, and `Closed` properties
++ Add hover highlight to `PopUpButton` and `PullDownButton` menu options
++ Add default `Options` fallback for `PopUpButton`
+
+! Removed `cascade.Window()` warning helper (use `app:Window()` directly)
+! Removed hardcoded `TrackFill` color from dark theme slider (now driven by accent)
+! Fixed `Tab` context key returning a broken `BackgroundColor3` function
+! Fixed `Tab` type definition indentation in `types.luau`
+! Fixed light theme `SwitchOn` hex casing inconsistency
+! Internal theme refactor: themes now carry `_id` identifiers, `deepCopy` supports identifiers, and theme updates are handled by `updateThemes`/`parseAccent`
+```
+
 ## v1.1.0-beta.1 (2/23/2026)
 
 ```diff
