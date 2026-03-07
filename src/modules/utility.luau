@@ -1,5 +1,5 @@
 --// Types
-type ExpectedObject = ((...any) -> ...any) | Instance | SomeOtherService
+type ExpectedObject = ((...any) -> ...any) | Instance | ServiceProvider
 
 --// Variables
 local utility = {}
