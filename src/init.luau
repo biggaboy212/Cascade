@@ -21,6 +21,10 @@ local cascade = {
 	Themes = themes,
 	Accents = accents,
 	Symbols = symbols,
+	
+	Creator = creator,
+	Binder = binder,
+	Components = components
 }
 
 local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
