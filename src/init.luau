@@ -21,10 +21,10 @@ local cascade = {
 	Themes = themes,
 	Accents = accents,
 	Symbols = symbols,
-	
+
 	Creator = creator,
 	Binder = binder,
-	Components = components
+	Components = components,
 }
 
 local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
@@ -67,12 +67,7 @@ local function parseAccent(theme, overrides)
 
 		if type(themeObj) == "table" and themeObj.Connect then
 			themeObj.Value = override
-		elseif
-			type(themeObj) == "table"
-			and themeObj[1]
-			and themeObj[1].Connect
-			and typeof(override) == "Color3"
-		then
+		elseif type(themeObj) == "table" and themeObj[1] and themeObj[1].Connect and typeof(override) == "Color3" then
 			themeObj[1].Value = override
 		elseif type(themeObj) == "table" and type(override) == "table" then
 			parseAccent(themeObj, override)
@@ -190,6 +185,44 @@ cascade.New = function(properties: types.AppProperties): types.App
 	object.Structures = {
 		WindowPill = pill,
 	}
+
+	for component, make in pairs(components) do
+		object[component] = make
+	end
+
+	binder.Apply(properties, object)
+	task.defer(binder.Apply, properties, object)
+
+	return object
+end
+
+cascade.Component = function(properties: types.ComponentProperties?): types.ComponentContext
+	properties = properties or {}
+
+	local initialTheme = properties.Theme or themes.Light
+	local initialAccent = properties.Accent or accents.Blue
+
+	local currentBaseTheme = initialTheme
+
+	properties.Theme = deepCopy(initialTheme)
+	properties.Accent = deepCopy(initialAccent)
+
+	updateThemes(properties.Theme, initialTheme, initialAccent)
+
+	local object = binder.Wrap(properties, {
+		Theme = function(newTheme)
+			currentBaseTheme = newTheme
+			updateThemes(properties.Theme, newTheme, properties.Accent)
+		end,
+		Accent = function(newAccent)
+			properties.Accent = deepCopy(newAccent, newAccent._id)
+			updateThemes(properties.Theme, currentBaseTheme, newAccent)
+		end,
+	}, nil, { "Theme", "Accent" })
+
+	if properties.Parent then
+		object.__container = properties.Parent
+	end
 
 	for component, make in pairs(components) do
 		object[component] = make

@@ -229,6 +229,15 @@ export type AppProperties = ScreenGui & {
 
 export type App = AppProperties & Components
 
+-- Standalone Component
+export type ComponentProperties = {
+	Theme: Theme?,
+	Accent: Accent?,
+	Parent: Instance?,
+}
+
+export type ComponentContext = ComponentProperties & Components
+
 -- Window
 export type WindowProperties = Frame & {
 	Searching: boolean?,
