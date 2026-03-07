@@ -35,7 +35,7 @@ for component, make in pairs(components) do
 
 			binder.Apply(components, object)
 
-			return object
+			return object, object.__instance
 		end
 	end)(make)
 end
