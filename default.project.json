@@ -7,6 +7,9 @@
       "StarterPlayerScripts": {
         "Client": {
           "$path": "generated/tests/test.client.luau"
+        },
+        "StandaloneClient": {
+          "$path": "generated/tests/standalone_demo.client.luau"
         }
       }
     }

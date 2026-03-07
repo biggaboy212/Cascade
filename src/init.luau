@@ -186,9 +186,7 @@ cascade.New = function(properties: types.AppProperties): types.App
 		WindowPill = pill,
 	}
 
-	for component, make in pairs(components) do
-		object[component] = make
-	end
+	setmetatable(properties, { __index = components })
 
 	binder.Apply(properties, object)
 	task.defer(binder.Apply, properties, object)
@@ -224,14 +222,16 @@ cascade.Component = function(properties: types.ComponentProperties?): types.Comp
 		object.__container = properties.Parent
 	end
 
-	for component, make in pairs(components) do
-		object[component] = make
-	end
+	setmetatable(properties, { __index = components })
 
 	binder.Apply(properties, object)
 	task.defer(binder.Apply, properties, object)
 
 	return object
+end
+
+cascade.RegisterComponent = function(name: string, make: (self: any, properties: any) -> any)
+	components.register(name, make)
 end
 
 return cascade

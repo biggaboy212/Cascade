@@ -27,17 +27,54 @@ local components = {
 	Notification = require("@components/Notification"),
 }
 
---// Intialize
-for component, make in pairs(components) do
-	components[component] = (function(make)
-		return function(...)
-			local object = make(...)
+--// Initialize
+local function wrap(name, make)
+	return function(self, ...)
+		local result, raw = make(self, ...)
 
-			binder.Apply(components, object)
-
-			return object, object.__instance
+		if
+			typeof(result) == "Instance"
+			or (typeof(result) == "table" and getmetatable(result) and typeof(getmetatable(result)) == "Instance")
+		then
+			raw = result
+			result = binder.Wrap({}, {}, result)
 		end
-	end)(make)
+
+		if typeof(result) == "table" then
+			if result.Type == nil then
+				result.Type = name
+			end
+
+			if result.Theme == nil and self and self.Theme then
+				result.Theme = self.Theme
+			end
+		end
+
+		binder.Apply(components, result)
+
+		local final = raw
+			or (
+				typeof(result) == "table"
+				and pcall(function()
+					return result.__instance
+				end)
+				and result.__instance
+			)
+
+		if final ~= nil then
+			return result, final
+		end
+
+		return result
+	end
+end
+
+for name, make in pairs(components) do
+	components[name] = wrap(name, make)
+end
+
+function components.register(name: string, make: (any, any) -> any)
+	components[name] = wrap(name, make)
 end
 
 return components
