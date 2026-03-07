@@ -10,10 +10,10 @@ A `Button` initiates an instantaneous action.
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `State` | `#!luau ("Primary" | "Secondary" | "Destructive")?` | Determines the weight of the button. Suggests to the user it's impact to the content around it |
-| `Label` | `#!luau string?` | The text content of the button. |
+| Property | Type               | Description                     |
+| -------- | ------------------ | ------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------- |
+| `State`  | `#!luau ("Primary" | "Secondary"                     | "Destructive")?` | Determines the weight of the button. Suggests to the user it's impact to the content around it |
+| `Label`  | `#!luau string?`   | The text content of the button. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -25,8 +25,8 @@ A `Button` initiates an instantaneous action.
 
 ### Events
 
-| Event   | Signature                         | Description |
-|---------|-----------------------------------|-------------|
+| Event    | Signature                             | Description                                                                             |
+| -------- | ------------------------------------- | --------------------------------------------------------------------------------------- |
 | `Pushed` | `#!luau ((self: Button) -> unknown)?` | A callback function that is triggered when the button has been fully clicked or tapped. |
 
 [View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-events)
