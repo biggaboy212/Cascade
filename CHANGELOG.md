@@ -1,5 +1,24 @@
 # Change Log
 
+## v1.2.0 (3/6/2026)
+
+This update is a huge leap forward in terms of external usability and user customisability.
+
+The main focus of this update is:
+
+- The native support of using component's standalone
+- The ability to register your own components
+
+```diff
++ Added the ability to make custom components via `cascade.RegisterComponent`
++ Added the ability to natively make standalone components via `cascade.Component`
++ Expose cascade internal modules: `Creator`, `Binder`, `Components`
+
+! Objects now return the actual instance via tuple when you call it. It is the second return.
+! Button pushed animations now darken the button with an overlay instead of increasing shadow opacity
+! Decreased the luminosity for most Accents, making the selected text easier to read
+```
+
 ## v1.1.0 (3/4/2026)
 
 ```diff
