@@ -1,5 +1,10 @@
 # Change Log
 
+## !! UNMARKED
+
+```diff
+```
+
 ## v1.2.0 (3/6/2026)
 
 This update is a huge leap forward in terms of external usability and user customisability.
