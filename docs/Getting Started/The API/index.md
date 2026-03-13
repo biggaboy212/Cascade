@@ -12,8 +12,8 @@
 
 ### Methods
 
-| Method              | Arguments                          | Description                                                                                               | Returns                             |
-| ------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| `New`               | `properties: AppProperties`        | Creates a new [App](./app.md), this returns every component you can then call and will appear on screen.  | [App](./app.md)                     |
-| `Component`         | `properties: ComponentProperties?` | Creates a standalone [component context](./standalone.md) without `App` `ScreenGui` overhead.             | [ComponentContext](./standalone.md) |
-| `RegisterComponent` | `(name: string, maker: function)`  | Register a custom component to the API. Reference [Custom Components](../../Custom%20Components/index.md) | void                                |
+| Method              | Arguments                          | Description                                                                                                      | Returns                             |
+| ------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `New`               | `properties: AppProperties`        | Creates a new [App](./app.md), this returns every component you can then call and will appear on screen.         | [App](./app.md)                     |
+| `Component`         | `properties: ComponentProperties?` | Creates a standalone [component context](./standalone.md) without `App` `ScreenGui` overhead.                    | [ComponentContext](./standalone.md) |
+| `RegisterComponent` | `(name: string, maker: function)`  | Register a custom component to the API. Reference [Custom Components](../../Custom%20Components/introduction.md) | void                                |
