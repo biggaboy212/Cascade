@@ -1,6 +1,7 @@
 {
     "aliases": {
         "src": "./src",
+        "packages": "./packages",
         "effects": "./src/modules/effects",
         "modules": "./src/modules",
         "components": "./src/components",

@@ -1,4 +1,5 @@
 [tools]
-darklua = "Stefanuk12/darklua@0.17.4"
+darklua = "seaofvoices/darklua@0.18.0"
 pcmp = "Proton-Utilities/ProCMP@3.0.1"
 rojo = "rojo-rbx/rojo@7.5.1"
+wally = "UpliftGames/wally@0.3.2"

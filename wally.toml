@@ -1,0 +1,21 @@
+[package]
+name = "biggaboy212/cascade"
+description = "An open-source Luau UI library based on macOS Sequoia."
+license = "MIT"
+authors = ["biggaboy212"]
+version = "1.2.0"
+
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+exclude = ["**"]
+include = [
+    "src/",
+    "default.project.json",
+    "wally.lock",
+    "wally.toml",
+    "README.md",
+]
+
+[dependencies]
+Fusion = "elttob/fusion@^0.3"
