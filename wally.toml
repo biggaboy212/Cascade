@@ -10,12 +10,12 @@ realm = "shared"
 
 exclude = ["**"]
 include = [
-    "src/",
+    "src/*",
     "default.project.json",
     "wally.lock",
     "wally.toml",
     "README.md",
 ]
 
-[dependencies]
+[dependencies] # Im not sure if wally handles packages correctly, so im not gonna recommend to use wally installation method. Plus i dont feel like updating this every time.
 Fusion = "elttob/fusion@^0.3"
