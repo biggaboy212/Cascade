@@ -7,10 +7,8 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	Constructs special keys for property tables which connect event listeners to
 	an instance.
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../Types")
+local External = require("../External")
 
 local keyCache: {[string]: Types.SpecialKey} = {}
 

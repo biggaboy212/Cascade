@@ -6,9 +6,7 @@ local task = nil -- Disable usage of Roblox's task scheduler
 --[[
 	Returns the input *only* if it is a graph object.
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
+local Types = require("../Types")
 
 local function castToGraph(
 	target: any

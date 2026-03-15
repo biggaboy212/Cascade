@@ -8,8 +8,6 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	values based on caught errors.
 ]]
 
-local Package = script.Parent.Parent
-
 local function Safe<Success, Fail>(
 	callbacks: {
 		try: () -> Success,

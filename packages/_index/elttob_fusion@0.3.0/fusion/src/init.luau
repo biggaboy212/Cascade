@@ -6,8 +6,8 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	The entry point for the Fusion library.
 ]]
 
-local Types = require(script.Types)
-local External = require(script.External)
+local Types = require("@self/Types")
+local External = require("@self/External")
 
 type Fusion = Types.Fusion
 
@@ -34,49 +34,49 @@ export type Version = Types.Version
 -- Down the line, this will be conditional based on whether Fusion is being
 -- compiled for Roblox.
 do
-	local RobloxExternal = require(script.RobloxExternal)
+	local RobloxExternal = require("@self/RobloxExternal")
 	External.setExternalProvider(RobloxExternal)
 end
 
 local Fusion: Fusion = table.freeze {
 	-- General
 	version = {major = 0, minor = 3, isRelease = true},
-	Contextual = require(script.Utility.Contextual),
-	Safe = require(script.Utility.Safe),
+	Contextual = require("@self/Utility/Contextual"),
+	Safe = require("@self/Utility/Safe"),
 
 	-- Memory
-	cleanup = require(script.Memory.legacyCleanup),
-	deriveScope = require(script.Memory.deriveScope),
-	doCleanup = require(script.Memory.doCleanup),
-	innerScope = require(script.Memory.innerScope),
-	scoped = require(script.Memory.scoped),
+	cleanup = require("@self/Memory/legacyCleanup"),
+	deriveScope = require("@self/Memory/deriveScope"),
+	doCleanup = require("@self/Memory/doCleanup"),
+	innerScope = require("@self/Memory/innerScope"),
+	scoped = require("@self/Memory/scoped"),
 	
 	-- Graph
-	Observer = require(script.Graph.Observer),
+	Observer = require("@self/Graph/Observer"),
 
 	-- State
-	Computed = require(script.State.Computed),
-	ForKeys = require(script.State.ForKeys) :: Types.ForKeysConstructor,
-	ForPairs = require(script.State.ForPairs) :: Types.ForPairsConstructor,
-	ForValues = require(script.State.ForValues) :: Types.ForValuesConstructor,
-	peek = require(script.State.peek),
-	Value = require(script.State.Value),
+	Computed = require("@self/State/Computed"),
+	ForKeys = require("@self/State/ForKeys") :: Types.ForKeysConstructor,
+	ForPairs = require("@self/State/ForPairs") :: Types.ForPairsConstructor,
+	ForValues = require("@self/State/ForValues") :: Types.ForValuesConstructor,
+	peek = require("@self/State/peek"),
+	Value = require("@self/State/Value"),
 
 	-- Roblox API
-	Attribute = require(script.Instances.Attribute),
-	AttributeChange = require(script.Instances.AttributeChange),
-	AttributeOut = require(script.Instances.AttributeOut),
-	Child = require(script.Instances.Child),
-	Children = require(script.Instances.Children),
-	Hydrate = require(script.Instances.Hydrate),
-	New = require(script.Instances.New),
-	OnChange = require(script.Instances.OnChange),
-	OnEvent = require(script.Instances.OnEvent),
-	Out = require(script.Instances.Out),
+	Attribute = require("@self/Instances/Attribute"),
+	AttributeChange = require("@self/Instances/AttributeChange"),
+	AttributeOut = require("@self/Instances/AttributeOut"),
+	Child = require("@self/Instances/Child"),
+	Children = require("@self/Instances/Children"),
+	Hydrate = require("@self/Instances/Hydrate"),
+	New = require("@self/Instances/New"),
+	OnChange = require("@self/Instances/OnChange"),
+	OnEvent = require("@self/Instances/OnEvent"),
+	Out = require("@self/Instances/Out"),
 
 	-- Animation
-	Tween = require(script.Animation.Tween),
-	Spring = require(script.Animation.Spring),
-}
+	Tween = require("@self/Animation/Tween"),
+	Spring = require("@self/Animation/Spring"),
+} :: Fusion
 
 return Fusion

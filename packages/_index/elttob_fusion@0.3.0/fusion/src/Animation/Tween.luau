@@ -9,26 +9,24 @@ local task = nil -- Disable usage of Roblox's task scheduler
 
 	https://elttob.uk/Fusion/0.3/api-reference/animation/types/tween/
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../Types")
+local External = require("../External")
 -- Memory
-local checkLifetime = require(Package.Memory.checkLifetime)
+local checkLifetime = require("../Memory/checkLifetime")
 -- Graph
-local depend = require(Package.Graph.depend)
-local evaluate = require(Package.Graph.evaluate)
+local depend = require("../Graph/depend")
+local evaluate = require("../Graph/evaluate")
 -- State
-local castToState = require(Package.State.castToState)
-local peek = require(Package.State.peek)
+local castToState = require("../State/castToState")
+local peek = require("../State/peek")
 -- Animation
-local ExternalTime = require(Package.Animation.ExternalTime)
-local Stopwatch = require(Package.Animation.Stopwatch)
-local lerpType = require(Package.Animation.lerpType)
-local getTweenRatio = require(Package.Animation.getTweenRatio)
-local getTweenDuration = require(Package.Animation.getTweenDuration)
+local ExternalTime = require("../Animation/ExternalTime")
+local Stopwatch = require("../Animation/Stopwatch")
+local lerpType = require("../Animation/lerpType")
+local getTweenRatio = require("../Animation/getTweenRatio")
+local getTweenDuration = require("../Animation/getTweenDuration")
 -- Utility
-local nicknames = require(Package.Utility.nicknames)
+local nicknames = require("../Utility/nicknames")
 
 export type Self<T> = Types.Tween<T> & {
 	_activeDuration: number,

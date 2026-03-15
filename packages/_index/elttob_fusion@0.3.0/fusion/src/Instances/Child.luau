@@ -8,9 +8,7 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	type, while constraining the input to be an array of `Child` - this prevents
 	Luau from erroneously inferring a different array type for the input.
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
+local Types = require("../Types")
 
 local function Child(
 	x: {Types.Child}

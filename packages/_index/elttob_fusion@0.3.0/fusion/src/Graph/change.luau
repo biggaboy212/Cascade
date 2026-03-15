@@ -10,11 +10,9 @@ local task = nil -- Disable usage of Roblox's task scheduler
 
 	https://fluff.blog/2024/04/16/monotonic-painting.html
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
-local evaluate = require(Package.Graph.evaluate)
+local Types = require("../Types")
+local External = require("../External")
+local evaluate = require("../Graph/evaluate")
 
 -- How long should this function run before it's considered to be in an infinite
 -- cycle and error out?

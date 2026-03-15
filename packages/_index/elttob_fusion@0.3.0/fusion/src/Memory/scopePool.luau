@@ -2,11 +2,9 @@
 --!nolint LocalUnused
 --!nolint LocalShadow
 local task = nil -- Disable usage of Roblox's task scheduler
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local poisonScope = require(Package.Memory.poisonScope)
-local ExternalDebug = require(Package.ExternalDebug)
+local Types = require("../Types")
+local poisonScope = require("../Memory/poisonScope")
+local ExternalDebug = require("../ExternalDebug")
 
 local ENABLE_POOLING = false
 local MAX_POOL_SIZE = 16 -- TODO: need to test what an ideal number for this is

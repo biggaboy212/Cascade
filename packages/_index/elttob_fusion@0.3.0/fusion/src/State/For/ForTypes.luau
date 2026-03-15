@@ -6,9 +6,7 @@ local task = nil -- Disable usage of Roblox's task scheduler
 --[[
 	Stores types that are commonly used between For objects.
 ]]
-
-local Package = script.Parent.Parent.Parent
-local Types = require(Package.Types)
+local Types = require("../../Types")
 
 export type SubObject<S, KI, KO, VI, VO> = {
 	-- Not all sub objects need to store a scope, for example if the scope

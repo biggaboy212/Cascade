@@ -7,9 +7,8 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	'Poisons' the given scope; if the scope is used again, then it will cause
 	the program to crash.
 ]]
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../Types")
+local External = require("../External")
 
 local function poisonScope(
 	scope: Types.Scope,

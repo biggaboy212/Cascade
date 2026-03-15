@@ -6,10 +6,8 @@ local task = nil -- Disable usage of Roblox's task scheduler
 --[[
 	Formats a Fusion-specific error message.
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local messages = require(Package.Logging.messages)
+local Types = require("../Types")
+local messages = require("../Logging/messages")
 
 local ERROR_INFO_URL = "https://elttob.uk/Fusion/0.3/api-reference/general/errors/#"
 

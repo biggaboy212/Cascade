@@ -9,18 +9,16 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	TODO: this should not be exposed to users until it has a proper reactive API
 	surface
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
+local Types = require("../Types")
 -- Memory
-local checkLifetime = require(Package.Memory.checkLifetime)
+local checkLifetime = require("../Memory/checkLifetime")
 -- Graph
-local depend = require(Package.Graph.depend)
-local change = require(Package.Graph.change)
+local depend = require("../Graph/depend")
+local change = require("../Graph/change")
 -- State
-local peek = require(Package.State.peek)
+local peek = require("../State/peek")
 -- Utility
-local nicknames = require(Package.Utility.nicknames)
+local nicknames = require("../Utility/nicknames")
 
 export type Stopwatch = Types.StateObject<number> & {
 	zero: (Stopwatch) -> (),

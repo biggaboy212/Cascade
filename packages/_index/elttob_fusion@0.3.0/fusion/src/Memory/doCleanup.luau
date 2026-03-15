@@ -13,11 +13,10 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	- a table with a `Destroy` or `destroy` function - will be called
 	- an array - `cleanup` will be called on each item
 ]]
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
-local scopePool = require(Package.Memory.scopePool)
-local poisonScope = require(Package.Memory.poisonScope)
+local Types = require("../Types")
+local External = require("../External")
+local scopePool = require("../Memory/scopePool")
+local poisonScope = require("../Memory/poisonScope")
 
 local alreadyDestroying: {[Types.Task]: true} = {}
 

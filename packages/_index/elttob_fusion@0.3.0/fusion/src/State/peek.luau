@@ -8,13 +8,11 @@ local task = nil -- Disable usage of Roblox's task scheduler
 
 	https://elttob.uk/Fusion/0.3/api-reference/state/members/peek/
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
+local Types = require("../Types")
 -- State
-local castToState = require(Package.State.castToState)
+local castToState = require("../State/castToState")
 -- Graph
-local evaluate = require(Package.Graph.evaluate)
+local evaluate = require("../Graph/evaluate")
 
 local function peek<T>(
 	target: Types.UsedAs<T>

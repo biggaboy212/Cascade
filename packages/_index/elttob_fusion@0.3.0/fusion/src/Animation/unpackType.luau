@@ -7,9 +7,7 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	Unpacks an animatable type into an array of numbers.
 	If the type is not animatable, an empty array will be returned.
 ]]
-
-local Package = script.Parent.Parent
-local Oklab = require(Package.Colour.Oklab)
+local Oklab = require("../Colour/Oklab")
 
 local function unpackType(
 	value: unknown,

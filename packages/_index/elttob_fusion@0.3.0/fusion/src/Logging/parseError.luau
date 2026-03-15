@@ -7,9 +7,7 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	An xpcall() error handler to collect and parse useful information about
 	errors, such as clean messages and stack traces.
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
+local Types = require("../Types")
 
 local function parseError(
 	err: string

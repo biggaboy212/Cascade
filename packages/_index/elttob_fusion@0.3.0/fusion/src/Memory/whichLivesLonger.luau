@@ -8,9 +8,8 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	calculates which value will be destroyed earlier or later, if it is possible
 	to infer this from their scopes.
 ]]
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../Types")
+local External = require("../External")
 
 local function whichScopeLivesLonger(
 	scopeA: Types.Scope<unknown>,

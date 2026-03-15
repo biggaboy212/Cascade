@@ -6,12 +6,10 @@ local task = nil -- Disable usage of Roblox's task scheduler
 --[[
 	Creates cleanup tables with access to constructors as methods.
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local ExternalDebug = require(Package.ExternalDebug)
-local merge = require(Package.Utility.merge)
-local scopePool = require(Package.Memory.scopePool)
+local Types = require("../Types")
+local ExternalDebug = require("../ExternalDebug")
+local merge = require("../Utility/merge")
+local scopePool = require("../Memory/scopePool")
 
 local function scoped(
 	...: {[unknown]: unknown}

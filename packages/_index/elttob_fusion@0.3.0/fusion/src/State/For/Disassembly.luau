@@ -6,23 +6,21 @@ local task = nil -- Disable usage of Roblox's task scheduler
 --[[
 	Breaks down an input table into reactive sub-objects for each pair.
 ]]
-
-local Package = script.Parent.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../../Types")
+local External = require("../../External")
 -- Graph
-local depend = require(Package.Graph.depend)
+local depend = require("../../Graph/depend")
 -- State
-local peek = require(Package.State.peek)
-local castToState = require(Package.State.castToState)
-local ForTypes = require(Package.State.For.ForTypes)
+local peek = require("../../State/peek")
+local castToState = require("../../State/castToState")
+local ForTypes = require("../../State/For/ForTypes")
 -- Memory
-local doCleanup = require(Package.Memory.doCleanup)
-local deriveScope = require(Package.Memory.deriveScope)
-local scopePool = require(Package.Memory.scopePool)
+local doCleanup = require("../../Memory/doCleanup")
+local deriveScope = require("../../Memory/deriveScope")
+local scopePool = require("../../Memory/scopePool")
 -- Utility
-local nameOf = require(Package.Utility.nameOf)
-local nicknames = require(Package.Utility.nicknames)
+local nameOf = require("../../Utility/nameOf")
+local nicknames = require("../../Utility/nicknames")
 
 type Self<S, KI, KO, VI, VO> = ForTypes.Disassembly<S, KI, KO, VI, KO> & {
 	scope: (S & Types.Scope<unknown>)?,

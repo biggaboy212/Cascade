@@ -7,14 +7,12 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	A special key for property tables, which allows users to save instance attributes
 	into state objects
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../Types")
+local External = require("../External")
 -- Memory
-local checkLifetime = require(Package.Memory.checkLifetime)
+local checkLifetime = require("../Memory/checkLifetime")
 -- State
-local castToState = require(Package.State.castToState)
+local castToState = require("../State/castToState")
 
 local keyCache: {[string]: Types.SpecialKey} = {}
 

@@ -7,10 +7,8 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	Abstraction layer between Fusion internals and external environments,
 	allowing for flexible integration with schedulers and test mocks.
 ]]
-
-local Package = script.Parent
-local formatError = require(Package.Logging.formatError)
-local Types = require(Package.Types)
+local formatError = require("./Logging/formatError")
+local Types = require("./Types")
 
 local ERROR_INFO_URL = "https://elttob.uk/Fusion/0.3/api-reference/general/errors/#"
 

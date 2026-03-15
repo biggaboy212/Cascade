@@ -6,14 +6,12 @@ local task = nil -- Disable usage of Roblox's task scheduler
 --[[
 	Outputs the current external time as a state object.
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../Types")
+local External = require("../External")
 -- Graph
-local change = require(Package.Graph.change)
+local change = require("../Graph/change")
 -- Utility
-local nicknames = require(Package.Utility.nicknames)
+local nicknames = require("../Utility/nicknames")
 
 type ExternalTime = Types.StateObject<number>
 

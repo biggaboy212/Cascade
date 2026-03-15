@@ -10,7 +10,7 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	See: https://bottosson.github.io/posts/oklab/
 ]]
 
-local sRGB = require(script.Parent.sRGB)
+local sRGB = require("./sRGB")
 
 local Oklab = {}
 

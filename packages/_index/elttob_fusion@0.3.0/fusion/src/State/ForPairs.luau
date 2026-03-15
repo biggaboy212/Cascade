@@ -12,19 +12,17 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	TODO: the sub objects constructed here can be more efficiently implemented
 	as a dedicated state object.
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../Types")
+local External = require("../External")
 -- State
-local For = require(Package.State.For)
-local Value = require(Package.State.Value)
-local Computed = require(Package.State.Computed)
-local ForTypes = require(Package.State.For.ForTypes)
+local For = require("../State/For")
+local Value = require("../State/Value")
+local Computed = require("../State/Computed")
+local ForTypes = require("../State/For/ForTypes")
 -- Logging
-local parseError = require(Package.Logging.parseError)
+local parseError = require("../Logging/parseError")
 -- Memory
-local doCleanup = require(Package.Memory.doCleanup)
+local doCleanup = require("../Memory/doCleanup")
 
 local SUB_OBJECT_META = {
 	__index = {

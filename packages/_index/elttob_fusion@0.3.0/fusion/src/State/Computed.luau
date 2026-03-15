@@ -9,27 +9,25 @@ local task = nil -- Disable usage of Roblox's task scheduler
 
 	https://elttob.uk/Fusion/0.3/api-reference/state/types/computed/
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../Types")
+local External = require("../External")
 -- Logging
-local parseError = require(Package.Logging.parseError)
+local parseError = require("../Logging/parseError")
 -- Utility
-local isSimilar = require(Package.Utility.isSimilar)
-local never = require(Package.Utility.never)
+local isSimilar = require("../Utility/isSimilar")
+local never = require("../Utility/never")
 -- Graph
-local depend = require(Package.Graph.depend)
+local depend = require("../Graph/depend")
 -- State
-local castToState = require(Package.State.castToState)
-local peek = require(Package.State.peek)
+local castToState = require("../State/castToState")
+local peek = require("../State/peek")
 -- Memory
-local doCleanup = require(Package.Memory.doCleanup)
-local deriveScope = require(Package.Memory.deriveScope)
-local checkLifetime = require(Package.Memory.checkLifetime)
-local scopePool = require(Package.Memory.scopePool)
+local doCleanup = require("../Memory/doCleanup")
+local deriveScope = require("../Memory/deriveScope")
+local checkLifetime = require("../Memory/checkLifetime")
+local scopePool = require("../Memory/scopePool")
 -- Utility
-local nicknames = require(Package.Utility.nicknames)
+local nicknames = require("../Utility/nicknames")
 
 type Self<T, S> = Types.Computed<T> & {
 	_innerScope: Types.Scope<S>?,

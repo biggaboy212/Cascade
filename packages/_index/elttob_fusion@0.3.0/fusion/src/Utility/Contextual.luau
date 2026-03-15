@@ -7,12 +7,10 @@ local task = nil -- Disable usage of Roblox's task scheduler
     Time-based contextual values, to allow for transparently passing values down
 	the call stack.
 ]]
-
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local External = require(Package.External)
+local Types = require("../Types")
+local External = require("../External")
 -- Logging
-local parseError = require(Package.Logging.parseError)
+local parseError = require("../Logging/parseError")
 
 export type Self<T> = Types.Contextual<T> & {
 	_valuesNow: {[thread]: {value: T}},

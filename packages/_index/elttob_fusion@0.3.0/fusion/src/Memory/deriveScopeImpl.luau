@@ -10,10 +10,9 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	This is the internal version of the function, which does not implement
 	external debugging hooks.
 ]]
-local Package = script.Parent.Parent
-local Types = require(Package.Types)
-local merge = require(Package.Utility.merge)
-local scopePool = require(Package.Memory.scopePool)
+local Types = require("../Types")
+local merge = require("../Utility/merge")
+local scopePool = require("../Memory/scopePool")
 
 -- This return type is technically a lie, but it's required for useful type
 -- checking behaviour.

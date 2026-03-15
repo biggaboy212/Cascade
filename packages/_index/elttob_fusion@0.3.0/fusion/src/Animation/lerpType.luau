@@ -8,9 +8,7 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	If the types are different or not animatable, then the first value will be
 	returned for ratios below 0.5, and the second value for 0.5 and above.
 ]]
-
-local Package = script.Parent.Parent
-local Oklab = require(Package.Colour.Oklab)
+local Oklab = require("../Colour/Oklab")
 
 local function lerpType(
 	from: unknown, 

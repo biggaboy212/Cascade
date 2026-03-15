@@ -10,9 +10,7 @@ local task = nil -- Disable usage of Roblox's task scheduler
 	Unlike `External`, attaching a debugger is optional, and all debugger
 	functions are expected to be infallible and non-blocking.
 ]]
-
-local Package = script.Parent
-local Types = require(Package.Types)
+local Types = require("./Types")
 
 local currentProvider: Types.ExternalDebugger? = nil
 local lastUpdateStep = 0
