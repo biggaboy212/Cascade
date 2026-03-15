@@ -2,6 +2,9 @@
 
 New components should be seperated into two files: `init` and `ui` inside of a directory with the name of the component.
 
+> NOTE
+> We will be using `Fusion` from now on as the main creator. The custom creator was never good.
+
 ## `init`
 
 `init` should contain the logic for said component. This can handle animations, state, etc. If said handlers get too complex, you might want to consider seperating them into their own seperate files, such as `animations` for a component with heavy animations.
