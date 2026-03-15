@@ -2,6 +2,10 @@
 
 Cascade provides presets for setting the overall application-wide accent.
 
+![Preview](../../assets/foundation_color.png)
+
+## Summary
+
 | Accent             |
 | ------------------ |
 | Blue **(Default)** |

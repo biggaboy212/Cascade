@@ -2,15 +2,17 @@
 
 A `VStack` is a frame that vertically sorts content.
 
+![Component preview](../assets/component_vstack.png)
+
 ## Summary
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Padding` | `#!luau UDim?` | The padding between objects. |
+| Property              | Type                               | Description                   |
+| --------------------- | ---------------------------------- | ----------------------------- |
+| `Padding`             | `#!luau UDim?`                     | The padding between objects.  |
 | `HorizontalAlignment` | `#!luau Enum.HorizontalAlignment?` | The content X axis alignment. |
-| `VerticalAlignment` | `#!luau Enum.VerticalAlignment?` | The content Y axis alignment. |
+| `VerticalAlignment`   | `#!luau Enum.VerticalAlignment?`   | The content Y axis alignment. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 

@@ -2,6 +2,8 @@
 
 A `Form` is a vertical container that organizes interface elements into clearly separated rows, using consistent styling like dividers to emphasize structure.
 
+![Component preview](../assets/component_table_lists.png)
+
 ## Summary
 
 ### Properties

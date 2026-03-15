@@ -2,6 +2,8 @@
 
 A `Page` is a container that holds content in a scrollable area. Pages are typically used with [Tabs](./Tab.md) to create navigable multi-page interfaces, but can also be used standalone.
 
+![Component preview](../assets/component_box.png)
+
 ## Summary
 
 ### Properties

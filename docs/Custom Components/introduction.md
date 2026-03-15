@@ -2,6 +2,8 @@
 
 Cascade is designed to be extensible. You can register your own components using `cascade.RegisterComponent`, making them available on all `App` and `ComponentContext` objects.
 
+![Preview](../assets/pattern_enteringdata.png)
+
 ## RegisterComponent
 
 To register a component, you provide a name and a "maker" function.

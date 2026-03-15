@@ -8,10 +8,10 @@ A `RadioButtonGroup` lets people choose an option from a set of mutually exclusi
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
+| Property  | Type                         | Description                                                                                                                            |
+| --------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | `Options` | `#!luau {[number]: string}?` | You can use this table to pre-define options. Note that doing it this way will not give you access to the option instances themselves. |
-| `Value` | `#!luau number?` | The numeric index of the option to be selected. |
+| `Value`   | `#!luau number?`             | The numeric index of the option to be selected.                                                                                        |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -19,16 +19,16 @@ A `RadioButtonGroup` lets people choose an option from a set of mutually exclusi
 
 ### Methods
 
-| Method         | Signature     | Description |
-|----------------|---------------|-------------|
+| Method   | Signature                         | Description                                                                                                                                                             |
+| -------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Option` | `#!luau (Name: string?) -> Frame` | Can be used to seperately create options, use this if you want to access the option instances themselves. An example of use would be a dynamically updating playerlist. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
 
 ### Events
 
-| Event          | Signature     | Description |
-|----------------|---------------|-------------|
+| Event          | Signature                                                      | Description                                                                        |
+| -------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | `ValueChanged` | `#!luau ((self: RadioButtonGroup, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)

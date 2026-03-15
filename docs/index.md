@@ -2,8 +2,8 @@
 
 Welcome to the official API documentation for the [Cascade](https://github.com/biggaboy212/Cascade) UI Library. You can use these docs as reference to build interfaces with the Cascade API, or use it as a reference for your own UI Library.
 
-!!! tip
-    Don't get overwheled with how much info is presented in each component, you can ignore most things besides the example and types.
+<img src="../assets/inputs_cover_light.png" class="light-only" alt="Preview">
+<img src="../assets/inputs_cover_dark.png" class="dark-only" alt="Preview">
 
 ## Getting started
 

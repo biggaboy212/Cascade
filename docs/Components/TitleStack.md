@@ -2,13 +2,15 @@
 
 A `TitleStack` is a vertical stack with title and subtitle label's that people can read, but not edit.
 
+![Component preview](../assets/component_titlestack.png)
+
 ## Summary
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Title` | `#!luau string?` | The text content of the title label |
+| Property   | Type             | Description                                                                       |
+| ---------- | ---------------- | --------------------------------------------------------------------------------- |
+| `Title`    | `#!luau string?` | The text content of the title label                                               |
 | `Subtitle` | `#!luau string?` | The text content of the subtitle label. Subtitle becomes non visible if left nil. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)

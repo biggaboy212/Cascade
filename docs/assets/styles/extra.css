@@ -7,3 +7,6 @@
   padding-bottom: 0.3rem;
   margin-bottom: 0.1rem;
 }
+
+[data-md-color-scheme="default"] .dark-only { display: none; }
+[data-md-color-scheme="slate"] .light-only { display: none; }

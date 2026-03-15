@@ -2,15 +2,17 @@
 
 A `HStack` is a frame that horizontally sorts content.
 
+![Component preview](../assets/component_hstack.png)
+
 ## Summary
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Padding` | `#!luau UDim?` | The padding between objects. |
+| Property              | Type                               | Description                   |
+| --------------------- | ---------------------------------- | ----------------------------- |
+| `Padding`             | `#!luau UDim?`                     | The padding between objects.  |
 | `HorizontalAlignment` | `#!luau Enum.HorizontalAlignment?` | The content X axis alignment. |
-| `VerticalAlignment` | `#!luau Enum.VerticalAlignment?` | The content Y axis alignment. |
+| `VerticalAlignment`   | `#!luau Enum.VerticalAlignment?`   | The content Y axis alignment. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
