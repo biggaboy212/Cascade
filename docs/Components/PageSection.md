@@ -6,15 +6,15 @@ A `PageSection` separates content in a page into digestible sections via a Title
 - Input
 - Effects
 
-![Component preview](../assets/component_sidebar.png)
+![Component preview](../assets/component_pagesection.png)
 
 ## Summary
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Title` | `#!luau string?` | The section's title. |
+| Property   | Type             | Description                                                             |
+| ---------- | ---------------- | ----------------------------------------------------------------------- |
+| `Title`    | `#!luau string?` | The section's title.                                                    |
 | `Subtitle` | `#!luau string?` | The section's sub-title. If left nil, the subtitle will be non-visible. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
