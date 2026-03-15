@@ -10,10 +10,10 @@ A `Button` initiates an instantaneous action.
 
 ### Properties
 
-| Property | Type               | Description                     |
-| -------- | ------------------ | ------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------- |
-| `State`  | `#!luau ("Primary" | "Secondary"                     | "Destructive")?` | Determines the weight of the button. Suggests to the user it's impact to the content around it |
-| `Label`  | `#!luau string?`   | The text content of the button. |
+| Property | Type                                                  | Description                                                                                  |
+| -------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `State`  | `#!luau ("Primary" or "Secondary" or "Destructive")?` | Determines the weight of the button. Suggests to the user its impact on surrounding content. |
+| `Label`  | `#!luau string?`                                      | The text content of the button.                                                              |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
