@@ -41,7 +41,7 @@ type Stack = BaseComponent & Components & StackProperties
 ### Function Signature
 
 ```luau
-function(self, properties: StackProperties): Stack
+function(self, properties: StackProperties?): VStack
 ```
 
 ## Example

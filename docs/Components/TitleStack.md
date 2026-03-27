@@ -39,7 +39,7 @@ type TitleStack = BaseComponent & Components & TitleStackProperties
 ### Function Signature
 
 ```luau
-function(self, properties: TitleStackProperties): TitleStack
+function(self, properties: TitleStackProperties?): TitleStack
 ```
 
 ## Example

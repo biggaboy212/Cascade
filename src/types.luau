@@ -444,7 +444,7 @@ export type NotificationProperties = Frame & {
 	AppIcon: string?,
 	Icon: string?,
 	Duration: number?,
-	Closed: ((self: Notification) -> unknown)?,
+	Closed: ((self: Notification, fromUserInput: boolean?) -> unknown)?,
 }
 
 export type Notification = BaseComponent & Components & NotificationProperties & {

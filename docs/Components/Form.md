@@ -31,7 +31,7 @@ type Form = BaseComponent & Components & FormProperties
 ### Function Signature
 
 ```luau
-function(self, properties: FormProperties): Form
+function(self, properties: FormProperties?): Form
 ```
 
 ## Example

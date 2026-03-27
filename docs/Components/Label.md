@@ -25,7 +25,7 @@ A `Label` is a static piece of text that people can read, but not edit.
 ```luau
 type LabelProperties = TextLabel
 
-type Label = BaseComponent & Components & FormProperties
+type Label = BaseComponent & Components & LabelProperties
 ```
 
 ### Function Signature

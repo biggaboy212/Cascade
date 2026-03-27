@@ -45,7 +45,7 @@ type Row = BaseComponent & Components & RowProperties & {
 ### Function Signature
 
 ```luau
-function(self, properties: RowProperties): Row
+function(self, properties: RowProperties?): Row
 ```
 
 ## Example

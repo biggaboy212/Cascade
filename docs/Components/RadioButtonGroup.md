@@ -37,7 +37,7 @@ A `RadioButtonGroup` lets people choose an option from a set of mutually exclusi
 
 ```luau
 type RadioButtonGroupProperties = Frame & {
-    Options: {[number]: string}?,
+    Options: { [number]: string }?,
     Value: number?,
     ValueChanged: ((self: RadioButtonGroup, value: number) -> unknown)?,
 }

@@ -8,11 +8,11 @@ A `Slider` is a horizontal track with a control, called a thumb, that people can
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Minimum` | `#!luau number?` | The minimum value the slider can go. |
+| Property  | Type             | Description                             |
+| --------- | ---------------- | --------------------------------------- |
+| `Minimum` | `#!luau number?` | The minimum value the slider can go.    |
 | `Maximum` | `#!luau number?` | The maximum value the slider can reach. |
-| `Value` | `#!luau number?` | The slider's current value. |
+| `Value`   | `#!luau number?` | The slider's current value.             |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -24,8 +24,8 @@ A `Slider` is a horizontal track with a control, called a thumb, that people can
 
 ### Events
 
-| Event          | Signature     | Description |
-|----------------|---------------|-------------|
+| Event          | Signature                                            | Description                                                                        |
+| -------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | `ValueChanged` | `#!luau ((self: Slider, value: number) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
 
 [View all inherited from `ImageLabel`](https://create.roblox.com/docs/reference/engine/classes/ImageLabel#summary-events)

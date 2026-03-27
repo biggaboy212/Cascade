@@ -8,17 +8,17 @@
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Searching` | `#!luau boolean?` | Shows a text field in the title bar which can be used to search pages for content. |
-| `Draggable` |  `#!luau boolean?` | Enables window dragging via mouse or touch device. |
-| `Resizable` | `#!luau boolean?` | Enables resizing via sides or corners. |
-| `Title` | `#!luau string?` | Title displayed in the content titlebar. |
-| `Subtitle` | `#!luau string?` | Subtitle displayed under the title. Will be visually disabled if not defined. |
-| `Maximized` | `#!luau boolean?` | Should the window be maximized by default? |
-| `Minimized` | `#!luau boolean?` | Should the window be minimized by default? |
-| `Dropshadow` | `#!luau boolean?` | Enables a dropshadow effect on the window. |
-| `UIBlur` | `#!luau boolean?` | Applies a background blur effect to the sidebar. |
+| Property     | Type              | Description                                                                        |
+| ------------ | ----------------- | ---------------------------------------------------------------------------------- |
+| `Searching`  | `#!luau boolean?` | Shows a text field in the title bar which can be used to search pages for content. |
+| `Draggable`  | `#!luau boolean?` | Enables window dragging via mouse or touch device.                                 |
+| `Resizable`  | `#!luau boolean?` | Enables resizing via sides or corners.                                             |
+| `Title`      | `#!luau string?`  | Title displayed in the content titlebar.                                           |
+| `Subtitle`   | `#!luau string?`  | Subtitle displayed under the title. Will be visually disabled if not defined.      |
+| `Maximized`  | `#!luau boolean?` | Should the window be maximized by default?                                         |
+| `Minimized`  | `#!luau boolean?` | Should the window be minimized by default?                                         |
+| `Dropshadow` | `#!luau boolean?` | Enables a dropshadow effect on the window.                                         |
+| `UIBlur`     | `#!luau boolean?` | Applies a background blur effect to the sidebar.                                   |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -44,9 +44,8 @@ type WindowProperties = Frame & {
     Maximized: boolean?,
     Minimized: boolean?,
 
-    -- These effects can be system resource intensive.
     Dropshadow: boolean?,
-    UIBlur: boolean?, -- Detectable in some games.
+    UIBlur: boolean?,
 }
 
 type Window = BaseComponent & Components & WindowProperties
@@ -55,7 +54,7 @@ type Window = BaseComponent & Components & WindowProperties
 ### Function Signature
 
 ```luau
-function(self, properties: WindowProperties): Window
+function(self, properties: WindowProperties?): Window
 ```
 
 ## Example

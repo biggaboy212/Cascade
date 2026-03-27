@@ -41,7 +41,7 @@ type Section = BaseComponent & Components & SectionProperties
 ### Function Signature
 
 ```luau
-function(self, properties: SectionProperties): Section
+function(self, properties: SectionProperties?): Section
 ```
 
 ## Example

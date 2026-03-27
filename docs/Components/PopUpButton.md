@@ -43,8 +43,8 @@ type PopUpButtonProperties = Frame & {
     Options: { [number]: string }?,
     Expanded: boolean?,
     Maximum: number?,
-    Value: (number | {number})?,
-    ValueChanged: ((self: PopUpButton, value: number | {number}) -> unknown)?,
+    Value: (number | { number })?,
+    ValueChanged: ((self: PopUpButton, value: number | { number }) -> unknown)?,
 }
 
 type PopUpButton = BaseComponent & Components & PopUpButtonProperties & {

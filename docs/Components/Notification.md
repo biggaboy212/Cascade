@@ -44,10 +44,10 @@ type NotificationProperties = Frame & {
     Title: string,
     Subtitle: string,
     App: string?,
-    Icon: string?,
     AppIcon: string?,
+    Icon: string?,
     Duration: number?,
-    Closed: ((self: Notification, fromUser: boolean) -> unknown)?,
+    Closed: ((self: Notification, fromUserInput: boolean?) -> unknown)?,
 }
 
 type Notification = BaseComponent & Components & NotificationProperties & {

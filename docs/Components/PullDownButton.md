@@ -8,10 +8,12 @@ A `PullDownButton` displays a menu of mutually exclusive options.
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Options` | `#!luau {[number]: string}?` | You can use this table to pre-define options. Note that doing it this way will not give you access to the option instances themselves. |
-| `Value` | `#!luau number?` | The numeric index of the option to be selected. |
+| Property   | Type                         | Description                                                                                                                            |
+| ---------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `Options`  | `#!luau {[number]: string}?` | You can use this table to pre-define options. Note that doing it this way will not give you access to the option instances themselves. |
+| `Expanded` | `#!luau boolean?`            | Defines the state of the dropdown disclosure.                                                                                          |
+| `Label`    | `#!luau string?`             | Shows a label next to the disclosure button. Use it to describe the menu's content.                                                    |
+| `Value`    | `#!luau number?`             | The numeric index of the option to be selected.                                                                                        |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -19,17 +21,17 @@ A `PullDownButton` displays a menu of mutually exclusive options.
 
 ### Methods
 
-| Method         | Signature     | Description |
-|----------------|---------------|-------------|
-| `Option` | `#!luau (Name: string?) -> Frame` | Can be used to seperately create options, use this if you want to access the option instances themselves. |
+| Method   | Signature                         | Description                                                                                                         |
+| -------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `Option` | `#!luau (Name: string?) -> Frame` | Can be used to seperately create options, use this if you want to access the option instances themselves.           |
 | `Remove` | `#!luau (Index: number?) -> nil,` | Can be used to remove options from the pull-down menu, this automatically removes it from the options list as well. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
 
 ### Events
 
-| Event          | Signature     | Description |
-|----------------|---------------|-------------|
+| Event          | Signature                                                    | Description                                                                        |
+| -------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
 | `ValueChanged` | `#!luau ((self: PullDownButton, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
@@ -61,6 +63,7 @@ function(self, properties: PullDownButtonProperties): PullDownButton
 
 ```luau
 local pullDownButton = row:Right():PullDownButton({
+    Label = "Action",
     Options = {
         "Action One",
         "Action Two",

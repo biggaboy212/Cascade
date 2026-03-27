@@ -43,7 +43,7 @@ type PageSection = BaseComponent & Components & PageSectionProperties
 ### Function Signature
 
 ```luau
-function(self, properties: PageSectionProperties): PageSection
+function(self, properties: PageSectionProperties?): PageSection
 ```
 
 ## Example
