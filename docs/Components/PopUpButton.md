@@ -8,11 +8,12 @@ A `PopUpbutton` displays a menu of mutually exclusive options.
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Options` | `#!luau {[number]: string}?` | You can use this table to pre-define options. Note that doing it this way will not give you access to the option instances themselves. |
-| `Maximum` | `#!luau number?` | Maximum number of selectable options. Defaults to `1` (single-select). |
-| `Value` | `#!luau number? or {number}?` | The selected index (single) or a table of selected indices when `Maximum > 1`. |
+| Property   | Type                          | Description                                                                                                                            |
+| ---------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `Options`  | `#!luau {[number]: string}?`  | You can use this table to pre-define options. Note that doing it this way will not give you access to the option instances themselves. |
+| `Expanded` | `#!luau boolean?`             | Defines the state of the dropdown disclosure.                                                                                          |
+| `Maximum`  | `#!luau number?`              | Maximum number of selectable options. Defaults to `1` (single-select).                                                                 |
+| `Value`    | `#!luau number? or {number}?` | The selected index (single) or a table of selected indices when `Maximum > 1`.                                                         |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -20,17 +21,17 @@ A `PopUpbutton` displays a menu of mutually exclusive options.
 
 ### Methods
 
-| Method         | Signature     | Description |
-|----------------|---------------|-------------|
+| Method   | Signature                         | Description                                                                                                                                                             |
+| -------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Option` | `#!luau (Name: string?) -> Frame` | Can be used to seperately create options, use this if you want to access the option instances themselves. An example of use would be a dynamically updating playerlist. |
-| `Remove` | `#!luau (Index: number?) -> nil,` | Can be used to remove options from the pop-up menu, this automatically removes it from the options list as well. |
+| `Remove` | `#!luau (Index: number?) -> nil,` | Can be used to remove options from the pop-up menu, this automatically removes it from the options list as well.                                                        |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
 
 ### Events
 
-| Event          | Signature     | Description |
-|----------------|---------------|-------------|
+| Event          | Signature                                                             | Description                                                                        |
+| -------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | `ValueChanged` | `#!luau ((self: PopUpButton, value: number or {number}) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
