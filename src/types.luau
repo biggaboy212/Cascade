@@ -274,6 +274,7 @@ export type TabProperties = Frame & {
 
 export type Tab = BaseComponent & Components & TabProperties & {
 	Navigate: (self: Tab, page: Page) -> nil,
+	Structures: { [string]: Instance | { any }, Page: Page},
 }
 
 -- Form

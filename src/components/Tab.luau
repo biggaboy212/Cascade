@@ -215,7 +215,8 @@ return function(self, properties: types.TabProperties): types.Tab
 			) :: ScrollingFrame
 		end)()
 
-	local object = binder.Wrap(properties, {
+	local object
+	object = binder.Wrap(properties, {
 		Title = function(name: string)
 			structures.Title.Text = name
 		end,
@@ -229,6 +230,16 @@ return function(self, properties: types.TabProperties): types.Tab
 			structures.Padding.PaddingLeft += UDim.new(0, (11 * indentation))
 		end,
 		Selected = function(selected: boolean)
+			if selected then
+				for _, tab: types.Tab in pairs(window.Tabs) do
+					if tab.__container == object.__container then
+						continue
+					end
+
+					tab.Selected = false
+				end
+			end
+
 			structures.Body.Transparency = selected and self.Theme.Controls.SelectionFocused[2].Value or 1
 
 			structures.Title.TextColor3 = selected and self.Theme.Text.SelectionPrimary[1].Value
@@ -285,13 +296,9 @@ return function(self, properties: types.TabProperties): types.Tab
 				return
 			end
 
-			for _, tab: types.Tab in pairs(window.Tabs) do
-				tab.Selected = false
-			end
-
 			object.Selected = true
-
-			window.addToHistory(object.__container)
+			
+				window.addToHistory(object.__container)
 		end)
 	end
 

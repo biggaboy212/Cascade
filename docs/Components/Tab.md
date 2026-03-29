@@ -8,13 +8,13 @@ A `Tab` separates content into different pages, and lets users navigate between 
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Title` | `#!luau string?` | The tab's display title. |
-| `Icon` | `#!luau string?` | The `rbxassetid://` of the image to display. You can use cascade.Symbols for pre-made symbols. |
-| `Indentation` | `#!luau number?` | The tab indentation level/how far right it is. This is automatically increased by `1` when you nest a tab on another tab. |
-| `Selected` | `#!luau boolean?` | Whether or not the tab is selected by default. Defaults to false. Only one tab in a section should be selected. |
-| `Page` | `#!luau Page?` | A custom page component to use for this tab. If not provided, a default page is automatically created. See [Page](./Page.md) for more information. |
+| Property          | Type              | Description                                                                                                                                        |
+| ----------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Title`           | `#!luau string?`  | The tab's display title.                                                                                                                           |
+| `Icon`            | `#!luau string?`  | The `rbxassetid://` of the image to display. You can use cascade.Symbols for pre-made symbols.                                                     |
+| `Indentation`     | `#!luau number?`  | The tab indentation level/how far right it is. This is automatically increased by `1` when you nest a tab on another tab.                          |
+| `Selected`        | `#!luau boolean?` | Whether or not the tab is selected by default. Defaults to false. Only one tab in a section should be selected.                                    |
+| `Structures.Page` | `#!luau Page?`    | A custom page component to use for this tab. If not provided, a default page is automatically created. See [Page](./Page.md) for more information. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -22,8 +22,8 @@ A `Tab` separates content into different pages, and lets users navigate between 
 
 ### Methods
 
-| Method       | Signature | Description |
-|----------------|------------|-------------|
+| Method     | Signature                        | Description                                                                                                                              |
+| ---------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | `Navigate` | `(self: Tab, page: Page) -> nil` | Switch the tab's displayed page to a different page. Useful for multi-step workflows or navigating between different views within a tab. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
@@ -45,6 +45,7 @@ type TabProperties = Frame & {
 
 type Tab = BaseComponent & Components & TabProperties & {
     Navigate: (self: Tab, page: Page) -> nil,
+    Structures: { [string]: Instance | { any }, Page: Page},
 }
 ```
 
