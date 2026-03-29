@@ -1,9 +1,11 @@
 # Change Log
 
-## !! UNMARKED
+## UNMARKED (Target: v1.3.0)
 
-```diff
-```
+- Fixed `Tab.Selected` property didn't deselect other tabs
+- Types used a property `Page` which was inaccessible due to the `Page` component overwriting it, the docs now redirect to `Tab.Structures.Page`
+- Fixed the `Page` type stating it returned a `Frame` instead of `ScrollingFrame`
+- Updated to SF Symbols 7
 
 ## v1.2.0 (3/6/2026)
 
