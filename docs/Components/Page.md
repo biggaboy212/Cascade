@@ -23,7 +23,7 @@ A `Page` is a container that holds content in a scrollable area. Pages are typic
 ## Types
 
 ```luau
-type PageProperties = Frame
+type PageProperties = ScrollingFrame
 
 type Page = BaseComponent & Components & PageProperties
 ```
