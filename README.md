@@ -59,6 +59,6 @@ If you'd like to support the project, consider donating via any of these:
 
 ### [Myriad General Validity Test](https://github.com/Proton-Utilities/Myriad)
 
-![Standards](assets\gallery\myriad\standards.png)
+![Standards](assets/gallery/myriad/standards.png)
 
-![Standards settings and notification](assets\gallery\myriad\standards_settings_and_notification.png)
+![Standards settings and notification](assets/gallery/myriad/standards_settings_and_notification.png)
