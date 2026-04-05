@@ -55,6 +55,16 @@ If you'd like to support the project, consider donating via any of these:
 - **ETH**: `0x85C09A302CBB42a321E737E6E4dDAC0Eebc4ac3E`
 - **BTC**: `bc1qlhym0f0lejwlhd47gext8g7fgej366j7z85vvx`
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=biggaboy212%2FCascade&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=biggaboy212/Cascade&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=biggaboy212/Cascade&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=biggaboy212/Cascade&type=date&legend=top-left" />
+ </picture>
+</a>
+
 ## Gallery
 
 ### [Myriad General Validity Test](https://github.com/Proton-Utilities/Myriad)
