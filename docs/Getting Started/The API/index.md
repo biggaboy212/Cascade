@@ -4,11 +4,11 @@
 
 ### Properties
 
-| Property  | Type                   | Description                                                                                                                      |
-| --------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `Themes`  | `{ [string]: Theme }`  | **[Read-only]** Provides default application theme modes . See [all themes](./themes.md).                                        |
-| `Accents` | `{ [string]: Accent }` | **[Read-only]** Provides preset accents. See [all accents](./accents.md).                                                        |
-| `Symbols` | `{ [string]: string }` | **[Read-only]** A large list of symbols (exported from Apple SF Symbols). See [all symbols](https://sf-symbols-one.vercel.app/). |
+| Property  | Type                   | Description                                                                                                                 |
+| --------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `Themes`  | `{ [string]: Theme }`  | **[Read-only]** Provides default application theme modes . See [all themes](./themes.md).                                   |
+| `Accents` | `{ [string]: Accent }` | **[Read-only]** Provides preset accents. See [all accents](./accents.md).                                                   |
+| `Symbols` | `{ [string]: string }` | **[Read-only]** A large list of symbols (exported from Apple SF Symbols). See [all symbols](https://sf-symbols.pages.dev/). |
 
 ### Methods
 
