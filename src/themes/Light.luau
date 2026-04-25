@@ -38,7 +38,8 @@ return {
 
 		View = color4("FCFCFC", 100),
 		ViewBorder = color4("000000", 5),
-
+		
+		WindowControlDisabled = color4("000000", 20),
 		WindowControlIcon = color4("000000", 50),
 		WindowControlStroke = color4("000000", 20),
 		Exit = color4("FF5F57", 100),

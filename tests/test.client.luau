@@ -406,56 +406,84 @@ do -- Main window
 			end
 
 			do -- Input
-				local form = tab:PageSection({ Title = "Input" }):Form()
+				local pageSection = tab:PageSection({ Title = "Input" })
 
-				do -- Minimize shortcut
-					local row = titledRow(form, "Minimize shortcut")
+				do
+					local form = pageSection:Form()
 
-					row:Right():KeybindField({
-						Value = minimizeKeybind,
-						ValueChanged = function(self, value: Enum.KeyCode)
-							minimizeKeybind = value
-						end,
-					})
+					-- WindowControls
+					do
+						for i, v in { "Exit", "Minimize", "Zoom" } do
+							local row = titledRow(form, `Can {v}`)
+
+							row:Right():Toggle({
+								Value = window[`Can{v}`],
+								ValueChanged = function(self, value: boolean)
+									window[`Can{v}`] = value
+								end,
+							})
+						end
+					end
 				end
 
-				do -- Searching
-					local row = titledRow(
-						form,
-						"Searchable",
-						"Allows users to search for content in a page with a search-field in the titlebar."
-					)
+				do
+					local form = pageSection:Form()
 
-					row:Right():Toggle({
-						Value = window.Searching,
-						ValueChanged = function(self, value: boolean)
-							window.Searching = value
-						end,
-					})
-				end
+					do -- Minimize shortcut
+						local row = titledRow(form, "Minimize shortcut")
 
-				do -- Draggable
-					local row =
-						titledRow(form, "Draggable", "Allows users to move the window with a mouse or touch device.")
+						row:Right():KeybindField({
+							Value = minimizeKeybind,
+							ValueChanged = function(self, value: Enum.KeyCode)
+								minimizeKeybind = value
+							end,
+						})
+					end
 
-					row:Right():Toggle({
-						Value = window.Draggable,
-						ValueChanged = function(self, value: boolean)
-							window.Draggable = value
-						end,
-					})
-				end
+					do -- Searching
+						local row = titledRow(
+							form,
+							"Searchable",
+							"Allows users to search for content in a page with a search-field in the titlebar."
+						)
 
-				do -- Resizable
-					local row =
-						titledRow(form, "Resizable", "Allows users to resize the window with a mouse or touch device.")
+						row:Right():Toggle({
+							Value = window.Searching,
+							ValueChanged = function(self, value: boolean)
+								window.Searching = value
+							end,
+						})
+					end
 
-					row:Right():Toggle({
-						Value = window.Resizable,
-						ValueChanged = function(self, value: boolean)
-							window.Resizable = value
-						end,
-					})
+					do -- Draggable
+						local row = titledRow(
+							form,
+							"Draggable",
+							"Allows users to move the window with a mouse or touch device."
+						)
+
+						row:Right():Toggle({
+							Value = window.Draggable,
+							ValueChanged = function(self, value: boolean)
+								window.Draggable = value
+							end,
+						})
+					end
+
+					do -- Resizable
+						local row = titledRow(
+							form,
+							"Resizable",
+							"Allows users to resize the window with a mouse or touch device."
+						)
+
+						row:Right():Toggle({
+							Value = window.Resizable,
+							ValueChanged = function(self, value: boolean)
+								window.Resizable = value
+							end,
+						})
+					end
 				end
 			end
 

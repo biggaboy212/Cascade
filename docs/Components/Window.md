@@ -8,17 +8,20 @@
 
 ### Properties
 
-| Property     | Type              | Description                                                                        |
-| ------------ | ----------------- | ---------------------------------------------------------------------------------- |
-| `Searching`  | `#!luau boolean?` | Shows a text field in the title bar which can be used to search pages for content. |
-| `Draggable`  | `#!luau boolean?` | Enables window dragging via mouse or touch device.                                 |
-| `Resizable`  | `#!luau boolean?` | Enables resizing via sides or corners.                                             |
-| `Title`      | `#!luau string?`  | Title displayed in the content titlebar.                                           |
-| `Subtitle`   | `#!luau string?`  | Subtitle displayed under the title. Will be visually disabled if not defined.      |
-| `Maximized`  | `#!luau boolean?` | Should the window be maximized by default?                                         |
-| `Minimized`  | `#!luau boolean?` | Should the window be minimized by default?                                         |
-| `Dropshadow` | `#!luau boolean?` | Enables a dropshadow effect on the window.                                         |
-| `UIBlur`     | `#!luau boolean?` | Applies a background blur effect to the sidebar.                                   |
+| Property      | Type              | Description                                                                        |
+| ------------- | ----------------- | ---------------------------------------------------------------------------------- |
+| `Searching`   | `#!luau boolean?` | Shows a text field in the title bar which can be used to search pages for content. |
+| `Draggable`   | `#!luau boolean?` | Enables window dragging via mouse or touch device.                                 |
+| `Resizable`   | `#!luau boolean?` | Enables resizing via sides or corners.                                             |
+| `CanExit`     | `#!luau boolean?` | Enables the window exit control (close). Defaults to `true`.                       |
+| `CanMinimize` | `#!luau boolean?` | Enables the window minimize control. Defaults to `true`.                           |
+| `CanZoom`     | `#!luau boolean?` | Enables the window zoom/maximize control. Defaults to `true`.                      |
+| `Title`       | `#!luau string?`  | Title displayed in the content titlebar.                                           |
+| `Subtitle`    | `#!luau string?`  | Subtitle displayed under the title. Will be visually disabled if not defined.      |
+| `Maximized`   | `#!luau boolean?` | Should the window be maximized by default?                                         |
+| `Minimized`   | `#!luau boolean?` | Should the window be minimized by default?                                         |
+| `Dropshadow`  | `#!luau boolean?` | Enables a dropshadow effect on the window.                                         |
+| `UIBlur`      | `#!luau boolean?` | Applies a background blur effect to the sidebar.                                   |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -41,6 +44,9 @@ type WindowProperties = Frame & {
     Resizable: boolean?,
     Title: string?,
     Subtitle: string?,
+    CanExit: boolean?,
+    CanMinimize: boolean?,
+    CanZoom: boolean?,
     Maximized: boolean?,
     Minimized: boolean?,
 

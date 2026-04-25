@@ -47,10 +47,15 @@ return function(self, properties: types.WindowProperties): types.Window
 	properties.Searching = properties.Searching ~= false
 	properties.Resizable = properties.Resizable ~= false
 	properties.Draggable = properties.Draggable ~= false
+	properties.CanExit = properties.CanExit ~= false
+	properties.CanMinimize = properties.CanMinimize ~= false
+	properties.CanZoom = properties.CanZoom ~= false
 	properties.Resizable = properties.Resizable ~= false
 	properties.Dropshadow = properties.Dropshadow ~= false
 	properties.UIBlur = properties.UIBlur ~= false
 	properties.Title = properties.Title or "Title"
+
+	local windowControls, windowControlsCKeys = require("@structures/WindowControls")(self, properties)
 
 	structures.Body = binder.Apply(
 		properties,
@@ -142,180 +147,6 @@ return function(self, properties: types.WindowProperties): types.Window
 						BorderColor3 = Color3.fromRGB(0, 0, 0),
 						BorderSizePixel = 0,
 						Size = UDim2.new(1, 0, 0, 52),
-
-						create("Frame")({
-							Name = "WindowControls",
-							AnchorPoint = Vector2.new(0, 0.5),
-							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-							BackgroundTransparency = 1,
-							BorderColor3 = Color3.fromRGB(0, 0, 0),
-							BorderSizePixel = 0,
-							Position = UDim2.fromScale(0, 0.5),
-							Size = UDim2.fromOffset(92, 38),
-
-							create("UIListLayout")({
-								Name = "UIListLayout",
-								FillDirection = Enum.FillDirection.Horizontal,
-								Padding = UDim.new(0, 8),
-								SortOrder = Enum.SortOrder.LayoutOrder,
-								VerticalAlignment = Enum.VerticalAlignment.Center,
-							}),
-
-							create("UIPadding")({
-								Name = "UIPadding",
-								PaddingLeft = UDim.new(0, 20),
-								PaddingRight = UDim.new(0, 20),
-							}),
-
-							create("ImageButton")({
-								Name = "Exit",
-								AutoButtonColor = false,
-								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-								BackgroundTransparency = 1,
-								BorderColor3 = Color3.fromRGB(0, 0, 0),
-								BorderSizePixel = 0,
-								Image = "rbxassetid://132228700346004",
-								Size = UDim2.fromOffset(12, 12),
-
-								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.Exit[1],
-									ImageTransparency = self.Theme.Controls.Exit[2],
-								},
-
-								create("ImageLabel")({
-									Name = "Stroke",
-									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-									BackgroundTransparency = 1,
-									BorderColor3 = Color3.fromRGB(0, 0, 0),
-									BorderSizePixel = 0,
-									Image = "rbxassetid://94763505860483",
-									Size = UDim2.fromScale(1, 1),
-
-									__dynamicKeys = {
-										ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
-										ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
-									},
-								}),
-
-								create("ImageLabel")({
-									Name = "Icon",
-									AnchorPoint = Vector2.new(0.5, 0.5),
-									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-									BackgroundTransparency = 1,
-									BorderColor3 = Color3.fromRGB(0, 0, 0),
-									BorderSizePixel = 0,
-									Image = "rbxassetid://94781753558308",
-									Position = UDim2.fromScale(0.5, 0.5),
-									Size = UDim2.fromScale(1, 1),
-									Visible = false,
-
-									__dynamicKeys = {
-										ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
-										ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
-									},
-								}),
-							}),
-
-							create("ImageButton")({
-								Name = "Minimize",
-								AutoButtonColor = false,
-								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-								BackgroundTransparency = 1,
-								BorderColor3 = Color3.fromRGB(0, 0, 0),
-								BorderSizePixel = 0,
-								Image = "rbxassetid://132228700346004",
-								LayoutOrder = 1,
-								Size = UDim2.fromOffset(12, 12),
-
-								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.Minimize[1],
-									ImageTransparency = self.Theme.Controls.Minimize[2],
-								},
-
-								create("ImageLabel")({
-									Name = "Stroke",
-									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-									BackgroundTransparency = 1,
-									BorderColor3 = Color3.fromRGB(0, 0, 0),
-									BorderSizePixel = 0,
-									Image = "rbxassetid://94763505860483",
-									Size = UDim2.fromScale(1, 1),
-
-									__dynamicKeys = {
-										ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
-										ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
-									},
-								}),
-
-								create("ImageLabel")({
-									Name = "Icon",
-									AnchorPoint = Vector2.new(0.5, 0.5),
-									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-									BackgroundTransparency = 1,
-									BorderColor3 = Color3.fromRGB(0, 0, 0),
-									BorderSizePixel = 0,
-									Image = "rbxassetid://118368309445367",
-									Position = UDim2.fromScale(0.5, 0.5),
-									Size = UDim2.fromScale(1, 1),
-									Visible = false,
-
-									__dynamicKeys = {
-										ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
-										ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
-									},
-								}),
-							}),
-
-							create("ImageButton")({
-								Name = "Zoom",
-								AutoButtonColor = false,
-								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-								BackgroundTransparency = 1,
-								BorderColor3 = Color3.fromRGB(0, 0, 0),
-								BorderSizePixel = 0,
-								Image = "rbxassetid://132228700346004",
-								LayoutOrder = 2,
-								Size = UDim2.fromOffset(12, 12),
-
-								__dynamicKeys = {
-									ImageColor3 = self.Theme.Controls.Zoom[1],
-									ImageTransparency = self.Theme.Controls.Zoom[2],
-								},
-
-								create("ImageLabel")({
-									Name = "Stroke",
-									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-									BackgroundTransparency = 1,
-									BorderColor3 = Color3.fromRGB(0, 0, 0),
-									BorderSizePixel = 0,
-									Image = "rbxassetid://94763505860483",
-									Size = UDim2.fromScale(1, 1),
-
-									__dynamicKeys = {
-										ImageColor3 = self.Theme.Controls.WindowControlStroke[1],
-										ImageTransparency = self.Theme.Controls.WindowControlStroke[2],
-									},
-								}),
-
-								create("ImageLabel")({
-									Name = "Icon",
-									AnchorPoint = Vector2.new(0.5, 0.5),
-									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-									BackgroundTransparency = 1,
-									BorderColor3 = Color3.fromRGB(0, 0, 0),
-									BorderSizePixel = 0,
-									Image = "rbxassetid://114376524082699",
-									Position = UDim2.fromScale(0.5, 0.5),
-									Size = UDim2.fromScale(1, 1),
-									Visible = false,
-
-									__dynamicKeys = {
-										ImageColor3 = self.Theme.Controls.WindowControlIcon[1],
-										ImageTransparency = self.Theme.Controls.WindowControlIcon[2],
-									},
-								}),
-							}),
-						}),
 					}),
 
 					create("ScrollingFrame")({
@@ -467,13 +298,15 @@ return function(self, properties: types.WindowProperties): types.Window
 	structures.Sidebar = structures.SidebarMargins:FindFirstChild("Margins") :: Frame
 	structures.SidebarList = structures.Sidebar:FindFirstChild("SidebarList") :: Frame
 	structures.Toolbar = structures.Sidebar:FindFirstChild("Toolbar") :: Frame
-	structures.WindowControls = structures.Toolbar:FindFirstChild("WindowControls") :: Frame
 	structures.ContentBody = structures.Body:FindFirstChild("ContentBody") :: Frame
 	structures.Content = structures.ContentBody:FindFirstChild("Content") :: Frame
 	structures.CornerClip = structures.ContentBody:FindFirstChild("CornerClip") :: Frame
 
 	structures.Titlebar = titleBar
 	structures.Titlebar.Body.Parent = structures.ContentBody
+
+	structures.WindowControls = windowControls
+	structures.WindowControls.Body.Parent = structures.Toolbar
 
 	originalSize = structures.Body.Size
 	originalPosition = structures.Body.Position
@@ -510,7 +343,7 @@ return function(self, properties: types.WindowProperties): types.Window
 
 			if value and not minimizing then
 				originalPosition2 = structures.Body.Position
-				
+
 				if structures["BlurModel"] then
 					structures["BlurModel"].SetVisibility(false)
 				end
@@ -591,6 +424,30 @@ return function(self, properties: types.WindowProperties): types.Window
 				structures.BlurModel = effects.UIBlur(structures.Body)
 			end
 		end,
+		CanExit = function(value: boolean)
+			properties.CanExit = value
+
+			structures.WindowControls.Exit.ImageColor3 = windowControlsCKeys.Exit.ImageColor3()
+			structures.WindowControls.Exit.ImageTransparency = windowControlsCKeys.Exit.ImageTransparency()
+
+			structures.WindowControls.Exit.Active = value
+		end,
+		CanMinimize = function(value: boolean)
+			properties.CanMinimize = value
+
+			structures.WindowControls.Minimize.ImageColor3 = windowControlsCKeys.Minimize.ImageColor3()
+			structures.WindowControls.Minimize.ImageTransparency = windowControlsCKeys.Minimize.ImageTransparency()
+
+			structures.WindowControls.Minimize.Active = value
+		end,
+		CanZoom = function(value: boolean)
+			properties.CanZoom = value
+
+			structures.WindowControls.Zoom.ImageColor3 = windowControlsCKeys.Zoom.ImageColor3()
+			structures.WindowControls.Zoom.ImageTransparency = windowControlsCKeys.Zoom.ImageTransparency()
+
+			structures.WindowControls.Zoom.Active = value
+		end,
 	}
 	local object = binder.Wrap(properties, bindings, structures.Body)
 
@@ -669,7 +526,7 @@ return function(self, properties: types.WindowProperties): types.Window
 					cache[child] = child.Visible
 				end
 			end
-			
+
 			pageCaches[page] = cache
 		end
 
@@ -691,7 +548,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			local matches = {}
 			local items = {}
 			local page = structures.Content:FindFirstChildOfClass("ScrollingFrame")
-			
+
 			if not page then
 				return
 			end
@@ -767,22 +624,35 @@ return function(self, properties: types.WindowProperties): types.Window
 	end
 
 	do -- Window controls
-		local exit = structures.WindowControls:FindFirstChild("Exit") :: ImageButton
-		local minimize = structures.WindowControls:FindFirstChild("Minimize") :: ImageButton
-		local zoom = structures.WindowControls:FindFirstChild("Zoom") :: ImageButton
+		local wcBody = structures.WindowControls.Body
+		local exit = wcBody:FindFirstChild("Exit") :: ImageButton
+		local minimize = wcBody:FindFirstChild("Minimize") :: ImageButton
+		local zoom = wcBody:FindFirstChild("Zoom") :: ImageButton
 
 		local function rollOver()
-			exit:FindFirstChild("Icon").Visible = structures.WindowControls.GuiState ~= Enum.GuiState.Hover
-			minimize:FindFirstChild("Icon").Visible = structures.WindowControls.GuiState ~= Enum.GuiState.Hover
-			zoom:FindFirstChild("Icon").Visible = structures.WindowControls.GuiState ~= Enum.GuiState.Hover
+			exit:FindFirstChild("Icon").Visible = properties.CanExit
+					and wcBody.GuiState ~= Enum.GuiState.Hover
+				or false
+			minimize:FindFirstChild("Icon").Visible = properties.CanMinimize
+					and wcBody.GuiState ~= Enum.GuiState.Hover
+				or false
+			zoom:FindFirstChild("Icon").Visible = properties.CanZoom
+					and wcBody.GuiState ~= Enum.GuiState.Hover
+				or false
 		end
 
 		zoom.MouseButton1Click:Connect(function()
+			if not properties.CanZoom then
+				return
+			end
 			properties.Maximized = not properties.Maximized
 			bindings.Maximized(properties.Maximized, true)
 		end)
 
 		minimize.MouseButton1Click:Connect(function()
+			if not properties.CanMinimize then
+				return
+			end
 			properties.Minimized = not properties.Minimized
 			bindings.Minimized(properties.Minimized, true)
 		end)
@@ -797,12 +667,16 @@ return function(self, properties: types.WindowProperties): types.Window
 		end
 
 		exit.MouseButton1Click:Connect(function()
+			if not properties.CanExit then
+				return
+			end
+
 			bindings.Minimized(true)
 			task.delay(0.25, structures.Body.Destroy)
 		end)
 
-		structures.WindowControls.MouseEnter:Connect(rollOver)
-		structures.WindowControls.MouseLeave:Connect(rollOver)
+		wcBody.MouseEnter:Connect(rollOver)
+		wcBody.MouseLeave:Connect(rollOver)
 	end
 
 	do -- Window dragging
