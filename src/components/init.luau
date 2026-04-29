@@ -62,6 +62,8 @@ local function wrap(name, make)
 			)
 
 		if final ~= nil then
+			table.insert(__SH.COMPINDEXES, final)
+			
 			return result, final
 		end
 

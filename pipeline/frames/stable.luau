@@ -15,4 +15,6 @@
     This file was automatically generated with darklua, it is not intended for manual editing.
 --]]
 
+__SH = { COMPINDEXES = {} }
+
 __COMPOSER.Insert(__COMPOSER.build)

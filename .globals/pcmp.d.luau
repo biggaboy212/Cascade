@@ -7,4 +7,4 @@ declare __COMPOSER: {
     vers: string
 }
 
-declare _P: {[any]: any}
+declare __SH: {[any]: any}

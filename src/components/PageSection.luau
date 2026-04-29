@@ -18,36 +18,21 @@ return function(self, properties: types.PageSectionProperties): types.PageSectio
 	properties = properties or {}
 	properties.Title = properties.Title or "Title"
 
-	local PageSections, instance = parent:FindFirstChild("PageSections"), true
-
-	if not PageSections then
-		instance = false
-		PageSections = create("Frame")({
-			Name = "PageSections",
-			BackgroundTransparency = 1,
-			Size = UDim2.fromScale(1, 0),
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Parent = parent,
-
-			create("UIListLayout")({
-				Name = "UIListLayout",
-				Padding = UDim.new(0, 25),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-		})
-	end
-
 	local section = create("Frame")({
 		Name = "PageSection",
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(1, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
-		Parent = instance and PageSections or PageSections.__instance,
+		Parent = parent,
 
 		create("UIListLayout")({
 			Name = "UIListLayout",
 			Padding = UDim.new(0, 12),
 			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+
+		create("UIPadding")({
+			PaddingBottom = UDim.new(0, 18)
 		}),
 	})
 

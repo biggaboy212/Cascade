@@ -180,41 +180,6 @@ return function(self, properties: types.TabProperties): types.Tab
 		structures.Page = pageComponent.Structures.Page
 	end
 
-	structures.Page = structures.Page
-		or (function()
-			return binder.Apply(
-				properties,
-				create("ScrollingFrame")({
-					Name = "ContentList",
-					AutomaticCanvasSize = Enum.AutomaticSize.Y,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					CanvasSize = UDim2.new(),
-					ClipsDescendants = false,
-					ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0),
-					ScrollBarImageTransparency = 0.6,
-					ScrollBarThickness = 7,
-					Size = UDim2.fromScale(1, 1),
-
-					create("UIListLayout")({
-						Name = "UIListLayout",
-						Padding = UDim.new(0, 9),
-						SortOrder = Enum.SortOrder.LayoutOrder,
-					}),
-
-					create("UIPadding")({
-						Name = "Margins",
-						PaddingBottom = UDim.new(0, 17),
-						PaddingLeft = UDim.new(0, 17),
-						PaddingRight = UDim.new(0, 17),
-						PaddingTop = UDim.new(0, 17),
-					}),
-				})
-			) :: ScrollingFrame
-		end)()
-
 	local object
 	object = binder.Wrap(properties, {
 		Title = function(name: string)
