@@ -1,0 +1,124 @@
+[project]
+site_name = "Cascade Developer Documentation"
+repo_name = "biggaboy212/Cascade"
+repo_url = "https://github.com/biggaboy212/Cascade"
+edit_uri = "edit/main/docs/"
+extra_css = ["assets/styles/extra.css"]
+
+nav = [
+    "index.md",
+    { "Getting Started" = [
+        "Getting Started/interface-guidelines.md",
+        "Getting Started/importing-the-library.md",
+        { "The API" = [
+            "Getting Started/The API/index.md",
+            "Getting Started/The API/app.md",
+            "Getting Started/The API/standalone.md",
+            "Getting Started/The API/themes.md",
+            "Getting Started/The API/accents.md",
+        ] },
+        "Getting Started/example.md",
+    ] },
+    { "Custom Components" = [
+        "Custom Components/introduction.md",
+        "Custom Components/creating-a-component.md",
+        "Custom Components/internal-modules.md",
+    ] },
+    { "Components" = [
+        "Components/index.md",
+        "Components/Window.md",
+        "Components/Section.md",
+        "Components/Tab.md",
+        "Components/Page.md",
+        "Components/PageSection.md",
+        "Components/Form.md",
+        "Components/Row.md",
+        "Components/VStack.md",
+        "Components/HStack.md",
+        "Components/TitleStack.md",
+        "Components/Label.md",
+        "Components/Symbol.md",
+        "Components/Button.md",
+        "Components/Toggle.md",
+        "Components/Stepper.md",
+        "Components/Slider.md",
+        "Components/KeybindField.md",
+        "Components/TextField.md",
+        "Components/RadioButtonGroup.md",
+        "Components/PopUpButton.md",
+        "Components/PullDownButton.md",
+        "Components/Notification.md",
+    ] },
+]
+
+[project.theme]
+name = "material"
+favicon = "assets/favicon.png"
+logo = "assets/logo.svg"
+
+features = [
+    "navigation.tabs",
+    "navigation.tabs.sticky",
+    "navigation.instant",
+    "navigation.instant.progress",
+    "navigation.tracking",
+    "navigation.sections",
+    "navigation.expand",
+    "navigation.path",
+    "navigation.indexes",
+    "navigation.top",
+    "navigation.footer",
+    "toc.follow",
+    "search.suggest",
+    "content.action.edit",
+    "content.action.view",
+    "content.code.copy",
+    "content.code.select",
+    "content.code.annotate",
+]
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+edit = "material/pencil"
+view = "material/eye"
+
+[project.theme.font]
+text = "Roboto"
+code = "Roboto Mono"
+
+[[project.theme.palette]]
+scheme = "slate"
+primary = "light blue"
+accent = "light blue"
+toggle.icon = "material/toggle-switch"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+scheme = "default"
+primary = "light blue"
+accent = "light blue"
+toggle.icon = "material/toggle-switch-off-outline"
+toggle.name = "Switch to dark mode"
+
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.snippets]
+[project.markdown_extensions.pymdownx.superfences]
+[project.markdown_extensions.pymdownx.tasklist]
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+
+[project.extra]
+generator = false
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/biggaboy212/Cascade"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/discord"
+link = "https://discord.gg/2cB4vBAEWk"

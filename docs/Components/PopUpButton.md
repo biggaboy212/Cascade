@@ -1,6 +1,6 @@
 # PopUpButton
 
-A `PopUpbutton` displays a menu of mutually exclusive options.
+A `PopUpbutton` displays a menu of mutually exclusive/inclusive options.
 
 ![Component preview](../assets/component_popUpButton.png)
 
