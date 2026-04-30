@@ -100,7 +100,7 @@ return function(self: any, properties: types.NotificationProperties, state: { Ag
 						Name = "Icon",
 						BackgroundTransparency = 1,
 						LayoutOrder = 1,
-						Size = UDim2.fromOffset(13, 13),
+						Size = UDim2.fromOffset(18, 18),
 						Visible = false,
 
 						__dynamicKeys = {
