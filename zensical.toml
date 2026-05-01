@@ -10,6 +10,7 @@ nav = [
     { "Getting Started" = [
         "Getting Started/interface-guidelines.md",
         "Getting Started/importing-the-library.md",
+        "Getting Started/building-from-source.md",
         { "The API" = [
             "Getting Started/The API/index.md",
             "Getting Started/The API/app.md",
@@ -102,6 +103,8 @@ toggle.name = "Switch to dark mode"
 
 [project.markdown_extensions.admonition]
 [project.markdown_extensions.attr_list]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
 [project.markdown_extensions.pymdownx.details]
 [project.markdown_extensions.pymdownx.inlinehilite]
 [project.markdown_extensions.pymdownx.snippets]
