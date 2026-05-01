@@ -1,12 +1,14 @@
 # Change Log
 
-## UNMARKED (Target: v1.3.0)
+## UNMARKED (Target: v1.2.1)
 
 - Fixed `Tab.Selected` property didn't deselect other tabs
 - Types used a property `Page` which was inaccessible due to the `Page` component overwriting it, the docs now redirect to `Tab.Structures.Page`
 - Fixed the `Page` type stating it returned a `Frame` instead of `ScrollingFrame`
 - Updated to SF Symbols 7
 - Added Properties to window: `CanExit`, `CanMinimize`, `CanZoom`
+- Increased the title icon size in the `Notification` component from `13x13` to `18x18`
+- Reworked `PageSection` component layouts. You will now be able to place components above, under, and in between page sections. Previously you couldn't put anything in between theme, due to PageSections having their own content container in each page.
 
 ## v1.2.0 (3/6/2026)
 
