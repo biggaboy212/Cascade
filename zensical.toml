@@ -20,11 +20,6 @@ nav = [
         ] },
         "Getting Started/example.md",
     ] },
-    { "Custom Components" = [
-        "Custom Components/introduction.md",
-        "Custom Components/creating-a-component.md",
-        "Custom Components/internal-modules.md",
-    ] },
     { "Components" = [
         "Components/index.md",
         "Components/Window.md",
@@ -49,6 +44,17 @@ nav = [
         "Components/PopUpButton.md",
         "Components/PullDownButton.md",
         "Components/Notification.md",
+    ] },
+    { "Creating Components" = [
+        "Custom Components/introduction.md",
+        "Custom Components/creating-a-component.md",
+        "Custom Components/internal-modules.md",
+    ] },
+    { "Creating Themes & Accents" = [
+        "Creating Themes & Accents/introduction.md",
+        "Creating Themes & Accents/valueState.md",
+        "Creating Themes & Accents/themes.md",
+        "Creating Themes & Accents/accents.md",
     ] },
 ]
 
