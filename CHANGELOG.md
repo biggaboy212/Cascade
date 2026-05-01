@@ -1,6 +1,6 @@
 # Change Log
 
-## UNMARKED (Target: v1.2.1)
+## v1.2.1 (5/1/2026)
 
 - Fixed `Tab.Selected` property didn't deselect other tabs
 - Types used a property `Page` which was inaccessible due to the `Page` component overwriting it, the docs now redirect to `Tab.Structures.Page`
