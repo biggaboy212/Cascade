@@ -8,14 +8,14 @@ A `Notification` gives people timely, high-value information they can understand
 
 ### Properties
 
-| Name | Type | Description |
-| --- | --- | --- |
-| `Title` | `string` | The primary headline of the notification. |
-| `Subtitle` | `string` | The secondary text providing more context. |
-| `App` | `string?` | Optional text to display what feature or app triggered the notification. |
-| `AppIcon` | `string?` | Optional image asset ID to show an icon in the top left. |
-| `Icon` | `string?` | Optional image asset ID to show an icon in the top left, next to the title. |
-| `Duration` | `number?` | How long (in seconds) the notification remains before auto-closing. Defaults to `6`. Use `0` for manual close only. |
+| Name       | Type             | Description                                                                                                         |
+| ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `Title`    | `#!luau string`  | The primary headline of the notification.                                                                           |
+| `Subtitle` | `#!luau string`  | The secondary text providing more context.                                                                          |
+| `App`      | `#!luau string?` | Optional text to display what feature or app triggered the notification.                                            |
+| `AppIcon`  | `#!luau string?` | Optional image asset ID to show an icon in the top left.                                                            |
+| `Icon`     | `#!luau string?` | Optional image asset ID to show an icon in the top left, next to the title.                                         |
+| `Duration` | `#!luau number?` | How long (in seconds) the notification remains before auto-closing. Defaults to `6`. Use `0` for manual close only. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -23,17 +23,17 @@ A `Notification` gives people timely, high-value information they can understand
 
 ### Methods
 
-| Name | Returns | Description |
-| --- | --- | --- |
-| `Close` | `nil` | Manually dismisses the notification. |
+| Name    | Returns      | Description                          |
+| ------- | ------------ | ------------------------------------ |
+| `Close` | `#!luau nil` | Manually dismisses the notification. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
 
 ### Events
 
-| Name | Parameters | Description |
-| --- | --- | --- |
-| `Closed` | `(self: Notification, fromUser: boolean)` | Fired when the notification is closed either via timeout or by the user. |
+| Name     | Parameters                                       | Description                                                              |
+| -------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
+| `Closed` | `#!luau (self: Notification, fromUser: boolean)` | Fired when the notification is closed either via timeout or by the user. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
 

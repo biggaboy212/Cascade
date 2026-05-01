@@ -8,10 +8,10 @@ A `KeybindField` is a rectangular area in which people can enter and store `Enum
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Placeholder` | `#!luau string?` | The text placeholder to instruct users on how to interact with the component. |
-| `Value` | `#!luau Enum.Keycode?` | The default shortcut the `KeybindField` is bound to. |
+| Property      | Type                   | Description                                                                   |
+| ------------- | ---------------------- | ----------------------------------------------------------------------------- |
+| `Placeholder` | `#!luau string?`       | The text placeholder to instruct users on how to interact with the component. |
+| `Value`       | `#!luau Enum.Keycode?` | The default shortcut the `KeybindField` is bound to.                          |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -23,10 +23,10 @@ A `KeybindField` is a rectangular area in which people can enter and store `Enum
 
 ### Events
 
-| Event          | Signature     | Description |
-|----------------|---------------|-------------|
-| `BindPressed` | `#!luau ((self: KeybindField, value: Enum.KeyCode, inputComplete: boolean, gameProcessedEvent: boolean) -> unknown)?` | A Callback function that is triggered when the `Value` KeyCode has been pressed. |
-| `ValueChanged` | `#!luau ((self: KeybindField, value: Enum.KeyCode) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
+| Event          | Signature                                                                                                             | Description                                                                        |
+| -------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `BindPressed`  | `#!luau ((self: KeybindField, value: Enum.KeyCode, inputComplete: boolean, gameProcessedEvent: boolean) -> unknown)?` | A Callback function that is triggered when the `Value` KeyCode has been pressed.   |
+| `ValueChanged` | `#!luau ((self: KeybindField, value: Enum.KeyCode) -> unknown)?`                                                      | A Callback function that is triggered when the `Value` property has been modified. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
 

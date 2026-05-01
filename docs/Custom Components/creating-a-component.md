@@ -4,9 +4,9 @@ Building a custom component in Cascade involves understanding the component life
 
 ## The Component Maker
 
-Every component is defined by a "maker" function. This function receives two arguments: `self` and `properties`.
+Every component is defined by a "maker" function. This function receives two arguments: `#!luau self` and `#!luau properties`.
 
-### `self`
+### `#!luau self`
 
 `self` is the chain context. eg
 
@@ -18,7 +18,7 @@ end)
 ctx:Toggle():Test() -- "Toggle"
 ```
 
-### `properties`
+### `#!luau properties`
 
 `properties` is the table passed by the user when calling your component. You should use this to customize the appearance and behavior of your component.
 

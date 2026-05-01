@@ -8,10 +8,10 @@ A `TextField` is a rectangular area in which people enter or edit small, specifi
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Placeholder` | `#!luau string?` | The text placeholder to instruct users on how to interact with the component. |
-| `Value` | `#!luau Enum.Keycode?` | The text in the field. |
+| Property      | Type                   | Description                                                                   |
+| ------------- | ---------------------- | ----------------------------------------------------------------------------- |
+| `Placeholder` | `#!luau string?`       | The text placeholder to instruct users on how to interact with the component. |
+| `Value`       | `#!luau Enum.Keycode?` | The text in the field.                                                        |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -23,10 +23,10 @@ A `TextField` is a rectangular area in which people enter or edit small, specifi
 
 ### Events
 
-| Event          | Signature     | Description |
-|----------------|---------------|-------------|
-| `TextChanged` | `#!luau ((self: TextField, text: string) -> unknown)?` | A Callback function that is triggered when the text field's text has been modified. |
-| `ValueChanged` | `#!luau ((self: TextField, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
+| Event          | Signature                                               | Description                                                                         |
+| -------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `TextChanged`  | `#!luau ((self: TextField, text: string) -> unknown)?`  | A Callback function that is triggered when the text field's text has been modified. |
+| `ValueChanged` | `#!luau ((self: TextField, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified.  |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
 

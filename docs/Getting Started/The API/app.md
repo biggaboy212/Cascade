@@ -8,11 +8,11 @@ The returned object exposes all built-in [Components](../../Components/index.md)
 
 ### Properties
 
-| Property   | Type       | Description                                                        |
-| ---------- | ---------- | ------------------------------------------------------------------ |
-| WindowPill | `boolean?` | Whether or not the window minimize/restore pill should be visible. |
-| Theme      | `Theme?`   | Light or Dark mode. See [Themes](./themes.md)                      |
-| Accent     | `Accent?`  | Accent color palette. See [Accents](./accents.md)                  |
+| Property   | Type              | Description                                                        |
+| ---------- | ----------------- | ------------------------------------------------------------------ |
+| WindowPill | `#!luau boolean?` | Whether or not the window minimize/restore pill should be visible. |
+| Theme      | `#!luau Theme?`   | Light or Dark mode. See [Themes](./themes.md)                      |
+| Accent     | `#!luau Accent?`  | Accent color palette. See [Accents](./accents.md)                  |
 
 [View all inherited from ScreenGui](https://create.roblox.com/docs/reference/engine/classes/ScreenGui#summary-properties)
 

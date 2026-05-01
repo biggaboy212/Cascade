@@ -8,11 +8,11 @@ A `Section` organizes sidebar content by grouping related tabs together with opt
 
 ### Properties
 
-| Property       | Type       | Description |
-|----------------|------------|-------------|
-| `Title` | `#!luau string?` | The displayed section title. |
+| Property     | Type              | Description                                                          |
+| ------------ | ----------------- | -------------------------------------------------------------------- |
+| `Title`      | `#!luau string?`  | The displayed section title.                                         |
 | `Disclosure` | `#!luau boolean?` | Whether the section's content should be hideable. Defaults to false. |
-| `Expanded` | `#!luau boolean?` | Whether the section should be expanded by default. Defaults to true. |
+| `Expanded`   | `#!luau boolean?` | Whether the section should be expanded by default. Defaults to true. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 

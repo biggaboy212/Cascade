@@ -6,11 +6,11 @@ The Standalone API lets you create individual Cascade components without a full 
 
 ### Properties
 
-| Property | Type        | Description                                                       |
-| -------- | ----------- | ----------------------------------------------------------------- |
-| Theme    | `Theme?`    | Light or Dark mode. See [Themes](./themes.md). Defaults to Light. |
-| Accent   | `Accent?`   | Accent color palette. See [Accents](./accents.md).                |
-| Parent   | `Instance?` | Default parent for components created on this context.            |
+| Property | Type               | Description                                                       |
+| -------- | ------------------ | ----------------------------------------------------------------- |
+| Theme    | `#!luau Theme?`    | Light or Dark mode. See [Themes](./themes.md). Defaults to Light. |
+| Accent   | `#!luau Accent?`   | Accent color palette. See [Accents](./accents.md).                |
+| Parent   | `#!luau Instance?` | Default parent for components created on this context.            |
 
 ## Types
 
@@ -68,7 +68,7 @@ local slider = ctx:Slider({ Value = 0.5, Minimum = 0, Maximum = 1 })
 ```
 
 !!! note
-    You can still override `Parent` for a shared component group.
+You can still override `Parent` for a shared component group.
 
 ### Different contexts
 
