@@ -68,7 +68,7 @@ local slider = ctx:Slider({ Value = 0.5, Minimum = 0, Maximum = 1 })
 ```
 
 !!! note
-You can still override `Parent` for a shared component group.
+    You can still override `Parent` for a shared component group.
 
 ### Different contexts
 

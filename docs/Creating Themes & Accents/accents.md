@@ -1,3 +1,5 @@
+<!--markdownlint-disable MD046-->
+
 # Accents
 
 [pre-made accents]: https://github.com/biggaboy212/Cascade/blob/main/src/themes/accents.luau
@@ -11,9 +13,9 @@ In cascade, the term `Accents` is analogous to theme key overrides. It's simply 
 Similar to [Themes](./themes.md), the best way to get started is copying one of our [pre-made accents].
 
 !!! important
-Unlike Themes, Accents should NOT have their keys wrapped in a `ValueState`. You can use raw color values.
+    Unlike Themes, Accents should NOT have their keys wrapped in a `ValueState`. You can use raw color values.
 
-Your accent table must have a `_id` defining it's name, as well as a variant for each theme you plan to use the accent for. In most cases thats just one `Dark` table and one `Light` table.
+    Your accent table must have a `_id` defining it's name, as well as a variant for each theme you plan to use the accent for. In most cases thats just one `Dark` table and one `Light` table.
 
 ## Example
 
