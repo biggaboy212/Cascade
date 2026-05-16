@@ -1,4 +1,8 @@
+--// Variables
+
 local interaction = {}
+
+--// Public Methods
 
 function interaction.isDisabled(properties): boolean
 	return properties and properties.Disabled == true
@@ -69,5 +73,7 @@ function interaction.validRange(minimum: number?, maximum: number?): (number, nu
 
 	return min, max
 end
+
+--// Publish
 
 return interaction

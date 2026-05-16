@@ -21,7 +21,7 @@ return function(self, properties: types.TextFieldProperties): types.TextField
 	structures.Body.Parent = self.__container or self.__instance or self
 
 	local object
-	object = binder.Wrap(properties, {
+	local bindings = {
 		Placeholder = function(value: string)
 			structures.Field.PlaceholderText = value
 		end,
@@ -46,7 +46,9 @@ return function(self, properties: types.TextFieldProperties): types.TextField
 				structures.Field.TextColor3 = self.Theme.Text.Primary[1].Value
 			end
 		end,
-	}, structures.Body)
+	}
+
+	object = binder.Wrap(properties, bindings, structures.Body)
 
 	structures.Field.Focused:Connect(function()
 		if interaction.isDisabled(properties) then

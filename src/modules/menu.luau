@@ -1,4 +1,8 @@
+--// Imports
+
 local services = require("@modules/services")
+
+--// Variables
 
 local menu = {}
 
@@ -6,8 +10,12 @@ local userInputService = services.UserInputService
 local guiService = services.GuiService
 local workspace = services.Workspace
 
+--// Constants
+
 local EDGE_BUFFER = 6
 local DEFAULT_VERTICAL_PADDING = 6
+
+--// Public Methods
 
 function menu.anchor(body: GuiObject, popup: GuiObject, options)
 	options = options or {}
@@ -101,5 +109,7 @@ function menu.trackLifecycle(root: Instance, cleanup: () -> ())
 		end
 	end)
 end
+
+--// Publish
 
 return menu
