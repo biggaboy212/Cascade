@@ -12,6 +12,7 @@ A `Button` initiates an instantaneous action.
 
 | Property | Type                                                  | Description                                                                                  |
 | -------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `Disabled` | `#!luau boolean?`                                   | Prevents user interaction while preserving layout. Defaults to `false`.                      |
 | `State`  | `#!luau ("Primary" or "Secondary" or "Destructive")?` | Determines the weight of the button. Suggests to the user its impact on surrounding content. |
 | `Label`  | `#!luau string?`                                      | The text content of the button.                                                              |
 
@@ -35,6 +36,7 @@ A `Button` initiates an instantaneous action.
 
 ```luau
 type ButtonProperties = TextButton & {
+    Disabled: boolean?,
     State: ("Primary" | "Secondary" | "Destructive")?,
     Label: string?,
     Pushed: ((self: Button) -> unknown)?,
@@ -55,6 +57,7 @@ function(self, properties: ButtonProperties): Button
 local button = row:Right():Button({
     Label = "Button",
     State = "Primary",
+    Disabled = false,
     Pushed = function(self)
         print("Pushed")
     end,

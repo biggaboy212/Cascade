@@ -174,6 +174,23 @@ do -- Main window
 					})
 				end
 
+				do -- Disabled Controls
+					local row = titledRow(form, "Disabled Controls", "Controls can be disabled without changing layout.")
+
+					row:Right():Button({
+						Label = "Disabled",
+						State = "Secondary",
+						Disabled = true,
+						Pushed = function(self)
+							print("This should not run")
+						end,
+					})
+					row:Right():Toggle({
+						Value = true,
+						Disabled = true,
+					})
+				end
+
 				do -- Slider
 					local row = titledRow(
 						form,
@@ -185,6 +202,8 @@ do -- Main window
 						Image = cascade.Symbols.sunMin,
 					})
 					row:Right():Slider({
+						Minimum = 0,
+						Maximum = 1,
 						Value = 0.5,
 						ValueChanged = function(self, value: number)
 							print("Value changed:", value)
@@ -204,6 +223,9 @@ do -- Main window
 					local label = row:Right():Label()
 
 					row:Right():Stepper({
+						Minimum = 0,
+						Maximum = 10,
+						Step = 1,
 						ValueChanged = function(self, value: number)
 							print("Value changed:", value)
 							label.Text = tostring(value)
@@ -216,6 +238,9 @@ do -- Main window
 
 					row:Right():Stepper({
 						Fielded = true,
+						Minimum = -1,
+						Maximum = 1,
+						Step = 0.25,
 						ValueChanged = function(self, value: number)
 							print("Value changed:", value)
 						end,

@@ -10,6 +10,7 @@ A `PopUpbutton` displays a menu of mutually exclusive/inclusive options.
 
 | Property   | Type                          | Description                                                                                                                            |
 | ---------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `Disabled` | `#!luau boolean?`             | Prevents user interaction while preserving layout. Defaults to `false`.                                                                |
 | `Options`  | `#!luau {[number]: string}?`  | You can use this table to pre-define options. Note that doing it this way will not give you access to the option instances themselves. |
 | `Expanded` | `#!luau boolean?`             | Defines the state of the dropdown disclosure.                                                                                          |
 | `Maximum`  | `#!luau number?`              | Maximum number of selectable options. Defaults to `1` (single-select).                                                                 |
@@ -40,6 +41,7 @@ A `PopUpbutton` displays a menu of mutually exclusive/inclusive options.
 
 ```luau
 type PopUpButtonProperties = Frame & {
+    Disabled: boolean?,
     Options: { [number]: string }?,
     Expanded: boolean?,
     Maximum: number?,
@@ -63,6 +65,7 @@ function(self, properties: PopUpButtonProperties): PopUpButton
 
 ```luau
 local popUpButton = row:Right():PopUpButton({
+    Disabled = false,
     Options = {
         "Item One",
         "Item Two",

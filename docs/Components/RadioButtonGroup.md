@@ -10,6 +10,7 @@ A `RadioButtonGroup` lets people choose an option from a set of mutually exclusi
 
 | Property  | Type                         | Description                                                                                                                            |
 | --------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `Disabled` | `#!luau boolean?`           | Prevents user interaction while preserving layout. Defaults to `false`.                                                                |
 | `Options` | `#!luau {[number]: string}?` | You can use this table to pre-define options. Note that doing it this way will not give you access to the option instances themselves. |
 | `Value`   | `#!luau number?`             | The numeric index of the option to be selected.                                                                                        |
 
@@ -37,6 +38,7 @@ A `RadioButtonGroup` lets people choose an option from a set of mutually exclusi
 
 ```luau
 type RadioButtonGroupProperties = Frame & {
+    Disabled: boolean?,
     Options: { [number]: string }?,
     Value: number?,
     ValueChanged: ((self: RadioButtonGroup, value: number) -> unknown)?,
@@ -57,6 +59,7 @@ function(self, properties: RadioButtonGroupProperties): RadioButtonGroup
 
 ```luau
 local radioButtonGroup = row:Right():RadioButtonGroup({
+    Disabled = false,
     Options = {
         "Option 1",
         "Option 2",

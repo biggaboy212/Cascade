@@ -5,16 +5,13 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
 	local services = require("@modules/services")
+	local interaction = require("@modules/interaction")
+	local menu = require("@modules/menu")
 
 	--// References
 	local create = creator.Create
 
-	local userInputService = services.UserInputService
 	local tweenService = services.TweenService
-	local workspace = services.Workspace
-	local guiService = services.GuiService
-
-	local camera = workspace.CurrentCamera
 
 	--// Variables
 	local parent = self.__container or self.__instance or self
@@ -22,36 +19,24 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 	local structures = {
 		Options = {},
 	}
+	local connections = {}
 
 	--// Constants
 	local HORIZONTAL_OFFSET = -1
 	local VERTICAL_PADDING = 6
-	local EDGE_BUFFER = 6
-
 	--// Functions
 	local function anchor()
 		local body = structures.Body
-		local menu = structures.Menu
+		local menuFrame = structures.Menu
 
-		if not menu or not body then
+		if not menuFrame or not body then
 			return
 		end
 
-		local bodyPos = body.AbsolutePosition
-		local bodySize = body.AbsoluteSize
-		local menuSize = menu.AbsoluteSize
-		local viewportSize = camera.ViewportSize
-
-		local desiredX = bodyPos.X + HORIZONTAL_OFFSET
-		local desiredY = bodyPos.Y + (bodySize.Y * 3) + (VERTICAL_PADDING * 3) -- position below
-
-		local maxX = math.max(EDGE_BUFFER, viewportSize.X - EDGE_BUFFER - menuSize.X)
-		local maxY = math.max(EDGE_BUFFER, viewportSize.Y - EDGE_BUFFER - menuSize.Y)
-
-		desiredX = math.clamp(desiredX, EDGE_BUFFER, maxX)
-		desiredY = math.clamp(desiredY, EDGE_BUFFER, maxY)
-
-		menu.Position = UDim2.new(0, desiredX, 0, desiredY)
+		menu.anchor(body, menuFrame, {
+			HorizontalOffset = HORIZONTAL_OFFSET,
+			VerticalPadding = VERTICAL_PADDING,
+		})
 	end
 
 	local function option(object, name, index)
@@ -147,7 +132,7 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 		end)
 
 		option.MouseButton1Click:Connect(function()
-			if object then
+			if object and not interaction.isDisabled(properties) then
 				object.Expanded = false
 				object.Value = index
 			end
@@ -157,6 +142,8 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 	--// UI
 	properties = properties or {}
 	properties.Expanded = properties.Expanded or false
+	properties.Disabled = properties.Disabled == true
+	local initialized = false
 
 	structures.Body = binder.Apply(
 		properties,
@@ -167,7 +154,7 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 			BackgroundTransparency = 1,
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderSizePixel = 0,
-			Selectable = false,
+			Selectable = true,
 			Text = "",
 			Parent = parent,
 
@@ -324,6 +311,9 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 
 		Expanded = function(value: boolean)
 			local expand = value == true
+			if expand and interaction.isDisabled(properties) then
+				return
+			end
 
 			if expand then
 				structures.MenuContainer.Parent = structures.Body.__instance
@@ -351,10 +341,17 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 		end,
 
 		Value = function(value: number)
-			if properties.ValueChanged then
+			if properties.ValueChanged and initialized then
 				properties.Value = value
 				task.spawn(properties.ValueChanged, object, value)
 			end
+		end,
+		Disabled = function(value: boolean)
+			interaction.setInteractable(structures.Body, not value)
+			if value then
+				object.Expanded = false
+			end
+			structures.CurrentTab.TextTransparency = value and 0.55 or self.Theme.Text.Primary[2].Value
 		end,
 	}
 
@@ -381,39 +378,28 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 	end
 
 	binder.Apply(properties, object)
+	initialized = true
+	bindings.Disabled(properties.Disabled)
 
 	structures.Body:GetPropertyChangedSignal("AbsolutePosition"):Connect(anchor)
 	structures.Body:GetPropertyChangedSignal("AbsoluteSize"):Connect(anchor)
 	structures.Menu:GetPropertyChangedSignal("AbsoluteSize"):Connect(anchor)
 
-	userInputService.InputBegan:Connect(function(input)
-		if
-			object.Expanded
-			and (
-				input.UserInputType == Enum.UserInputType.MouseButton1
-				or input.UserInputType == Enum.UserInputType.Touch
-			)
-		then
-			local mouse = userInputService:GetMouseLocation()
-			local inset = guiService:GetGuiInset()
-			local menuFrame = structures.Menu
-			local pos = menuFrame.AbsolutePosition
-			local size = menuFrame.AbsoluteSize
+	table.insert(connections, menu.connectOutsideClose(structures.Body, structures.Menu, function()
+		return object.Expanded
+	end, function()
+		object.Expanded = false
+	end))
+	table.insert(connections, menu.trackLifecycle(structures.Body, function()
+		interaction.disconnectAll(connections)
+		structures.MenuContainer.Parent = nil
+	end))
 
-			local adjustedMouseY = mouse.Y - inset.Y
-
-			if
-				mouse.X < pos.X
-				or mouse.X > pos.X + size.X
-				or adjustedMouseY < pos.Y
-				or adjustedMouseY > pos.Y + size.Y
-			then
-				object.Expanded = false
-			end
+	interaction.connectActivate(structures.Body, function()
+		if interaction.isDisabled(properties) then
+			return
 		end
-	end)
 
-	structures.Body.MouseButton1Click:Connect(function()
 		object.Expanded = not object.Expanded
 	end)
 

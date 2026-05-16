@@ -10,6 +10,7 @@ A `KeybindField` is a rectangular area in which people can enter and store `Enum
 
 | Property      | Type                   | Description                                                                   |
 | ------------- | ---------------------- | ----------------------------------------------------------------------------- |
+| `Disabled`    | `#!luau boolean?`      | Prevents shortcut capture and callback firing. Defaults to `false`.          |
 | `Placeholder` | `#!luau string?`       | The text placeholder to instruct users on how to interact with the component. |
 | `Value`       | `#!luau Enum.Keycode?` | The default shortcut the `KeybindField` is bound to.                          |
 
@@ -34,6 +35,7 @@ A `KeybindField` is a rectangular area in which people can enter and store `Enum
 
 ```luau
 type KeybindFieldProperties = Frame & {
+    Disabled: boolean?,
     Placeholder: string?,
     Value: Enum.KeyCode?,
     BindPressed: ((
@@ -58,6 +60,7 @@ function(self, properties: KeybindFieldProperties): KeybindField
 
 ```luau
 local keybindField = row:Right():KeybindField({
+    Disabled = false,
     ValueChanged = function(self, value: Enum.KeyCode)
         print("Value changed:", value)
     end,

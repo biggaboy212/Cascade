@@ -4,6 +4,7 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
+	local interaction = require("@modules/interaction")
 
 	local textField = require("@structures/TextField")
 
@@ -19,6 +20,7 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	local stepConnections = {}
 	local repeatDelay = 0.35
 	local repeatInterval = 0.083
+	local stepStop
 
 	--// Functions
 	local function getPrecision(step)
@@ -55,6 +57,11 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	properties.Maximum = properties.Maximum or 1
 	properties.Minimum = properties.Minimum or 0
 	properties.Fielded = properties.Fielded or false
+	properties.Disabled = properties.Disabled == true
+	properties.Minimum, properties.Maximum = interaction.validRange(properties.Minimum, properties.Maximum)
+	properties.Step = math.abs(tonumber(properties.Step) or 0.1)
+	properties.Value = interaction.clampNumber(properties.Value, properties.Minimum, properties.Maximum)
+	local initialized = false
 
 	structures.Body = binder.Apply(
 		properties,
@@ -65,6 +72,7 @@ return function(self, properties: types.StepperProperties): types.Stepper
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderSizePixel = 0,
 			Image = "rbxassetid://85888499115674",
+			Selectable = true,
 			Size = UDim2.fromOffset(13, 20),
 			Parent = parent,
 
@@ -264,6 +272,8 @@ return function(self, properties: types.StepperProperties): types.Stepper
 			end
 		end,
 		Value = function(value: number)
+			value = interaction.clampNumber(value, properties.Minimum, properties.Maximum)
+
 			if value <= properties.Minimum then
 				structures.IMinus.ImageColor3 = self.Theme.Text.Tertiary[1].Value
 				structures.IMinus.ImageTransparency = self.Theme.Text.Tertiary[2].Value
@@ -271,7 +281,7 @@ return function(self, properties: types.StepperProperties): types.Stepper
 			else
 				structures.IMinus.ImageColor3 = self.Theme.Text.Primary[1].Value
 				structures.IMinus.ImageTransparency = self.Theme.Text.Primary[2].Value
-				structures.IMinus.Interactable = true
+				structures.IMinus.Interactable = not interaction.isDisabled(properties)
 			end
 
 			if value >= properties.Maximum then
@@ -281,16 +291,41 @@ return function(self, properties: types.StepperProperties): types.Stepper
 			else
 				structures.IPlus.ImageColor3 = self.Theme.Text.Primary[1].Value
 				structures.IPlus.ImageTransparency = self.Theme.Text.Primary[2].Value
-				structures.IPlus.Interactable = true
+				structures.IPlus.Interactable = not interaction.isDisabled(properties)
 			end
 
 			if structures.Field then
 				structures.Field.Field.Text = stepFormat(value, properties.Step)
 			end
 
-			if properties.ValueChanged then
+			if properties.ValueChanged and initialized then
 				properties.Value = value
 				task.spawn(properties.ValueChanged, object, value)
+			end
+		end,
+		Minimum = function(value: number)
+			properties.Minimum, properties.Maximum = interaction.validRange(value, properties.Maximum)
+			object.Value = properties.Value
+		end,
+		Maximum = function(value: number)
+			properties.Minimum, properties.Maximum = interaction.validRange(properties.Minimum, value)
+			object.Value = properties.Value
+		end,
+		Step = function(value: number)
+			properties.Step = math.abs(tonumber(value) or properties.Step or 0.1)
+			if properties.Step == 0 then
+				properties.Step = 0.1
+			end
+			object.Value = properties.Value
+		end,
+		Disabled = function(value: boolean)
+			interaction.setInteractable(structures.IPlus, not value and properties.Value < properties.Maximum)
+			interaction.setInteractable(structures.IMinus, not value and properties.Value > properties.Minimum)
+			structures.Field.Field.TextEditable = not value
+			interaction.setInteractable(structures.Field.Field, not value)
+			if value then
+				stepStop("Up")
+				stepStop("Down")
 			end
 		end,
 	}
@@ -301,8 +336,9 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	object.Theme = self.Theme
 	object.Structures = structures
 	object.Increment = function()
-		assert(properties.Minimum)
-		assert(properties.Maximum)
+		if interaction.isDisabled(properties) then
+			return
+		end
 
 		local precision = math.max(getPrecision(object.Value), getPrecision(properties.Step))
 		local rawValue = object.Value + properties.Step
@@ -312,8 +348,9 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	end
 
 	object.Decrement = function()
-		assert(properties.Minimum)
-		assert(properties.Maximum)
+		if interaction.isDisabled(properties) then
+			return
+		end
 
 		local precision = math.max(getPrecision(object.Value), getPrecision(properties.Step))
 		local rawValue = object.Value - properties.Step
@@ -323,6 +360,10 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	end
 
 	local function stepStart(direction: string)
+		if interaction.isDisabled(properties) then
+			return
+		end
+
 		holding = true
 
 		local action = (direction == "Up") and object.Increment or object.Decrement
@@ -345,7 +386,7 @@ return function(self, properties: types.StepperProperties): types.Stepper
 		end)
 	end
 
-	local function stepStop(direction: string)
+	function stepStop(direction: string)
 		 holding = false
 		if stepConnections[direction] then
 			task.cancel(stepConnections[direction])
@@ -375,6 +416,18 @@ return function(self, properties: types.StepperProperties): types.Stepper
 		stepStop("Down")
 	end)
 
+	structures.Body.InputBegan:Connect(function(input)
+		if interaction.isDisabled(properties) then
+			return
+		end
+
+		if input.KeyCode == Enum.KeyCode.Up or input.KeyCode == Enum.KeyCode.DPadUp then
+			object.Increment()
+		elseif input.KeyCode == Enum.KeyCode.Down or input.KeyCode == Enum.KeyCode.DPadDown then
+			object.Decrement()
+		end
+	end)
+
 	structures.Body.AncestryChanged:Connect(function(_, parent)
 		if not parent then
 			stepStop("Up")
@@ -390,18 +443,11 @@ return function(self, properties: types.StepperProperties): types.Stepper
 
 	structures.Field.Field.FocusLost:Connect(function(fromEnter)
 		if fromEnter then
-			assert(properties.Minimum)
-			assert(properties.Maximum)
-
 			local text = structures.Field.Field.Text
 			local number = tonumber(text)
 
-			if number and properties.Fielded then
-				properties.Value = math.clamp(number, properties.Minimum, properties.Maximum)
-
-				if properties.Value then
-					bindings.Value(properties.Value)
-				end
+			if number and properties.Fielded and not interaction.isDisabled(properties) then
+				object.Value = interaction.clampNumber(number, properties.Minimum, properties.Maximum)
 			end
 		else
 			structures.Field.Field.Text = tostring(properties.Value)
@@ -409,6 +455,8 @@ return function(self, properties: types.StepperProperties): types.Stepper
 	end)
 
 	binder.Apply(properties, object)
+	initialized = true
+	bindings.Disabled(properties.Disabled)
 
 	return object
 end

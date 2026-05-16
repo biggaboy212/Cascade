@@ -336,6 +336,7 @@ export type Symbol = BaseComponent & Components & SymbolProperties
 
 -- Toggle
 export type ToggleProperties = Frame & {
+	Disabled: boolean?,
 	Value: boolean?,
 	ValueChanged: ((self: Toggle, value: boolean) -> unknown)?,
 }
@@ -344,6 +345,7 @@ export type Toggle = BaseComponent & Components & ToggleProperties
 
 -- TextField
 export type TextFieldProperties = Frame & {
+	Disabled: boolean?,
 	Placeholder: string?,
 	Value: string?,
 	TextChanged: ((self: TextField, text: string) -> unknown)?,
@@ -354,6 +356,7 @@ export type TextField = BaseComponent & Components & TextFieldProperties
 
 -- KeybindField
 export type KeybindFieldProperties = Frame & {
+	Disabled: boolean?,
 	Placeholder: string?,
 	Value: Enum.KeyCode?,
 	BindPressed: ((
@@ -369,6 +372,7 @@ export type KeybindField = BaseComponent & Components & KeybindFieldProperties
 
 -- Slider
 export type SliderProperties = ImageLabel & {
+	Disabled: boolean?,
 	Minimum: number?,
 	Maximum: number?,
 	Value: number?,
@@ -379,6 +383,7 @@ export type Slider = BaseComponent & Components & SliderProperties
 
 -- Button
 export type ButtonProperties = TextButton & {
+	Disabled: boolean?,
 	State: ("Primary" | "Secondary" | "Destructive")?,
 	Label: string?,
 	Pushed: ((self: Button) -> unknown)?,
@@ -388,6 +393,7 @@ export type Button = BaseComponent & Components & ButtonProperties
 
 -- Stepper
 export type StepperProperties = ImageLabel & {
+	Disabled: boolean?,
 	Minimum: number?,
 	Maximum: number?,
 	Step: number?,
@@ -403,6 +409,7 @@ export type Stepper = BaseComponent & Components & StepperProperties & {
 
 -- RadioButtonGroup
 export type RadioButtonGroupProperties = Frame & {
+	Disabled: boolean?,
 	Options: { [number]: string }?,
 	Value: number?,
 	ValueChanged: ((self: RadioButtonGroup, value: number) -> unknown)?,
@@ -414,6 +421,7 @@ export type RadioButtonGroup = BaseComponent & Components & RadioButtonGroupProp
 
 -- PopUpButton
 export type PopUpButtonProperties = Frame & {
+	Disabled: boolean?,
 	Options: { [number]: string }?,
 	Expanded: boolean?,
 	Maximum: number?,
@@ -428,6 +436,7 @@ export type PopUpButton = BaseComponent & Components & PopUpButtonProperties & {
 
 -- PullDownButton
 export type PullDownButtonProperties = Frame & {
+	Disabled: boolean?,
 	Options: { [number]: string }?,
 	Expanded: boolean?,
 	Label: string?,

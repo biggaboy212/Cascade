@@ -5,6 +5,7 @@ return function(self, properties: types.ButtonProperties): types.Button
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
 	local services = require("@modules/services")
+	local interaction = require("@modules/interaction")
 
 	--// References
 	local create = creator.Create
@@ -20,6 +21,7 @@ return function(self, properties: types.ButtonProperties): types.Button
 	properties = properties or {}
 	properties.State = properties.State or "Primary"
 	properties.Label = properties.Label or "Label"
+	properties.Disabled = properties.Disabled == true
 
 	structures.Body = binder.Apply(
 		properties,
@@ -197,6 +199,11 @@ return function(self, properties: types.ButtonProperties): types.Button
 		Label = function(value: string)
 			structures.Label.Text = value
 		end,
+		Disabled = function(value: boolean)
+			interaction.setInteractable(structures.Body, not value)
+			structures.PressOverlay.BackgroundTransparency = 1
+			structures.Label.TextTransparency = value and 0.55 or labelContext.TextTransparency()
+		end,
 	}
 
 	object = binder.Wrap(properties, bindings, structures.Body)
@@ -205,8 +212,8 @@ return function(self, properties: types.ButtonProperties): types.Button
 	object.Theme = self.Theme
 	object.Structures = structures
 
-	structures.Body.MouseButton1Click:Connect(function()
-		if properties.Pushed then
+	interaction.connectActivate(structures.Body, function()
+		if not interaction.isDisabled(properties) and properties.Pushed then
 			task.spawn(properties.Pushed, object)
 		end
 	end)
@@ -222,6 +229,10 @@ return function(self, properties: types.ButtonProperties): types.Button
 	end
 
 	structures.Body.MouseButton1Down:Connect(function()
+		if interaction.isDisabled(properties) then
+			return
+		end
+
 		local tweenInfo = TweenInfo.new(0.08, Enum.EasingStyle.Cubic, Enum.EasingDirection.Out)
 
 		tweenService
@@ -235,6 +246,7 @@ return function(self, properties: types.ButtonProperties): types.Button
 	structures.Body.MouseLeave:Connect(animateRelease)
 
 	binder.Apply(properties, object)
+	bindings.Disabled(properties.Disabled)
 
 	return object
 end

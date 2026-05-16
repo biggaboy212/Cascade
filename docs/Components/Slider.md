@@ -10,6 +10,7 @@ A `Slider` is a horizontal track with a control, called a thumb, that people can
 
 | Property  | Type             | Description                             |
 | --------- | ---------------- | --------------------------------------- |
+| `Disabled` | `#!luau boolean?` | Prevents user interaction while preserving layout. Defaults to `false`. |
 | `Minimum` | `#!luau number?` | The minimum value the slider can go.    |
 | `Maximum` | `#!luau number?` | The maximum value the slider can reach. |
 | `Value`   | `#!luau number?` | The slider's current value.             |
@@ -34,6 +35,7 @@ A `Slider` is a horizontal track with a control, called a thumb, that people can
 
 ```luau
 type SliderProperties = ImageLabel & {
+    Disabled: boolean?,
     Minimum: number?,
     Maximum: number?,
     Value: number?,
@@ -53,6 +55,7 @@ function(self, properties: SliderProperties): Slider
 
 ```luau
 local slider = row:Right():Slider({
+    Disabled = false,
     Minimum = 0,
     Maximum = 10
     Value = 5,

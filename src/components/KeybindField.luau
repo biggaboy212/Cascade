@@ -4,6 +4,7 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 	--// Imports
 	local binder = require("@modules/binder")
 	local services = require("@modules/services")
+	local interaction = require("@modules/interaction")
 
 	--// References
 	local userInputService = services.UserInputService
@@ -14,6 +15,8 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 	--// UI
 	properties = properties or {}
 	properties.Placeholder = properties.Placeholder or "Press a key"
+	properties.Disabled = properties.Disabled == true
+	local initialized = false
 
 	--// Initialize
 	structures.Field.TextXAlignment = Enum.TextXAlignment.Right
@@ -25,32 +28,41 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 	structures.Corner.CornerRadius = UDim.new(0, 6)
 
 	local object
-	object = binder.Wrap(properties, {
+	local bindings = {
 		Placeholder = function(value: string)
 			structures.Field.PlaceholderText = value
 		end,
 		Value = function(value: Enum.KeyCode)
-			structures.Field.Text = value.Name
+			structures.Field.Text = value and value.Name or ""
 
-			if properties.ValueChanged then
+			if properties.ValueChanged and initialized then
 				properties.Value = value
 				task.spawn(properties.ValueChanged, object, value)
 			end
 		end,
-	}, structures.Body)
+		Disabled = function(value: boolean)
+			interaction.setInteractable(structures.Field, not value)
+		end,
+	}
+
+	object = binder.Wrap(properties, bindings, structures.Body)
 
 	userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
 		if input.UserInputType ~= Enum.UserInputType.Keyboard then
 			return
 		end
 
-		if input.KeyCode == properties.Value and properties.BindPressed then
+		if not interaction.isDisabled(properties) and input.KeyCode == properties.Value and properties.BindPressed then
 			properties.BindPressed(object, input.KeyCode, false, gameProcessedEvent)
 		end
 	end)
 
 	userInputService.InputEnded:Connect(function(input, gameProcessedEvent)
 		if input.UserInputType ~= Enum.UserInputType.Keyboard then
+			return
+		end
+
+		if interaction.isDisabled(properties) then
 			return
 		end
 
@@ -67,6 +79,8 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 	object.Structures = structures
 
 	binder.Apply(properties, object)
+	initialized = true
+	bindings.Disabled(properties.Disabled)
 
 	return object
 end

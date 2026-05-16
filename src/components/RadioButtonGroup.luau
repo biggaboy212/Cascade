@@ -4,6 +4,7 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
+	local interaction = require("@modules/interaction")
 
 	--// References
 	local create = creator.Create
@@ -205,8 +206,8 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 
 		local button = structures.RadioButtons[index]:FindFirstChild("Button") :: ImageButton
 		if button and button:IsA("ImageButton") then
-			button.MouseButton1Click:Connect(function()
-				if object then
+			interaction.connectActivate(button, function()
+				if object and not interaction.isDisabled(properties) then
 					object.Value = index
 				end
 			end)
@@ -216,6 +217,8 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 	--// UI
 	properties = properties or {}
 	properties.Options = properties.Options or {}
+	properties.Disabled = properties.Disabled == true
+	local initialized = false
 
 	structures.Body = binder.Apply(
 		properties,
@@ -273,9 +276,17 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 				end
 			end
 
-			if properties.ValueChanged then
+			if properties.ValueChanged and initialized then
 				properties.Value = value
 				task.spawn(properties.ValueChanged, object, value)
+			end
+		end,
+		Disabled = function(value: boolean)
+			for _, radioButton in ipairs(structures.RadioButtons) do
+				local button = radioButton and radioButton:FindFirstChild("Button")
+				if button then
+					interaction.setInteractable(button, not value)
+				end
 			end
 		end,
 	}
@@ -296,6 +307,11 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 	end
 
 	binder.Apply(properties, object)
+	if properties.Value then
+		bindings.Value(properties.Value)
+	end
+	initialized = true
+	bindings.Disabled(properties.Disabled)
 
 	return object
 end

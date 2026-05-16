@@ -4,6 +4,7 @@ return function(self, properties: types.SliderProperties): types.Slider
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
+	local interaction = require("@modules/interaction")
 
 	--// References
 	local create = creator.Create
@@ -19,6 +20,10 @@ return function(self, properties: types.SliderProperties): types.Slider
 	properties.Value = properties.Value or 0
 	properties.Maximum = properties.Maximum or 1
 	properties.Minimum = properties.Minimum or 0
+	properties.Disabled = properties.Disabled == true
+	properties.Minimum, properties.Maximum = interaction.validRange(properties.Minimum, properties.Maximum)
+	properties.Value = interaction.clampNumber(properties.Value, properties.Minimum, properties.Maximum)
+	local initialized = false
 
 	structures.Body = binder.Apply(
 		properties,
@@ -174,23 +179,38 @@ return function(self, properties: types.SliderProperties): types.Slider
 	local object
 	local bindings = {
 		Value = function(value: number)
+			local min, max = interaction.validRange(properties.Minimum, properties.Maximum)
+			value = interaction.clampNumber(value, min, max)
+
 			local sliderWidth = structures.Body.AbsoluteSize.X
 			local thumbWidth = structures.Thumb.AbsoluteSize.X
 			local thumbHalfWidth = thumbWidth / 2
 
-			local min = properties.Minimum
-			local max = properties.Maximum
-			local alpha = (value - min) / (max - min)
+			local alpha = max == min and 0 or (value - min) / (max - min)
 
 			local availableWidth = sliderWidth - thumbWidth
 			local fillWidth = thumbHalfWidth + (availableWidth * alpha)
 
 			structures.Fill.Size = UDim2.new(0, fillWidth, 1, 0)
 
-			if properties.ValueChanged then
+			if properties.ValueChanged and initialized then
 				properties.Value = value
 				task.spawn(properties.ValueChanged, object, value)
 			end
+		end,
+		Minimum = function(value: number)
+			properties.Minimum, properties.Maximum = interaction.validRange(value, properties.Maximum)
+			object.Value = properties.Value
+		end,
+		Maximum = function(value: number)
+			properties.Minimum, properties.Maximum = interaction.validRange(properties.Minimum, value)
+			object.Value = properties.Value
+		end,
+		Disabled = function(value: boolean)
+			interaction.setInteractable(structures.Body, not value)
+			interaction.setInteractable(structures.Thumb, not value)
+			interaction.setInteractable(structures.Dragger, not value)
+			structures.Thumb.BackgroundTransparency = 1
 		end,
 	}
 
@@ -201,10 +221,18 @@ return function(self, properties: types.SliderProperties): types.Slider
 	object.Structures = structures
 
 	structures.Dragger.DragStart:Connect(function()
+		if interaction.isDisabled(properties) then
+			return
+		end
+
 		dragStart = structures.Fill.AbsoluteSize.X
 	end)
 
 	structures.Dragger.DragContinue:Connect(function()
+		if interaction.isDisabled(properties) then
+			return
+		end
+
 		local sliderWidth = structures.Body.AbsoluteSize.X
 		local thumbWidth = structures.Thumb.AbsoluteSize.X
 		local thumbHalfWidth = thumbWidth / 2
@@ -221,7 +249,29 @@ return function(self, properties: types.SliderProperties): types.Slider
 		object.Value = object.Minimum + (object.Maximum - object.Minimum) * alpha
 	end)
 
+	structures.Body.InputBegan:Connect(function(input)
+		if interaction.isDisabled(properties) then
+			return
+		end
+
+		local step = (properties.Maximum - properties.Minimum) / 20
+
+		if input.KeyCode == Enum.KeyCode.Left or input.KeyCode == Enum.KeyCode.DPadLeft then
+			object.Value = object.Value - step
+		elseif input.KeyCode == Enum.KeyCode.Right or input.KeyCode == Enum.KeyCode.DPadRight then
+			object.Value = object.Value + step
+		elseif input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			local x = input.Position.X - structures.Body.AbsolutePosition.X
+			local width = math.max(structures.Body.AbsoluteSize.X, 1)
+			local alpha = math.clamp(x / width, 0, 1)
+
+			object.Value = properties.Minimum + (properties.Maximum - properties.Minimum) * alpha
+		end
+	end)
+
 	binder.Apply(properties, object)
+	initialized = true
+	bindings.Disabled(properties.Disabled)
 
 	return object
 end

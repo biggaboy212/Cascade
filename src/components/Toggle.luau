@@ -5,6 +5,7 @@ return function(self, properties: types.ToggleProperties): types.Row
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
 	local services = require("@modules/services")
+	local interaction = require("@modules/interaction")
 
 	--// References
 	local create = creator.Create
@@ -19,6 +20,8 @@ return function(self, properties: types.ToggleProperties): types.Row
 	--// UI
 	properties = properties or {}
 	properties.Value = properties.Value == true
+	properties.Disabled = properties.Disabled == true
+	local initialized = false
 
 	structures.Body = binder.Apply(
 		properties,
@@ -41,6 +44,7 @@ return function(self, properties: types.ToggleProperties): types.Row
 				Image = "rbxassetid://104426531889908",
 				ImageColor3 = Color3.fromRGB(0, 0, 0),
 				ImageTransparency = 0.91,
+				Selectable = true,
 				Size = UDim2.fromOffset(28, 16),
 
 				__dynamicKeys = {
@@ -127,10 +131,14 @@ return function(self, properties: types.ToggleProperties): types.Row
 				structures.Switch.ImageTransparency = switchGoal.ImageTransparency
 			end
 
-			if properties.ValueChanged and instant then
+			if properties.ValueChanged and instant and initialized then
 				properties.Value = value
 				task.spawn(properties.ValueChanged, object, value)
 			end
+		end,
+		Disabled = function(value: boolean)
+			interaction.setInteractable(structures.Switch, not value)
+			structures.Knob.ImageTransparency = value and 0.55 or theme.Knob[2].Value
 		end,
 	}
 
@@ -141,13 +149,19 @@ return function(self, properties: types.ToggleProperties): types.Row
 	object.Structures = structures
 
 	do -- Input handler
-		structures.Switch.MouseButton1Click:Connect(function()
+		interaction.connectActivate(structures.Switch, function()
+			if interaction.isDisabled(properties) then
+				return
+			end
+
 			object.Value = not object.Value
 		end)
 	end
 
 	bindings.Value(not not properties.Value, false)
 	binder.Apply(properties, object)
+	initialized = true
+	bindings.Disabled(properties.Disabled)
 
 	return object
 end

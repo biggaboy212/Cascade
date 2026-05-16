@@ -10,8 +10,9 @@ A `TextField` is a rectangular area in which people enter or edit small, specifi
 
 | Property      | Type                   | Description                                                                   |
 | ------------- | ---------------------- | ----------------------------------------------------------------------------- |
+| `Disabled`    | `#!luau boolean?`      | Prevents editing and value submission while preserving layout. Defaults to `false`. |
 | `Placeholder` | `#!luau string?`       | The text placeholder to instruct users on how to interact with the component. |
-| `Value`       | `#!luau Enum.Keycode?` | The text in the field.                                                        |
+| `Value`       | `#!luau string?`       | The text in the field.                                                        |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -34,6 +35,7 @@ A `TextField` is a rectangular area in which people enter or edit small, specifi
 
 ```luau
 type TextFieldProperties = Frame & {
+    Disabled: boolean?,
     Placeholder: string?,
     Value: string?,
     TextChanged: ((self: TextField, text: string) -> unknown)?,
@@ -54,6 +56,7 @@ function(self, properties: TextFieldProperties): TextField
 ```luau
 local textField = row:Right():TextField({
     Value = "Label",
+    Disabled = false,
     ValueChanged = function(self, value: string)
         print("Value changed:", value)
     end,

@@ -10,6 +10,7 @@ A `Stepper` is a two-segment control that people use to increase or decrease an 
 
 | Property  | Type              | Description                                                                    |
 | --------- | ----------------- | ------------------------------------------------------------------------------ |
+| `Disabled` | `#!luau boolean?` | Prevents user interaction while preserving layout. Defaults to `false`.        |
 | `Minimum` | `#!luau number?`  | The minimum value the stepper can drop.                                        |
 | `Maximum` | `#!luau number?`  | The maximum value the stepper can reach.                                       |
 | `Step`    | `#!luau number?`  | The increment to increase by on increase/decrease.                             |
@@ -41,6 +42,7 @@ A `Stepper` is a two-segment control that people use to increase or decrease an 
 
 ```luau
 type StepperProperties = ImageLabel & {
+    Disabled: boolean?,
     Minimum: number?,
     Maximum: number?,
     Step: number?,
@@ -65,6 +67,7 @@ function(self, properties: StepperProperties): Stepper
 
 ```luau
 local stepper = row:Right():Stepper({
+    Disabled = false,
     Minimum = 0,
     Maximum = 5,
     Step = 0.1,

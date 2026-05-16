@@ -10,6 +10,7 @@ A `PullDownButton` displays a menu of mutually exclusive options.
 
 | Property   | Type                         | Description                                                                                                                            |
 | ---------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `Disabled` | `#!luau boolean?`            | Prevents user interaction while preserving layout. Defaults to `false`.                                                                |
 | `Options`  | `#!luau {[number]: string}?` | You can use this table to pre-define options. Note that doing it this way will not give you access to the option instances themselves. |
 | `Expanded` | `#!luau boolean?`            | Defines the state of the dropdown disclosure.                                                                                          |
 | `Label`    | `#!luau string?`             | Shows a label next to the disclosure button. Use it to describe the menu's content.                                                    |
@@ -32,7 +33,7 @@ A `PullDownButton` displays a menu of mutually exclusive options.
 
 | Event          | Signature                                                    | Description                                                                        |
 | -------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
-| `ValueChanged` | `#!luau ((self: PullDownButton, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
+| `ValueChanged` | `#!luau ((self: PullDownButton, value: number) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
 
@@ -40,6 +41,7 @@ A `PullDownButton` displays a menu of mutually exclusive options.
 
 ```luau
 type PullDownButtonProperties = Frame & {
+    Disabled: boolean?,
     Options: { [number]: string }?,
     Expanded: boolean?,
     Label: string?,
@@ -63,6 +65,7 @@ function(self, properties: PullDownButtonProperties): PullDownButton
 
 ```luau
 local pullDownButton = row:Right():PullDownButton({
+    Disabled = false,
     Label = "Action",
     Options = {
         "Action One",

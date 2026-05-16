@@ -10,6 +10,7 @@ A `Toggle` lets people choose between a pair of opposing states, like on and off
 
 | Property | Type              | Description                                        |
 | -------- | ----------------- | -------------------------------------------------- |
+| `Disabled` | `#!luau boolean?` | Prevents user interaction while preserving layout. Defaults to `false`. |
 | `Value`  | `#!luau boolean?` | The toggle's state. `false` for off, `true` for on |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
@@ -32,6 +33,7 @@ A `Toggle` lets people choose between a pair of opposing states, like on and off
 
 ```luau
 type ToggleProperties = Frame & {
+    Disabled: boolean?,
     Value: boolean?,
     ValueChanged: ((self: Toggle, value: boolean) -> unknown)?,
 }
@@ -50,6 +52,7 @@ function(self, properties: ToggleProperties): Toggle
 ```luau
 local toggle = row:Right():Toggle({
     Value = true,
+    Disabled = false,
     ValueChanged = function(self, value: boolean)
         print("Value changed:", value)
     end,
