@@ -116,6 +116,8 @@ return function(self, properties: types.PullDownButtonProperties): types.PullDow
 		Anchor = properties.Anchor,
 		AnchorMode = "BelowButton",
 		Gap = 6,
+		MaxHeight = 239,
+		AutoScroll = false,
 		OnSelected = function(target, index)
 			target.Expanded = false
 			target.Value = index

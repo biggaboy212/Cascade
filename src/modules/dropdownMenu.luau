@@ -9,6 +9,7 @@ type DropdownMenuConfig = {
 	AnchorMode: string?,
 	Gap: number?,
 	MaxHeight: number?,
+	AutoScroll: boolean?,
 	ShowsCheckmarks: boolean?,
 	OnSelected: ((any, number) -> ())?,
 }
@@ -99,6 +100,7 @@ function DropdownMenu.new(context, componentStructures, config: DropdownMenuConf
 		Gap = config.Gap or PULLDOWN_GAP,
 		MaxHeight = config.MaxHeight,
 		ShowsCheckmarks = config.ShowsCheckmarks == true,
+		AutoScroll = config.AutoScroll ~= false,
 		OnSelected = config.OnSelected,
 		SelectedValue = nil,
 		Tween = nil,
@@ -173,6 +175,30 @@ function DropdownMenu:GetOptionLabel(index: number): TextLabel?
 	return option:FindFirstChild("Label") :: TextLabel?
 end
 
+function DropdownMenu:ScrollToAnchorOption()
+	local menu = self.Structures.Menu
+
+	if not menu then
+		return
+	end
+
+	local option = self.Structures.Options[self:GetAnchorOption()]
+	local contentHeight = menu.AbsoluteCanvasSize.Y
+	local viewportHeight = menu.AbsoluteSize.Y
+	local maxCanvasY = math.max(0, contentHeight - viewportHeight)
+
+	if not option or maxCanvasY <= 0 then
+		menu.CanvasPosition = Vector2.new(menu.CanvasPosition.X, 0)
+		return
+	end
+
+	local optionY = option.AbsolutePosition.Y - menu.AbsolutePosition.Y + menu.CanvasPosition.Y
+	local optionHeight = option.AbsoluteSize.Y
+	local desiredCanvasY = optionY - ((viewportHeight - optionHeight) / 2)
+
+	menu.CanvasPosition = Vector2.new(menu.CanvasPosition.X, math.clamp(desiredCanvasY, 0, maxCanvasY))
+end
+
 function DropdownMenu:Resize()
 	local menu = self.Structures.Menu
 
@@ -217,6 +243,10 @@ function DropdownMenu:AnchorMenu()
 	local camera = workspace.CurrentCamera
 	if not camera then
 		return
+	end
+
+	if self.AutoScroll then
+		self:ScrollToAnchorOption()
 	end
 
 	local bodyPosition = body.AbsolutePosition

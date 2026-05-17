@@ -292,6 +292,28 @@ do -- Main window
 					multi.Value = { 1, 3 }
 				end
 
+				do -- Multi pop-up button with many options
+					local row = titledRow(
+						form,
+						"Pop Up Button (Maximum=3) (many options)",
+						"Multi Pop Up Button with many options"
+					)
+
+					local multi = row:Right():PopUpButton({
+						Maximum = 3,
+						ValueChanged = function(self, value)
+							print("Selections:")
+							for _, idx in ipairs(value or {}) do
+								print(self.Options[idx])
+							end
+						end,
+					})
+
+					for i = 1, 20 do
+						multi:Option(`Option {tostring(i)}`)
+					end
+				end
+
 				do -- Pull Down Button
 					local row = titledRow(
 						form,
