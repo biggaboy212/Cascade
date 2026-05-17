@@ -53,6 +53,7 @@ return {
 		SelectionFocusedAccent = color4("FFFFFF", 85),
 
 		Sidebar = color4("EAEAEA", 84),
+		ScrollBar = color4("000000", 40),
 		Separator = {
 			Background = color4("000000", 18),
 			Shadow = color4("000000", 10),

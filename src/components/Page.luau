@@ -29,6 +29,11 @@ return function(self, properties: types.PageProperties)
 			ScrollBarThickness = 7,
 			Size = UDim2.fromScale(1, 1),
 
+			__dynamicKeys = {
+				ScrollBarImageColor3 = self.Theme.Controls.ScrollBar[1],
+				ScrollBarImageTransparency = self.Theme.Controls.ScrollBar[2],
+			},
+
 			create("UIListLayout")({
 				Name = "UIListLayout",
 				Padding = UDim.new(0, 9),
