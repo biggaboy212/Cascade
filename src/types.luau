@@ -412,10 +412,23 @@ export type RadioButtonGroup = BaseComponent & Components & RadioButtonGroupProp
 	Option: (Name: string?) -> Frame,
 }
 
+-- DropdownMenu
+export type DropdownMenuAnchorConfig = {
+	Object: GuiObject?,
+	Element: GuiObject?,
+	Label: GuiObject?,
+	Option: number?,
+	Offset: Vector2?,
+	XOffset: number?,
+	YOffset: number?,
+}
+export type DropdownMenuAnchor = GuiObject | DropdownMenuAnchorConfig
+
 -- PopUpButton
 export type PopUpButtonProperties = Frame & {
 	Options: { [number]: string }?,
 	Expanded: boolean?,
+	Anchor: DropdownMenuAnchor?,
 	Maximum: number?,
 	Value: (number | { number })?,
 	ValueChanged: ((self: PopUpButton, value: number | { number }) -> unknown)?,
@@ -430,6 +443,7 @@ export type PopUpButton = BaseComponent & Components & PopUpButtonProperties & {
 export type PullDownButtonProperties = Frame & {
 	Options: { [number]: string }?,
 	Expanded: boolean?,
+	Anchor: DropdownMenuAnchor?,
 	Label: string?,
 	Value: number?,
 	ValueChanged: ((self: PullDownButton, value: number) -> unknown)?,
