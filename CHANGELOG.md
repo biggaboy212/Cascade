@@ -1,5 +1,21 @@
 # Change Log
 
+## Unmarked
+
+> Target: v1.3.0
+
+### Changed
+
+- Scrollbars UI-wide now use theme keys that change for light and dark mode
+- Dropdown menus (`PopUpButton`'s, `PullDownButton`'s') now have appropriate behavior:
+  - `PopUpButton`: The menu will now expand in a position that alligns the current selected option with the component selection label perfectly
+  - `PopUpButton` (Multi) & `PullDownButton`: The menu now opens Right-Alligned 6px below the component.
+
+### Fixed
+
+- Fixed a visual issue where dropdown menus when opened in some scenarios would have all options highlighted (accent color).
+- Fixed a nil read error when setting .Value in `PopUpButton` and `PullDownButton`.
+
 ## v1.2.1 (5/1/2026)
 
 - Fixed `Tab.Selected` property didn't deselect other tabs
