@@ -7,7 +7,7 @@
 ### Changed
 
 - Scrollbars UI-wide now use theme keys that change for light and dark mode
-- Dropdown menus (`PopUpButton`'s, `PullDownButton`'s') now have appropriate behavior:
+- Dropdown menus (`PopUpButton`'s, `PullDownButton`'s') now have appropriate behavior (Co-authored-by: microwave.xyz <github@mwstack.dev>)
   - `PopUpButton`: The menu will now expand in a position that alligns the current selected option with the component selection label perfectly
   - `PopUpButton` (Multi) & `PullDownButton`: The menu now opens Right-Alligned 6px below the component.
 
