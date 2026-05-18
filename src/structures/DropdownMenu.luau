@@ -18,6 +18,7 @@ return function(self, config: DropdownMenuStructureConfig?)
 	structures.Container = create("ScreenGui")({
 		Name = "Container",
 		IgnoreGuiInset = true,
+		ResetOnSpawn = false,
 		ScreenInsets = Enum.ScreenInsets.None,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		DisplayOrder = 201,
