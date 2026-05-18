@@ -129,6 +129,13 @@ return {
 		MenuButton = {
 			IndicatorBackground = color4("000000", 5),
 			MenuBackground = color4("F6F6F6", 95),
-		}
+		},
+
+		ImageSurface = {
+			Gradient = value(ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(190, 190, 190)),
+			})),
+		},
 	},
 }

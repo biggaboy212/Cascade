@@ -469,6 +469,16 @@ export type Notification = BaseComponent & Components & NotificationProperties &
 	Close: (self: Notification) -> nil,
 }
 
+-- ImageSurface
+export type ImageSurfaceProperties = Frame & {
+	Image: string?,
+	ImageColor: Color3?,
+	SurfaceColor: Color3?,
+	Gradient: boolean?,
+}
+
+export type ImageSurface = BaseComponent & Components & ImageSurfaceProperties
+
 -- Export
 export type Components = {
 	Window: (self: any, properties: WindowProperties?) -> Window,
@@ -493,6 +503,7 @@ export type Components = {
 	PopUpButton: (self: any, properties: PopUpButtonProperties) -> PopUpButton,
 	PullDownButton: (self: any, properties: PullDownButtonProperties) -> PullDownButton,
 	Notification: (self: any, properties: NotificationProperties) -> Notification,
+	ImageSurface: (self: any, properties: ImageSurfaceProperties) -> ImageSurface,
 }
 
 return 1

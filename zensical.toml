@@ -34,6 +34,7 @@ nav = [
         "Components/TitleStack.md",
         "Components/Label.md",
         "Components/Symbol.md",
+        "Components/ImageSurface.md",
         "Components/Button.md",
         "Components/Toggle.md",
         "Components/Stepper.md",

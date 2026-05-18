@@ -620,11 +620,12 @@ do -- Main window
 
 					-- SF Symbols discovery link
 					do
-						local row = titledRow(
-							form,
-							"Official SF Symbols",
-							"Explore the full SF Symbols library. Assets created by Apple Inc. Website and discovery curated by the Cascade developers."
-						)
+						local row = form:Row({ SearchIndex = "Symbols Copy Link" })
+
+						row:Left():TitleStack({
+							Title = "Official SF Symbols",
+							Subtitle = "Explore the full SF Symbols library. Assets created by Apple Inc. Website and discovery curated by the Cascade developers.",
+						})
 
 						row:Right():Button({
 							Label = "Copy link",
@@ -681,8 +682,20 @@ do -- Main window
 		-- Home
 		do
 			local form = homePage:Form()
-			titledRow(form, "Home", "This is the main view."):Right():Button({
-				Label = "Go to Settings",
+
+			local row = form:Row({ SearchIndex = "Home" })
+
+			row:Left():ImageSurface({
+				Image = cascade.Symbols.house,
+				SurfaceColor = Color3.fromRGB(255, 107, 53),
+			})
+			row:Left():TitleStack({
+				Title = "Home",
+				Subtitle = "This is the main view.",
+			})
+
+			row:Right():Button({
+				Label = "Enter",
 				Pushed = function()
 					tab:Navigate(settingsPage)
 				end,

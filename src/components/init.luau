@@ -25,6 +25,7 @@ local components = {
 	PullDownButton = require("@components/PullDownButton"),
 	Page = require("@components/Page"),
 	Notification = require("@components/Notification"),
+	ImageSurface = require("@components/ImageSurface"),
 }
 
 --// Initialize
