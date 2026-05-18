@@ -1,13 +1,17 @@
 # Change Log
 
-## Unmarked
+## v1.3.0 (5/18/2026)
 
-> Target: v1.3.0
+Co-authored-by: microwave.xyz <209287890+sysscan@users.noreply.github.com>
+
+### Added
+
+- Added a new component, [`ImageSurface`](docs\Components\ImageSurface.md)
 
 ### Changed
 
 - Scrollbars UI-wide now use theme keys that change for light and dark mode
-- Dropdown menus (`PopUpButton`'s, `PullDownButton`'s') now have appropriate behavior (Co-authored-by: microwave.xyz <github@mwstack.dev>)
+- Dropdown menus (`PopUpButton`'s, `PullDownButton`'s') now have appropriate behavior
   - `PopUpButton`: The menu will now expand in a position that alligns the current selected option with the component selection label perfectly
   - `PopUpButton` (Multi) & `PullDownButton`: The menu now opens Right-Alligned 6px below the component.
 
