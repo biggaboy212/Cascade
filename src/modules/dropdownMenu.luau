@@ -1,6 +1,7 @@
 --// Imports
 local createStructure = require("@structures/DropdownMenu")
 local services = require("@modules/services")
+local utility = require("@modules/utility")
 
 --// Types
 type DropdownMenuConfig = {
@@ -77,6 +78,20 @@ local function readAnchorValue(anchor, key)
 	return anchor[key]
 end
 
+local function mountMenuContainer(container): boolean
+	local instance = unwrap(container)
+
+	if typeof(instance) ~= "Instance" then
+		return false
+	end
+
+	if instance.Parent then
+		return true
+	end
+
+	return typeof(utility.ProtectUI(instance)) == "Instance"
+end
+
 --// Public Methods
 function DropdownMenu.new(context, componentStructures, config: DropdownMenuConfig?)
 	config = config or {}
@@ -85,7 +100,7 @@ function DropdownMenu.new(context, componentStructures, config: DropdownMenuConf
 		Name = config.Name,
 	})
 
-	componentStructures.MenuContainer = menuStructures.Container
+	componentStructures.MenuContainer = menuStructures.Container.__instance
 	componentStructures.MenuBody = menuStructures.Body
 	componentStructures.Menu = menuStructures.Menu
 	componentStructures.Options = componentStructures.Options or {}
@@ -104,6 +119,7 @@ function DropdownMenu.new(context, componentStructures, config: DropdownMenuConf
 		OnSelected = config.OnSelected,
 		SelectedValue = nil,
 		Tween = nil,
+		TweenToken = 0,
 		Bound = false,
 	}, DropdownMenu)
 
@@ -289,10 +305,25 @@ end
 function DropdownMenu:SetExpanded(value: boolean)
 	local expand = value == true
 	local body = unwrap(self.Structures.Body)
+	local container = unwrap(self.Structures.MenuContainer)
+
+	self.TweenToken += 1
+	local tweenToken = self.TweenToken
+
+	if self.Tween then
+		self.Tween:Cancel()
+		self.Tween = nil
+	end
 
 	if expand and body then
 		self.Structures.MenuBody.GroupTransparency = 1
-		self.Structures.MenuContainer.Parent = body
+
+		if not mountMenuContainer(self.Structures.MenuContainer) then
+			return
+		end
+	elseif not expand and container and not container.Parent then
+		self.Structures.MenuBody.GroupTransparency = 1
+		return
 	end
 
 	self:Resize()
@@ -301,17 +332,25 @@ function DropdownMenu:SetExpanded(value: boolean)
 		self:AnchorMenu()
 	end)
 
-	if self.Tween then
-		self.Tween:Cancel()
-	end
-
 	local goal = { GroupTransparency = expand and 0 or 1 }
 	local tweenInfo = TweenInfo.new(expand and 0 or 0.4, Enum.EasingStyle.Exponential)
 	local tween = tweenService:Create(self.Structures.MenuBody, tweenInfo, goal)
 
 	self.Tween = tween
 	tween:Play()
-	tween.Completed:Connect(function()
+	tween.Completed:Connect(function(playbackState)
+		if tweenToken ~= self.TweenToken then
+			return
+		end
+
+		if self.Tween == tween then
+			self.Tween = nil
+		end
+
+		if playbackState ~= Enum.PlaybackState.Completed then
+			return
+		end
+
 		if not expand and self.Object and self.Object.Expanded == false then
 			self.Structures.MenuContainer.Parent = nil
 		end
