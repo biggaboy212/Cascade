@@ -8,12 +8,12 @@ An `ImageSurface` displays an image on top of a colored surface.
 
 ### Properties
 
-| Property       | Type              | Description                                                                       |
-| -------------- | ----------------- | --------------------------------------------------------------------------------- |
-| `Image`        | `#!luau string?`  | The image asset ID displayed on the surface.                                      |
-| `ImageColor`   | `#!luau Color3?`  | The tint color applied to the image. Defaults to `Color3.fromRGB(255, 255, 255)`. |
-| `SurfaceColor` | `#!luau Color3?`  | The background color of the surface. Defaults to `Color3.fromRGB(200, 200, 200)`. |
-| `Gradient`     | `#!luau boolean?` | Enables the surface gradient. Defaults to `true`.                                 |
+| Property       | Type              | Description                                                                          |
+| -------------- | ----------------- | ------------------------------------------------------------------------------------ |
+| `Image`        | `#!luau string?`  | The `20 x 20` image asset ID displayed on the surface. You can use `cascade.Symbols` |
+| `ImageColor`   | `#!luau Color3?`  | The tint color applied to the image. Defaults to `Color3.fromRGB(255, 255, 255)`.    |
+| `SurfaceColor` | `#!luau Color3?`  | The background color of the surface. Defaults to `Color3.fromRGB(200, 200, 200)`.    |
+| `Gradient`     | `#!luau boolean?` | Enables the surface gradient. Defaults to `true`.                                    |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
