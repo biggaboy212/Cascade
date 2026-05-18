@@ -1,5 +1,12 @@
 # Change Log
 
+## v1.3.1 (5/18/2026)
+
+### Fixed
+
+- Fix dropdown menus `ResetOnSpawn`
+- Fix dropdown menus not opening in some cases
+
 ## v1.3.0 (5/18/2026)
 
 Co-authored-by: microwave.xyz <209287890+sysscan@users.noreply.github.com>
