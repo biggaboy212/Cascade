@@ -45,7 +45,7 @@ return function(self, properties: types.SymbolProperties): types.Symbol
 	local object = binder.Wrap(properties, {
 		Style = function(value: "Primary" | "Secondary")
 			if value == "Primary" then
-				structures.Body.ImageColor3 = self.Theme.Text.Primary[1].Value.Value
+				structures.Body.ImageColor3 = self.Theme.Text.Primary[1].Value
 				structures.Body.ImageTransparency = self.Theme.Text.Primary[2].Value
 			else
 				structures.Body.ImageColor3 = self.Theme.Text.Secondary[1].Value

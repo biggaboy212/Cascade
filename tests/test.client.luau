@@ -295,12 +295,11 @@ do -- Main window
 				do -- Multi pop-up button with many options
 					local row = titledRow(
 						form,
-						"Pop Up Button (Maximum=3) (many options)",
+						"Pop Up Button i = 20 (Maximum = i) (options = i)",
 						"Multi Pop Up Button with many options"
 					)
 
 					local multi = row:Right():PopUpButton({
-						Maximum = 3,
 						ValueChanged = function(self, value)
 							print("Selections:")
 							for _, idx in ipairs(value or {}) do
@@ -310,6 +309,7 @@ do -- Main window
 					})
 
 					for i = 1, 20 do
+						multi.Maximum = i
 						multi:Option(`Option {tostring(i)}`)
 					end
 				end

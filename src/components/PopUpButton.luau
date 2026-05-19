@@ -9,6 +9,9 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	--// References
 	local create = creator.Create
 
+	--// Constants
+	local MAX_DISPLAY_LENGTH = 30
+
 	--// Variables
 	local parent = self.__container or self.__instance or self
 	local theme = self.Theme.Controls.MenuButton
@@ -16,7 +19,15 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 		Options = {},
 	}
 
-	--// Functions
+	--// Private Methods
+	local function truncate(text: string): string
+		if #text > MAX_DISPLAY_LENGTH then
+			return string.sub(text, 1, MAX_DISPLAY_LENGTH) .. "..."
+		end
+
+		return text
+	end
+
 	local function selectedMap(value)
 		local map = {}
 
@@ -196,7 +207,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 			if #labels == 0 then
 				structures.CurrentTab.Text = "None"
 			else
-				structures.CurrentTab.Text = table.concat(labels, ", ")
+				structures.CurrentTab.Text = truncate(table.concat(labels, ", "))
 			end
 
 			menu:SetSelectedMap(selectedMap(value))
@@ -206,7 +217,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 			if not optionLabel then
 				structures.CurrentTab.Text = "None"
 			else
-				structures.CurrentTab.Text = optionLabel.Text
+				structures.CurrentTab.Text = truncate(optionLabel.Text)
 			end
 
 			menu:SetSelectedMap(selectedMap(value))

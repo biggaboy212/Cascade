@@ -198,7 +198,7 @@ return function(self: any, properties: types.NotificationProperties, state: { Ag
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
 				Size = UDim2.fromScale(1, 0),
-				Visible = (properties.App ~= nil) or (properties.Icon ~= nil),
+				Visible = (properties.App ~= nil) or (properties.AppIcon ~= nil),
 
 				create("UIListLayout")({
 					Name = "UIListLayout",
