@@ -51,7 +51,7 @@ function(self, properties: RowProperties?): Row
 ## Example
 
 ```luau
-local row = section:Row({
+local row = form:Row({
     SearchIndex = "Cool Row"
 })
 

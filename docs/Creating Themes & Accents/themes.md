@@ -33,15 +33,13 @@ Now that you've created your theme, using it is very simple, find where you crea
 ```luau
 local app = cascade.New({
     Theme = {
-        {
-            _id = "MyNewTheme",
+        _id = "MyNewTheme",
 
-            Text = {
-                ...
-            },
-
+        Text = {
             ...
-        }
+        },
+
+        ...
     }
 })
 ```

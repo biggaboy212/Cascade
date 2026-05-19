@@ -14,41 +14,55 @@ A `PullDownButton` displays a menu of mutually exclusive options.
 | `Expanded` | `#!luau boolean?`            | Defines the state of the dropdown disclosure.                                                                                          |
 | `Label`    | `#!luau string?`             | Shows a label next to the disclosure button. Use it to describe the menu's content.                                                    |
 | `Value`    | `#!luau number?`             | The numeric index of the option to be selected.                                                                                        |
+| `Anchor`   | `#!luau DropdownMenuAnchor?` | Overrides where the menu opens.                                                                                                        |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-properties)
+[View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-properties)
 
 ### Methods
 
-| Method   | Signature                         | Description                                                                                                         |
-| -------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `Option` | `#!luau (Name: string?) -> Frame` | Can be used to seperately create options, use this if you want to access the option instances themselves.           |
-| `Remove` | `#!luau (Index: number?) -> nil,` | Can be used to remove options from the pull-down menu, this automatically removes it from the options list as well. |
+| Method   | Signature                              | Description                                                                                                         |
+| -------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `Option` | `#!luau (Name: string?) -> TextButton` | Can be used to seperately create options, use this if you want to access the option instances themselves.           |
+| `Remove` | `#!luau (Index: number?) -> nil`       | Can be used to remove options from the pull-down menu, this automatically removes it from the options list as well. |
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
+[View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-methods)
 
 ### Events
 
 | Event          | Signature                                                    | Description                                                                        |
 | -------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
-| `ValueChanged` | `#!luau ((self: PullDownButton, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
+| `ValueChanged` | `#!luau ((self: PullDownButton, value: number) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
+[View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-events)
 
 ## Types
 
 ```luau
-type PullDownButtonProperties = Frame & {
+type DropdownMenuAnchorConfig = {
+    Object: GuiObject?,
+    Element: GuiObject?,
+    Label: GuiObject?,
+    Option: number?,
+    Offset: Vector2?,
+    XOffset: number?,
+    YOffset: number?,
+}
+
+type DropdownMenuAnchor = GuiObject | DropdownMenuAnchorConfig
+
+type PullDownButtonProperties = TextButton & {
     Options: { [number]: string }?,
     Expanded: boolean?,
+    Anchor: DropdownMenuAnchor?,
     Label: string?,
     Value: number?,
     ValueChanged: ((self: PullDownButton, value: number) -> unknown)?,
 }
 
 type PullDownButton = BaseComponent & Components & PullDownButtonProperties & {
-    Option: (Name: string?) -> Frame,
+    Option: (Name: string?) -> TextButton,
     Remove: (Index: number?) -> nil,
 }
 ```
@@ -56,7 +70,7 @@ type PullDownButton = BaseComponent & Components & PullDownButtonProperties & {
 ### Function Signature
 
 ```luau
-function(self, properties: PullDownButtonProperties): PullDownButton
+function(self, properties: PullDownButtonProperties?): PullDownButton
 ```
 
 ## Example
@@ -73,14 +87,13 @@ local pullDownButton = row:Right():PullDownButton({
     end,
 })
 
-print(pullDownButton:IsA("Frame")) --> true
-print(pullDownButton.ClassName) --> "Frame"
+print(pullDownButton:IsA("TextButton")) --> true
+print(pullDownButton.ClassName) --> "TextButton"
 print(pullDownButton.Type) --> "PullDownButton"
 
-pullDownButton.Value = 3 --> Value changed: "Item Three"
+local actionThree = pullDownButton:Option("Action Three")
+pullDownButton.Value = 3 --> Action selected: "Action Three"
 
-local itemThree = pullDownButton:Option("Item Three")
-
-print(itemThree.ClassName) --> Frame
-pullDownButton:Remove(13)
+print(actionThree.ClassName) --> "TextButton"
+pullDownButton:Remove(3)
 ```

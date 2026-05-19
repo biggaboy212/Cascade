@@ -40,7 +40,7 @@ type App = AppProperties & Components
 ### Function Signature
 
 ```luau
-function(self, properties: AppProperties): App
+function(properties: AppProperties?): App
 ```
 
 ## Example

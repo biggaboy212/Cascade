@@ -43,7 +43,7 @@ type ImageSurface = BaseComponent & Components & ImageSurfaceProperties
 ### Function Signature
 
 ```luau
-function(self, properties: ImageSurfaceProperties): ImageSurface
+function(self, properties: ImageSurfaceProperties?): ImageSurface
 ```
 
 ## Preview

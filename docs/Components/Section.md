@@ -11,25 +11,25 @@ A `Section` organizes sidebar content by grouping related tabs together with opt
 | Property     | Type              | Description                                                          |
 | ------------ | ----------------- | -------------------------------------------------------------------- |
 | `Title`      | `#!luau string?`  | The displayed section title.                                         |
-| `Disclosure` | `#!luau boolean?` | Whether the section's content should be hideable. Defaults to false. |
+| `Disclosure` | `#!luau boolean?` | Whether the section's content should be hideable. Defaults to true.  |
 | `Expanded`   | `#!luau boolean?` | Whether the section should be expanded by default. Defaults to true. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-properties)
+[View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-properties)
 
 ### Methods
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
+[View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-methods)
 
 ### Events
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
+[View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-events)
 
 ## Types
 
 ```luau
-type SectionProperties = Frame & {
+type SectionProperties = TextButton & {
     Title: string?,
     Disclosure: boolean?,
     Expanded: boolean?,
@@ -52,7 +52,7 @@ local section = window:Section({
     Title = "Settings",
 })
 
-print(section:IsA("Frame")) --> true
-print(section.ClassName) --> "Frame"
+print(section:IsA("TextButton")) --> true
+print(section.ClassName) --> "TextButton"
 print(section.Type) --> "Section"
 ```
