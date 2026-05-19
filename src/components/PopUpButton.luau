@@ -9,6 +9,9 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	--// References
 	local create = creator.Create
 
+	--// Constants
+	local MAX_DISPLAY_LENGTH = 30
+
 	--// Variables
 	local parent = self.__container or self.__instance or self
 	local theme = self.Theme.Controls.MenuButton
@@ -16,8 +19,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 		Options = {},
 	}
 
-	--// Functions
-	local MAX_DISPLAY_LENGTH = 30
+	--// Private Methods
 	local function truncate(text: string): string
 		if #text > MAX_DISPLAY_LENGTH then
 			return string.sub(text, 1, MAX_DISPLAY_LENGTH) .. "..."
