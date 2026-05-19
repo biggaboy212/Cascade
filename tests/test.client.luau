@@ -1,6 +1,6 @@
 --[[
 	This will not showcase every feature and property. Please reference the docs:
-	https://biggaboy212.github.io/Cascade/
+	https://cascadeui.github.io/Cascade/
 ]]
 
 --// Imports

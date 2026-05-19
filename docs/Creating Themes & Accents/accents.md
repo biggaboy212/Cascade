@@ -2,7 +2,7 @@
 
 # Accents
 
-[pre-made accents]: https://github.com/biggaboy212/Cascade/blob/main/src/themes/accents.luau
+[pre-made accents]: https://github.com/cascadeui/Cascade/blob/main/src/themes/accents.luau
 
 ## What are accents?
 

@@ -3,12 +3,12 @@
 [aftman]: <https://github.com/LPGhatguy/aftman>
 [environment variables]: <https://www.howtogeek.com/787217/how-to-edit-environment-variables-on-windows-10-or-11/>
 [cd]: <https://en.wikipedia.org/wiki/Cd_(command)>
-[cascade repository]: <https://github.com/biggaboy212/Cascade>
+[cascade repository]: <https://github.com/cascadeui/Cascade>
 [ProCMP]: <https://github.com/Proton-Utilities/ProCMP>
 
 Before we do anything, open a terminal and set its [cd] to the Cascade source repo. You can download a release from the official [cascade repository].
 !!! tip
-    You can use `#!bash git clone "https://github.com/biggaboy212/Cascade.git"` if you have `git` installed
+    You can use `#!bash git clone "https://github.com/cascadeui/Cascade.git"` if you have `git` installed
 
 ## Installing [aftman] & dependencies
 
@@ -33,7 +33,7 @@ Cascade uses [ProCMP] for build composition.
     Either download the zip from the [cascade repository] releases page, or if you have `git` just run:
 
     ```bash
-    git clone "https://github.com/biggaboy212/Cascade.git"
+    git clone "https://github.com/cascadeui/Cascade.git"
     ```
 
 ??? question "`#!bash aftman` isn't being recognized in my terminal"

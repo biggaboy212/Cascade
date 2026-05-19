@@ -2,8 +2,8 @@
 
 # Themes
 
-[Cascade default dark theme]: <https://github.com/biggaboy212/Cascade/blob/main/src/themes/Dark.luau>
-[Cascade default light theme]: <https://github.com/biggaboy212/Cascade/blob/main/src/themes/Light.luau>
+[Cascade default dark theme]: <https://github.com/cascadeuiascade/blob/main/src/themes/Dark.luau>
+[Cascade default light theme]: <https://github.com/cascadeui/Cascade/blob/main/src/themes/Light.luau>
 
 This section will teach you how to make your own Theme for cascade.
 

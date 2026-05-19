@@ -1,8 +1,8 @@
 [package]
-name = "biggaboy212/cascade"
+name = "cascadeui/cascade"
 description = "An open-source Luau UI library based on macOS Sequoia."
 license = "MIT"
-authors = ["biggaboy212"]
+authors = ["cascadeui"]
 version = "1.2.0"
 
 registry = "https://github.com/UpliftGames/wally-index"

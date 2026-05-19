@@ -1,7 +1,7 @@
 [project]
 site_name = "Cascade Developer Documentation"
-repo_name = "biggaboy212/Cascade"
-repo_url = "https://github.com/biggaboy212/Cascade"
+repo_name = "cascadeui/Cascade"
+repo_url = "https://github.com/cascadeui/Cascade"
 edit_uri = "edit/main/docs/"
 extra_css = ["assets/styles/extra.css"]
 
@@ -127,7 +127,7 @@ generator = false
 
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
-link = "https://github.com/biggaboy212/Cascade"
+link = "https://github.com/cascadeui/Cascade"
 
 [[project.extra.social]]
 icon = "fontawesome/brands/discord"

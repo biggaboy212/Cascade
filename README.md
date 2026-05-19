@@ -1,16 +1,16 @@
 <!--markdownlint-disable MD041-->
 
-[stars]: https://github.com/biggaboy212/Cascade/stargazers
-[lastrel]: https://github.com/biggaboy212/Cascade/releases/latest
-[lastcom]: https://github.com/biggaboy212/Cascade/commits
-[publish]: https://github.com/biggaboy212/Cascade/actions/workflows/publish.yml
+[stars]: https://github.com/cascadeui/Cascade/stargazers
+[lastrel]: https://github.com/cascadeui/Cascade/releases/latest
+[lastcom]: https://github.com/cascadeui/Cascade/commits
+[publish]: https://github.com/cascadeui/Cascade/actions/workflows/publish.yml
 [disc]: https://discord.gg/2cB4vBAEWk
 [uibin]: https://uibin.orqan.xyz/library/76a25ea8-401f-43c9-adbe-c0231ae4d343
 
-[badges/stars]: https://img.shields.io/github/stars/biggaboy212/Cascade?label=Stars&logo=GitHub&style=for-the
-[badges/lastrel]: https://img.shields.io/github/v/release/biggaboy212/Cascade?include_prereleases&label=Latest%20Release
-[badges/lastcom]: https://img.shields.io/github/last-commit/biggaboy212/Cascade?label=Last%20Modifed
-[badges/publish]: https://img.shields.io/github/actions/workflow/status/biggaboy212/Cascade/.github%2Fworkflows%2Fpublish.yml?label=Publish%20Docs
+[badges/stars]: https://img.shields.io/github/stars/cascadeui/Cascade?label=Stars&logo=GitHub&style=for-the
+[badges/lastrel]: https://img.shields.io/github/v/release/cascadeui/Cascade?include_prereleases&label=Latest%20Release
+[badges/lastcom]: https://img.shields.io/github/last-commit/cascadeui/Cascade?label=Last%20Modifed
+[badges/publish]: https://img.shields.io/github/actions/workflow/status/cascadeui/Cascade/.github%2Fworkflows%2Fpublish.yml?label=Publish%20Docs
 [badges/disc]: https://img.shields.io/discord/1384338360012898406?&label=Discord&style=for-the-badge&logo=discord
 [badges/uibin]: https://img.shields.io/badge/UI%20Bin-View%20Library-black?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAABV0lEQVR42p2SPUvDYBSFz33z0abt1IIOtiguERx0sIXYn+AqCP6C/gcnF93spIuY4iS4OTq4SgcdRLI0iyL9oBTBRS2aHIfWamyw4t1euA/n5blHRIT4xwiAWFApBQAIw/BvoFJqbFkJEPIXUERADp6O40BAXN/cov/8AlMD3oIwkkIAVEoRAG3bpud57LRbvGt26O5XuTEHlvNpGkoow/0IaBg6fd9nzT2ikUhyuZDlRaXIk+o2k1aKAkRBTdMIgI7j8LHXJQBOpzSeree5MpvjQ++J5VWH33f1nxIC3UJhKou9soWdyx6uWq/IoI8gHJf/GU3DTPDUPeB5pcS1hRyVafG45rLhN6jr+sjD6KsCUFfC0kyam/Pg4e4WG/dNdjttep5H27YjAofMl+GErtB/B8x0BsWlRQQhUa/Xx04VX4CYY8eVIrZyIgIRGQggI0kTuzppPgB6xrOuWZF7GwAAAABJRU5ErkJggg==&logoColor=white
 
@@ -46,11 +46,11 @@ Cascade was designed from the ground up as a superior design paradigm. It combin
 
 ## Usage
 
-Reference the [Cascade documentation](https://biggaboy212.github.io/Cascade/) for more.
+Reference the [Cascade documentation](https://cascadeui.github.io/Cascade/) for more.
 
-- [Importing the Library](https://biggaboy212.github.io/Cascade/Getting%20Started/importing-the-library/)
-- [The API](https://biggaboy212.github.io/Cascade/Getting%20Started/the-api/)
-- [Components](https://biggaboy212.github.io/Cascade/Components/)
+- [Importing the Library](https://cascadeui.github.io/Cascade/Getting%20Started/importing-the-library/)
+- [The API](https://cascadeui.github.io/Cascade/Getting%20Started/the-api/)
+- [Components](https://cascadeui.github.io/Cascade/Components/)
 
 ## Supporting the project
 
@@ -63,11 +63,11 @@ If you'd like to support the project, consider donating via any of these:
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=biggaboy212%2FCascade&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=cascadeui%2FCascade&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=biggaboy212/Cascade&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=biggaboy212/Cascade&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=biggaboy212/Cascade&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=cascadeui/Cascade&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=cascadeui/Cascade&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=cascadeui/Cascade&type=date&legend=top-left" />
  </picture>
 </a>
 

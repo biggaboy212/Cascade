@@ -3,7 +3,7 @@
 --!optimize 2
 
 --[[
-    @author biggaboy212
+    @author Cascade UI
     @name Cascade
     @description A Luau UI library based on macOS Sequoia.
     @license MIT License

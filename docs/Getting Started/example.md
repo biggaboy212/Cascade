@@ -3,7 +3,7 @@
 View a example application that can be made with Cascade.
 
 !!! note
-    You can view a larger test application here which has full keybind minimization and mobile resize already added: [tests/test.luau](https://github.com/biggaboy212/Cascade/blob/main/tests/test.luau)
+    You can view a larger test application here which has full keybind minimization and mobile resize already added: [tests/test.luau](https://github.com/cascadeui/Cascade/blob/main/tests/test.luau)
 
 ## Creating a basic app
 

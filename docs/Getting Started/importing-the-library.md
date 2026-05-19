@@ -18,7 +18,7 @@ This method will download the release dynamically using `loadstring` & `HttpGet`
         return loadstring(game:HttpGetAsync(("https://github.com/%s/%s/releases/%s/%s"):format(owner, repo, tag, file)), file)()
     end
 
-    local cascade = importRelease("biggaboy212", "Cascade", "latest", "dist.luau")
+    local cascade = importRelease("cascadeui", "Cascade", "latest", "dist.luau")
     ```
 
 === "Specific release"
@@ -29,7 +29,7 @@ This method will download the release dynamically using `loadstring` & `HttpGet`
         return loadstring(game:HttpGetAsync(("https://github.com/%s/%s/releases/%s/%s"):format(owner, repo, tag, file)), file)()
     end
 
-    local cascade = importRelease("biggaboy212", "Cascade", "{{LATEST_VERSION}}", "dist.luau")
+    local cascade = importRelease("cascadeui", "Cascade", "{{LATEST_VERSION}}", "dist.luau")
     ```
 
 === "Cached loading"
@@ -57,14 +57,14 @@ This method will download the release dynamically using `loadstring` & `HttpGet`
         return loadstring(readfile(cachePath), file)()
     end
 
-    local cascade = importReleaseCached("biggaboy212", "Cascade", "latest", "dist.luau")
+    local cascade = importReleaseCached("cascadeui", "Cascade", "latest", "dist.luau")
     ```
 
 > `importRelease` is just a helper function, if you didn't want to use it you can simply `loadstring` : `HttpGet` the raw link to the release content.
 
 ## Local Build
 
-1. Download a valid release: [Cascade Releases](https://github.com/biggaboy212/Cascade/releases)
+1. Download a valid release: [Cascade Releases](https://github.com/cascadeui/Cascade/releases)
 2. Place the `luau` module into your project (e.g., under `packages/`).
 
 ## Building From Source
