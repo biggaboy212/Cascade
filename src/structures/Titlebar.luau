@@ -364,7 +364,7 @@ return function(self)
 
 	--// Initialize
 	structures.CornerClipLeft = structures.Body:FindFirstChild("CornerClipLeft") :: Frame
-	structures.CornerClipRight = structures.Body:FindFirstChild("ConerClipRight") :: Frame
+	structures.CornerClipRight = structures.Body:FindFirstChild("CornerClipRight") :: Frame
 	structures.Content = structures.Body:FindFirstChild("Content") :: Frame
 	structures.Leading = structures.Content:FindFirstChild("Leading") :: Frame
 	structures.Trailing = structures.Content:FindFirstChild("Trailing") :: Frame

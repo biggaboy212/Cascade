@@ -180,7 +180,7 @@ return function(self, properties: types.SliderProperties): types.Slider
 
 			local min = properties.Minimum
 			local max = properties.Maximum
-			local alpha = (value - min) / (max - min)
+			local alpha = max ~= min and (value - min) / (max - min) or 0
 
 			local availableWidth = sliderWidth - thumbWidth
 			local fillWidth = thumbHalfWidth + (availableWidth * alpha)

@@ -191,10 +191,11 @@ return function(self, properties: types.SectionProperties): types.Section
 
 			sidebarGroup.AutomaticSize = Enum.AutomaticSize.None
 
-			for index, connection: RBXScriptConnection in pairs(connections) do
+			for _, connection: RBXScriptConnection in ipairs(connections) do
 				connection:Disconnect()
-				table.remove(connections, index)
 			end
+
+			table.clear(connections)
 
 			local updateSize = function(useTween: boolean)
 				local targetHeight = state and structures.Layout.AbsoluteContentSize.Y or 23
