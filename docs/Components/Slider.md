@@ -54,7 +54,7 @@ function(self, properties: SliderProperties): Slider
 ```luau
 local slider = row:Right():Slider({
     Minimum = 0,
-    Maximum = 10
+    Maximum = 10,
     Value = 5,
     ValueChanged = function(self, value: number)
         print("Value changed:", value)
