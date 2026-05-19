@@ -29,7 +29,7 @@ A `RadioButtonGroup` lets people choose an option from a set of mutually exclusi
 
 | Event          | Signature                                                      | Description                                                                        |
 | -------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `ValueChanged` | `#!luau ((self: RadioButtonGroup, value: string) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
+| `ValueChanged` | `#!luau ((self: RadioButtonGroup, value: number) -> unknown)?` | A Callback function that is triggered when the `Value` property has been modified. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
 
@@ -50,7 +50,7 @@ type RadioButtonGroup = BaseComponent & Components & RadioButtonGroupProperties 
 ### Function Signature
 
 ```luau
-function(self, properties: RadioButtonGroupProperties): RadioButtonGroup
+function(self, properties: RadioButtonGroupProperties?): RadioButtonGroup
 ```
 
 ## Example

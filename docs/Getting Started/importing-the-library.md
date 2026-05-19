@@ -29,7 +29,7 @@ This method will download the release dynamically using `loadstring` & `HttpGet`
         return loadstring(game:HttpGetAsync(("https://github.com/%s/%s/releases/%s/%s"):format(owner, repo, tag, file)), file)()
     end
 
-    local cascade = importRelease("biggaboy212", "Cascade", "v1.1.0-beta.1", "dist.luau")
+    local cascade = importRelease("biggaboy212", "Cascade", "{{LATEST_VERSION}}", "dist.luau")
     ```
 
 === "Cached loading"

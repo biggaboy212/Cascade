@@ -58,7 +58,7 @@ type Stepper = BaseComponent & Components & StepperProperties & {
 ### Function Signature
 
 ```luau
-function(self, properties: StepperProperties): Stepper
+function(self, properties: StepperProperties?): Stepper
 ```
 
 ## Example
@@ -79,6 +79,6 @@ print(stepper:IsA("ImageLabel")) --> true
 print(stepper.ClassName) --> "ImageLabel"
 print(stepper.Type) --> "Stepper"
 
-stepper:Increment() --> Value changed: 3.01
-stepper.Value += 1 --> Value changed: 4.01
+stepper:Increment() --> Value changed: 3.1
+stepper.Value += 1 --> Value changed: 4.1
 ```

@@ -14,28 +14,28 @@ A `Tab` separates content into different pages, and lets users navigate between 
 | `Icon`            | `#!luau string?`  | The `rbxassetid://` of the image to display. You can use cascade.Symbols for pre-made symbols.                                                     |
 | `Indentation`     | `#!luau number?`  | The tab indentation level/how far right it is. This is automatically increased by `1` when you nest a tab on another tab.                          |
 | `Selected`        | `#!luau boolean?` | Whether or not the tab is selected by default. Defaults to false. Only one tab in a section should be selected.                                    |
-| `Structures.Page` | `#!luau Page?`    | A custom page component to use for this tab. If not provided, a default page is automatically created. See [Page](./Page.md) for more information. |
+| `Page`            | `#!luau Page?`    | A custom page component to use for this tab. If not provided, a default page is automatically created. See [Page](./Page.md) for more information. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-properties)
+[View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-properties)
 
 ### Methods
 
 | Method     | Signature                        | Description                                                                                                                              |
 | ---------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `Navigate` | `(self: Tab, page: Page) -> nil` | Switch the tab's displayed page to a different page. Useful for multi-step workflows or navigating between different views within a tab. |
+| `Navigate` | `(self: Tab, page: Page) -> nil` | Switch the tab's displayed page to a different page. Warns and no-ops if `page` is not a `Page` component.                               |
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
+[View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-methods)
 
 ### Events
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
+[View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-events)
 
 ## Types
 
 ```luau
-type TabProperties = Frame & {
+type TabProperties = TextButton & {
     Title: string?,
     Icon: string?,
     Indentation: number?,
@@ -180,7 +180,7 @@ local tab = section:Tab({
     Icon = cascade.Symbols.squareStack3dUp,
 })
 
-print(tab:IsA("Frame")) --> true
-print(tab.ClassName) --> "Frame"
+print(tab:IsA("TextButton")) --> true
+print(tab.ClassName) --> "TextButton"
 print(tab.Type) --> "Tab"
 ```

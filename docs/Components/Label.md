@@ -31,7 +31,7 @@ type Label = BaseComponent & Components & LabelProperties
 ### Function Signature
 
 ```luau
-function(self, properties: LabelProperties): Label
+function(self, properties: LabelProperties?): Label
 ```
 
 ## Example

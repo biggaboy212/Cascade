@@ -8,12 +8,12 @@
 
 ### Properties
 
-| Property     | Type                           | Description                                                                                                                                             |
-| ------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Type`       | `#!luau string`                | **[Read-only]** Defines the Component's class.                                                                                                          |
-| `Theme`      | `#!luau string`                | **[Read-only]** Inherited theme from the calling component.                                                                                             |
-| `Structures` | `#!luau {[string]: Instance?}` | **[Read-only]** Table of defined component structures.                                                                                                  |
-| `__instance` | `#!luau Instance`              | **[Read-only]** Returns the unwrapped roblox instance of the component. Useful for interacting with Roblox API's that won't accept our wrapped instance |
+| Property     | Type                                   | Description                                                                                                                                             |
+| ------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Type`       | `#!luau string`                        | **[Read-only]** Defines the Component's class.                                                                                                          |
+| `Theme`      | `#!luau Theme`                         | **[Read-only]** Inherited theme from the calling component.                                                                                             |
+| `Structures` | `#!luau {[string]: Instance or {any}}` | **[Read-only]** Table of defined component structures.                                                                                                  |
+| `__instance` | `#!luau Instance`                      | **[Read-only]** Returns the unwrapped roblox instance of the component. Useful for interacting with Roblox API's that won't accept our wrapped instance |
 
 !!! warning
     Note that to access a component's actual instance, you will need to index `__instance` on it, this will return the actual roblox object instead of a merged metatable with the custom object.

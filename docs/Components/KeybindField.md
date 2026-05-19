@@ -11,7 +11,7 @@ A `KeybindField` is a rectangular area in which people can enter and store `Enum
 | Property      | Type                   | Description                                                                   |
 | ------------- | ---------------------- | ----------------------------------------------------------------------------- |
 | `Placeholder` | `#!luau string?`       | The text placeholder to instruct users on how to interact with the component. |
-| `Value`       | `#!luau Enum.Keycode?` | The default shortcut the `KeybindField` is bound to.                          |
+| `Value`       | `#!luau Enum.KeyCode?` | The default shortcut the `KeybindField` is bound to.                          |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -51,7 +51,7 @@ type KeybindField = BaseComponent & Components & KeybindFieldProperties
 ### Function Signature
 
 ```luau
-function(self, properties: KeybindFieldProperties): KeybindField
+function(self, properties: KeybindFieldProperties?): KeybindField
 ```
 
 ## Example

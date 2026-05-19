@@ -46,7 +46,7 @@ type Button = BaseComponent & Components & ButtonProperties
 ### Function Signature
 
 ```luau
-function(self, properties: ButtonProperties): Button
+function(self, properties: ButtonProperties?): Button
 ```
 
 ## Example

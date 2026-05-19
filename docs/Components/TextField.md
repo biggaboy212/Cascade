@@ -11,7 +11,7 @@ A `TextField` is a rectangular area in which people enter or edit small, specifi
 | Property      | Type                   | Description                                                                   |
 | ------------- | ---------------------- | ----------------------------------------------------------------------------- |
 | `Placeholder` | `#!luau string?`       | The text placeholder to instruct users on how to interact with the component. |
-| `Value`       | `#!luau Enum.Keycode?` | The text in the field.                                                        |
+| `Value`       | `#!luau string?`       | The text in the field.                                                        |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -46,7 +46,7 @@ type TextField = BaseComponent & Components & TextFieldProperties
 ### Function Signature
 
 ```luau
-function(self, properties: TextFieldProperties): TextField
+function(self, properties: TextFieldProperties?): TextField
 ```
 
 ## Example

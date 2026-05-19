@@ -42,7 +42,7 @@ type Toggle = BaseComponent & Components & ToggleProperties
 ### Function Signature
 
 ```luau
-function(self, properties: ToggleProperties): Toggle
+function(self, properties: ToggleProperties?): Toggle
 ```
 
 ## Example

@@ -37,7 +37,7 @@ function(self, properties: FormProperties?): Form
 ## Example
 
 ```luau
-local form = section:Form()
+local form = tab:Form()
 
 print(form:IsA("Frame")) --> true
 print(form.ClassName) --> "Frame"

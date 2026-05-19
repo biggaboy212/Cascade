@@ -46,7 +46,7 @@ type Slider = BaseComponent & Components & SliderProperties
 ### Function Signature
 
 ```luau
-function(self, properties: SliderProperties): Slider
+function(self, properties: SliderProperties?): Slider
 ```
 
 ## Example

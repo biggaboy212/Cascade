@@ -33,7 +33,7 @@ type Symbol = BaseComponent & Components & SymbolProperties
 ### Function Signature
 
 ```luau
-function(self, properties: SymbolProperties): Symbol
+function(self, properties: SymbolProperties?): Symbol
 ```
 
 ## Example

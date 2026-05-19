@@ -10,15 +10,15 @@ A `Page` is a container that holds content in a scrollable area. Pages are typic
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-properties)
+[View all inherited from `ScrollingFrame`](https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#summary-properties)
 
 ### Methods
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
+[View all inherited from `ScrollingFrame`](https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#summary-methods)
 
 ### Events
 
-[View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
+[View all inherited from `ScrollingFrame`](https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#summary-events)
 
 ## Types
 

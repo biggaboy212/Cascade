@@ -12,7 +12,7 @@ A `Notification` gives people timely, high-value information they can understand
 | ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------------- |
 | `Title`    | `#!luau string`  | The primary headline of the notification.                                                                           |
 | `Subtitle` | `#!luau string`  | The secondary text providing more context.                                                                          |
-| `App`      | `#!luau string?` | Optional text to display what feature or app triggered the notification.                                            |
+| `App`      | `#!luau string?` | Optional text to display what feature or app triggered the notification. Automatically uppercased.                  |
 | `AppIcon`  | `#!luau string?` | Optional image asset ID to show an icon in the top left.                                                            |
 | `Icon`     | `#!luau string?` | Optional image asset ID to show an icon in the top left, next to the title.                                         |
 | `Duration` | `#!luau number?` | How long (in seconds) the notification remains before auto-closing. Defaults to `6`. Use `0` for manual close only. |
@@ -23,17 +23,18 @@ A `Notification` gives people timely, high-value information they can understand
 
 ### Methods
 
-| Name    | Returns      | Description                          |
-| ------- | ------------ | ------------------------------------ |
-| `Close` | `#!luau nil` | Manually dismisses the notification. |
+| Name          | Signature                                                            | Description                                                              |
+| ------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `Close`       | `#!luau (self: Notification, fromUserInput: boolean?) -> nil`        | Manually dismisses the notification.                                     |
+| `UpdateState` | `#!luau (self: Notification, age: number, instant: boolean?) -> nil` | Updates the notification's visual state for its position in the stack.   |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-methods)
 
 ### Events
 
-| Name     | Parameters                                       | Description                                                              |
-| -------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `Closed` | `#!luau (self: Notification, fromUser: boolean)` | Fired when the notification is closed either via timeout or by the user. |
+| Name     | Parameters                                                        | Description                                                              |
+| -------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `Closed` | `#!luau (self: Notification, fromUserInput: boolean?) -> unknown` | Fired when the notification is closed either via timeout or by the user. |
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-events)
 
@@ -51,14 +52,15 @@ type NotificationProperties = Frame & {
 }
 
 type Notification = BaseComponent & Components & NotificationProperties & {
-    Close: (self: Notification) -> nil,
+    Close: (self: Notification, fromUserInput: boolean?) -> nil,
+    UpdateState: (self: Notification, age: number, instant: boolean?) -> nil,
 }
 ```
 
 ### Function Signature
 
 ```luau
-function(self, properties: NotificationProperties): Notification
+function(self, properties: NotificationProperties?): Notification
 ```
 
 ## Example
@@ -74,8 +76,8 @@ local notification = app:Notification({
 
     Duration = 5,
 
-    Closed = function(self, fromUser)
-        print("Notification was dismissed! (from user: " .. tostring(fromUser) .. ")")
+    Closed = function(self, fromUserInput)
+        print("Notification was dismissed! (from user: " .. tostring(fromUserInput) .. ")")
     end
 })
 

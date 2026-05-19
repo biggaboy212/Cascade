@@ -21,7 +21,7 @@
 | `Maximized`   | `#!luau boolean?` | Should the window be maximized by default?                                         |
 | `Minimized`   | `#!luau boolean?` | Should the window be minimized by default?                                         |
 | `Dropshadow`  | `#!luau boolean?` | Enables a dropshadow effect on the window.                                         |
-| `UIBlur`      | `#!luau boolean?` | Applies a background blur effect to the sidebar.                                   |
+| `UIBlur`      | `#!luau boolean?` | Applies a background blur effect to the window.                                    |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
