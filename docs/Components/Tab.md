@@ -8,13 +8,15 @@ A `Tab` separates content into different pages, and lets users navigate between 
 
 ### Properties
 
-| Property          | Type              | Description                                                                                                                                        |
-| ----------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Title`           | `#!luau string?`  | The tab's display title.                                                                                                                           |
-| `Icon`            | `#!luau string?`  | The `rbxassetid://` of the image to display. You can use cascade.Symbols for pre-made symbols.                                                     |
-| `Indentation`     | `#!luau number?`  | The tab indentation level/how far right it is. This is automatically increased by `1` when you nest a tab on another tab.                          |
-| `Selected`        | `#!luau boolean?` | Whether or not the tab is selected by default. Defaults to false. Only one tab in a section should be selected.                                    |
-| `Page`            | `#!luau Page?`    | A custom page component to use for this tab. If not provided, a default page is automatically created. See [Page](./Page.md) for more information. |
+| Property       | Type              | Description                                                                                                                                        |
+| -------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Title`        | `#!luau string?`  | The tab's display title.                                                                                                                           |
+| `Icon`         | `#!luau string?`  | The `rbxassetid://` of the image to display. You can use cascade.Symbols for pre-made symbols.                                                     |
+| `Indentation`  | `#!luau number?`  | The tab indentation level/how far right it is. This is automatically increased by `1` when you nest a tab on another tab.                          |
+| `Selected`     | `#!luau boolean?` | Whether or not the tab is selected by default. Defaults to false. Only one tab in a section should be selected.                                    |
+| `Surface`      | `#!luau boolean?` | Displays the tab icon on a small image surface. Defaults to false.                                                                                 |
+| `SurfaceColor` | `#!luau Color3?`  | The image surface background color. Defaults to `rgb(10, 132, 255)`.                                                                               |
+| `Page`         | `#!luau Page?`    | A custom page component to use for this tab. If not provided, a default page is automatically created. See [Page](./Page.md) for more information. |
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
@@ -22,9 +24,9 @@ A `Tab` separates content into different pages, and lets users navigate between 
 
 ### Methods
 
-| Method     | Signature                        | Description                                                                                                                              |
-| ---------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `Navigate` | `(self: Tab, page: Page) -> nil` | Switch the tab's displayed page to a different page. Warns and no-ops if `page` is not a `Page` component.                               |
+| Method     | Signature                        | Description                                                                                                |
+| ---------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `Navigate` | `(self: Tab, page: Page) -> nil` | Switch the tab's displayed page to a different page. Warns and no-ops if `page` is not a `Page` component. |
 
 [View all inherited from `TextButton`](https://create.roblox.com/docs/reference/engine/classes/TextButton#summary-methods)
 
@@ -40,6 +42,8 @@ type TabProperties = TextButton & {
     Icon: string?,
     Indentation: number?,
     Selected: boolean?,
+    Surface: boolean?,
+    SurfaceColor: Color3?,
     Page: Page?,
 }
 
@@ -61,6 +65,19 @@ function(self, properties: TabProperties?): Tab
 local tab = section:Tab({
     Title = "Settings",
     Icon = cascade.Symbols.gear,
+})
+```
+
+### Tab with Image Surface
+
+Use `Surface` when the tab icon should sit on a colored image surface.
+
+```luau
+local tab = section:Tab({
+    Title = "Network",
+    Icon = cascade.Symbols.network,
+    Surface = true,
+    SurfaceColor = Color3.fromRGB(10, 132, 255),
 })
 ```
 

@@ -23,6 +23,8 @@ return function(self, properties: types.TabProperties): types.Tab
 	properties.Title = properties.Title or "Label"
 	properties.Indentation = properties.Indentation or 0
 	properties.Selected = properties.Selected == true
+	properties.Surface = properties.Surface == true
+	properties.SurfaceColor = properties.SurfaceColor or Color3.fromRGB(10, 132, 255)
 
 	structures.Body = binder.Apply(
 		properties,
@@ -33,7 +35,7 @@ return function(self, properties: types.TabProperties): types.Tab
 			BorderSizePixel = 0,
 			FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
 			LayoutOrder = window.Tabs and #window.Tabs or 1,
-			Size = UDim2.new(1, 0, 0, 28),
+			Size = UDim2.new(1, 0, 0, 31),
 			Text = "",
 			TextColor3 = Color3.fromRGB(0, 0, 0),
 			TextSize = 14,
@@ -51,7 +53,6 @@ return function(self, properties: types.TabProperties): types.Tab
 
 			create("UICorner")({
 				Name = "UICorner",
-				CornerRadius = UDim.new(0, 5),
 			}),
 
 			create("UIListLayout")({
@@ -65,7 +66,7 @@ return function(self, properties: types.TabProperties): types.Tab
 
 			create("UIPadding")({
 				Name = "UIPadding",
-				PaddingLeft = UDim.new(0, 10),
+				PaddingLeft = UDim.new(0, 5),
 				PaddingRight = UDim.new(0, 8),
 			}),
 
@@ -112,8 +113,9 @@ return function(self, properties: types.TabProperties): types.Tab
 				create("UIListLayout")({
 					Name = "UIListLayout",
 					FillDirection = Enum.FillDirection.Horizontal,
-					Padding = UDim.new(0, 2),
+					Padding = UDim.new(0, 4),
 					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
 
 				create("ImageLabel")({
@@ -144,6 +146,86 @@ return function(self, properties: types.TabProperties): types.Tab
 						end,
 					},
 				}),
+
+				create("Frame")({
+					Name = "ImageSurface",
+					Visible = false,
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					LayoutOrder = 1,
+					Size = UDim2.fromOffset(24, 24),
+
+					create("Frame")({
+						Name = "Surface",
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						BackgroundColor3 = properties.SurfaceColor,
+						BorderColor3 = Color3.fromRGB(0, 0, 0),
+						BorderSizePixel = 0,
+						Position = UDim2.fromScale(0.5, 0.5),
+						Size = UDim2.fromOffset(21, 21),
+
+						create("ImageLabel")({
+							Name = "Image",
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							BorderColor3 = Color3.fromRGB(0, 0, 0),
+							BorderSizePixel = 0,
+							LayoutOrder = 1,
+							Position = UDim2.fromScale(0.5, 0.5),
+							Size = UDim2.fromOffset(20, 20),
+
+							__dynamicKeys = {
+								ImageColor3 = self.Theme.Text.SelectionPrimary[1],
+								ImageTransparency = self.Theme.Text.SelectionPrimary[2],
+							},
+						}),
+
+						create("UICorner")({
+							Name = "UICorner",
+							CornerRadius = UDim.new(0, 6),
+						}),
+
+						create("Folder")({
+							Name = "LayoutIgnore",
+
+							create("Frame")({
+								Name = "Gradient",
+								BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+								BorderColor3 = Color3.fromRGB(0, 0, 0),
+								BorderSizePixel = 0,
+								Size = UDim2.fromScale(1, 1),
+
+								create("UICorner")({
+									Name = "UICorner",
+									CornerRadius = UDim.new(0, 6),
+								}),
+
+								create("UIGradient")({
+									Name = "UIGradient",
+									Color = ColorSequence.new({
+										ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+										ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)),
+									}),
+									Rotation = 90,
+									Transparency = NumberSequence.new({
+										NumberSequenceKeypoint.new(0, 0.8),
+										NumberSequenceKeypoint.new(1, 0.8),
+									}),
+								}),
+							}),
+						}),
+
+						create("UIShadow")({
+							Name = "UIShadow",
+							BlurRadius = UDim.new(0, 8),
+							Offset = UDim2.fromOffset(0, 1),
+							Transparency = 0.8,
+						}),
+					}),
+				}),
 			}),
 
 			create("Frame")({
@@ -164,7 +246,17 @@ return function(self, properties: types.TabProperties): types.Tab
 	structures.Leading = structures.Body:FindFirstChild("Leading") :: Frame
 	structures.Title = structures.Leading:FindFirstChild("Title") :: TextLabel
 	structures.Symbol = structures.Leading:FindFirstChild("Symbol") :: ImageLabel
+	structures.ImageSurface = structures.Leading:FindFirstChild("ImageSurface") :: Frame
+	structures.Surface = structures.ImageSurface:FindFirstChild("Surface") :: Frame
+	structures.SurfaceImage = structures.Surface:FindFirstChild("Image") :: ImageLabel
 	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
+
+	local function updateIconVisibility(icon: string?, surface: boolean)
+		local hasIcon = icon ~= nil
+
+		structures.Symbol.Visible = hasIcon and not surface
+		structures.ImageSurface.Visible = hasIcon and surface
+	end
 
 	local pageComponent = nil
 
@@ -186,13 +278,21 @@ return function(self, properties: types.TabProperties): types.Tab
 			structures.Title.Text = name
 		end,
 		Icon = function(icon: string?)
-			structures.Symbol.Visible = icon and true or false
+			updateIconVisibility(icon, properties.Surface)
+
 			if icon then
 				structures.Symbol.Image = icon
+				structures.SurfaceImage.Image = icon
 			end
 		end,
 		Indentation = function(indentation: number)
 			structures.Padding.PaddingLeft += UDim.new(0, (11 * indentation))
+		end,
+		Surface = function(surface: boolean)
+			updateIconVisibility(properties.Icon, surface == true)
+		end,
+		SurfaceColor = function(color: Color3)
+			structures.Surface.BackgroundColor3 = color
 		end,
 		Selected = function(selected: boolean)
 			if selected then

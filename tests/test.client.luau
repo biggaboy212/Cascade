@@ -73,6 +73,7 @@ do -- Main window
 				Selected = true,
 				Title = "Components",
 				Icon = cascade.Symbols.switch2,
+				Surface = true,
 			})
 
 			do -- Form 1
@@ -385,6 +386,7 @@ do -- Main window
 			local tab = section:Tab({
 				Title = "Window",
 				Icon = cascade.Symbols.sidebarLeft,
+				Surface = true
 			})
 
 			do -- Appearance
@@ -596,6 +598,8 @@ do -- Main window
 			local tab = section:Tab({
 				Title = "SF Symbols",
 				Icon = cascade.Symbols.scribbleVariable,
+				Surface = true,
+				SurfaceColor = Color3.fromRGB(0, 0, 0)
 			})
 
 			do
@@ -671,8 +675,10 @@ do -- Main window
 		local section = window:Section({ Title = "Navigation", Disclosure = false })
 		local tab = section:Tab({
 			Title = "Routing",
-			Icon = cascade.Symbols.switch2,
+			Icon = cascade.Symbols.pointBottomleftForwardToPointToprightScurvepathFill,
 			Selected = false,
+			Surface = true,
+			SurfaceColor = Color3.fromHex("FF3B30")
 			-- Page = app:Page() -- You can also pass a page manually
 		})
 
@@ -719,7 +725,10 @@ do -- Main window
 
 	-- Tab demo
 	do
-		local section = window:Section()
+		local section = window:Section({
+			Title = "Indented tabs Demo",
+			Expanded = false,
+		})
 
 		section
 			:Tab({ Icon = cascade.Symbols.squareStack3dUp })

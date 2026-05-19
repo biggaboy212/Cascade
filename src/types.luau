@@ -272,6 +272,8 @@ export type TabProperties = Frame & {
 	Icon: string?,
 	Indentation: number?,
 	Selected: boolean?,
+	Surface: boolean?,
+	SurfaceColor: Color3?,
 	Page: Page?,
 }
 
