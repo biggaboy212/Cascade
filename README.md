@@ -73,6 +73,8 @@ If you'd like to support the project, consider donating via any of these:
 
 ## Gallery
 
+![Tab Redesign Preview](assets/gallery/tabRedesignPreview.png)
+
 ### Vanta (Script Hub)
 
 ![Vanta UI Preview](assets/gallery/vanta.png)
