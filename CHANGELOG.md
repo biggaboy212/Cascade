@@ -1,12 +1,24 @@
 # Change Log
 
-## Unmarked
+## v1.4.0 (5/19/2026)
 
-> Target: v1.4.0
+> Co-authored by @Androssy
 
 ### Added
 
 - Added `cascade.AppRecorder` and `cascade.AppDump` for exporting Cascade app/component structure as JSON.
+- Added a max length for `PopUpButton`, to where it will get truncated at.
+
+### Fixed
+
+- `Titlebar`: typo "ConerClipRight" -> "CornerClipRight" so
+  structures.CornerClipRight isn't always nil
+- `Notification`: topbar Visible checked properties.Icon but Icon is
+  the content title icon, not the topbar one. should be AppIcon, to
+  match the App/AppIcon bindings in init
+- `Symbol`: Fixed a typo defining a theme key
+- `Section`: Fixed leak in `Expand` cleaner, most connections were leaked.
+- `Slider`: Added a guard when Minimum == Maximum
 
 ## v1.3.1 (5/18/2026)
 
