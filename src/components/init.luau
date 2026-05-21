@@ -1,5 +1,6 @@
 --// Imports
 local binder = require("@modules/binder")
+local appRecorder = require("@modules/appRecorder")
 
 --// Variables
 local components = {
@@ -29,9 +30,30 @@ local components = {
 }
 
 --// Initialize
+local function traceback(message)
+	if debug and debug.traceback then
+		return debug.traceback(message)
+	end
+
+	return tostring(message)
+end
+
 local function wrap(name, make)
 	return function(self, ...)
-		local result, raw = make(self, ...)
+		local args = table.pack(...)
+		local recorder = appRecorder.FromContext(self)
+		local recordNode = recorder and recorder:_Begin(self, name, args[1])
+		local ok, result, raw = xpcall(function()
+			return make(self, table.unpack(args, 1, args.n))
+		end, traceback)
+
+		if not ok then
+			if recorder then
+				recorder:_Cancel(recordNode)
+			end
+
+			error(result, 2)
+		end
 
 		if
 			typeof(result) == "Instance"
@@ -64,8 +86,16 @@ local function wrap(name, make)
 
 		if final ~= nil then
 			table.insert(__SH.COMPINDEXES, final)
-			
+
+			if recorder then
+				recorder:_Commit(recordNode, result, final)
+			end
+
 			return result, final
+		end
+
+		if recorder then
+			recorder:_Commit(recordNode, result, nil)
 		end
 
 		return result

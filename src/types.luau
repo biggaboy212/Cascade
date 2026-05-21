@@ -238,6 +238,23 @@ export type ComponentProperties = {
 
 export type ComponentContext = ComponentProperties & Components
 
+-- App dumps
+export type AppDumpOptions = {
+	IncludeInstanceProperties: boolean?,
+	IncludeInstanceTree: boolean?,
+	Reset: boolean?,
+}
+
+export type AppRecorder = {
+	Active: boolean,
+	App: App,
+
+	Start: (self: AppRecorder, options: AppDumpOptions?) -> AppRecorder,
+	Stop: (self: AppRecorder) -> AppRecorder,
+	Clear: (self: AppRecorder) -> AppRecorder,
+	Dump: (self: AppRecorder, options: AppDumpOptions?) -> string,
+}
+
 -- Window
 export type WindowProperties = Frame & {
 	Searching: boolean?,

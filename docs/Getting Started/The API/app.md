@@ -52,3 +52,48 @@ local app = cascade.New({
     Accent = cascade.Accents.Blue,
 })
 ```
+
+## Dumping an App
+
+Use `AppRecorder` when you want a compact, Cascade-aware dump of the components you create.
+
+```luau
+local app = cascade.New({
+    Theme = cascade.Themes.Dark,
+    Accent = cascade.Accents.Blue,
+})
+
+local recorder = cascade.AppRecorder.new(app)
+recorder:Start()
+
+local window = app:Window({
+    Title = "Cascade",
+    Subtitle = "Cascade demo app",
+})
+
+window:Section({
+    Title = "Navigation",
+})
+
+recorder:Stop()
+
+if setclipboard then
+    setclipboard(recorder:Dump())
+end
+```
+
+`recorder:Dump()` returns JSON with a `CascadeAppDump` root, each recorded component, serializable component properties, and the current root instance properties for each component. Functions are skipped because they cannot be recreated outside Roblox.
+
+If you did not start a recorder, `cascade.AppDump(app)` still works, but it falls back to a raw rendered instance tree:
+
+```luau
+local dump = cascade.AppDump(app)
+```
+
+You can include the full rendered tree alongside recorder data when you need pixel-level implementation details:
+
+```luau
+local dump = recorder:Dump({
+    IncludeInstanceTree = true,
+})
+```

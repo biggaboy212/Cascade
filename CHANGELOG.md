@@ -1,5 +1,13 @@
 # Change Log
 
+## Unmarked
+
+> Target: v1.4.0
+
+### Added
+
+- Added `cascade.AppRecorder` and `cascade.AppDump` for exporting Cascade app/component structure as JSON.
+
 ## v1.3.1 (5/18/2026)
 
 ### Fixed

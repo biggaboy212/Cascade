@@ -6,6 +6,7 @@
 --// Imports
 -- ! Replace these imports if copying this example. ! --
 local cascade = require("@src/init")
+local types = require("@src/types")
 local services = require("@modules/services")
 
 --// References
@@ -15,7 +16,7 @@ local userInputService = services.UserInputService
 local minimizeKeybind = Enum.KeyCode.RightControl
 
 --// Privates
-local function titledRow(parent: any, title: string, subtitle: string?) -- You can use this to automate the process of creating similar rows.
+local function titledRow(parent: any, title: string, subtitle: string?) : types.Row -- You can use this to automate the process of creating similar rows.
 	local row = parent:Row({
 		SearchIndex = title,
 	})
@@ -39,6 +40,12 @@ local app = cascade.New({
 	-- Check the docs for the full list of accents
 	Accent = cascade.Accents.Blue,
 })
+
+-- !!!! DO NOT INCLUDE THIS PART IN YOUR ACTUAL SCRIPT !!!!
+-- !! This part is only for dumping your UI, if you leave it in you might have performance losses !!!
+local recorder = cascade.AppRecorder.new(app)
+recorder:Start()
+-- ^^^ !!!! DO NOT INCLUDE THIS PART IN YOUR ACTUAL SCRIPT !!!! ^^^
 
 do -- Main window
 	local window = app:Window({
@@ -704,14 +711,43 @@ do -- Main window
 
 		-- Settings
 		do
-			local form = settingsPage:Form()
-			titledRow(form, "Settings", "This is a sub-page."):Right():Button({
-				Label = "Back to Home",
-				State = "Secondary",
-				Pushed = function()
-					tab:Navigate(homePage)
-				end,
-			})
+			do
+				local form = settingsPage:Form()
+
+				titledRow(form, "Settings", "This is a sub-page."):Right():Button({
+					Label = "Back to Home",
+					State = "Secondary",
+					Pushed = function()
+						tab:Navigate(homePage)
+					end,
+				})
+			end
+
+			do
+				local form = settingsPage:Form()
+
+				do
+					local row = titledRow(form, "Dump App", "Will return the json of the app context")
+
+					local dumpField = row:Right():TextField({
+						Text = "",
+						Placeholder = "Dump appears here...",
+					})
+					row:Right():Button({
+						Label = "Dump",
+						Pushed = function(self)
+							local dump = recorder:Dump()
+							print(dump)
+
+							dumpField.Text = dump
+
+							if setclipboard then
+								setclipboard(dump)
+							end
+						end
+					})
+				end
+			end
 		end
 
 		tab:Navigate(homePage)
@@ -730,3 +766,6 @@ do -- Main window
 		section:Tab({ Icon = cascade.Symbols.squareStack3dUp })
 	end
 end
+
+
+recorder:Stop()

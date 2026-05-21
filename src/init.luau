@@ -4,6 +4,7 @@ local types = require("@types")
 local creator = require("@modules/creator")
 local binder = require("@modules/binder")
 local services = require("@modules/services")
+local appRecorder = require("@modules/appRecorder")
 
 local symbols = require("@modules/symbols")
 local components = require("@components/init")
@@ -25,6 +26,7 @@ local cascade = {
 	Creator = creator,
 	Binder = binder,
 	Components = components,
+	AppRecorder = appRecorder,
 }
 
 local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
@@ -232,6 +234,10 @@ end
 
 cascade.RegisterComponent = function(name: string, make: (self: any, properties: any) -> any)
 	components.register(name, make)
+end
+
+cascade.AppDump = function(app: types.App, options: { [string]: any }?)
+	return appRecorder.DumpApp(app, options)
 end
 
 return cascade
