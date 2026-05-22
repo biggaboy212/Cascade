@@ -1,20 +1,22 @@
 --// Imports
 local creator = require("@modules/creator")
 
+--// References
+local create = creator.Create
+
 --// Types
 type DropdownMenuStructureConfig = {
 	Name: string?,
 }
 
 return function(self, config: DropdownMenuStructureConfig?)
-	--// Variables
-	local create = creator.Create
-
 	config = config or {}
 
+	--// Variables
 	local theme = self.Theme.Controls.MenuButton
 	local structures = {}
 
+	--// Public Variable Children
 	structures.Container = create("ScreenGui")({
 		Name = "Container",
 		IgnoreGuiInset = true,

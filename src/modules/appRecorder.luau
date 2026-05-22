@@ -8,6 +8,7 @@ local httpService = services.HttpService
 local AppRecorder = {}
 AppRecorder.__index = AppRecorder
 
+--// Constants
 local INTERNAL_KEYS = {
 	Accent = true,
 	Structures = true,
@@ -143,7 +144,7 @@ local INSTANCE_PROPERTIES = {
 	"ZIndexBehavior",
 }
 
---// Functions
+--// Private Methods
 local function read(object, key)
 	local ok, value = pcall(function()
 		return object[key]
@@ -511,7 +512,7 @@ local function makeRoot(app)
 	}
 end
 
---// Initialize
+--// Public Methods
 function AppRecorder.new(app, options)
 	local self = setmetatable({
 		Active = false,

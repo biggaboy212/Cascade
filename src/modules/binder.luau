@@ -1,5 +1,7 @@
+--// Module
 local binder = {}
 
+--// Public Methods
 function binder.Apply(properties: { [string]: any }, object: any, excludes: { [number]: string }?): any
 	for property, value in pairs(properties) do
 		if excludes and table.find(excludes, property) then
@@ -94,4 +96,5 @@ function binder.Wrap(
 	return proxy
 end
 
+--// Publish
 return binder

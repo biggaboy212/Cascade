@@ -32,7 +32,7 @@ local cascade = {
 local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
 local currentTween: Tween? = nil
 
---// Functions
+--// Private Methods
 local function deepCopy(original, identifier: string?)
 	local copy = {}
 	for key, value in pairs(original) do
@@ -94,7 +94,7 @@ local function updateThemes(target, theme, accent)
 	end
 end
 
---// Initialize
+--// Public Methods
 cascade.New = function(properties: types.AppProperties): types.App
 	if not game:IsLoaded() then
 		game.Loaded:Wait()
@@ -240,4 +240,5 @@ cascade.AppDump = function(app: types.App, options: { [string]: any }?)
 	return appRecorder.DumpApp(app, options)
 end
 
+--// Publish
 return cascade
